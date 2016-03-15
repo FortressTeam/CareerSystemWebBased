@@ -35,6 +35,7 @@ $cakeDescription = 'Career System: Something';
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700,800' rel='stylesheet' type='text/css'/>
     <?= $this->Html->css('theme/bootstrap') ?>
     <?= $this->Html->css('theme/materialadmin') ?>
+    <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css') ?>
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
     <?= $this->Html->css('theme/material-design-iconic-font.min') ?><!--Material Design Iconic Font-->
     <?= $this->Html->css('theme/animate') ?>
@@ -184,33 +185,33 @@ $cakeDescription = 'Career System: Something';
                         </li><!--end /menu-li -->
                         <li>
                             <a href="#">
-                                <div class="gui-icon"><i class="md md-search"></i></div>
+                                <div class="gui-icon"><i class="fa fa-search"></i></div>
                                 <span class="title">Search company</span>
                             </a>
                         </li><!--end /menu-li -->
                         <li>
                             <a href="#">
-                                <div class="gui-icon"><i class="md md-trending-up"></i></div>
+                                <div class="gui-icon"><i class="fa fa-line-chart"></i></div>
                                 <span class="title">Activity</span>
                             </a>
                         </li><!--end /menu-li -->
                         <li>
                             <a href="#">
-                                <div class="gui-icon"><i class="md md-tap-and-play"></i></div>
+                                <div class="gui-icon"><i class="fa fa-rss"></i></div>
                                 <span class="title">News feed</span>
                             </a>
                         </li><!--end /menu-li -->
                         <li>
                             <a href="#">
-                                <div class="gui-icon"><i class="md md-insert-drive-file"></i></div>
+                                <div class="gui-icon"><i class="fa fa-file"></i></div>
                                 <span class="title">My CVs</span>
                             </a>
                         </li><!--end /menu-li -->
                         <li>
                             <a href="#">
-                                <div class="gui-icon"><i class="md md-notifications"></i></div>
+                                <div class="gui-icon"><i class="fa fa-bell"></i></div>
                                 <span class="title">Notifications</span>
-                                <span class="badge style-danger pull-right">16</span>
+                                <span class="badge style-danger pull-right">6</span>
                             </a>
                         </li><!--end /menu-li -->
                     </ul><!--end .main-menu -->

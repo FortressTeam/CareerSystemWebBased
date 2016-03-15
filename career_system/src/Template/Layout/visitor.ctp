@@ -35,6 +35,7 @@ $cakeDescription = 'Career System: Something';
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700,800' rel='stylesheet' type='text/css'/>
     <?= $this->Html->css('theme/bootstrap') ?>
     <?= $this->Html->css('theme/materialadmin') ?>
+    <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css') ?>
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
     <?= $this->Html->css('theme/material-design-iconic-font.min') ?><!--Material Design Iconic Font-->
     <?= $this->Html->css('theme/animate') ?>

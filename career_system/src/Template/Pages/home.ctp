@@ -15,6 +15,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700,800' rel='stylesheet' type='text/css'/>
     <?= $this->Html->css('theme/bootstrap') ?>
     <?= $this->Html->css('theme/materialadmin') ?>
+    <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css') ?>
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
     <?= $this->Html->css('theme/material-design-iconic-font.min') ?><!--Material Design Iconic Font-->
     <?= $this->Html->css('theme/animate') ?>
@@ -40,11 +41,6 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="headerbar-left">
                 <ul class="header-nav header-nav-options" id="headerControl">
-                    <li class="hidden-lg" id="menubarToggleButton">
-                        <a class="btn btn-icon-toggle menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
                     <li class="header-nav-brand">
                         <div class="brand-holder">
                             <a href="#">
@@ -90,7 +86,7 @@
     <!-- BEGIN HOME SEARCH-->
     <section id="home" class="no-padding">
         <div class="sec-overlay">
-            <div class="container home-inner">
+            <div class="container home-inner section-inner">
                 <div class="card col-sm-6 col-sm-offset-3" id="searchCard">
                     <div class="card-body">
                         <h1>Something here</h1>
@@ -137,12 +133,12 @@
 
     <!-- START MAIN FEATURE -->
     <section id="marketing" class="no-padding">
-        <div class="marketing-inner">
+        <div class="marketing-inner section-inner">
             <div class="row row-centered no-margin">
                 <div class="col-md-3 col-centered">
                     <div class="card">
                         <div class="card-head">
-                            <header>Title here</header>
+                            <header>Main function</header>
                         </div>
                         <div class="card-body no-padding">
                             <img src="img/avatar.jpg" class="img-circle border-gray border-xl">
@@ -155,7 +151,7 @@
                 <div class="col-md-3 col-centered">
                     <div class="card">
                         <div class="card-head">
-                            <header>Title here</header>
+                            <header>Main function</header>
                         </div>
                         <div class="card-body no-padding">
                             <img src="img/avatar.jpg" class="img-circle border-gray border-xl">
@@ -168,7 +164,7 @@
                 <div class="col-md-3 col-centered">
                     <div class="card">
                         <div class="card-head">
-                            <header>Title here</header>
+                            <header>Main function</header>
                         </div>
                         <div class="card-body no-padding">
                             <img src="img/avatar.jpg" class="img-circle border-gray border-xl">
@@ -185,7 +181,7 @@
 
     <!-- START EMAIL SUBCRIBE -->
     <section id="email-subscribe" class="no-padding style-primary">
-        <div class="email-subscribe-inner">
+        <div class="email-subscribe-inner section-inner">
             <div class="row no-margin">
                 <div class="card col-sm-6 col-sm-offset-3">
                     <div class="card-body">
@@ -206,68 +202,122 @@
     <!-- END EMAIL SUBCRIBE -->
 
     <!-- START POPULAR SEARCHES -->
-    <section id="email-subscribe" class="no-padding">
-        <div class="email-subscribe-inner">
+    <section id="popular-searches" class="no-padding">
+        <div class="popular-searches-inner section-inner">
             <div class="row row-centered no-margin">
                 <div class="col-sm-9 col-centered left-align">
                     <h1>Popular job searches</h1>
                 </div>
-                <div class="col-sm-3 col-centered left-align">
+                <div class="col-sm-3 col-centered left-align top-vertical-align">
                     <h2>By category</h2>
                     <div class="contain">
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
                     </div>
-                    <button class="btn ink-reaction btn-block btn-raised btn-sm btn-primary">
+                </div>
+                <div class="col-sm-3 col-centered left-align top-vertical-align">
+                    <h2>By city</h2>
+                    <div class="contain">
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-centered left-align top-vertical-align">
+                    <h2>By company</h2>
+                    <div class="contain">
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                    </div>
+                    <div class=""></div>
+                </div>
+            </div>
+            <div class="row row-centered no-margin">
+                <div class="col-sm-3 col-centered left-align">
+                    <button class="btn ink-reaction btn-flat btn-primary">
                         <i class="fa fa-tags"></i> Browse all categories
                     </button>
                 </div>
                 <div class="col-sm-3 col-centered left-align">
-                    <h2>By city</h2>
-                    <div class="contain">
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                    </div>
-                    <button class="btn ink-reaction btn-block btn-raised btn-sm btn-primary">
-                        <i class="fa fa-tags"></i> Browse all cities
+                    <button class="btn ink-reaction btn-flat btn-primary">
+                        <i class="fa fa-map-marker"></i> Browse all cities
                     </button>
                 </div>
                 <div class="col-sm-3 col-centered left-align">
-                    <h2>By company</h2>
-                    <div class="contain">
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                        <a href="#" class="tag label label-default">something</a>
-                    </div>
-                    <div class=""></div>
-                    <button class="btn ink-reaction btn-block btn-raised btn-sm btn-primary">
-                        <i class="fa fa-tags"></i> Browse all companies
+                    <button class="btn ink-reaction btn-flat btn-primary">
+                        <i class="fa fa-building"></i> Browse all companies
                     </button>
                 </div>
             </div>
         </div>
     </section>
     <!-- END POPULAR SEARCHES -->
+
+    <section id="help-center" class="no-padding style-primary">
+        <div class="section-inner">
+            <div class="row no-margin">
+                <h2>Need Help? <a href="#"><b>HELP CENTER</b></a></h2>
+            </div>
+        </div>
+    </section>
+    <footer id="footer" class="no-padding">
+        <div class="footer-inner section-inner">
+            <div class="row row-centered no-margin">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-centered left-align top-vertical-align">
+                    <h3>CAREER SYSTEM</h3>
+                    <ul>
+                        <li>About us</li>
+                        <li>Our company</li>
+                        <li>Social</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-centered left-align top-vertical-align">
+                    <h3>APPLICANTS</h3>
+                    <ul>
+                        <li>Find Jobs</li>
+                        <li>Top Categories</li>
+                        <li>Top Locations</li>
+                        <li>Top Companys</li>
+                        <li>International Jobs</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-centered left-align top-vertical-align">
+                    <h3>HIRING MANAGERS</h3>
+                    <ul>
+                        <li>Search Applicants</li>
+                        <li>Post Jobs</li>
+                        <li>Talent Networks</li>
+                        <li>Advertising</li>
+                    </ul>
+                </div>
+            </div>
+            <small>Copyright © 2016 CareerSystem.com</small>
+        </div>
+    </footer>
+
+    <a class="usabilla-feedback-bar" href="#" onclick="window.usabilla_live('click');" id="usabilla-feedback-bar">Feedback</a>
 
 
     <!-- BEGIN JAVASCRIPT -->
