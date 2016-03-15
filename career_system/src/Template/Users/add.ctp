@@ -9,6 +9,7 @@
                         'class' => 'form',
                         'templates' => [
                             'formGroup' => '{{input}}{{label}}',
+                            'nestingLabel' => '<div class="checkbox checkbox-styled"><label{{attrs}}>{{input}}<span>{{text}}</span></label></div>',
                             'inputContainer' => '<div class="form-group floating-label">{{content}}</div>'
                         ]
                     ])

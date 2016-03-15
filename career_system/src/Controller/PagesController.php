@@ -35,6 +35,12 @@ class PagesController extends AppController
      * @throws \Cake\Network\Exception\NotFoundException When the view file could not
      *   be found or \Cake\View\Exception\MissingTemplateException in debug mode.
      */
+    public function home()
+    {
+        $this->viewBuilder()->layout('ajax');
+    }
+
+
     public function display()
     {
         $path = func_get_args();

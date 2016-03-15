@@ -1,197 +1,283 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-use Cake\Cache\Cache;
-use Cake\Core\Configure;
-use Cake\Datasource\ConnectionManager;
-use Cake\Error\Debugger;
-use Cake\Network\Exception\NotFoundException;
-
-$this->layout = false;
-
-if (!Configure::read('debug')):
-    throw new NotFoundException('Please replace Pages/home.ctp with your own version.');
-endif;
-
-$cakeDescription = 'CakePHP: the rapid development PHP framework';
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
+    <!-- BEGIN META -->
     <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>
-    </title>
+    <title> Career System </title>
     <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="your,keywords">
+    <meta name="description" content="Short explanation about this website">
+
+    <!-- BEGIN STYLESHEETS -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700,800' rel='stylesheet' type='text/css'/>
+    <?= $this->Html->css('theme/bootstrap') ?>
+    <?= $this->Html->css('theme/materialadmin') ?>
+    <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
+    <?= $this->Html->css('theme/material-design-iconic-font.min') ?><!--Material Design Iconic Font-->
+    <?= $this->Html->css('theme/animate') ?>
+    
+    <!-- Additional CSS includes -->
+    <?= $this->Html->css('common') ?>
+
+    <?= $this->fetch('meta') ?>
+    <?= $this->fetch('css') ?>
+    <?= $this->fetch('script') ?>
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="assets/js/libs/utils/html5shiv.js"></script>
+    <script type="text/javascript" src="assets/js/libs/utils/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body class="home">
-    <header>
-        <div class="header-image">
-            <?= $this->Html->image('http://cakephp.org/img/cake-logo.png') ?>
-            <h1>Get the Ovens Ready</h1>
+<body class="header-fixed non-side-bar">
+
+    <!-- BEGIN HEADER-->
+    <header id="header">
+        <div class="headerbar">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="headerbar-left">
+                <ul class="header-nav header-nav-options" id="headerControl">
+                    <li class="hidden-lg" id="menubarToggleButton">
+                        <a class="btn btn-icon-toggle menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="header-nav-brand">
+                        <div class="brand-holder">
+                            <a href="#">
+                                <span class="text-lg text-bold text-primary">CAREER SYSTEM</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="headerbar-right">
+                <ul class="header-nav header-nav-options">
+                    <li>
+                        <!-- Search form -->
+                        <form class="navbar-search" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
+                            </div>
+                            <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+                        </form>
+                    </li>
+                </ul><!--end .header-nav-options -->
+
+                <ul class="header-nav header-nav-profile" id="headerProfile">
+                    <li id="signupButton">
+                        <button type="button" class="btn ink-reaction btn-raised btn-default">SIGN UP</button>
+                    </li>
+                    <li id="hiringmanagerButton">
+                        <button type="button" class="btn ink-reaction btn-raised btn-primary">FOR HIRING MANAGERS</button>
+                    </li>
+                </ul><!--end .header-nav-profile -->
+
+                <ul class="header-nav header-nav-toggle" id="headerToggle">
+                    <li id="signinButton">
+                        <button type="button" class="btn btn-block ink-reaction btn-flat btn-primary">SIGN IN</button>
+                    </li>
+                </ul><!--end .header-nav-toggle -->
+            </div><!--end #header-navbar-collapse -->
         </div>
     </header>
-    <div id="content">
-        <div class="row">
-            <div class="row">
-                <div class="columns large-12 ctp-warning checks">
-                    <p>Please be aware that this page will not be shown if you turn off debug mode unless you disable the NotFoundException in src/Template/Pages/home.ctp.</p>
+    <!-- END HEADER-->
+
+    <!-- BEGIN HOME SEARCH-->
+    <section id="home" class="no-padding">
+        <div class="sec-overlay">
+            <div class="container home-inner">
+                <div class="card col-sm-6 col-sm-offset-3" id="searchCard">
+                    <div class="card-body">
+                        <h1>Something here</h1>
+                        <h4>Something here</h4>
+                        <div class="form-group has-primary">
+                            <input type="text" class="form-control" id="inputSearch" placeholder="Enter keyword to search">
+                            <label for="regular"></label>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <div class="btn-group">
+                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        Category <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu animation-expand" role="menu">
+                                        <li><a href="#">Add</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#"><i class="fa fa-fw fa-times text-danger"></i> Remove item</a></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            <!-- Category Button -->
+                            <div class="col-xs-6">
+                                <div class="btn-group">
+                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        Location <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu animation-expand" role="menu">
+                                        <li><a href="#">Add</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#"><i class="fa fa-fw fa-times text-danger"></i> Remove item</a></li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            <!-- Location Button -->
+                        </div>
+                    </div>
                 </div>
             </div>
-            <?php Debugger::checkSecurityKeys(); ?>
-            <div id="url-rewriting-warning" class="columns large-12 url-rewriting checks">
-                <p class="problem">URL rewriting is not properly configured on your server.</p>
-                <p>
-                    1) <a target="_blank" href="http://book.cakephp.org/3.0/en/installation.html#url-rewriting">Help me configure it</a>
-                </p>
-                <p>
-                    2) <a target="_blank" href="http://book.cakephp.org/3.0/en/development/configuration.html#general-configuration">I don't / can't use URL rewriting</a>
-                </p>
-            </div>
-            <div class="columns large-5 platform checks">
-                <?php if (version_compare(PHP_VERSION, '5.5.9', '>=')): ?>
-                    <p class="success">Your version of PHP is 5.5.9 or higher.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP is too low. You need PHP 5.5.9 or higher to use CakePHP.</p>
-                <?php endif; ?>
+            <!-- .container end -->
+        </div>
+    </section>
+    <!-- END HOME SEARCH-->
 
-                <?php if (extension_loaded('mbstring')): ?>
-                    <p class="success">Your version of PHP has the mbstring extension loaded.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP does NOT have the mbstring extension loaded.</p>;
-                <?php endif; ?>
-
-                <?php if (extension_loaded('openssl')): ?>
-                    <p class="success">Your version of PHP has the openssl extension loaded.</p>
-                <?php elseif (extension_loaded('mcrypt')): ?>
-                    <p class="success">Your version of PHP has the mcrypt extension loaded.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP does NOT have the openssl or mcrypt extension loaded.</p>
-                <?php endif; ?>
-
-                <?php if (extension_loaded('intl')): ?>
-                    <p class="success">Your version of PHP has the intl extension loaded.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP does NOT have the intl extension loaded.</p>
-                <?php endif; ?>
-            </div>
-            <div class="columns large-6 filesystem checks">
-                <?php if (is_writable(TMP)): ?>
-                    <p class="success">Your tmp directory is writable.</p>
-                <?php else: ?>
-                    <p class="problem">Your tmp directory is NOT writable.</p>
-                <?php endif; ?>
-
-                <?php if (is_writable(LOGS)): ?>
-                    <p class="success">Your logs directory is writable.</p>
-                <?php else: ?>
-                    <p class="problem">Your logs directory is NOT writable.</p>
-                <?php endif; ?>
-
-                <?php $settings = Cache::config('_cake_core_'); ?>
-                <?php if (!empty($settings)): ?>
-                    <p class="success">The <em><?= $settings['className'] ?>Engine</em> is being used for core caching. To change the config edit config/app.php</p>
-                <?php else: ?>
-                    <p class="problem">Your cache is NOT working. Please check the settings in config/app.php</p>
-                <?php endif; ?>
+    <!-- START MAIN FEATURE -->
+    <section id="marketing" class="no-padding">
+        <div class="marketing-inner">
+            <div class="row row-centered no-margin">
+                <div class="col-md-3 col-centered">
+                    <div class="card">
+                        <div class="card-head">
+                            <header>Title here</header>
+                        </div>
+                        <div class="card-body no-padding">
+                            <img src="img/avatar.jpg" class="img-circle border-gray border-xl">
+                        </div>
+                        <div class="card-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-centered">
+                    <div class="card">
+                        <div class="card-head">
+                            <header>Title here</header>
+                        </div>
+                        <div class="card-body no-padding">
+                            <img src="img/avatar.jpg" class="img-circle border-gray border-xl">
+                        </div>
+                        <div class="card-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-centered">
+                    <div class="card">
+                        <div class="card-head">
+                            <header>Title here</header>
+                        </div>
+                        <div class="card-body no-padding">
+                            <img src="img/avatar.jpg" class="img-circle border-gray border-xl">
+                        </div>
+                        <div class="card-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="columns large-12 database checks">
-                <?php
-                    try {
-                        $connection = ConnectionManager::get('default');
-                        $connected = $connection->connect();
-                    } catch (Exception $connectionError) {
-                        $connected = false;
-                        $errorMsg = $connectionError->getMessage();
-                        if (method_exists($connectionError, 'getAttributes')):
-                            $attributes = $connectionError->getAttributes();
-                            if (isset($errorMsg['message'])):
-                                $errorMsg .= '<br />' . $attributes['message'];
-                            endif;
-                        endif;
-                    }
-                ?>
-                <?php if ($connected): ?>
-                    <p class="success">CakePHP is able to connect to the database.</p>
-                <?php else: ?>
-                    <p class="problem">CakePHP is NOT able to connect to the database.<br /><br /><?= $errorMsg ?></p>
-                <?php endif; ?>
+    </section>
+    <!-- END MAIN FEATURE -->
+
+    <!-- START EMAIL SUBCRIBE -->
+    <section id="email-subscribe" class="no-padding style-primary">
+        <div class="email-subscribe-inner">
+            <div class="row no-margin">
+                <div class="card col-sm-6 col-sm-offset-3">
+                    <div class="card-body">
+                        <div class="form-group has-primary">
+                                <div class="input-group-content">
+                                    <input type="text" class="form-control" id="emailgroup" placeholder="Enter your email address to subcribe to career news">
+                                    <label for="emailgroup"></label>
+                                </div>
+                                <div class="input-group-btn">
+                                    <button class="btn ink-reaction btn-primary" type="button"><i class="fa fa-envelope-o"></i></button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="columns large-6">
-                <h3>Editing this Page</h3>
-                <ul>
-                    <li>To change the content of this page, edit: src/Template/Pages/home.ctp.</li>
-                    <li>You can also add some CSS styles for your pages at: webroot/css/.</li>
-                </ul>
-            </div>
-            <div class="columns large-6">
-                <h3>Getting Started</h3>
-                <ul>
-                    <li><a target="_blank" href="http://book.cakephp.org/3.0/en/">CakePHP 3.0 Docs</a></li>
-                    <li><a target="_blank" href="http://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/intro.html">The 15 min Bookmarker Tutorial</a></li>
-                    <li><a target="_blank" href="http://book.cakephp.org/3.0/en/tutorials-and-examples/blog/blog.html">The 15 min Blog Tutorial</a></li>
-                </ul>
-                <p>
+    </section>
+    <!-- END EMAIL SUBCRIBE -->
+
+    <!-- START POPULAR SEARCHES -->
+    <section id="email-subscribe" class="no-padding">
+        <div class="email-subscribe-inner">
+            <div class="row row-centered no-margin">
+                <div class="col-sm-9 col-centered left-align">
+                    <h1>Popular job searches</h1>
+                </div>
+                <div class="col-sm-3 col-centered left-align">
+                    <h2>By category</h2>
+                    <div class="contain">
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                    </div>
+                    <button class="btn ink-reaction btn-block btn-raised btn-sm btn-primary">
+                        <i class="fa fa-tags"></i> Browse all categories
+                    </button>
+                </div>
+                <div class="col-sm-3 col-centered left-align">
+                    <h2>By city</h2>
+                    <div class="contain">
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                    </div>
+                    <button class="btn ink-reaction btn-block btn-raised btn-sm btn-primary">
+                        <i class="fa fa-tags"></i> Browse all cities
+                    </button>
+                </div>
+                <div class="col-sm-3 col-centered left-align">
+                    <h2>By company</h2>
+                    <div class="contain">
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                        <a href="#" class="tag label label-default">something</a>
+                    </div>
+                    <div class=""></div>
+                    <button class="btn ink-reaction btn-block btn-raised btn-sm btn-primary">
+                        <i class="fa fa-tags"></i> Browse all companies
+                    </button>
+                </div>
             </div>
         </div>
-        <hr/>
-        <div class="row">
-            <div class="columns large-12">
-                <h3 class="">More about Cake</h3>
-                <p>
-                    CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Front Controller and MVC.
-                </p>
-                <p>
-                    Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
-                </p>
-                <ul>
-                    <li><a href="http://cakefoundation.org/">Cake Software Foundation</a>
-                    <ul><li>Promoting development related to CakePHP</li></ul></li>
-                    <li><a href="http://www.cakephp.org">CakePHP</a>
-                    <ul><li>The Rapid Development Framework</li></ul></li>
-                    <li><a href="http://book.cakephp.org/3.0/en/">CakePHP Documentation</a>
-                    <ul><li>Your Rapid Development Cookbook</li></ul></li>
-                    <li><a href="http://api.cakephp.org/3.0/">CakePHP API</a>
-                    <ul><li>Quick Reference</li></ul></li>
-                    <li><a href="http://bakery.cakephp.org">The Bakery</a>
-                    <ul><li>Everything CakePHP</li></ul></li>
-                    <li><a href="http://plugins.cakephp.org">CakePHP plugins repo</a>
-                    <ul><li>A comprehensive list of all CakePHP plugins created by the community</li></ul></li>
-                    <li><a href="https://groups.google.com/group/cake-php">CakePHP Google Group</a>
-                    <ul><li>Community mailing list</li></ul></li>
-                    <li><a href="irc://irc.freenode.net/cakephp">irc.freenode.net #cakephp</a>
-                    <ul><li>Live chat about CakePHP</li></ul></li>
-                    <li><a href="https://github.com/cakephp/">CakePHP Code</a>
-                    <ul><li>For the Development of CakePHP Git repository, Downloads</li></ul></li>
-                    <li><a href="https://github.com/cakephp/cakephp/issues">CakePHP Issues</a>
-                    <ul><li>CakePHP issues and pull requests</li></ul></li>
-                    <li><a href="http://training.cakephp.org/">CakePHP Training</a>
-                    <ul><li>Learn to use the CakePHP framework</li></ul></li>
-                    <li><a href="http://certification.cakephp.org/">CakePHP Certification</a>
-                    <ul><li>Become a certified CakePHP developer</li></ul></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <footer>
-    </footer>
+    </section>
+    <!-- END POPULAR SEARCHES -->
+
+
+    <!-- BEGIN JAVASCRIPT -->
+    <?= $this->Html->script('libs/jquery/jquery-1.11.2.min') ?>
+    <?= $this->Html->script('libs/jquery/jquery-migrate-1.2.1.min') ?>
+    <?= $this->Html->script('libs/bootstrap/bootstrap.min') ?>
+    <?= $this->Html->script('libs/nanoscroller/jquery.nanoscroller.min') ?>
+    
+    <!-- Put App.js last in your javascript imports -->
+    <?= $this->Html->script('main') ?>
+    <?= $this->Html->script('app.min') ?>
 </body>
 </html>
