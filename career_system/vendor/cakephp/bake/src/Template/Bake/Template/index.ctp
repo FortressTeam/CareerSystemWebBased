@@ -31,10 +31,18 @@ if (!empty($indexColumns)) {
 
 %>
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-head style-primary">
                 <header>List <%= $pluralHumanName %></header>
+                <div class="tools">
+                    <div class="btn-group">
+                        <?= $this->Html->link(
+                            '<button class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="New <%= $singularHumanName %>"><i class="fa fa-plus"></i></button>',
+                            ['action' => 'add'],
+                            ['escape' => false]) ?>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -111,7 +119,7 @@ if (!empty($indexColumns)) {
         </div>
     </div>
 
-    <div class="col-lg-4">
+<!--     <div class="col-lg-4">
         <div class="card">
             <div class="card-head">
                 <header><?= __('Actions') ?></header>
@@ -151,5 +159,5 @@ if (!empty($indexColumns)) {
                 </ul>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>

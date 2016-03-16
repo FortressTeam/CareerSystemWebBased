@@ -83,7 +83,7 @@ footer {
  ----------------------------------- */
 
 #home {
-	background: url('http://www.bdinfosys.com/demo/materialx/images/home-bg.jpg') no-repeat fixed center center / cover;
+	background: url('../img/home-bg.jpg') no-repeat fixed center center / cover;
 	position: relative;
 }
 .home-inner {
@@ -114,7 +114,7 @@ footer {
 }
 @media screen and (min-width: 768px){
 	#home .sec-overlay {
-	    background: rgba(0,0,0, .7);
+	    background: rgba(0,0,0, .5);
 	    min-height: 400px;
 	    width: 100%;
 	    height: 100%;

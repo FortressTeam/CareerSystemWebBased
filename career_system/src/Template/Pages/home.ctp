@@ -59,23 +59,23 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
                             </div>
-                            <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+                            <button type="submit" class="btn btn-icon-toggle ink-reaction btn-sm"><i class="fa fa-search"></i></button>
                         </form>
                     </li>
                 </ul><!--end .header-nav-options -->
 
                 <ul class="header-nav header-nav-profile" id="headerProfile">
                     <li id="signupButton">
-                        <button type="button" class="btn ink-reaction btn-raised btn-default">SIGN UP</button>
+                        <button type="button" class="btn ink-reaction btn-raised btn-sm btn-default">SIGN UP</button>
                     </li>
                     <li id="hiringmanagerButton">
-                        <button type="button" class="btn ink-reaction btn-raised btn-primary">FOR HIRING MANAGERS</button>
+                        <button type="button" class="btn ink-reaction btn-raised btn-sm btn-primary">FOR HIRING MANAGERS</button>
                     </li>
                 </ul><!--end .header-nav-profile -->
 
                 <ul class="header-nav header-nav-toggle" id="headerToggle">
                     <li id="signinButton">
-                        <button type="button" class="btn btn-block ink-reaction btn-flat btn-primary">SIGN IN</button>
+                        <button type="button" class="btn btn-block ink-reaction btn-flat btn-sm btn-primary">SIGN IN</button>
                     </li>
                 </ul><!--end .header-nav-toggle -->
             </div><!--end #header-navbar-collapse -->

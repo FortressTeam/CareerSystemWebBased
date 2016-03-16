@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Error\Debugger;
 
 /**
  * Application Controller
@@ -43,6 +44,20 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        // $this->loadComponent('Auth', [
+        //     'authenticate' => [
+        //         'Basic' => [
+        //             'fields' => ['username' => 'username', 'password' => 'api_key'],
+        //             'userModel' => 'Users'
+        //         ],
+        //     ],
+        //     'storage' => 'Memory',
+        //     'unauthorizedRedirect' => false
+        // ]);
+
+        // // Allow the display action so our pages controller
+        // // continues to work.
+        // $this->Auth->allow(['Display']);
     }
 
     /**
@@ -59,4 +74,14 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
+
+    /**
+     * Is authorized callback.
+     *
+     * @return boolean
+     */
+    // public function isAuthorized($user)
+    // {
+    //     return false;
+    // }
 }

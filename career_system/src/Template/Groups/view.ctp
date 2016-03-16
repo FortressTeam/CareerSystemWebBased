@@ -31,24 +31,26 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th><?= __('Id') ?></th>
-                <th><?= __('User Name') ?></th>
-                <th><?= __('User Password') ?></th>
-                <th><?= __('User Registered') ?></th>
+                <th><?= __('Username') ?></th>
+                <th><?= __('Password') ?></th>
                 <th><?= __('User Email') ?></th>
+                <th><?= __('User Registered') ?></th>
                 <th><?= __('User Status') ?></th>
                 <th><?= __('User Activation Key') ?></th>
+                <th><?= __('User Avatar') ?></th>
                 <th><?= __('Group Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($group->users as $users): ?>
             <tr>
                 <td><?= h($users->id) ?></td>
-                <td><?= h($users->user_name) ?></td>
-                <td><?= h($users->user_password) ?></td>
-                <td><?= h($users->user_registered) ?></td>
+                <td><?= h($users->username) ?></td>
+                <td><?= h($users->password) ?></td>
                 <td><?= h($users->user_email) ?></td>
+                <td><?= h($users->user_registered) ?></td>
                 <td><?= h($users->user_status) ?></td>
                 <td><?= h($users->user_activation_key) ?></td>
+                <td><?= h($users->user_avatar) ?></td>
                 <td><?= h($users->group_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?>

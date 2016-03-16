@@ -56,12 +56,16 @@ class UsersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('user_name', 'create')
-            ->notEmpty('user_name');
+            ->allowEmpty('username');
 
         $validator
-            ->requirePresence('user_password', 'create')
-            ->notEmpty('user_password');
+            ->requirePresence('password', 'create')
+            ->notEmpty('password');
+
+        $validator
+            ->requirePresence('user_email', 'create')
+            ->notEmpty('user_email')
+            ->add('user_email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->date('user_registered')
@@ -69,16 +73,16 @@ class UsersTable extends Table
             ->notEmpty('user_registered');
 
         $validator
-            ->requirePresence('user_email', 'create')
-            ->notEmpty('user_email');
-
-        $validator
             ->boolean('user_status')
             ->allowEmpty('user_status');
 
         $validator
             ->requirePresence('user_activation_key', 'create')
-            ->notEmpty('user_activation_key');
+            ->notEmpty('user_activation_key')
+            ->add('user_activation_key', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->allowEmpty('user_avatar');
 
         return $validator;
     }
@@ -92,6 +96,9 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->isUnique(['username']));
+        $rules->add($rules->isUnique(['user_activation_key']));
+        $rules->add($rules->isUnique(['user_email']));
         $rules->add($rules->existsIn(['group_id'], 'Groups'));
         return $rules;
     }

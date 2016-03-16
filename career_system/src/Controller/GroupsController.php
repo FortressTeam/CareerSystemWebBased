@@ -10,7 +10,6 @@ use App\Controller\AppController;
  */
 class GroupsController extends AppController
 {
-    
 
     /**
      * Index method

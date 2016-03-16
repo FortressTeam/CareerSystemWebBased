@@ -17,12 +17,12 @@
     <h3><?= h($user->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th><?= __('User Name') ?></th>
-            <td><?= h($user->user_name) ?></td>
+            <th><?= __('Username') ?></th>
+            <td><?= h($user->username) ?></td>
         </tr>
         <tr>
-            <th><?= __('User Password') ?></th>
-            <td><?= h($user->user_password) ?></td>
+            <th><?= __('Password') ?></th>
+            <td><?= h($user->password) ?></td>
         </tr>
         <tr>
             <th><?= __('User Email') ?></th>
@@ -31,6 +31,10 @@
         <tr>
             <th><?= __('User Activation Key') ?></th>
             <td><?= h($user->user_activation_key) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('User Avatar') ?></th>
+            <td><?= h($user->user_avatar) ?></td>
         </tr>
         <tr>
             <th><?= __('Group') ?></th>

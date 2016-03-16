@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-head style-primary">
-                <header>List Users</header>
+                <header>List Hiring Managers</header>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -10,42 +10,38 @@
                         <thead>
                             <tr>
                                 <th><?= $this->Paginator->sort('id') ?></th>
-                                <th><?= $this->Paginator->sort('username') ?></th>
-                                <th><?= $this->Paginator->sort('password') ?></th>
-                                <th><?= $this->Paginator->sort('user_email') ?></th>
-                                <th><?= $this->Paginator->sort('user_registered') ?></th>
-                                <th><?= $this->Paginator->sort('user_status') ?></th>
-                                <th><?= $this->Paginator->sort('user_activation_key') ?></th>
-                                <th><?= $this->Paginator->sort('user_avatar') ?></th>
-                                <th><?= $this->Paginator->sort('group_id') ?></th>
+                                <th><?= $this->Paginator->sort('hiring_manager_name') ?></th>
+                                <th><?= $this->Paginator->sort('hiring_manager_phone_number') ?></th>
+                                <th><?= $this->Paginator->sort('company_name') ?></th>
+                                <th><?= $this->Paginator->sort('company_address') ?></th>
+                                <th><?= $this->Paginator->sort('company_size') ?></th>
+                                <th><?= $this->Paginator->sort('company_logo') ?></th>
                                 <th class="actions text-right"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($users as $user): ?>
+                        <?php foreach ($hiringManagers as $hiringManager): ?>
                             <tr>
-                                <td><?= $this->Number->format($user->id) ?></td>
-                                <td><?= h($user->username) ?></td>
-                                <td><?= h($user->password) ?></td>
-                                <td><?= h($user->user_email) ?></td>
-                                <td><?= h($user->user_registered) ?></td>
-                                <td><?= h($user->user_status) ?></td>
-                                <td><?= h($user->user_activation_key) ?></td>
-                                <td><?= h($user->user_avatar) ?></td>
-                                <td><?= $user->has('group') ? $this->Html->link($user->group->id, ['controller' => 'Groups', 'action' => 'view', $user->group->id]) : '' ?></td>
+                                <td><?= $this->Number->format($hiringManager->id) ?></td>
+                                <td><?= h($hiringManager->hiring_manager_name) ?></td>
+                                <td><?= h($hiringManager->hiring_manager_phone_number) ?></td>
+                                <td><?= h($hiringManager->company_name) ?></td>
+                                <td><?= h($hiringManager->company_address) ?></td>
+                                <td><?= $this->Number->format($hiringManager->company_size) ?></td>
+                                <td><?= h($hiringManager->company_logo) ?></td>
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View user"><i class="fa fa-info"></i></button>',
-                                    ['action' => 'view', $user->id],
+                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View hiringManager"><i class="fa fa-info"></i></button>',
+                                    ['action' => 'view', $hiringManager->id],
                                     ['escape' => false]) ?>
                                 <?= $this->Html->link(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Edit user"><i class="fa fa-pencil"></i></button>',
-                                    ['action' => 'edit', $user->id],
+                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Edit hiringManager"><i class="fa fa-pencil"></i></button>',
+                                    ['action' => 'edit', $hiringManager->id],
                                     ['escape' => false]) ?>
                                 <?= $this->Form->postLink(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete user"><i class="fa fa-trash"></i></button>', 
-                                    ['action' => 'delete', $user->id],
-                                    ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'escape' => false]) ?>
+                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete hiringManager"><i class="fa fa-trash"></i></button>', 
+                                    ['action' => 'delete', $hiringManager->id],
+                                    ['confirm' => __('Are you sure you want to delete # {0}?', $hiringManager->id), 'escape' => false]) ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -75,44 +71,44 @@
                 <ul class="list divider-full-bleed">
                     <li class="tile"><?= $this->Html->link(
                         '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New User</div>',
+                        <div class="tile-text">New Hiring Manager</div>',
                         ['action' => 'add'],
                         ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
                     </li>
                     <li class="tile"><?= $this->Html->link(
                         '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Groups</div>',
-                        ['controller' => 'Groups', 'action' => 'index'],
+                        <div class="tile-text">List Appointments</div>',
+                        ['controller' => 'Appointments', 'action' => 'index'],
                         ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
                     </li>
                     <li class="tile"><?= $this->Html->link(
                         '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Group</div>',
-                        ['controller' => 'Groups', 'action' => 'add'],
+                        <div class="tile-text">New Appointment</div>',
+                        ['controller' => 'Appointments', 'action' => 'add'],
                         ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
                     </li>
                     <li class="tile"><?= $this->Html->link(
                         '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Feedbacks</div>',
-                        ['controller' => 'Feedbacks', 'action' => 'index'],
+                        <div class="tile-text">List Follow</div>',
+                        ['controller' => 'Follow', 'action' => 'index'],
                         ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
                     </li>
                     <li class="tile"><?= $this->Html->link(
                         '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Feedback</div>',
-                        ['controller' => 'Feedbacks', 'action' => 'add'],
+                        <div class="tile-text">New Follow</div>',
+                        ['controller' => 'Follow', 'action' => 'add'],
                         ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
                     </li>
                     <li class="tile"><?= $this->Html->link(
                         '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Notifications</div>',
-                        ['controller' => 'Notifications', 'action' => 'index'],
+                        <div class="tile-text">List Posts</div>',
+                        ['controller' => 'Posts', 'action' => 'index'],
                         ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
                     </li>
                     <li class="tile"><?= $this->Html->link(
                         '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Notification</div>',
-                        ['controller' => 'Notifications', 'action' => 'add'],
+                        <div class="tile-text">New Post</div>',
+                        ['controller' => 'Posts', 'action' => 'add'],
                         ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
                     </li>
                 </ul>
