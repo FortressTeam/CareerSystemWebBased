@@ -28,6 +28,44 @@ class CategoriesController extends AppController
     }
 
     /**
+     * Move Up method
+     *
+     * @param string|null $id Category id.
+     * @return \Cake\Network\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function moveUp($id = null)
+    {
+        $this->request->allowMethod(['post', 'put']);
+        $category = $this->Categories->get($id);
+        if ($this->Categories->moveUp($category)) {
+            $this->Flash->success('The category has been moved Up.');
+        } else {
+            $this->Flash->error('The category could not be moved up. Please, try again.');
+        }
+        return $this->redirect($this->referer(['action' => 'index']));
+    }
+
+    /**
+     * Move Down method
+     *
+     * @param string|null $id Category id.
+     * @return \Cake\Network\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function moveDown($id = null)
+    {
+        $this->request->allowMethod(['post', 'put']);
+        $category = $this->Categories->get($id);
+        if ($this->Categories->moveDown($category)) {
+            $this->Flash->success('The category has been moved down.');
+        } else {
+            $this->Flash->error('The category could not be moved down. Please, try again.');
+        }
+        return $this->redirect($this->referer(['action' => 'index']));
+    }
+
+    /**
      * View method
      *
      * @param string|null $id Category id.
@@ -36,12 +74,21 @@ class CategoriesController extends AppController
      */
     public function view($id = null)
     {
-        $category = $this->Categories->get($id, [
-            'contain' => ['ParentCategories', 'ChildCategories', 'Posts']
+        $childCategories = $this->Categories->find('children', ['for' => $id]);        
+        foreach ($childCategories as $cat)
+        {
+            $conditions[] = $cat->id;
+        }
+        $conditions[] = $id;
+        $posts = $this->Categories->Posts->find('all', [
+            'conditions' => [
+                'Posts.category_id in' => $conditions,
+                'Posts.post_status >' => 0 
+                ],
+            'contain' => ['HiringManagers']
         ]);
-
-        $this->set('category', $category);
-        $this->set('_serialize', ['category']);
+        $this->set(compact('posts'));
+        $this->set('_serialize', ['posts']);
     }
 
     /**
@@ -61,7 +108,7 @@ class CategoriesController extends AppController
                 $this->Flash->error(__('The category could not be saved. Please, try again.'));
             }
         }
-        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
+        $parentCategories = $this->Categories->ParentCategories->find('treeList', ['limit' => 200, 'spacer' => '__']);
         $this->set(compact('category', 'parentCategories'));
         $this->set('_serialize', ['category']);
     }
@@ -87,7 +134,7 @@ class CategoriesController extends AppController
                 $this->Flash->error(__('The category could not be saved. Please, try again.'));
             }
         }
-        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
+        $parentCategories = $this->Categories->ParentCategories->find('treeList', ['limit' => 200, 'spacer' => '__']);
         $this->set(compact('category', 'parentCategories'));
         $this->set('_serialize', ['category']);
     }

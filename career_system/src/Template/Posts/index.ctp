@@ -3,11 +3,6 @@
         <div class="card">
             <div class="card-head style-primary">
                 <header>List Posts</header>
-                <div class="tools">
-                    <div class="btn-group">
-                        <a class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Create new post"><i class="fa fa-plus"></i></a>
-                    </div>
-                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -20,7 +15,6 @@
                                 <th><?= $this->Paginator->sort('post_location') ?></th>
                                 <th><?= $this->Paginator->sort('post_date') ?></th>
                                 <th><?= $this->Paginator->sort('post_status') ?></th>
-                                <th><?= $this->Paginator->sort('category_id') ?></th>
                                 <th><?= $this->Paginator->sort('hiring_manager_id') ?></th>
                                 <th class="actions text-right"><?= __('Actions') ?></th>
                             </tr>
@@ -30,11 +24,10 @@
                             <tr>
                                 <td><?= $this->Number->format($post->id) ?></td>
                                 <td><?= h($post->post_title) ?></td>
-                                <td><?= $this->Number->format($post->post_salary) ?></td>
+                                <td><?= $this->Number->currency($post->post_salary , 'USD', ['before' => 'US']) ?></td>
                                 <td><?= h($post->post_location) ?></td>
-                                <td><?= h($post->post_date) ?></td>
-                                <td><?= h($post->post_status) ?></td>
-                                <td><?= $post->has('category') ? $this->Html->link($post->category->category_name, ['controller' => 'Categories', 'action' => 'view', $post->category->id]) : '' ?></td>
+                                <td><?= Cake\I18n\Time::parse($post->post_date)->i18nFormat('dd-MMM-yyyy'); ?></td>
+                                <td><?= ($post->post_status == 0)?'<span class="label label-warning">Pending</span>':'<span class="label label-success">Active</span>' ?></td>
                                 <td><?= $post->has('hiring_manager') ? $this->Html->link($post->hiring_manager->hiring_manager_name, ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id]) : '' ?></td>
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
@@ -67,6 +60,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="fab_wrapper">
+        <?= $this->Html->link(
+            '<button class="btn btn_fab btn-primary"><i class="fa fa-plus"></i></button>',
+            ['action' => 'add'],
+            ['escape' => false]) ?>
     </div>
 
 <!--     <div class="col-lg-4">

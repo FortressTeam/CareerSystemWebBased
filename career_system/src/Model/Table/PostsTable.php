@@ -32,6 +32,8 @@ class PostsTable extends Table
         $this->displayField('post_title');
         $this->primaryKey('id');
 
+        $this->addBehavior('Timestamp');
+
         $this->belongsTo('Categories', [
             'foreignKey' => 'category_id',
             'joinType' => 'INNER'

@@ -74,6 +74,20 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->fallbacks('DashedRoute');
 });
 
+Router::scope('/api/v1', function ($routes) {
+    $routes->extensions(['json', 'xml']);
+    $routes->resources('posts');
+    $routes->resources('categories', [
+        'only' => ['index', 'view']
+    ]);
+});
+
+Router::scope('/', function ($routes) {
+    $routes->extensions(['json', 'html']);
+    $routes->resources('posts');
+    $routes->resources('categories');
+});
+
 /**
  * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.

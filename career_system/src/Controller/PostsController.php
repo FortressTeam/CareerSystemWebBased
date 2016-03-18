@@ -40,7 +40,7 @@ class PostsController extends AppController
             'contain' => ['Categories', 'HiringManagers', 'ApplicantsFollowPosts', 'PostsHasCurriculumVitaes']
         ]);
 
-        $this->set('post', $post);
+        $this->set(compact('post'));
         $this->set('_serialize', ['post']);
     }
 
@@ -61,7 +61,7 @@ class PostsController extends AppController
                 $this->Flash->error(__('The post could not be saved. Please, try again.'));
             }
         }
-        $categories = $this->Posts->Categories->find('list', ['limit' => 200]);
+        $categories = $this->Posts->Categories->find('treeList', ['limit' => 200, 'spacer' => '__']);
         $hiringManagers = $this->Posts->HiringManagers->find('list', ['limit' => 200]);
         $this->set(compact('post', 'categories', 'hiringManagers'));
         $this->set('_serialize', ['post']);
@@ -88,7 +88,7 @@ class PostsController extends AppController
                 $this->Flash->error(__('The post could not be saved. Please, try again.'));
             }
         }
-        $categories = $this->Posts->Categories->find('list', ['limit' => 200]);
+        $categories = $this->Posts->Categories->find('treeList', ['limit' => 200, 'spacer' => '__']);
         $hiringManagers = $this->Posts->HiringManagers->find('list', ['limit' => 200]);
         $this->set(compact('post', 'categories', 'hiringManagers'));
         $this->set('_serialize', ['post']);

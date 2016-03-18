@@ -54,7 +54,7 @@ class PostsFixture extends TestFixture
             'post_content' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'post_salary' => 1,
             'post_location' => 'Lorem ipsum dolor sit amet',
-            'post_date' => '2016-03-16',
+            'post_date' => '2016-03-18',
             'post_status' => 1,
             'category_id' => 1,
             'hiring_manager_id' => 1

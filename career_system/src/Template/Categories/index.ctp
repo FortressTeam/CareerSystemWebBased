@@ -3,14 +3,6 @@
         <div class="card">
             <div class="card-head style-primary">
                 <header>List Categories</header>
-                <div class="tools">
-                    <div class="btn-group">
-                        <?= $this->Html->link(
-                            '<button class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="New Category"><i class="fa fa-plus"></i></button>',
-                            ['action' => 'add'],
-                            ['escape' => false]) ?>
-                    </div>
-                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -42,6 +34,14 @@
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete category"><i class="fa fa-trash"></i></button>', 
                                     ['action' => 'delete', $category->id],
                                     ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'escape' => false]) ?>
+                                <?= $this->Form->postLink(
+                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete category"><i class="fa fa-arrow-down"></i></button>',
+                                    ['action' => 'moveDown', $category->id],
+                                    ['confirm' => __('Are you sure you want to move down # {0}?', $category->id), 'escape' => false]) ?>
+                                <?= $this->Form->postLink(
+                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete category"><i class="fa fa-arrow-up"></i></button>',
+                                    ['action' => 'moveUp', $category->id],
+                                    ['confirm' => __('Are you sure you want to move up # {0}?', $category->id), 'escape' => false]) ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -60,6 +60,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="fab_wrapper">
+        <?= $this->Html->link(
+            '<button class="btn btn_fab btn-primary"><i class="fa fa-plus"></i></button>',
+            ['action' => 'add'],
+            ['escape' => false]) ?>
     </div>
 
 <!--     <div class="col-lg-4">

@@ -19,7 +19,6 @@
                     echo $this->Form->input('post_content', ['class' => 'form-control']);
                     echo $this->Form->input('post_salary', ['class' => 'form-control']);
                     echo $this->Form->input('post_location', ['class' => 'form-control']);
-                    echo $this->Form->input('post_date', ['class' => 'form-control', 'empty' => true]);
                     echo $this->Form->input('post_status', ['class' => 'form-control']);
                     echo $this->Form->input('category_id', ['class' => 'form-control', 'options' => $categories]);
                     echo $this->Form->input('hiring_manager_id', ['class' => 'form-control', 'options' => $hiringManagers]);

@@ -17,7 +17,7 @@
                 <?php
                     echo $this->Form->input('category_name', ['class' => 'form-control']);
                     echo $this->Form->input('category_description', ['class' => 'form-control']);
-                    echo $this->Form->input('parent_id', ['class' => 'form-control', 'options' => $parentCategories, 'empty' => true]);
+                    echo $this->Form->input('parent_id', ['class' => 'form-control', 'options' => $parentCategories]);
                 ?>
                 <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary col-xs-12']) ?>
                 <?= $this->Form->end() ?>
