@@ -116,46 +116,4 @@ if (!empty($indexColumns)) {
             ['action' => 'add'],
             ['escape' => false]) ?>
     </div>
-
-<!--     <div class="col-lg-4">
-        <div class="card">
-            <div class="card-head">
-                <header><?= __('Actions') ?></header>
-            </div>
-            <div class="card-body no-padding">
-                <ul class="list divider-full-bleed">
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New <%= $singularHumanName %></div>',
-                        ['action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-<%
-    $done = [];
-    foreach ($associations as $type => $data):
-        foreach ($data as $alias => $details):
-            if (!empty($details['navLink']) && $details['controller'] !== $this->name && !in_array($details['controller'], $done)):
-%>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List <%= $this->_pluralHumanName($alias) %></div>',
-                        ['controller' => '<%= $details['controller'] %>', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New <%= $this->_singularHumanName($alias) %></div>',
-                        ['controller' => '<%= $details['controller'] %>', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-<%
-                $done[] = $details['controller'];
-            endif;
-        endforeach;
-    endforeach;
-%>
-                </ul>
-            </div>
-        </div>
-    </div> -->
 </div>

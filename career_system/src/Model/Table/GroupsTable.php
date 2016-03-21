@@ -26,7 +26,7 @@ class GroupsTable extends Table
         parent::initialize($config);
 
         $this->table('groups');
-        $this->displayField('id');
+        $this->displayField('group_name');
         $this->primaryKey('id');
 
         $this->hasMany('Users', [

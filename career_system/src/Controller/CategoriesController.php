@@ -85,7 +85,7 @@ class CategoriesController extends AppController
                 'Posts.category_id in' => $conditions,
                 'Posts.post_status >' => 0 
                 ],
-            'contain' => ['HiringManagers']
+            'contain' => ['HiringManagers', 'Categories']
         ]);
         $this->set(compact('posts'));
         $this->set('_serialize', ['posts']);

@@ -26,7 +26,7 @@ class NotificationsTable extends Table
         parent::initialize($config);
 
         $this->table('notifications');
-        $this->displayField('id');
+        $this->displayField('notification_title');
         $this->primaryKey('id');
 
         $this->belongsTo('Users', [

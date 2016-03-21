@@ -39,7 +39,6 @@ class PostsController extends AppController
         $post = $this->Posts->get($id, [
             'contain' => ['Categories', 'HiringManagers', 'ApplicantsFollowPosts', 'PostsHasCurriculumVitaes']
         ]);
-
         $this->set(compact('post'));
         $this->set('_serialize', ['post']);
     }

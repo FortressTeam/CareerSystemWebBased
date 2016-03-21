@@ -50,6 +50,9 @@ footer {
     padding-top: 60px;
     padding-bottom: 60px;
 }
+.padd-2 {
+    padding: 2em;
+}
 .left-align {
     text-align: left;
 }
@@ -166,6 +169,18 @@ footer {
     .usabilla-feedback-bar{
         display: block;
     }
+}
+
+.title_post {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.title_post>a {
+    white-space: nowrap;
+}
+
+.post_content {
+    text-align: justify;
 }
 
 /* --------------------------------- */

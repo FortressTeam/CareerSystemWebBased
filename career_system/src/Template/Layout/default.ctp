@@ -42,6 +42,7 @@ $cakeDescription = 'Career System: Something';
     
     <!-- Additional CSS includes -->
     <?= $this->Html->css('common') ?>
+    <?= $this->Html->script('libs/jquery/jquery-1.11.2.min') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -226,7 +227,6 @@ $cakeDescription = 'Career System: Something';
 
 
     <!-- BEGIN JAVASCRIPT -->
-    <?= $this->Html->script('libs/jquery/jquery-1.11.2.min') ?>
     <?= $this->Html->script('libs/jquery/jquery-migrate-1.2.1.min') ?>
     <?= $this->Html->script('libs/bootstrap/bootstrap.min') ?>
     <?= $this->Html->script('libs/nanoscroller/jquery.nanoscroller.min') ?>
