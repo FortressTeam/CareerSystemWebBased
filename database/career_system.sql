@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 18, 2016 at 06:53 PM
+-- Generation Time: Mar 22, 2016 at 09:38 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -264,14 +264,30 @@ CREATE TABLE IF NOT EXISTS `feedbacks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `feedback_title` varchar(1024) DEFAULT NULL,
   `feedback_comment` text,
-  `feedback_date` date DEFAULT NULL,
+  `feedback_date` date NOT NULL,
   `feedback_result` text,
   `feedback_type_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cs_feedbacks_cs_feedback_types1_idx` (`feedback_type_id`),
   KEY `fk_cs_feedbacks_cs_users1_idx` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `feedbacks`
+--
+
+INSERT INTO `feedbacks` (`id`, `feedback_title`, `feedback_comment`, `feedback_date`, `feedback_result`, `feedback_type_id`, `user_id`) VALUES
+(1, 'Title', 'Comment', '2016-03-02', NULL, 2, 1),
+(2, 'Title2', 'Coment', '2016-02-04', NULL, 2, 1),
+(3, 'Title 3', 'Cooment\r\n', '2016-03-08', NULL, 2, 1),
+(4, 'Title', 'asdasdas\r\n', '2016-03-17', NULL, 3, 1),
+(5, 'Zxz', 'asda', '2016-03-22', NULL, 3, 1),
+(6, 'ádádấd', 'ádasdád', '2016-02-17', NULL, 4, 1),
+(7, 'Hellio', 'ádád', '2016-01-06', NULL, 2, 1),
+(8, 'asdasdádád', 'ádasdá', '2016-01-06', NULL, 3, 1),
+(9, 'asdádấáda', 'ádasd', '2015-12-02', NULL, 3, 1),
+(10, 'Title', 'Content\r\n', '2016-03-02', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -283,7 +299,17 @@ CREATE TABLE IF NOT EXISTS `feedback_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `feedback_type_name` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `feedback_types`
+--
+
+INSERT INTO `feedback_types` (`id`, `feedback_type_name`) VALUES
+(1, 'Idea'),
+(2, 'Problem'),
+(3, 'Question'),
+(4, 'Praise');
 
 -- --------------------------------------------------------
 
@@ -294,8 +320,8 @@ CREATE TABLE IF NOT EXISTS `feedback_types` (
 CREATE TABLE IF NOT EXISTS `follow` (
   `hiring_manager_id` int(11) NOT NULL,
   `applicant_id` int(11) NOT NULL,
-  `follow_hiring_manager` int(11) DEFAULT NULL,
-  `follow_applicant` int(11) DEFAULT NULL,
+  `follow_hiring_manager` tinyint(1) DEFAULT NULL,
+  `follow_applicant` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`hiring_manager_id`,`applicant_id`),
   KEY `fk_cs_hiring_managers_has_cs_applicants_cs_applicants1_idx` (`applicant_id`),
   KEY `fk_cs_hiring_managers_has_cs_applicants_cs_hiring_managers1_idx` (`hiring_manager_id`)
@@ -345,7 +371,8 @@ CREATE TABLE IF NOT EXISTS `hiring_managers` (
 --
 
 INSERT INTO `hiring_managers` (`id`, `hiring_manager_name`, `hiring_manager_phone_number`, `company_name`, `company_address`, `company_size`, `company_about`, `company_logo`) VALUES
-(1, 'Nguyen The Vien', '0963354060', 'ABC Cop', 'CDE St.', 100, 'Something', '1.jpg');
+(1, 'Nguyen The Vien', '0963354060', 'Dell Inc', 'CDE St.', 100, 'Litchfield Performing Arts (LPA) is a charitable organization founded in 1981 whose mission is to educate and inspire young people to be confident, creative, expressive individuals through challenging programs in both jazz music and the performing arts while sharing the passion and magic of the arts with the wider community.', '1.jpg'),
+(2, 'Kyler', '01213163478', 'Duckky', 'Da nang', 123, 'Hello World', '1.jpg');
 
 -- --------------------------------------------------------
 
@@ -443,18 +470,37 @@ CREATE TABLE IF NOT EXISTS `posts` (
   PRIMARY KEY (`id`),
   KEY `fk_cs_posts_cs_categories_idx` (`category_id`),
   KEY `fk_cs_posts_cs_hiring_managers1_idx` (`hiring_manager_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `post_title`, `post_content`, `post_salary`, `post_location`, `post_date`, `post_status`, `category_id`, `hiring_manager_id`) VALUES
-(1, 'SUMMER INTERN New', 'Are you the next awesome Lin Pictures intern? This is a uniquely integrated intern experience in a fast-paced, high-volume film and TV production company. The job includes reading scripts in development; writing coverage and script notes; attending meetings with writers and directors where appropriate; and learning how large features and network TV shows are put together. Of course there are also other day tasks such as making copies and helping out with general office duties. The amount of access you''ll be getting is unique in Hollywood. If you think you''ve got what it takes please apply by May27th! This is a for credit internship.', 500, 'Los Angeles, CA', '2016-02-19', 1, 35, 1),
-(2, 'SUMMER DEVELOPMENT INTERN', 'THE POSITION\r\n\r\nThe Combine, a Los Angeles-based film production company, is looking for resourceful and hungry interns to start Summer 2015! If you want to learn producing, development, and production, this is an excellent opportunity to contribute to a new, quickly growing company.\r\n\r\nESSENTIAL DUTIES AND RESPONSIBILITIES:\r\n\r\nResponsibilities include, but are not limited to, answering phones as needed, script reading and coverage, project research, assisting busy executives and assistant with crafting presentation material, and other administrative tasks.\r\n\r\nREQUIREMENTS/SKILLS:\r\n\r\nCandidates should be independent, hard working, detail-oriented, level headed, and personable. Candidates also would ideally have 1-2 years experience with script coverage, good storytelling instincts, and a passion for films with authenticity. Valid drivers'' license and working car required. A working knowledge of Mac’s and graphic design/editing software such as Final Draft, Photoshop, Illustrator, Keynote, Adobe Acrobat and Final Cut a plus.', 500, 'Los Angeles, CA', NULL, 1, 11, 1),
-(3, 'GRAPHIC DESIGNER', 'THE POSITION\r\n\r\nRapchat, a 500 Startups company, is an app that lets you create, share, and discover freestyle raps. We''re currently seeking a baller-ass Graphic Design intern to assist our creative team in developing/creating assets for Mobile, Web, Social, Email and more! If you can drop bars or spit a quick 16 that be awesome... but not necessarily required.\r\n\r\nESSENTIAL DUTIES AND RESPONSIBILITIES:\r\n\r\nCreating/crafting content across all Social Media platforms. Assisting with Email graphics and designs. Design one-sheeters for potential industry partners Assist with Web design, branding and App screen mock ups.\r\n\r\nREQUIREMENTS/SKILLS:\r\n\r\nAdvanced Photoshop, Freestyle skills, Mailchimp HTML design, Social Media', 400, 'Mountain View, CA', NULL, NULL, 21, 1),
-(4, 'LIVE CONCERT REVIEWER', 'THE POSITION\r\n\r\nLooking for a new opportunity to broaden your horizons and strengthen your writing skills? Are you passionate about experiencing live music? Combine the two and become a concert reviewer! We are an eclectic daily music magazine devoted to providing a well-rounded selection of content. We hold a professional and enthusiastic standard for the information we publish. An essential part of what makes the magazine tick is live coverage of musical performances. We are currently adding to our team of concert reviewers in the southern California area including Los Angeles, Orange County, San Diego and surrounding cities. If you are passionate about writing and music, this is the job for you. As a concert reviewer, you will be able to attend some of the most promising live music shows passing through California all while building your journalism portfolio. Aspiring photographers are also encouraged to apply because visual reports enrich our live coverage. If you are interested in becoming a part of the concert reviewer team, please email a resume, a small personal description, and any writing samples, and we''ll go from there.\r\n\r\nESSENTIAL DUTIES AND RESPONSIBILITIES:\r\n\r\nWriting experience/samples Passion and interest for music Eagerness to participate Diligence with responses to emails, etc. ability to attend shows 1-2x/week Ability to get oneself to shows\r\n\r\nREQUIREMENTS/SKILLS:\r\n\r\nWriting experience , Positive attitude , Ability to process and create articles according to deadlines , Post info online , Professional demeanor , Team player', 900, 'Los Angeles, CA', NULL, NULL, 28, 1),
-(5, 'FILM INTERN - LA', 'THE POSITION\r\n\r\nJump-start your pro-freedom film career in the Moving Picture Institute’s paid internship program. Gain support, training, and a like-minded network in this competitive program that is designed to foster your professional growth and give you a foot in the door in the film industry. We have positions in New York and Los Angeles. MPI is a 501(c)(3) nonprofit organization that promotes freedom through film, comedy, and online videos. MPI places interns on MPI film sets, in production companies, and in major studios like NBC Universal, Fox, and Lionsgate. Our interns get hands-on experience in film while building professional relationships and establishing themselves within the industry. MPI is currently filling spots for summer 2016. Interns should be committed to advancing a free society and passionate about telling stories about freedom. We look for independent, dynamic, creative, energetic, and self-motivated college juniors and seniors, graduate students, or recent graduates who possess excellent communication abilities and who have a demonstrable interest in film production. Judgment, focus, humility, organization, an ability to work under pressure, and a sense of humor are also important. Internships are available for spring, summer, and fall, can be part-time or full-time, and are an average duration of 12-15 weeks.\r\n\r\nESSENTIAL DUTIES AND RESPONSIBILITIES:\r\n\r\nInterns'' responsibilities vary depending upon their hosts'' job descriptions. Typical tasks can include, but are not limited to, script coverage (reading, analyzing, and performing written evaluations of screenplays), production assistance, video editing, research, social media and outreach assistance, and administrative duties. MPI responsibilities may include attending and actively participating in educational masterclasses (in-person and online) as well as networking gatherings, and submitting written evaluations of your internship experience to MPI.', 560, 'Los Angeles, CA', NULL, NULL, 1, 1);
+(1, 'SUMMER INTERN', '<p style="text-align: justify; text-transform: uppercase; font-size: 19px; margin-top: 50px; margin-bottom: 10px; line-height: 12px;"><span style="font-family: Arial; letter-spacing: 0.1px;">THE POSITION</span><br></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">The Volunteer Coordinator will be responsible for the full management (recruiting, scheduling, training, and overseeing on-site) of 100+ volunteers for the Litchfield Jazz Festival.</span></p><p class="infoTitle" style="text-align: justify; text-transform: uppercase; font-size: 19px; margin-top: 50px; margin-bottom: 10px; letter-spacing: normal; line-height: 12px;"><span style="font-family: Arial;">ESSENTIAL DUTIES AND RESPONSIBILITIES:</span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">•</span><span style="font-family: Arial;">&nbsp;</span><span style="font-family: Arial;">Maintain volunteer applications, schedules, and other paperwork </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Communicate with Regional 6 and Torrington Public School administration, local businesses, colleges, civic organizations, youth groups, and churches to encourage referrals of potential volunteers </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Develop and deliver training programs for volunteers </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Review policies and procedures for issues related to volunteers, prepare and maintain procedural and training materials, and the LPA volunteer database </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Monitor volunteers’ performance and satisfaction and provide ongoing training and support as needed</span></p><p class="infoTitle" style="text-align: justify; text-transform: uppercase; font-size: 19px; margin-top: 50px; margin-bottom: 10px; letter-spacing: normal; line-height: 12px;"><span style="font-family: Arial;">REQUIREMENTS/SKILLS:</span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Have a GPA of 3.0 or above , </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Be a college student or within six months post-graduation; college credit is available. Preferably working on a degree towards communications, marketing, or in a similar field, </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Be customer-service oriented and diplomatic, </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Be able to work independently as well as with teams, </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Be proficient in Microsoft Word and Excel , </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Have excellent verbal and written communication skills, </span></p><p style="text-align: justify; font-size: 15px; line-height: 26px; letter-spacing: normal;"><span style="font-family: Arial;">• Have strong organizational skills, including prioritizing and multi-tasking,</span></p>', 500000001, 'Los Angeles, CA', '2016-03-22', 1, 29, 1),
+(2, 'SUMMER DEVELOPMENT INTERN', 'THE POSITION\r\n\r\nThe Combine, a Los Angeles-based film production company, is looking for resourceful and hungry interns to start Summer 2015! If you want to learn producing, development, and production, this is an excellent opportunity to contribute to a new, quickly growing company.\r\n\r\nESSENTIAL DUTIES AND RESPONSIBILITIES:\r\n\r\nResponsibilities include, but are not limited to, answering phones as needed, script reading and coverage, project research, assisting busy executives and assistant with crafting presentation material, and other administrative tasks.\r\n\r\nREQUIREMENTS/SKILLS:\r\n\r\nCandidates should be independent, hard working, detail-oriented, level headed, and personable. Candidates also would ideally have 1-2 years experience with script coverage, good storytelling instincts, and a passion for films with authenticity. Valid drivers'' license and working car required. A working knowledge of Mac’s and graphic design/editing software such as Final Draft, Photoshop, Illustrator, Keynote, Adobe Acrobat and Final Cut a plus.', 500000000, 'Los Angeles, CA', NULL, 1, 11, 1),
+(3, 'GRAPHIC DESIGNER', 'THE POSITION\r\n\r\nRapchat, a 500 Startups company, is an app that lets you create, share, and discover freestyle raps. We''re currently seeking a baller-ass Graphic Design intern to assist our creative team in developing/creating assets for Mobile, Web, Social, Email and more! If you can drop bars or spit a quick 16 that be awesome... but not necessarily required.\r\n\r\nESSENTIAL DUTIES AND RESPONSIBILITIES:\r\n\r\nCreating/crafting content across all Social Media platforms. Assisting with Email graphics and designs. Design one-sheeters for potential industry partners Assist with Web design, branding and App screen mock ups.\r\n\r\nREQUIREMENTS/SKILLS:\r\n\r\nAdvanced Photoshop, Freestyle skills, Mailchimp HTML design, Social Media', 400000000, 'Mountain View, CA', '2016-03-18', NULL, 21, 1),
+(4, 'LIVE CONCERT REVIEWER', 'THE POSITION\r\n\r\nLooking for a new opportunity to broaden your horizons and strengthen your writing skills? Are you passionate about experiencing live music? Combine the two and become a concert reviewer! We are an eclectic daily music magazine devoted to providing a well-rounded selection of content. We hold a professional and enthusiastic standard for the information we publish. An essential part of what makes the magazine tick is live coverage of musical performances. We are currently adding to our team of concert reviewers in the southern California area including Los Angeles, Orange County, San Diego and surrounding cities. If you are passionate about writing and music, this is the job for you. As a concert reviewer, you will be able to attend some of the most promising live music shows passing through California all while building your journalism portfolio. Aspiring photographers are also encouraged to apply because visual reports enrich our live coverage. If you are interested in becoming a part of the concert reviewer team, please email a resume, a small personal description, and any writing samples, and we''ll go from there.\r\n\r\nESSENTIAL DUTIES AND RESPONSIBILITIES:\r\n\r\nWriting experience/samples Passion and interest for music Eagerness to participate Diligence with responses to emails, etc. ability to attend shows 1-2x/week Ability to get oneself to shows\r\n\r\nREQUIREMENTS/SKILLS:\r\n\r\nWriting experience , Positive attitude , Ability to process and create articles according to deadlines , Post info online , Professional demeanor , Team player', 900000000, 'Los Angeles, CA', '2016-03-17', NULL, 28, 1),
+(5, 'FILM INTERN - LA', 'THE POSITION\r\n\r\nJump-start your pro-freedom film career in the Moving Picture Institute’s paid internship program. Gain support, training, and a like-minded network in this competitive program that is designed to foster your professional growth and give you a foot in the door in the film industry. We have positions in New York and Los Angeles. MPI is a 501(c)(3) nonprofit organization that promotes freedom through film, comedy, and online videos. MPI places interns on MPI film sets, in production companies, and in major studios like NBC Universal, Fox, and Lionsgate. Our interns get hands-on experience in film while building professional relationships and establishing themselves within the industry. MPI is currently filling spots for summer 2016. Interns should be committed to advancing a free society and passionate about telling stories about freedom. We look for independent, dynamic, creative, energetic, and self-motivated college juniors and seniors, graduate students, or recent graduates who possess excellent communication abilities and who have a demonstrable interest in film production. Judgment, focus, humility, organization, an ability to work under pressure, and a sense of humor are also important. Internships are available for spring, summer, and fall, can be part-time or full-time, and are an average duration of 12-15 weeks.\r\n\r\nESSENTIAL DUTIES AND RESPONSIBILITIES:\r\n\r\nInterns'' responsibilities vary depending upon their hosts'' job descriptions. Typical tasks can include, but are not limited to, script coverage (reading, analyzing, and performing written evaluations of screenplays), production assistance, video editing, research, social media and outreach assistance, and administrative duties. MPI responsibilities may include attending and actively participating in educational masterclasses (in-person and online) as well as networking gatherings, and submitting written evaluations of your internship experience to MPI.', 560000000, 'Los Angeles, CA', '2016-03-10', NULL, 1, 1),
+(6, 'Post title6', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(7, 'Post title7', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(8, 'Post title8', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(9, 'Post title9', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(10, 'Post title10', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(11, 'Post title11', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(12, 'Post title12', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(13, 'Post title13', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(14, 'Post title14', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(15, 'Post title15', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(16, 'Post title16', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(17, 'Post title17', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(18, 'Post title18', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(19, 'Post title19', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(20, 'Post title20', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(21, 'Post title21', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(22, 'Post title22', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(23, 'Post title23', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1),
+(24, 'Post title24', 'Returns a URL pointing to a combination of controller and action. If $url is empty, it returns the REQUEST\\_URI, otherwise it generates the URL for the controller and action combo. If full is true, the full base URL will be prepended to the result:', 5000000, 'Danana, VN', '2016-03-25', 0, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -505,14 +551,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `user_activation_key_UNIQUE` (`user_activation_key`),
   UNIQUE KEY `user_email_UNIQUE` (`user_email`),
   KEY `fk_cs_users_cs_groups1_idx` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_email`, `user_registered`, `user_status`, `user_activation_key`, `user_avatar`, `group_id`) VALUES
-(1, 'noname', '123', 'thevien@outlook.com', '2016-03-16', 0, '123', 'bca', 1);
+(1, 'noname', '123456798v', 'thevien@outlook.com', '2016-03-16', 1, '123', 'bca', 1),
+(2, 'kyler', '123123', 'kyler@gmail.com', '2016-03-22', 1, '123123', 'bca', 1);
 
 --
 -- Constraints for dumped tables
@@ -528,8 +575,8 @@ ALTER TABLE `administrators`
 -- Constraints for table `applicants`
 --
 ALTER TABLE `applicants`
-  ADD CONSTRAINT `fk_cs_applicants_cs_users1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_cs_applicants_cs_career_paths1` FOREIGN KEY (`career_path_id`) REFERENCES `career_paths` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_cs_applicants_cs_career_paths1` FOREIGN KEY (`career_path_id`) REFERENCES `career_paths` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cs_applicants_cs_users1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `applicants_follow_posts`
@@ -562,8 +609,8 @@ ALTER TABLE `appointments`
 -- Constraints for table `appointments_has_applicants`
 --
 ALTER TABLE `appointments_has_applicants`
-  ADD CONSTRAINT `fk_cs_appointments_has_cs_applicants_cs_appointments1` FOREIGN KEY (`appointment_id`) REFERENCES `appointments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_cs_appointments_has_cs_applicants_cs_applicants1` FOREIGN KEY (`applicant_id`) REFERENCES `applicants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_cs_appointments_has_cs_applicants_cs_applicants1` FOREIGN KEY (`applicant_id`) REFERENCES `applicants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cs_appointments_has_cs_applicants_cs_appointments1` FOREIGN KEY (`appointment_id`) REFERENCES `appointments` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `curriculum_vitaes`
@@ -583,8 +630,8 @@ ALTER TABLE `feedbacks`
 -- Constraints for table `follow`
 --
 ALTER TABLE `follow`
-  ADD CONSTRAINT `fk_cs_hiring_managers_has_cs_applicants_cs_hiring_managers1` FOREIGN KEY (`hiring_manager_id`) REFERENCES `hiring_managers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_cs_hiring_managers_has_cs_applicants_cs_applicants1` FOREIGN KEY (`applicant_id`) REFERENCES `applicants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_cs_hiring_managers_has_cs_applicants_cs_applicants1` FOREIGN KEY (`applicant_id`) REFERENCES `applicants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cs_hiring_managers_has_cs_applicants_cs_hiring_managers1` FOREIGN KEY (`hiring_manager_id`) REFERENCES `hiring_managers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `hiring_managers`
@@ -608,8 +655,8 @@ ALTER TABLE `notifications`
 -- Constraints for table `personal_history`
 --
 ALTER TABLE `personal_history`
-  ADD CONSTRAINT `fk_cs_personal_history_cs_personal_history_types1` FOREIGN KEY (`personal_history_type_id`) REFERENCES `personal_history_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_cs_personal_history_cs_applicants1` FOREIGN KEY (`applicant_id`) REFERENCES `applicants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_cs_personal_history_cs_applicants1` FOREIGN KEY (`applicant_id`) REFERENCES `applicants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cs_personal_history_cs_personal_history_types1` FOREIGN KEY (`personal_history_type_id`) REFERENCES `personal_history_types` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `posts`
@@ -622,8 +669,8 @@ ALTER TABLE `posts`
 -- Constraints for table `posts_has_curriculum_vitaes`
 --
 ALTER TABLE `posts_has_curriculum_vitaes`
-  ADD CONSTRAINT `fk_cs_posts_has_cs_curriculum_vitaes_cs_posts1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_cs_posts_has_cs_curriculum_vitaes_cs_curriculum_vitaes1` FOREIGN KEY (`curriculum_vitae_id`) REFERENCES `curriculum_vitaes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cs_posts_has_cs_curriculum_vitaes_cs_posts1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_posts_has_curriculum_vitaes_apply_status1` FOREIGN KEY (`apply_status_id`) REFERENCES `apply_status` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
