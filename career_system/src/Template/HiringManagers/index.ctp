@@ -56,63 +56,8 @@
                         <?= $this->Paginator->next('<i class="fa fa-angle-right"></i>',
                         ['escape' => false]) ?>
                     </ul>
-                    <p><?= $this->Paginator->counter() ?></p>
                 </div>
             </div>
         </div>
     </div>
-
-<!--     <div class="col-lg-4">
-        <div class="card">
-            <div class="card-head">
-                <header><?= __('Actions') ?></header>
-            </div>
-            <div class="card-body no-padding">
-                <ul class="list divider-full-bleed">
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Hiring Manager</div>',
-                        ['action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Appointments</div>',
-                        ['controller' => 'Appointments', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Appointment</div>',
-                        ['controller' => 'Appointments', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Follow</div>',
-                        ['controller' => 'Follow', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Follow</div>',
-                        ['controller' => 'Follow', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Posts</div>',
-                        ['controller' => 'Posts', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Post</div>',
-                        ['controller' => 'Posts', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
 </div>

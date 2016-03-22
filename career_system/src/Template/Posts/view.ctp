@@ -6,10 +6,10 @@
                     <div class="col-md-8">
                         <h2><?= $post->post_title; ?></h2>
                         <div class="row">
-                            <div class="col-sm-6"><i><i class="fa fa-calendar"></i> <?= Cake\I18n\Time::parse($post->post_date)->i18nFormat('dd-MMM-yyyy'); ?></i></div>
-                            <div class="col-sm-6"><i><i class="fa fa-map-marker"></i> <?= $post->has('post_location') ? $post->post_location : ''; ?></i></div>
-                            <div class="col-sm-6"><i><i class="fa fa-archive"></i> <?= $post->has('category') ? $post->category->category_name : ''; ?></i></div>
-                            <div class="col-sm-6"><i><i class="fa fa-usd"></i> <?= $post->has('post_salary') ? $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) : ''; ?></i></div>
+                            <div class="col-sm-6"><i><i class="fa fa-calendar"></i> <?= h($post->post_date->format('d-M-Y')); ?></i></div>
+                            <div class="col-sm-6"><i><i class="fa fa-map-marker"></i> <?= $post->has('post_location') ? h($post->post_location) : '' ?></i></div>
+                            <div class="col-sm-6"><i><i class="fa fa-archive"></i> <?= $post->has('category') ? h($post->category->category_name) : '' ?></i></div>
+                            <div class="col-sm-6"><i><i class="fa fa-usd"></i> <?= $post->has('post_salary') ? $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) : '' ?></i></div>
                         </div>
                         <br>
                         <?= $this->Html->link(

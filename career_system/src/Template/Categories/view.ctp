@@ -2,7 +2,7 @@
     <div class="section-body contain-lg">
     <div class="row">
         <?php foreach ($posts as $post): ?>
-        <div class="col-sm-6 animated fadeInRight">
+        <div class="col-sm-6 animated fadeInUp">
             <div class="card card-underline">
                 <div class="card-body">
                     <div class="row">
@@ -30,11 +30,11 @@
                             </h4>
                             <div class="row">
                                 <div class="col-sx-12"> 
-                                    <i class="fa fa-calendar"></i> <?= Cake\I18n\Time::parse($post->post_date)->i18nFormat('dd-MMM-yyyy'); ?><br/>
-                                    <i class="fa fa-map-marker"></i> <?= $post->has('post_location') ? $post->post_location : ''; ?><br/>
-                                    <i class="fa fa-phone"></i> <?= $post->has('hiring_manager') ? $post->hiring_manager->hiring_manager_phone_number : ''; ?><br/>
-                                    <i class="fa fa-archive"></i> <?= $post->has('category') ? $post->category->category_name : ''; ?><br/>
-                                    <i class="fa fa-usd"></i> <?= $post->has('post_salary') ? $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) : ''; ?><br/>
+                                    <i class="fa fa-calendar"></i> <?= h($post->post_date->format('d-M-Y')) ?><br/>
+                                    <i class="fa fa-map-marker"></i> <?= $post->has('post_location') ? h($post->post_location) : '' ?><br/>
+                                    <i class="fa fa-phone"></i> <?= $post->has('hiring_manager') ? h($post->hiring_manager->hiring_manager_phone_number) : '' ?><br/>
+                                    <i class="fa fa-archive"></i> <?= $post->has('category') ? h($post->category->category_name) : '' ?><br/>
+                                    <i class="fa fa-usd"></i> <?= $post->has('post_salary') ? $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) : '' ?><br/>
                                 </div>
                             </div>
                         </div>

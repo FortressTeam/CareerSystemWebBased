@@ -26,7 +26,7 @@
                                 <td><?= h($post->post_title) ?></td>
                                 <td><?= $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) ?></td>
                                 <td><?= h($post->post_location) ?></td>
-                                <td><?= Cake\I18n\Time::parse($post->post_date)->i18nFormat('dd-MMM-yyyy'); ?></td>
+                                <td><?= h($post->post_date->format('e')) ?></td>
                                 <td><?= ($post->post_status == 0)?'<span class="label label-warning">Pending</span>':'<span class="label label-success">Active</span>' ?></td>
                                 <td><?= $post->has('hiring_manager') ? $this->Html->link($post->hiring_manager->hiring_manager_name, ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id]) : '' ?></td>
                                 <td class="actions text-right">
@@ -52,7 +52,6 @@
                         <?= $this->Paginator->next('<i class="fa fa-angle-right"></i>',
                         ['escape' => false]) ?>
                     </ul>
-                    <p><?= $this->Paginator->counter() ?></p>
                 </div>
             </div>
         </div>

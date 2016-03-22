@@ -122,9 +122,7 @@ class CategoriesController extends AppController
      */
     public function edit($id = null)
     {
-        $category = $this->Categories->get($id, [
-            'contain' => []
-        ]);
+        $category = $this->Categories->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $category = $this->Categories->patchEntity($category, $this->request->data);
             if ($this->Categories->save($category)) {

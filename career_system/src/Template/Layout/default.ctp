@@ -22,8 +22,8 @@ $cakeDescription = 'Career System: Something';
     <!-- BEGIN META -->
     <?= $this->Html->charset() ?>
     <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
+        <?= $this->fetch('title') ?> - 
+        <?= $cakeDescription ?>
     </title>
     <?= $this->Html->meta('icon') ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -99,7 +99,7 @@ $cakeDescription = 'Career System: Something';
                             <li class="dropdown-header">Today's messages</li>
                             <li>
                                 <a class="alert alert-callout alert-info" href="javascript:void(0);">
-                                    <?= $this->Html->image('company.jpg', ['alt' => 'Vic', 'class' => 'pull-right img-circle dropdown-avatar']) ?>
+                                    <?= $this->Html->image('company_img/1.jpg', ['alt' => 'Vic', 'class' => 'pull-right img-circle dropdown-avatar']) ?>
                                     <strong>Alicia Adell</strong><br>
                                     <small>Reviewing last changes...</small>
                                 </a>
@@ -143,11 +143,6 @@ $cakeDescription = 'Career System: Something';
             <!-- BEGIN LIST SAMPLES -->
             <section>
                 <div class="section-body contain-lg">
-                    <div class="card">
-                        <div class="card-head">
-                            <header><?= $this->fetch('title') ?></header>
-                        </div>
-                    </div>
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
                 </div><!--end .section-body -->
@@ -224,6 +219,21 @@ $cakeDescription = 'Career System: Something';
     </div><!--end #base-->
     <!-- END BASE -->
 
+    <a class="usabilla-feedback-bar" href="#"  data-toggle="modal" data-target="#simpleModal" data-url="<?= $this->Url->build(["controller" => "feedbacks","action" => "add"]); ?>" id="usabilla-feedback-bar">Feedback</a>
+    <div class="modal fade" id="simpleModal" tabindex="-1" role="dialog" aria-labelledby="simpleModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="simpleModalLabel">Feedback</h4>
+                    <p>Please tell us what do you think, any kind of feedback is highly appreciated.</p>
+                </div>
+                <div class="modal-body" id="contentFeedback">
+                    
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 
 
     <!-- BEGIN JAVASCRIPT -->

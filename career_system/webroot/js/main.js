@@ -11,6 +11,15 @@ var lastScrollTop = 0;$( window ).scroll(function(event){var st = $( this ).scro
 $( document).ready(function(){
     $.scrollSpeed(100, 500);
 
+    $( '#usabilla-feedback-bar' ).on( 'click', function(){
+        $.ajax({
+            url: $( this ).data('url'),
+            context: document.body
+        }).done(function( data ) {
+            $( '#contentFeedback' ).html( data );
+        });
+    });
+
     $( '#signinButton' ).on( 'click', function(){
 
         // Zoom out elements

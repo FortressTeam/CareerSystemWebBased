@@ -105,7 +105,6 @@ if (!empty($indexColumns)) {
                         <?= $this->Paginator->next('<i class="fa fa-angle-right"></i>',
                         ['escape' => false]) ?>
                     </ul>
-                    <p><?= $this->Paginator->counter() ?></p>
                 </div>
             </div>
         </div>

@@ -82,7 +82,7 @@ if (isset($modelObject) && $modelObject->behaviors()->has('Tree')) {
         }
 %>
                 ?>
-                <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary col-xs-12']) ?>
+                <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary btn-block']) ?>
                 <?= $this->Form->end() ?>
             </div>
         </div>
