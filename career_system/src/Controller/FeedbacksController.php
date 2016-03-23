@@ -65,11 +65,15 @@ class FeedbacksController extends AppController
         if ($this->request->is('ajax')) {
             $this->response->disableCache();
             $this->viewBuilder()->layout('ajax');
+            $feedbackTypes = $this->Feedbacks->FeedbackTypes->find('list', ['limit' => 200]);
+            $users = $this->Feedbacks->Users->find('list', ['limit' => 200]);
+            $this->set(compact('feedback', 'feedbackTypes', 'users'));
+            $this->set('_serialize', ['feedback']);
         }
-        $feedbackTypes = $this->Feedbacks->FeedbackTypes->find('list', ['limit' => 200]);
-        $users = $this->Feedbacks->Users->find('list', ['limit' => 200]);
-        $this->set(compact('feedback', 'feedbackTypes', 'users'));
-        $this->set('_serialize', ['feedback']);
+        else {
+            $this->Flash->success(__('This page is not found.'));
+            return $this->redirect($this->referer());
+        }
     }
 
     /**

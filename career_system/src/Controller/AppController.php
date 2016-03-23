@@ -45,6 +45,18 @@ class AppController extends Controller
     }
 
     /**
+     * Before filter callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->viewBuilder()->layout('visitor');
+    }
+
+    /**
      * Before render callback.
      *
      * @param \Cake\Event\Event $event The beforeRender event.

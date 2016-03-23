@@ -14,7 +14,7 @@
     </ul>
 </nav>
 <div class="users view large-9 medium-8 columns content">
-    <h3><?= h($user->id) ?></h3>
+    <h3><?= h($user->username) ?></h3>
     <table class="vertical-table">
         <tr>
             <th><?= __('Username') ?></th>
@@ -38,7 +38,7 @@
         </tr>
         <tr>
             <th><?= __('Group') ?></th>
-            <td><?= $user->has('group') ? $this->Html->link($user->group->id, ['controller' => 'Groups', 'action' => 'view', $user->group->id]) : '' ?></td>
+            <td><?= $user->has('group') ? $this->Html->link($user->group->group_name, ['controller' => 'Groups', 'action' => 'view', $user->group->id]) : '' ?></td>
         </tr>
         <tr>
             <th><?= __('Id') ?></th>

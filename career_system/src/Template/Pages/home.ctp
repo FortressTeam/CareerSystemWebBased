@@ -317,7 +317,22 @@
         </div>
     </footer>
 
-    <a class="usabilla-feedback-bar" href="#" onclick="window.usabilla_live('click');" id="usabilla-feedback-bar">Feedback</a>
+
+    <a class="usabilla-feedback-bar" href="#"  data-toggle="modal" data-target="#simpleModal" data-url="<?= $this->Url->build(["controller" => "feedbacks","action" => "add"]); ?>" id="usabilla-feedback-bar">Feedback</a>
+    <div class="modal fade" id="simpleModal" tabindex="-1" role="dialog" aria-labelledby="simpleModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="simpleModalLabel">Feedback</h4>
+                    <p>Please tell us what do you think, any kind of feedback is highly appreciated.</p>
+                </div>
+                <div class="modal-body" id="contentFeedback">
+                    
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 
 
     <!-- BEGIN JAVASCRIPT -->

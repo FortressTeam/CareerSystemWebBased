@@ -32,7 +32,7 @@
                                 <td><?= h($user->user_status) ?></td>
                                 <td><?= h($user->user_activation_key) ?></td>
                                 <td><?= h($user->user_avatar) ?></td>
-                                <td><?= $user->has('group') ? $this->Html->link($user->group->id, ['controller' => 'Groups', 'action' => 'view', $user->group->id]) : '' ?></td>
+                                <td><?= $user->has('group') ? $this->Html->link($user->group->group_name, ['controller' => 'Groups', 'action' => 'view', $user->group->id]) : '' ?></td>
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View user"><i class="fa fa-info"></i></button>',
@@ -60,63 +60,14 @@
                         <?= $this->Paginator->next('<i class="fa fa-angle-right"></i>',
                         ['escape' => false]) ?>
                     </ul>
-                    <p><?= $this->Paginator->counter() ?></p>
                 </div>
             </div>
         </div>
     </div>
-
-<!--     <div class="col-lg-4">
-        <div class="card">
-            <div class="card-head">
-                <header><?= __('Actions') ?></header>
-            </div>
-            <div class="card-body no-padding">
-                <ul class="list divider-full-bleed">
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New User</div>',
-                        ['action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Groups</div>',
-                        ['controller' => 'Groups', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Group</div>',
-                        ['controller' => 'Groups', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Feedbacks</div>',
-                        ['controller' => 'Feedbacks', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Feedback</div>',
-                        ['controller' => 'Feedbacks', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Notifications</div>',
-                        ['controller' => 'Notifications', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Notification</div>',
-                        ['controller' => 'Notifications', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
+    <div class="fab_wrapper">
+        <?= $this->Html->link(
+            '<button class="btn btn_fab btn-primary"><i class="fa fa-plus"></i></button>',
+            ['action' => 'add'],
+            ['escape' => false]) ?>
+    </div>
 </div>

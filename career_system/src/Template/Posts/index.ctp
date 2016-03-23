@@ -26,7 +26,7 @@
                                 <td><?= h($post->post_title) ?></td>
                                 <td><?= $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) ?></td>
                                 <td><?= h($post->post_location) ?></td>
-                                <td><?= h($post->post_date->format('e')) ?></td>
+                                <td><?= h($post->post_date->format('d-M-y')) ?></td>
                                 <td><?= ($post->post_status == 0)?'<span class="label label-warning">Pending</span>':'<span class="label label-success">Active</span>' ?></td>
                                 <td><?= $post->has('hiring_manager') ? $this->Html->link($post->hiring_manager->hiring_manager_name, ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id]) : '' ?></td>
                                 <td class="actions text-right">

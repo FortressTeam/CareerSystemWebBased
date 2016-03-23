@@ -1,30 +1,10 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = 'Career System: Something';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
     <!-- BEGIN META -->
     <?= $this->Html->charset() ?>
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
+    <title> Career System </title>
     <?= $this->Html->meta('icon') ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,7 +33,7 @@ $cakeDescription = 'Career System: Something';
     <script type="text/javascript" src="assets/js/libs/utils/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="header-fixed header-moveable">
+<body class="header-fixed non-side-bar">
 
     <!-- BEGIN HEADER-->
     <header id="header">
@@ -61,11 +41,6 @@ $cakeDescription = 'Career System: Something';
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="headerbar-left">
                 <ul class="header-nav header-nav-options" id="headerControl">
-                    <li class="hidden-lg" id="menubarToggleButton">
-                        <a class="btn btn-icon-toggle menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
                     <li class="header-nav-brand">
                         <div class="brand-holder">
                             <a href="#">
@@ -84,111 +59,32 @@ $cakeDescription = 'Career System: Something';
                             <div class="form-group">
                                 <input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
                             </div>
-                            <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+                            <button type="submit" class="btn btn-icon-toggle ink-reaction btn-sm"><i class="fa fa-search"></i></button>
                         </form>
                     </li>
                 </ul><!--end .header-nav-options -->
 
-                <ul class="header-nav header-nav-toggle" id="headerToggle">
-                    <li class="dropdown">
-                        <a href="javascript:void(0);" class="btn btn-icon-toggle btn-default" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-bell"></i><sup class="badge style-danger">4</sup>
-                        </a>
-                        <ul class="dropdown-menu animation-expand">
-                            <li class="dropdown-header">Today's messages</li>
-                            <li>
-                                <a class="alert alert-callout alert-info" href="javascript:void(0);">
-                                    <?= $this->Html->image('company.jpg', ['alt' => 'Vic', 'class' => 'pull-right img-circle dropdown-avatar']) ?>
-                                    <strong>Alicia Adell</strong><br>
-                                    <small>Reviewing last changes...</small>
-                                </a>
-                            </li>
-                            <li><a href="#">Mark as read <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
-                        </ul><!--end .dropdown-menu -->
-                    </li><!--end .dropdown -->
-                </ul><!--end .header-nav-toggle -->
-
                 <ul class="header-nav header-nav-profile" id="headerProfile">
                     <li id="signupButton">
-                        <button type="button" class="btn ink-reaction btn-raised btn-default">SIGN UP</button>
+                        <button type="button" class="btn ink-reaction btn-raised btn-sm btn-default">SIGN UP</button>
                     </li>
                     <li id="hiringmanagerButton">
-                        <button type="button" class="btn ink-reaction btn-raised btn-primary">FOR HIRING MANAGERS</button>
-                    </li>
-                    <li class="dropdown animated fadeInRight">
-                        <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-                            <?= $this->Html->image('avatar.jpg', ['alt' => 'Vic']) ?>
-                            <span class="profile-info">Vien<small>Developer</small></span>
-                        </a>
-                        <ul class="dropdown-menu animation-dock">
-                            <li>
-                                <a href="#">My profile</a>
-                            </li>
-                            <li>
-                                <a href="#">My appointments</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#"><i class="fa fa-fw fa-power-off text-danger"></i>Logout</a>
-                            </li>
-                        </ul>
+                        <button type="button" class="btn ink-reaction btn-raised btn-sm btn-primary">FOR HIRING MANAGERS</button>
                     </li>
                 </ul><!--end .header-nav-profile -->
+
+                <ul class="header-nav header-nav-toggle" id="headerToggle">
+                    <li id="signinButton">
+                        <button type="button" class="btn btn-block ink-reaction btn-flat btn-sm btn-primary">SIGN IN</button>
+                    </li>
+                </ul><!--end .header-nav-toggle -->
             </div><!--end #header-navbar-collapse -->
         </div>
     </header>
     <!-- END HEADER-->
 
-    <!-- BEGIN HOME SEARCH-->
-    <section id="home" class="padd-0">
-        <div class="sec-overlay">
-            <div class="container home-inner">
-                <div class="card col-sm-6 col-sm-offset-3" id="searchCard">
-                    <div class="card-body">
-                        <h1>Something here</h1>
-                        <h4>Something here</h4>
-                        <div class="form-group has-primary">
-                            <input type="text" class="form-control" id="inputSearch" placeholder="Enter keyword to search">
-                            <label for="regular"></label>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-6">
-                                <div class="btn-group">
-                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        Category <i class="fa fa-caret-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu animation-expand" role="menu">
-                                        <li><a href="#">Add</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-fw fa-times text-danger"></i> Remove item</a></li>
-                                    </ul>
-                                </div>
-                            </div> 
-                            <!-- Category Button -->
-                            <div class="col-xs-6">
-                                <div class="btn-group">
-                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        Location <i class="fa fa-caret-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu animation-expand" role="menu">
-                                        <li><a href="#">Add</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-fw fa-times text-danger"></i> Remove item</a></li>
-                                    </ul>
-                                </div>
-                            </div> 
-                            <!-- Location Button -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- .container end -->
-        </div>
-    </section>
-    <!-- END HOME SEARCH-->
-
     <!-- BEGIN BASE-->
-    <div id="base">
+    <div id="   ">
 
         <!-- BEGIN CONTENT-->
         <div id="content">
@@ -196,11 +92,6 @@ $cakeDescription = 'Career System: Something';
             <!-- BEGIN LIST SAMPLES -->
             <section>
                 <div class="section-body contain-lg">
-                    <div class="card">
-                        <div class="card-head">
-                            <header><?= $this->fetch('title') ?></header>
-                        </div>
-                    </div>
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
                 </div><!--end .section-body -->
@@ -212,6 +103,121 @@ $cakeDescription = 'Career System: Something';
     </div><!--end #base-->
     <!-- END BASE -->
 
+    <!-- START POPULAR SEARCHES -->
+    <section id="popular-searches" class="no-padding">
+        <div class="popular-searches-inner section-inner">
+            <div class="row row-centered no-margin">
+                <div class="col-sm-9 col-centered left-align">
+                    <h1>Popular job searches</h1>
+                </div>
+                <div class="col-sm-3 col-centered left-align top-vertical-align">
+                    <h2>By category</h2>
+                    <div class="contain">
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-centered left-align top-vertical-align">
+                    <h2>By city</h2>
+                    <div class="contain">
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-centered left-align top-vertical-align">
+                    <h2>By company</h2>
+                    <div class="contain">
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                    </div>
+                    <div class=""></div>
+                </div>
+            </div>
+            <div class="row row-centered no-margin">
+                <div class="col-sm-3 col-centered left-align">
+                    <button class="btn ink-reaction btn-flat btn-primary">
+                        <i class="fa fa-tags"></i> Browse all categories
+                    </button>
+                </div>
+                <div class="col-sm-3 col-centered left-align">
+                    <button class="btn ink-reaction btn-flat btn-primary">
+                        <i class="fa fa-map-marker"></i> Browse all cities
+                    </button>
+                </div>
+                <div class="col-sm-3 col-centered left-align">
+                    <button class="btn ink-reaction btn-flat btn-primary">
+                        <i class="fa fa-building"></i> Browse all companies
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END POPULAR SEARCHES -->
+
+    <section id="help-center" class="no-padding style-primary">
+        <div class="section-inner">
+            <div class="row no-margin">
+                <h2>Need Help? <a href="#"><b>HELP CENTER</b></a></h2>
+            </div>
+        </div>
+    </section>
+    <footer id="footer" class="no-padding">
+        <div class="footer-inner section-inner">
+            <div class="row row-centered no-margin">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-centered left-align top-vertical-align">
+                    <h3>CAREER SYSTEM</h3>
+                    <ul>
+                        <li>About us</li>
+                        <li>Our company</li>
+                        <li>Social</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-centered left-align top-vertical-align">
+                    <h3>APPLICANTS</h3>
+                    <ul>
+                        <li>Find Jobs</li>
+                        <li>Top Categories</li>
+                        <li>Top Locations</li>
+                        <li>Top Companys</li>
+                        <li>International Jobs</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-centered left-align top-vertical-align">
+                    <h3>HIRING MANAGERS</h3>
+                    <ul>
+                        <li>Search Applicants</li>
+                        <li>Post Jobs</li>
+                        <li>Talent Networks</li>
+                        <li>Advertising</li>
+                    </ul>
+                </div>
+            </div>
+            <small>Copyright © 2016 CareerSystem.com</small>
+        </div>
+    </footer>
 
 
     <!-- BEGIN JAVASCRIPT -->

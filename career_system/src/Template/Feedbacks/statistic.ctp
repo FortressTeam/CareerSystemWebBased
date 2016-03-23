@@ -13,7 +13,7 @@
 
 <div class="card">
 	<div class="card-head">
-		<header>Domut chart: Feedbacks by month</header>
+		<header>Domut chart: Feedbacks by type</header>
 	</div>
 	<div class="card-body">
 		<div id="typeDonutChart" data-url="<?= $this->Url->build('/api/feedbacks/type'); ?>"></div>

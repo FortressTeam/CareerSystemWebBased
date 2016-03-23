@@ -12,6 +12,30 @@ class FeedbacksController extends AppController
 {
 
     /**
+     * Add method
+     *
+     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+     */
+    public function add()
+    {
+        $feedback = $this->Feedbacks->newEntity();
+        if ($this->request->is('post')) {
+            $feedback = $this->Feedbacks->patchEntity($feedback, $this->request->data);
+            if ($this->Feedbacks->save($feedback)) {
+                $this->Flash->success(__('The feedback has been saved.'));
+                return $this->redirect($this->referer());
+            } else {
+                $this->Flash->error(__('The feedback could not be saved. Please, try again.'));
+                return $this->redirect($this->referer());
+            }
+        }
+        $feedbackTypes = $this->Feedbacks->FeedbackTypes->find('list', ['limit' => 200]);
+        $users = $this->Feedbacks->Users->find('list', ['limit' => 200]);
+        $this->set(compact('feedback', 'feedbackTypes', 'users'));
+        $this->set('_serialize', ['feedback']);
+    }
+
+    /**
      * Monthly method
      *
      * @return \Cake\Network\Response|null

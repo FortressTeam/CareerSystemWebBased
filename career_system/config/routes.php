@@ -77,6 +77,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 Router::prefix('api', function ($routes) {
     $routes->extensions(['json', 'xml']);
     $routes->resources('Posts');
+    $routes->resources('Categories');
     $routes->resources('Feedbacks', [
        'map' => [
            'month' => [
