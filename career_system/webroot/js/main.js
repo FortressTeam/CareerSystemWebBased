@@ -11,7 +11,7 @@ var lastScrollTop = 0;$( window ).scroll(function(event){var st = $( this ).scro
 $( document).ready(function(){
     $.scrollSpeed(100, 500);
 
-    $( '#usabilla-feedback-bar' ).on( 'click', function(){
+    $( '#usabilla-feedback-bar' ).on( 'click', function() {
         $.ajax({
             url: $( this ).data('url'),
             context: document.body
@@ -20,7 +20,7 @@ $( document).ready(function(){
         });
     });
 
-    $( '#signinButton' ).on( 'click', function(){
+    $( '#signinButton' ).on( 'click', function() {
 
         // Zoom out elements
         $( '#signupButton' ).addClass( 'animated zoomOut' );
@@ -68,26 +68,6 @@ $( document).ready(function(){
                 }
             });
 
-            $.ajax({ type: "GET",   
-                url: "companies.html",   
-                async: false,
-                success : function( result )
-                {
-                        $( "#content" ).append( result );
-                }
-            });
-
-            $.ajax({ type: "GET",   
-                url: "newsfeed.html",   
-                async: false,
-                success : function( result )
-                {
-                        $( "#content" ).append( result );
-                }
-            });
-
-
-            //window.history.pushState("a", "Applicant Page", "applicant.html");
         }, 750);
     });
 });

@@ -69,9 +69,12 @@ $cakeDescription = 'Career System: Something';
                     </li>
                     <li class="header-nav-brand">
                         <div class="brand-holder">
-                            <a href="#">
-                                <span class="text-lg text-bold text-primary">CAREER SYSTEM</span>
-                            </a>
+                            <?= $this->Html->link(
+                                $this->Html->image('logo_website.png') . 
+                                '<span class="text-lg text-bold text-primary website_name">CAREER SYSTEM</span>',
+                                ['controller' => '/'],
+                                ['escape' => false])
+                            ?>
                         </div>
                     </li>
                 </ul>

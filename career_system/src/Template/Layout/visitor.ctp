@@ -22,6 +22,7 @@
     
     <!-- Additional CSS includes -->
     <?= $this->Html->css('common') ?>
+    <?= $this->Html->script('libs/jquery/jquery-1.11.2.min') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -43,9 +44,12 @@
                 <ul class="header-nav header-nav-options" id="headerControl">
                     <li class="header-nav-brand">
                         <div class="brand-holder">
-                            <a href="#">
-                                <span class="text-lg text-bold text-primary">CAREER SYSTEM</span>
-                            </a>
+                            <?= $this->Html->link(
+                                $this->Html->image('logo_website.png') . 
+                                '<span class="text-lg text-bold text-primary website_name">CAREER SYSTEM</span>',
+                                ['controller' => '/'],
+                                ['escape' => false])
+                            ?>
                         </div>
                     </li>
                 </ul>
@@ -84,7 +88,7 @@
     <!-- END HEADER-->
 
     <!-- BEGIN BASE-->
-    <div id="   ">
+    <div id="base">
 
         <!-- BEGIN CONTENT-->
         <div id="content">
@@ -219,9 +223,24 @@
         </div>
     </footer>
 
+    <a class="usabilla-feedback-bar" href="#"  data-toggle="modal" data-target="#simpleModal" data-url="<?= $this->Url->build(["controller" => "feedbacks","action" => "add"]); ?>" id="usabilla-feedback-bar">Feedback</a>
+    <div class="modal fade" id="simpleModal" tabindex="-1" role="dialog" aria-labelledby="simpleModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="simpleModalLabel">Feedback</h4>
+                    <p>Please tell us what do you think, any kind of feedback is highly appreciated.</p>
+                </div>
+                <div class="modal-body" id="contentFeedback">
+                    
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
 
     <!-- BEGIN JAVASCRIPT -->
-    <?= $this->Html->script('libs/jquery/jquery-1.11.2.min') ?>
     <?= $this->Html->script('libs/jquery/jquery-migrate-1.2.1.min') ?>
     <?= $this->Html->script('libs/bootstrap/bootstrap.min') ?>
     <?= $this->Html->script('libs/nanoscroller/jquery.nanoscroller.min') ?>

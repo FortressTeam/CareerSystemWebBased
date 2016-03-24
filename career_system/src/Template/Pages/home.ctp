@@ -33,7 +33,7 @@
     <script type="text/javascript" src="assets/js/libs/utils/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="header-fixed non-side-bar">
+<body class="header-fixed">
 
     <!-- BEGIN HEADER-->
     <header id="header">
@@ -43,9 +43,12 @@
                 <ul class="header-nav header-nav-options" id="headerControl">
                     <li class="header-nav-brand">
                         <div class="brand-holder">
-                            <a href="#">
-                                <span class="text-lg text-bold text-primary">CAREER SYSTEM</span>
-                            </a>
+                            <?= $this->Html->link(
+                                $this->Html->image('logo_website.png') . 
+                                '<span class="text-lg text-bold text-primary website_name">CAREER SYSTEM</span>',
+                                ['controller' => '/'],
+                                ['escape' => false])
+                            ?>
                         </div>
                     </li>
                 </ul>
@@ -316,7 +319,6 @@
             <small>Copyright © 2016 CareerSystem.com</small>
         </div>
     </footer>
-
 
     <a class="usabilla-feedback-bar" href="#"  data-toggle="modal" data-target="#simpleModal" data-url="<?= $this->Url->build(["controller" => "feedbacks","action" => "add"]); ?>" id="usabilla-feedback-bar">Feedback</a>
     <div class="modal fade" id="simpleModal" tabindex="-1" role="dialog" aria-labelledby="simpleModalLabel" aria-hidden="true" style="display: none;">

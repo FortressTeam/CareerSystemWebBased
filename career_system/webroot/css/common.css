@@ -67,6 +67,11 @@ footer {
     display: inline-block;
     float: none;
 }
+.website_name {
+    vertical-align: middle;
+    color: #44B0CB;
+    padding: 10px;
+}
 /* --------------------------------- */
 /* 3. Navigation Menu Styles
  ----------------------------------- */
@@ -77,9 +82,6 @@ footer {
 }
 .non-side-bar>#base {
     padding: 0 64px;
-}
-.non-side-bar>#base>#content {
-    padding: 0;
 }
 /* --------------------------------- */
 /* 4. Home Section Styles

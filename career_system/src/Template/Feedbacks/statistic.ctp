@@ -2,18 +2,18 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-<div class="card">
+<div class="card col-sm-6">
 	<div class="card-head">
-		<header>Line chart: Feedbacks by month</header>
+		<header>Statistic Feedbacks by month in 2016</header>
 	</div>
 	<div class="card-body">
 		<div id="monthlyLineChart" data-url="<?= $this->Url->build('/api/feedbacks/month'); ?>"></div>
 	</div>
 </div>
 
-<div class="card">
+<div class="card col-sm-6">
 	<div class="card-head">
-		<header>Domut chart: Feedbacks by type</header>
+		<header>Statistic Feedbacks by type in 2016</header>
 	</div>
 	<div class="card-body">
 		<div id="typeDonutChart" data-url="<?= $this->Url->build('/api/feedbacks/type'); ?>"></div>

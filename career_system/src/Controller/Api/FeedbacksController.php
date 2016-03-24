@@ -12,6 +12,22 @@ class FeedbacksController extends AppController
 {
 
     /**
+     * Index method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function index()
+    {
+        $this->paginate = [
+            'contain' => ['FeedbackTypes', 'Users']
+        ];
+        $feedbacks = $this->paginate($this->Feedbacks);
+
+        $this->set(compact('feedbacks'));
+        $this->set('_serialize', ['feedbacks']);
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
@@ -22,17 +38,13 @@ class FeedbacksController extends AppController
         if ($this->request->is('post')) {
             $feedback = $this->Feedbacks->patchEntity($feedback, $this->request->data);
             if ($this->Feedbacks->save($feedback)) {
-                $this->Flash->success(__('The feedback has been saved.'));
-                return $this->redirect($this->referer());
+                $message = 'Saved';
             } else {
-                $this->Flash->error(__('The feedback could not be saved. Please, try again.'));
-                return $this->redirect($this->referer());
+                $message = 'Saved';
             }
         }
-        $feedbackTypes = $this->Feedbacks->FeedbackTypes->find('list', ['limit' => 200]);
-        $users = $this->Feedbacks->Users->find('list', ['limit' => 200]);
-        $this->set(compact('feedback', 'feedbackTypes', 'users'));
-        $this->set('_serialize', ['feedback']);
+        $this->set(compact('message', 'feedback'));
+        $this->set('_serialize', ['message', 'feedback']);
     }
 
     /**
