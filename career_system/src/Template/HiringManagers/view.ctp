@@ -1,28 +1,33 @@
 <div class="row">
-    <div class="col-md-3 padd-2 row-centered">
-        <?= $this->Form->create($hiringManager, ['type' => 'file']); ?>
-            <div class="btn btn-icon-toggle" id="buttonCompanyImage"><i class="fa fa-camera"></i></div>
-            <?= $this->Html->image(
-                'company_img' . DS . $hiringManager->company_logo,
-                ['class' => 'img-circle border-gray border-xl img-responsive', 'id' => 'companyImage']);
-            ?>
-            <div class="hidden">
-                <?= $this->Form->input('company_image', ['type' => 'file', 'id' => 'imputCompanyImage']) ?>
+    <div class="col-sm-3">
+        <div class="row row-centered">
+            <div class="col-xs-6 col-xs-offset-3 col-sm-offset-0 col-sm-12">
+                <?= $this->Form->create($hiringManager, ['type' => 'file']); ?>
+                    <div class="btn btn-icon-toggle" id="buttonCompanyImage"><i class="fa fa-camera"></i></div>
+                    <?= $this->Html->image(
+                        'company_img' . DS . $hiringManager->company_logo,
+                        ['class' => 'img-circle border-white border-xl img-responsive', 'id' => 'companyImage']);
+                    ?>
+                    <div class="hidden">
+                        <?= $this->Form->input('company_image', ['type' => 'file', 'id' => 'imputCompanyImage']) ?>
+                    </div>
+                <?= $this->Form->end() ?>
+                <?= $this->Html->link(
+                        '<h3 id="textName">' . h($hiringManager->company_name) . '</h3>',
+                        ['controller' => 'HiringManagers', 'action' => 'view', $hiringManager->id],
+                        ['escape' => false, 'class' => 'text-primary']);
+                ?>
+                <?= $this->Html->link(
+                        'FOLLOW',
+                        ['acction' => '#'],
+                        ['class' => 'btn ink-reactio btn-block btn-raised btn-primary']
+                    );
+                ?>
+                <br/>
             </div>
-        <?= $this->Form->end() ?>
-        <?= $this->Html->link(
-                '<h3 id="textName">' . h($hiringManager->company_name) . '</h3>',
-                ['controller' => 'HiringManagers', 'action' => 'view', $hiringManager->id],
-                ['escape' => false, 'class' => 'text-primary']);
-        ?>
-        <?= $this->Html->link(
-                'SOMETHING',
-                ['acction' => '#'],
-                ['class' => 'btn ink-reactio btn-block btn-raised btn-primary']
-            );
-        ?>
+        </div>
     </div>
-    <div class="col-lg-9">
+    <div class="col-sm-9">
         <div class="card">
             <div class="card-head">
                 <header>Company infomation</header>
@@ -125,7 +130,8 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <h2>Posts</h2>
+        <h2 class="text-primary">Posts</h2>
+        <hr/>
         <?php foreach ($hiringManager->posts as $post): ?>
         <div class="col-sm-6 animated fadeInUp">
             <div class="card card-underline">

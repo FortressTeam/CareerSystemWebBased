@@ -72,6 +72,9 @@ footer {
     color: #44B0CB;
     padding: 10px;
 }
+.list .tile .tile-text {
+    font-size: 13px;
+}
 /* --------------------------------- */
 /* 3. Navigation Menu Styles
  ----------------------------------- */
