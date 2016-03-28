@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2016 at 06:48 PM
+-- Generation Time: Mar 28, 2016 at 05:32 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `applicant_phone_number` varchar(30) NOT NULL,
   `applicant_date_of_birth` date NOT NULL,
   `applicant_place_of_birth` varchar(1024) NOT NULL,
+  `applicant_sex` tinyint(1) NOT NULL DEFAULT '1',
   `applicant_address` varchar(1024) NOT NULL,
   `applicant_country` varchar(512) NOT NULL,
   `applicant_about` longtext NOT NULL,
@@ -271,7 +272,7 @@ CREATE TABLE IF NOT EXISTS `feedbacks` (
   PRIMARY KEY (`id`),
   KEY `fk_cs_feedbacks_cs_feedback_types1_idx` (`feedback_type_id`),
   KEY `fk_cs_feedbacks_cs_users1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `feedbacks`
@@ -289,7 +290,13 @@ INSERT INTO `feedbacks` (`id`, `feedback_title`, `feedback_comment`, `feedback_d
 (9, 'asdádấáda', 'ádasd', '2015-12-02', NULL, 3, 1),
 (10, 'Title', 'Content\r\n', '2016-03-02', NULL, 1, 1),
 (11, 'asdasd', 'asdasd', '0000-00-00', NULL, 1, 1),
-(12, 'zzz', 'zzzz', '0000-00-00', NULL, 1, 1);
+(12, 'zzz', 'zzzz', '0000-00-00', NULL, 1, 1),
+(13, 'Titleaaaaaaaaaaaa', 'aaaaaaaaaaa', '2016-03-22', NULL, 1, 1),
+(14, 'Titleaaaaaaaaaaaa', 'aaaaaaaaaaa', '2016-03-22', NULL, 1, 1),
+(15, 'Titleaaaaaaaaaaaa', 'aaaaaaaaaaa', '2016-03-22', NULL, 1, 1),
+(16, '', '', '2016-03-24', NULL, 3, 1),
+(17, 'testfeedback', 'Time for lunch closes :">', '2016-03-24', NULL, 4, 1),
+(18, 'afgadgad', 'gadgadgadgadgdagadg\nadgadgadg\ndagadg\nadgadg\nadg\nadg\ndagadgdagadg\nadgadgadg\nadg\nadg\nadg\nadg\nadg\ng\nsgdas\ng\nadg\nad\ng\nadg\nad\ng\nadg', '2016-03-24', NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -340,14 +347,16 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `group_name` varchar(512) NOT NULL,
   `group_description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `groups`
 --
 
 INSERT INTO `groups` (`id`, `group_name`, `group_description`) VALUES
-(1, 'Administrator', 'Description here');
+(1, 'Administrator', 'Description here'),
+(2, 'Hiring Manager', 'Descriptions'),
+(3, 'Applicant', 'Descriptions');
 
 -- --------------------------------------------------------
 
@@ -361,6 +370,7 @@ CREATE TABLE IF NOT EXISTS `hiring_managers` (
   `hiring_manager_phone_number` varchar(30) DEFAULT NULL,
   `company_name` varchar(1024) DEFAULT NULL,
   `company_address` varchar(1024) DEFAULT NULL,
+  `company_email` varchar(100) DEFAULT NULL,
   `company_size` int(11) DEFAULT NULL,
   `company_about` text,
   `company_logo` varchar(1024) DEFAULT NULL,
@@ -372,9 +382,9 @@ CREATE TABLE IF NOT EXISTS `hiring_managers` (
 -- Dumping data for table `hiring_managers`
 --
 
-INSERT INTO `hiring_managers` (`id`, `hiring_manager_name`, `hiring_manager_phone_number`, `company_name`, `company_address`, `company_size`, `company_about`, `company_logo`) VALUES
-(1, 'Nguyen The Vien', '0963354060', 'Dell Inc', 'CDE St.', 100, 'Litchfield Performing Arts (LPA) is a charitable organization founded in 1981 whose mission is to educate and inspire young people to be confident, creative, expressive individuals through challenging programs in both jazz music and the performing arts while sharing the passion and magic of the arts with the wider community.', '1.jpg'),
-(2, 'Kyler', '01213163478', 'Duckky', 'Da nang', 123, 'Hello World', '1.jpg');
+INSERT INTO `hiring_managers` (`id`, `hiring_manager_name`, `hiring_manager_phone_number`, `company_name`, `company_address`, `company_email`, `company_size`, `company_about`, `company_logo`) VALUES
+(1, 'Nguyen The Vien', '0963935709', 'Dell Inc.', 'Round Rock, Texas.', 'dell@dell.com', 10001, 'Litchfield Performing Arts (LPA) is a charitable organization founded in 1981 whose mission is to educate and inspire young people to be confident, creative, expressive individuals through challenging programs in both jazz music and the performing arts while sharing the passion and magic of the arts with the wider community.', '1.jpg'),
+(2, 'Kyler', '01213163478', 'Duckky', 'Da nang', 'recruitment@duckky.vn', 123, 'Hello World', '1.jpg');
 
 -- --------------------------------------------------------
 
@@ -472,7 +482,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   PRIMARY KEY (`id`),
   KEY `fk_cs_posts_cs_categories_idx` (`category_id`),
   KEY `fk_cs_posts_cs_hiring_managers1_idx` (`hiring_manager_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `posts`
@@ -516,7 +526,11 @@ INSERT INTO `posts` (`id`, `post_title`, `post_content`, `post_salary`, `post_lo
 (38, 'eegwgwrg', 'rwgwr wr gwr gwrgw g', NULL, 'rwgwrgrwgrw', '2016-03-23', 1, 1, 1),
 (39, 'dgdada', 'adgadgadg', 2147483647, 'adgadg', '2016-03-23', 1, 1, 1),
 (40, 'dgdada', 'adgadgadg', 2147483647, 'adgadg', '2016-03-23', 1, 1, 1),
-(41, 'dgdada', 'adgadgadg', 11111111, 'adgadg', '2016-03-23', 1, 1, 1);
+(41, 'dgdada', 'adgadgadg', 11111111, 'adgadg', '2016-03-23', 1, 1, 1),
+(42, 'abc', 'feqfqe', NULL, 'abc', '2016-03-25', 1, 3, 1),
+(43, 'agadgadg', 'adgadg', NULL, 'adgadg', '2016-03-25', 1, 1, 1),
+(44, 'agadgadg', 'adgadg', NULL, 'adgadg', '2016-03-25', 1, 1, 1),
+(45, 'agadgadg', 'adgadg', 12, 'adgadg', '2016-03-25', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -567,15 +581,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `user_activation_key_UNIQUE` (`user_activation_key`),
   UNIQUE KEY `user_email_UNIQUE` (`user_email`),
   KEY `fk_cs_users_cs_groups1_idx` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_email`, `user_registered`, `user_status`, `user_activation_key`, `user_avatar`, `group_id`) VALUES
-(1, 'noname', '123456798v', 'thevien@outlook.com', '2016-03-16', 1, '123', 'bca', 1),
-(2, 'kyler', '123123', 'kyler@gmail.com', '2016-03-22', 1, '123123', 'bca', 1);
+(1, 'noname', '123456798v', 'thevien@outlook.com', '2016-03-16', 1, '123', 'bca', 2),
+(2, 'kyler', '123123', 'kyler@gmail.com', '2016-03-22', 1, '123123', 'bca', 2),
+(4, 'vic', '123456789', 'vic@gmail.com', '0000-00-00', 1, '1231', '1.jpg', 3);
 
 --
 -- Constraints for dumped tables
