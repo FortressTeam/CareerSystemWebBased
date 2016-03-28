@@ -40,7 +40,7 @@ class FeedbacksController extends AppController
             if ($this->Feedbacks->save($feedback)) {
                 $message = 'Saved';
             } else {
-                $message = 'Saved';
+                $message = 'Error';
             }
         }
         $this->set(compact('message', 'feedback'));

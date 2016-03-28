@@ -22,7 +22,12 @@ class PostsController extends AppController
      */
     public function index()
     {
+        $conditions = [];
+        if($this->request->query('hiring_manager_id')) {
+            $conditions['hiring_manager_id'] = $this->request->query('hiring_manager_id');
+        }
         $this->paginate = [
+            'conditions' => $conditions,
             'contain' => ['Categories', 'HiringManagers']
         ];
         $posts = $this->paginate($this->Posts);

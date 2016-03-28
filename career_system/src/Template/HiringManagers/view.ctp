@@ -1,55 +1,169 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Hiring Manager'), ['action' => 'edit', $hiringManager->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Hiring Manager'), ['action' => 'delete', $hiringManager->id], ['confirm' => __('Are you sure you want to delete # {0}?', $hiringManager->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Hiring Managers'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Hiring Manager'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Appointments'), ['controller' => 'Appointments', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Appointment'), ['controller' => 'Appointments', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Follow'), ['controller' => 'Follow', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Follow'), ['controller' => 'Follow', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Posts'), ['controller' => 'Posts', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Post'), ['controller' => 'Posts', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="hiringManagers view large-9 medium-8 columns content">
-    <h3><?= h($hiringManager->hiring_manager_name) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Hiring Manager Name') ?></th>
-            <td><?= h($hiringManager->hiring_manager_name) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Hiring Manager Phone Number') ?></th>
-            <td><?= h($hiringManager->hiring_manager_phone_number) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Company Name') ?></th>
-            <td><?= h($hiringManager->company_name) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Company Address') ?></th>
-            <td><?= h($hiringManager->company_address) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Company Logo') ?></th>
-            <td><?= h($hiringManager->company_logo) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($hiringManager->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Company Size') ?></th>
-            <td><?= $this->Number->format($hiringManager->company_size) ?></td>
-        </tr>
-    </table>
-    <div class="row">
-        <h4><?= __('Company About') ?></h4>
-        <?= $this->Text->autoParagraph(h($hiringManager->company_about)); ?>
+<div class="row">
+    <div class="col-md-3 padd-2 row-centered">
+        <?= $this->Form->create($hiringManager, ['type' => 'file']); ?>
+            <div class="btn btn-icon-toggle" id="buttonCompanyImage"><i class="fa fa-camera"></i></div>
+            <?= $this->Html->image(
+                'company_img' . DS . $hiringManager->company_logo,
+                ['class' => 'img-circle border-gray border-xl img-responsive', 'id' => 'companyImage']);
+            ?>
+            <div class="hidden">
+                <?= $this->Form->input('company_image', ['type' => 'file', 'id' => 'imputCompanyImage']) ?>
+            </div>
+        <?= $this->Form->end() ?>
+        <?= $this->Html->link(
+                '<h3 id="textName">' . h($hiringManager->company_name) . '</h3>',
+                ['controller' => 'HiringManagers', 'action' => 'view', $hiringManager->id],
+                ['escape' => false, 'class' => 'text-primary']);
+        ?>
+        <?= $this->Html->link(
+                'SOMETHING',
+                ['acction' => '#'],
+                ['class' => 'btn ink-reactio btn-block btn-raised btn-primary']
+            );
+        ?>
     </div>
-    <div class="related">
+    <div class="col-lg-9">
+        <div class="card">
+            <div class="card-head">
+                <header>Company infomation</header>
+                <div class="tools">
+                    <div class="btn-group">
+                        <div id="companyInfoButton" class="btn btn-icon-toggle" onclick="openForm('#companyInfo')">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="companyInfoPanel" class="animated fadeIn row">
+                    <div class="col-md-6">
+                             <b>Name:</b> <i id="textName"><?= $hiringManager->company_name; ?></i>
+                        <br/><b>Size:</b> <i id="textSize"><?= $hiringManager->company_size; ?> people</i>
+                        <br/><b>Address:</b> <i id="textAddress"><?= $hiringManager->company_address; ?></i>
+                    </div>
+                    <div class="col-md-6">
+                             <b>Hiring manager:</b> <i id="textManagerName"><?= $hiringManager->hiring_manager_name; ?></i>
+                        <br/><b>Phone number:</b> <i id="textManagerPhone"><?= $hiringManager->hiring_manager_phone_number; ?></i>
+                        <br/><b>Email:</b> <i id="textEmail"><?= $hiringManager->company_email; ?></i>
+                    </div>
+                </div>
+
+                <div id="companyInfoForm" class="animated fadeIn" style="display: none">
+                    <?= $this->Form->create($hiringManager, [
+                            'class' => 'form',
+                            'templates' => [
+                                'formGroup' => '{{input}}{{label}}',
+                                'inputContainer' => '<div class="form-group floating-label col-md-6">{{content}}</div>'
+                            ]
+                        ])
+                    ?>
+                    <?php
+                        echo $this->Form->input('company_name', ['class' => 'form-control', 'id' => 'inputName']);
+                        echo $this->Form->input('hiring_manager_name', ['class' => 'form-control', 'id' => 'inputManagerName']);
+                        echo $this->Form->input('company_size', ['class' => 'form-control', 'id' => 'inputSize']);
+                        echo $this->Form->input('hiring_manager_phone_number', ['class' => 'form-control', 'id' => 'inputManagerPhone']);
+                        echo $this->Form->input('company_address', ['class' => 'form-control', 'id' => 'inputAddress']);
+                        echo $this->Form->input('company_email', ['type' => 'email', 'class' => 'form-control', 'id' => 'inputEmail']);
+                    ?>
+                    <?= $this->Form->button(__('Save'), [
+                        'class' => 'btn ink-reaction btn-raised btn-primary',
+                        'type' => 'button',
+                        'onclick' => 'editCompanyInfo(' . $hiringManager->id . ')'
+                    ]) ?>
+                    <?= $this->Form->button(__('Cancel'), [
+                        'class' => 'btn ink-reaction btn-flat btn-primary',
+                        'type' => 'button',
+                        'onclick' => 'closeForm(\'#companyInfo\')'
+                    ]) ?>
+                    <?= $this->Form->end() ?>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-head">
+                <header>About company</header>
+                <div class="tools">
+                    <div class="btn-group">
+                        <div id="companyAboutButton" class="btn btn-icon-toggle" onclick="openForm('#companyAbout')">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="companyAboutPanel" class="animated fadeIn">
+                    <i id="textAbout"><?= $hiringManager->company_about; ?></i>
+                </div>
+
+                <div id="companyAboutForm" class="animated fadeIn" style="display: none">
+                    <?= $this->Form->create($hiringManager, [
+                            'class' => 'form',
+                            'templates' => [
+                                'formGroup' => '{{input}}{{label}}',
+                                'inputContainer' => '<div class="form-group floating-label">{{content}}</div>'
+                            ]
+                        ])
+                    ?>
+                    <?php
+                        echo $this->Form->input('company_about', ['class' => 'form-control', 'id' => 'inputAbout']);
+                    ?>
+                    <?= $this->Form->button(__('Save'), [
+                        'class' => 'btn ink-reaction btn-raised btn-primary',
+                        'type' => 'button',
+                        'onclick' => 'editCompanyAbout(' . $hiringManager->id . ')'
+                    ]) ?>
+                    <?= $this->Form->button(__('Cancel'), [
+                        'class' => 'btn ink-reaction btn-flat btn-primary',
+                        'type' => 'button',
+                        'onclick' => 'closeForm(\'#companyAbout\')'
+                    ]) ?>
+                    <?= $this->Form->end() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Posts</h2>
+        <?php foreach ($hiringManager->posts as $post): ?>
+        <div class="col-sm-6 animated fadeInUp">
+            <div class="card card-underline">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-5 row-centered">
+                            <div class="col-xs-12">
+                                <?= $this->Html->image(
+                                    'company_img' . DS . $hiringManager->company_logo,
+                                    ['class' => 'img-circle border-gray border-xl img-responsive'])
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-xs-7 ">
+                            <h4 class="text-primary title_post">
+                                <?= $this->Html->link(
+                                    $post->post_title,
+                                    ['controller' => 'posts', 'action' => 'view', $post->id])
+                                ?>
+                            </h4>
+                            <div class="row">
+                                <div class="col-sx-12"> 
+                                    <i class="fa fa-calendar"></i> <?= h($post->post_date->format('d-M-Y')) ?><br/>
+                                    <i class="fa fa-map-marker"></i> <?= $post->has('post_location') ? h($post->post_location) : '' ?><br/>
+                                    <i class="fa fa-usd"></i> <?= $post->has('post_salary') ? $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) : '' ?><br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<div class="hiringManagers view large-9 medium-8 columns content">
+<!--     <div class="related">
         <h4><?= __('Related Appointments') ?></h4>
         <?php if (!empty($hiringManager->appointments)): ?>
         <table cellpadding="0" cellspacing="0">
@@ -110,42 +224,5 @@
             <?php endforeach; ?>
         </table>
         <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Posts') ?></h4>
-        <?php if (!empty($hiringManager->posts)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Post Title') ?></th>
-                <th><?= __('Post Content') ?></th>
-                <th><?= __('Post Salary') ?></th>
-                <th><?= __('Post Location') ?></th>
-                <th><?= __('Post Date') ?></th>
-                <th><?= __('Post Status') ?></th>
-                <th><?= __('Category Id') ?></th>
-                <th><?= __('Hiring Manager Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($hiringManager->posts as $posts): ?>
-            <tr>
-                <td><?= h($posts->id) ?></td>
-                <td><?= h($posts->post_title) ?></td>
-                <td><?= h($posts->post_content) ?></td>
-                <td><?= h($posts->post_salary) ?></td>
-                <td><?= h($posts->post_location) ?></td>
-                <td><?= h($posts->post_date) ?></td>
-                <td><?= h($posts->post_status) ?></td>
-                <td><?= h($posts->category_id) ?></td>
-                <td><?= h($posts->hiring_manager_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Posts', 'action' => 'view', $posts->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Posts', 'action' => 'edit', $posts->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Posts', 'action' => 'delete', $posts->id], ['confirm' => __('Are you sure you want to delete # {0}?', $posts->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
+    </div> -->
 </div>

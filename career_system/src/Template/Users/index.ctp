@@ -15,7 +15,6 @@
                                 <th><?= $this->Paginator->sort('user_email') ?></th>
                                 <th><?= $this->Paginator->sort('user_registered') ?></th>
                                 <th><?= $this->Paginator->sort('user_status') ?></th>
-                                <th><?= $this->Paginator->sort('user_activation_key') ?></th>
                                 <th><?= $this->Paginator->sort('user_avatar') ?></th>
                                 <th><?= $this->Paginator->sort('group_id') ?></th>
                                 <th class="actions text-right"><?= __('Actions') ?></th>
@@ -30,7 +29,6 @@
                                 <td><?= h($user->user_email) ?></td>
                                 <td><?= h($user->user_registered) ?></td>
                                 <td><?= h($user->user_status) ?></td>
-                                <td><?= h($user->user_activation_key) ?></td>
                                 <td><?= h($user->user_avatar) ?></td>
                                 <td><?= $user->has('group') ? $this->Html->link($user->group->group_name, ['controller' => 'Groups', 'action' => 'view', $user->group->id]) : '' ?></td>
                                 <td class="actions text-right">
@@ -42,10 +40,6 @@
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Edit user"><i class="fa fa-pencil"></i></button>',
                                     ['action' => 'edit', $user->id],
                                     ['escape' => false]) ?>
-                                <?= $this->Form->postLink(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete user"><i class="fa fa-trash"></i></button>', 
-                                    ['action' => 'delete', $user->id],
-                                    ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'escape' => false]) ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

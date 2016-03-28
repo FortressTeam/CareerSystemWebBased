@@ -22,6 +22,7 @@ class HiringManagersFixture extends TestFixture
         'hiring_manager_phone_number' => ['type' => 'string', 'length' => 30, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'company_name' => ['type' => 'string', 'length' => 1024, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'company_address' => ['type' => 'string', 'length' => 1024, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'company_email' => ['type' => 'string', 'length' => 100, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'company_size' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'company_about' => ['type' => 'text', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'company_logo' => ['type' => 'string', 'length' => 1024, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
@@ -51,6 +52,7 @@ class HiringManagersFixture extends TestFixture
             'hiring_manager_phone_number' => 'Lorem ipsum dolor sit amet',
             'company_name' => 'Lorem ipsum dolor sit amet',
             'company_address' => 'Lorem ipsum dolor sit amet',
+            'company_email' => 'Lorem ipsum dolor sit amet',
             'company_size' => 1,
             'company_about' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'company_logo' => 'Lorem ipsum dolor sit amet'

@@ -14,6 +14,7 @@
                                 <th><?= $this->Paginator->sort('hiring_manager_phone_number') ?></th>
                                 <th><?= $this->Paginator->sort('company_name') ?></th>
                                 <th><?= $this->Paginator->sort('company_address') ?></th>
+                                <th><?= $this->Paginator->sort('company_email') ?></th>
                                 <th><?= $this->Paginator->sort('company_size') ?></th>
                                 <th><?= $this->Paginator->sort('company_logo') ?></th>
                                 <th class="actions text-right"><?= __('Actions') ?></th>
@@ -27,6 +28,7 @@
                                 <td><?= h($hiringManager->hiring_manager_phone_number) ?></td>
                                 <td><?= h($hiringManager->company_name) ?></td>
                                 <td><?= h($hiringManager->company_address) ?></td>
+                                <td><?= h($hiringManager->company_email) ?></td>
                                 <td><?= $this->Number->format($hiringManager->company_size) ?></td>
                                 <td><?= h($hiringManager->company_logo) ?></td>
                                 <td class="actions text-right">
@@ -59,5 +61,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="fab_wrapper">
+        <?= $this->Html->link(
+            '<button class="btn btn_fab btn-primary"><i class="fa fa-plus"></i></button>',
+            ['action' => 'add'],
+            ['escape' => false]) ?>
     </div>
 </div>

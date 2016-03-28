@@ -78,6 +78,7 @@ Router::prefix('api', function ($routes) {
     $routes->extensions(['json', 'xml']);
     $routes->resources('Posts');
     $routes->resources('Categories');
+    $routes->resources('HiringManagers');
     $routes->resources('Feedbacks', [
        'map' => [
            'month' => [

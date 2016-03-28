@@ -40,6 +40,9 @@ class HiringManagersTable extends Table
         $this->hasMany('Posts', [
             'foreignKey' => 'hiring_manager_id'
         ]);
+        $this->hasOne('Users', [
+            'foreignKey' => 'id'
+        ]);
     }
 
     /**
@@ -66,6 +69,9 @@ class HiringManagersTable extends Table
 
         $validator
             ->allowEmpty('company_address');
+
+        $validator
+            ->allowEmpty('company_email');
 
         $validator
             ->integer('company_size')

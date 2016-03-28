@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property string $hiring_manager_phone_number
  * @property string $company_name
  * @property string $company_address
+ * @property string $company_email
  * @property int $company_size
  * @property string $company_about
  * @property string $company_logo

@@ -10,7 +10,7 @@
     </ul>
 </nav>
 <div class="groups view large-9 medium-8 columns content">
-    <h3><?= h($group->id) ?></h3>
+    <h3><?= h($group->group_name) ?></h3>
     <table class="vertical-table">
         <tr>
             <th><?= __('Group Name') ?></th>

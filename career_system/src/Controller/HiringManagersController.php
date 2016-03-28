@@ -34,9 +34,8 @@ class HiringManagersController extends AppController
     public function view($id = null)
     {
         $hiringManager = $this->HiringManagers->get($id, [
-            'contain' => ['Appointments', 'Follow', 'Posts']
+            'contain' => ['Appointments', 'Follow', 'Posts', 'Users']
         ]);
-
         $this->set('hiringManager', $hiringManager);
         $this->set('_serialize', ['hiringManager']);
     }

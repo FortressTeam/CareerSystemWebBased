@@ -238,6 +238,8 @@ $cakeDescription = 'Career System: Something';
         </div><!-- /.modal-dialog -->
     </div>
 
+    <span id="webInfo" data-url="<?= $this->Url->build(["controller" => "/"]); ?>"></span>
+
 
     <!-- BEGIN JAVASCRIPT -->
     <?= $this->Html->script('libs/jquery/jquery-migrate-1.2.1.min') ?>
@@ -246,6 +248,7 @@ $cakeDescription = 'Career System: Something';
     
     <!-- Put App.js last in your javascript imports -->
     <?= $this->Html->script('main') ?>
+    <?= $this->Html->script('form') ?>
     <?= $this->Html->script('app.min') ?>
 </body>
 </html>
