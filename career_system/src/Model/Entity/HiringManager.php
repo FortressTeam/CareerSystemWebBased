@@ -9,6 +9,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $hiring_manager_name
  * @property string $hiring_manager_phone_number
+ * @property bool $hiring_manager_status
  * @property string $company_name
  * @property string $company_address
  * @property string $company_email
@@ -18,6 +19,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Appointment[] $appointments
  * @property \App\Model\Entity\Follow[] $follow
  * @property \App\Model\Entity\Post[] $posts
+ * @property \App\Model\Entity\User $user
  */
 class HiringManager extends Entity
 {

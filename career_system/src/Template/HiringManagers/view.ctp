@@ -2,21 +2,16 @@
     <div class="col-sm-3">
         <div class="row row-centered">
             <div class="col-xs-6 col-xs-offset-3 col-sm-offset-0 col-sm-12">
-                <?= $this->Form->create($hiringManager, ['type' => 'file']); ?>
-                    <div class="btn btn-icon-toggle" id="buttonCompanyImage"><i class="fa fa-camera"></i></div>
+                <?= $this->Form->create($hiringManager, ['type' => 'file', 'class' => 'card']); ?>
                     <?= $this->Html->image(
                         'company_img' . DS . $hiringManager->company_logo,
                         ['class' => 'img-circle border-white border-xl img-responsive', 'id' => 'companyImage']);
                     ?>
+                    <div class="btn btn-icon-toggle" id="buttonCompanyImage"><i class="fa fa-camera"></i></div>
                     <div class="hidden">
                         <?= $this->Form->input('company_image', ['type' => 'file', 'id' => 'imputCompanyImage']) ?>
                     </div>
                 <?= $this->Form->end() ?>
-                <?= $this->Html->link(
-                        '<h3 id="textName">' . h($hiringManager->company_name) . '</h3>',
-                        ['controller' => 'HiringManagers', 'action' => 'view', $hiringManager->id],
-                        ['escape' => false, 'class' => 'text-primary']);
-                ?>
                 <?= $this->Html->link(
                         'FOLLOW',
                         ['acction' => '#'],
@@ -28,14 +23,19 @@
         </div>
     </div>
     <div class="col-sm-9">
-        <div class="card">
+        <div class="card editable">
             <div class="card-head">
                 <header>Company infomation</header>
                 <div class="tools">
                     <div class="btn-group">
-                        <div id="companyInfoButton" class="btn btn-icon-toggle" onclick="openForm('#companyInfo')">
-                            <i class="fa fa-pencil"></i>
-                        </div>
+                        <?= $this->Form->button('<i class="fa fa-pencil"></i>',
+                            [
+                                'type' => 'button',
+                                'class' => 'btn btn-icon-toggle btn-OpenForm',
+                                'data-form' => 'companyInfo'
+                            ],
+                            [ 'escape' => false ]
+                        ) ?>
                     </div>
                 </div>
             </div>
@@ -57,8 +57,8 @@
                     <?= $this->Form->create($hiringManager, [
                             'class' => 'form',
                             'templates' => [
-                                'formGroup' => '{{input}}{{label}}',
-                                'inputContainer' => '<div class="form-group floating-label col-md-6">{{content}}</div>'
+                                'formGroup' => '{{label}}{{input}}',
+                                'inputContainer' => '<div class="form-group floating-label col-xs-6">{{content}}</div>'
                             ]
                         ])
                     ?>
@@ -66,32 +66,39 @@
                         echo $this->Form->input('company_name', ['class' => 'form-control', 'id' => 'inputName']);
                         echo $this->Form->input('hiring_manager_name', ['class' => 'form-control', 'id' => 'inputManagerName']);
                         echo $this->Form->input('company_size', ['class' => 'form-control', 'id' => 'inputSize']);
-                        echo $this->Form->input('hiring_manager_phone_number', ['class' => 'form-control', 'id' => 'inputManagerPhone']);
+                        echo $this->Form->input('hiring_manager_phone_number', ['label' => 'Hiring Manager Phone','class' => 'form-control', 'id' => 'inputManagerPhone']);
                         echo $this->Form->input('company_address', ['class' => 'form-control', 'id' => 'inputAddress']);
                         echo $this->Form->input('company_email', ['type' => 'email', 'class' => 'form-control', 'id' => 'inputEmail']);
                     ?>
                     <?= $this->Form->button(__('Save'), [
-                        'class' => 'btn ink-reaction btn-raised btn-primary',
                         'type' => 'button',
-                        'onclick' => 'editCompanyInfo(' . $hiringManager->id . ')'
+                        'class' => 'btn ink-reaction btn-raised btn-primary',
+                        'id' => 'buttonEditCompanyInfo',
+                        'data-form' => 'companyInfo',
+                        'data-id' => $hiringManager->id,
                     ]) ?>
                     <?= $this->Form->button(__('Cancel'), [
-                        'class' => 'btn ink-reaction btn-flat btn-primary',
                         'type' => 'button',
-                        'onclick' => 'closeForm(\'#companyInfo\')'
+                        'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm',
+                        'data-form' => 'companyInfo',
                     ]) ?>
                     <?= $this->Form->end() ?>
                 </div>
             </div>
         </div>
-        <div class="card">
+        <div class="card editable">
             <div class="card-head">
                 <header>About company</header>
                 <div class="tools">
                     <div class="btn-group">
-                        <div id="companyAboutButton" class="btn btn-icon-toggle" onclick="openForm('#companyAbout')">
-                            <i class="fa fa-pencil"></i>
-                        </div>
+                        <?= $this->Form->button('<i class="fa fa-pencil"></i>',
+                            [
+                                'type' => 'button',
+                                'class' => 'btn btn-icon-toggle btn-OpenForm',
+                                'data-form' => 'companyAbout'
+                            ],
+                            [ 'escape' => false ]
+                        ) ?>
                     </div>
                 </div>
             </div>
@@ -104,7 +111,7 @@
                     <?= $this->Form->create($hiringManager, [
                             'class' => 'form',
                             'templates' => [
-                                'formGroup' => '{{input}}{{label}}',
+                                'formGroup' => '{{label}}{{input}}',
                                 'inputContainer' => '<div class="form-group floating-label">{{content}}</div>'
                             ]
                         ])
@@ -113,14 +120,16 @@
                         echo $this->Form->input('company_about', ['class' => 'form-control', 'id' => 'inputAbout']);
                     ?>
                     <?= $this->Form->button(__('Save'), [
-                        'class' => 'btn ink-reaction btn-raised btn-primary',
                         'type' => 'button',
-                        'onclick' => 'editCompanyAbout(' . $hiringManager->id . ')'
+                        'class' => 'btn ink-reaction btn-raised btn-primary',
+                        'id' => 'buttonEditCompanyAbout',
+                        'data-form' => 'companyAbout',
+                        'data-id' => $hiringManager->id,
                     ]) ?>
                     <?= $this->Form->button(__('Cancel'), [
-                        'class' => 'btn ink-reaction btn-flat btn-primary',
                         'type' => 'button',
-                        'onclick' => 'closeForm(\'#companyAbout\')'
+                        'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm',
+                        'data-form' => 'companyAbout',
                     ]) ?>
                     <?= $this->Form->end() ?>
                 </div>
@@ -167,7 +176,58 @@
         <?php endforeach; ?>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-head style-primary">
+                <header>Control</header>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4><b>Active</b></h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <?= $this->Form->button(
+                            $hiringManager->hiring_manager_status ? 'ON' : 'OFF',
+                            [
+                                'type' => 'button',
+                                'class' => ($hiringManager->hiring_manager_status ? 'btn-primary' : 'btn-default') . ' btn ink-reaction btn-block',
+                                'id' => 'buttonChangeStatus',
+                                'data-controller' => 'hiring_managers',
+                                'data-id' => $hiringManager->id,
+                                'data-field' => 'hiring_manager_status',
+                                'data-value' => $hiringManager->hiring_manager_status ? '0' : '1',
+                            ]
+                        ) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-head style-danger">
+                <header>Danger Zone</header>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h4><b>Delete this hiring manager</b></h4>
+                    </div>
+                    <div class="col-sm-4">
+                        <?= $this->Form->postLink(
+                                'Delete',
+                                ['action' => 'delete', $hiringManager->id],
+                                ['class' => 'btn ink-reaction btn-flat btn-danger btn-block', 'escape' => false, 'confirm' => __('Once you delete a hiring manager, there is no going back. Please be certain. Are you sure you want to delete # {0}? ', $hiringManager->id)]
+                            )
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="hiringManagers view large-9 medium-8 columns content">
 <!--     <div class="related">
         <h4><?= __('Related Appointments') ?></h4>

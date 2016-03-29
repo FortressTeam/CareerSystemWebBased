@@ -34,7 +34,7 @@ class HiringManagersController extends AppController
     public function view($id = null)
     {
         $hiringManager = $this->HiringManagers->get($id, [
-            'contain' => ['Appointments', 'Follow', 'Posts', 'Users']
+            'contain' => ['Users']
         ]);
         $this->set('hiringManager', $hiringManager);
         $this->set('_serialize', ['hiringManager']);
@@ -68,23 +68,23 @@ class HiringManagersController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
-        $hiringManager = $this->HiringManagers->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $hiringManager = $this->HiringManagers->patchEntity($hiringManager, $this->request->data);
-            if ($this->HiringManagers->save($hiringManager)) {
-                $this->Flash->success(__('The hiring manager has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The hiring manager could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('hiringManager'));
-        $this->set('_serialize', ['hiringManager']);
-    }
+    // public function edit($id = null)
+    // {
+    //     $hiringManager = $this->HiringManagers->get($id, [
+    //         'contain' => []
+    //     ]);
+    //     if ($this->request->is(['patch', 'post', 'put'])) {
+    //         $hiringManager = $this->HiringManagers->patchEntity($hiringManager, $this->request->data);
+    //         if ($this->HiringManagers->save($hiringManager)) {
+    //             $this->Flash->success(__('The hiring manager has been saved.'));
+    //             return $this->redirect(['action' => 'index']);
+    //         } else {
+    //             $this->Flash->error(__('The hiring manager could not be saved. Please, try again.'));
+    //         }
+    //     }
+    //     $this->set(compact('hiringManager'));
+    //     $this->set('_serialize', ['hiringManager']);
+    // }
 
     /**
      * Delete method

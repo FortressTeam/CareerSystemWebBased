@@ -31,10 +31,6 @@
                                     ['action' => 'edit', $category->id],
                                     ['escape' => false]) ?>
                                 <?= $this->Form->postLink(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete category"><i class="fa fa-trash"></i></button>', 
-                                    ['action' => 'delete', $category->id],
-                                    ['confirm' => __('Are you sure you want to delete # {0}?', $category->id), 'escape' => false]) ?>
-                                <?= $this->Form->postLink(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete category"><i class="fa fa-arrow-down"></i></button>',
                                     ['action' => 'moveDown', $category->id],
                                     ['confirm' => __('Are you sure you want to move down # {0}?', $category->id), 'escape' => false]) ?>

@@ -65,6 +65,11 @@ class HiringManagersTable extends Table
             ->allowEmpty('hiring_manager_phone_number');
 
         $validator
+            ->boolean('hiring_manager_status')
+            ->requirePresence('hiring_manager_status', 'create')
+            ->notEmpty('hiring_manager_status');
+
+        $validator
             ->allowEmpty('company_name');
 
         $validator

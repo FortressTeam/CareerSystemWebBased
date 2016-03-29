@@ -96,8 +96,8 @@ if (isset($modelObject) && $modelObject->behaviors()->has('Tree')) {
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <h4><b>Delete this repository</b></h4>
-                        Once you delete a repository, there is no going back. Please be certain.
+                        <h4><b>Delete this <%= $singularVar %></b></h4>
+                        Once you delete a <%= $singularVar %>, there is no going back. Please be certain.
                     </div>
                     <div class="col-md-4">
                         <?= $this->Form->postLink(

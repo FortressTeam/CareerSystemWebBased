@@ -40,7 +40,8 @@ class ApplicantsController extends AppController
             'contain' => ['CareerPaths', 'ApplicantsFollowPosts', 'ApplicantsHasHobbies', 'ApplicantsHasSkills', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users']
         ]);
 
-        $this->set('applicant', $applicant);
+        $careerPaths = $this->Applicants->CareerPaths->find('list', ['limit' => 200]);
+        $this->set(compact('applicant', 'careerPaths'));
         $this->set('_serialize', ['applicant']);
     }
 
@@ -73,24 +74,24 @@ class ApplicantsController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
-        $applicant = $this->Applicants->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $applicant = $this->Applicants->patchEntity($applicant, $this->request->data);
-            if ($this->Applicants->save($applicant)) {
-                $this->Flash->success(__('The applicant has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The applicant could not be saved. Please, try again.'));
-            }
-        }
-        $careerPaths = $this->Applicants->CareerPaths->find('list', ['limit' => 200]);
-        $this->set(compact('applicant', 'careerPaths'));
-        $this->set('_serialize', ['applicant']);
-    }
+    // public function edit($id = null)
+    // {
+    //     $applicant = $this->Applicants->get($id, [
+    //         'contain' => []
+    //     ]);
+    //     if ($this->request->is(['patch', 'post', 'put'])) {
+    //         $applicant = $this->Applicants->patchEntity($applicant, $this->request->data);
+    //         if ($this->Applicants->save($applicant)) {
+    //             $this->Flash->success(__('The applicant has been saved.'));
+    //             return $this->redirect(['action' => 'index']);
+    //         } else {
+    //             $this->Flash->error(__('The applicant could not be saved. Please, try again.'));
+    //         }
+    //     }
+    //     $careerPaths = $this->Applicants->CareerPaths->find('list', ['limit' => 200]);
+    //     $this->set(compact('applicant', 'careerPaths'));
+    //     $this->set('_serialize', ['applicant']);
+    // }
 
     /**
      * Delete method

@@ -30,7 +30,12 @@ class HiringManagersTableTest extends TestCase
         'app.posts',
         'app.categories',
         'app.applicants_follow_posts',
-        'app.posts_has_curriculum_vitaes'
+        'app.posts_has_curriculum_vitaes',
+        'app.users',
+        'app.groups',
+        'app.feedbacks',
+        'app.feedback_types',
+        'app.notifications'
     ];
 
     /**

@@ -169,15 +169,14 @@ $cakeDescription = 'Career System: Something';
             </div>
             <div class="menubar-scroll-panel">
                     <ul id="main-menu" class="gui-controls">
-                        <li>
+                        <!--<li>
                             <div class="row">
                                 <div class="col-xs-6 col-xs-offset-3">
                                     <?= $this->Html->image('avatar.jpg', ['alt' => 'Vic', 'class' => 'img-circle border-white border-xl img-responsive']) ?>
-                                    <!-- <img class="img-circle border-white border-xl img-responsive" src="img/avatar.jpg" alt=""> -->
                                 </div>
                             </div>
                         </li><!--end /menu-li -->
-                        <li>
+                        <!--<li>
                             <div class="row">
                                 <button class="btn ink-reaction btn-raised btn-primary col-xs-12">Jobs</button>
                             </div>

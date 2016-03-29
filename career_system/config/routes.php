@@ -74,11 +74,12 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->fallbacks('DashedRoute');
 });
 
-Router::prefix('api', function ($routes) {
+Router::prefix('Api', function ($routes) {
     $routes->extensions(['json', 'xml']);
     $routes->resources('Posts');
     $routes->resources('Categories');
     $routes->resources('HiringManagers');
+    $routes->resources('Applicants');
     $routes->resources('Feedbacks', [
        'map' => [
            'month' => [

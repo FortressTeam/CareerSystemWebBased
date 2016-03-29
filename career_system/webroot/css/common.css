@@ -4,8 +4,8 @@
 
   Theme Name : 	Career System
   Version    :  1.0
-  Author     :  Vic
-  Author URI :  ...
+  Author     :  Fortress Team
+  Author URI :  https://github.com/FortressTeam
 ====================================================
 
    TOC:
@@ -53,6 +53,9 @@ footer {
 .padd-2 {
     padding: 2em;
 }
+.padd-10 {
+    padding: 10px;
+}
 .left-align {
     text-align: left;
 }
@@ -74,6 +77,9 @@ footer {
 }
 .list .tile .tile-text {
     font-size: 13px;
+}
+.hr-mini {
+    margin: 12px 0;
 }
 /* --------------------------------- */
 /* 3. Navigation Menu Styles
@@ -146,11 +152,11 @@ footer {
     top: 0;
     right: 0;
     bottom: 0;
-    height: 20px;
+    height: 15px;
     margin: auto;
-    background: #1178AB;
+    background: #2B323A;
     color: white !important;
-    font: 15px Arial, Helvetica, sans-serif !important;
+    font-size: 12px;
     text-decoration: none;
     -webkit-transform-origin: 100% 50%;
     -moz-transform-origin: 100% 50%;
@@ -188,6 +194,7 @@ footer {
     text-align: justify;
 }
 
+
 /* --------------------------------- */
 /* 5. List Items Style
  ----------------------------------- */
@@ -220,4 +227,25 @@ footer {
     transition: .3s;  
     -webkit-tap-highlight-color:  rgba(0,0,0,0);
     pointer-events: all;
+}
+
+/* --------------------------------- */
+/* 6. Editable Panel
+ ----------------------------------- */
+.btn-OpenForm.btn-hide {
+    display: none;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+}
+.editable.edit-flat:hover {
+    position: relative;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+
+}
+.editable.edit-flat:hover>.btn-hide {
+    display: inherit;
 }

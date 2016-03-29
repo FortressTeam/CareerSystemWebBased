@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-head style-primary">
                 <header>Create a categories</header>
@@ -17,55 +17,10 @@
                 <?php
                     echo $this->Form->input('category_name', ['class' => 'form-control']);
                     echo $this->Form->input('category_description', ['class' => 'form-control']);
-                    echo $this->Form->input('parent_id', ['class' => 'form-control', 'options' => $parentCategories]);
+                    echo $this->Form->input('parent_id', ['class' => 'form-control', 'options' => $parentCategories, 'empty' => true]);
                 ?>
-                <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary col-xs-12']) ?>
+                <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary btn-block']) ?>
                 <?= $this->Form->end() ?>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-head">
-                <header><?= __('Actions') ?></header>
-            </div>
-            <div class="card-body no-padding">
-                <ul class="list divider-full-bleed">
-                    <li class="tile"><?= $this->Html->link(
-                            '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                            <div class="tile-text">List Categories</div>',
-                            ['action' => 'index'],
-                            ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Parent Categories</div>',
-                        ['controller' => 'Categories', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]
-                        ) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Parent Category</div>',
-                        ['controller' => 'Categories', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]
-                        ) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Posts</div>',
-                        ['controller' => 'Posts', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]
-                        ) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Post</div>',
-                        ['controller' => 'Posts', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]
-                        ) ?>
-                    </li>
-              </ul>
             </div>
         </div>
     </div>

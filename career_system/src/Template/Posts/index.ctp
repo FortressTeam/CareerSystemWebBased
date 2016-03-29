@@ -14,8 +14,8 @@
                                 <th><?= $this->Paginator->sort('post_salary') ?></th>
                                 <th><?= $this->Paginator->sort('post_location') ?></th>
                                 <th><?= $this->Paginator->sort('post_date') ?></th>
-                                <th><?= $this->Paginator->sort('post_status') ?></th>
                                 <th><?= $this->Paginator->sort('hiring_manager_id') ?></th>
+                                <th><?= $this->Paginator->sort('post_status') ?></th>
                                 <th class="actions text-right"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
@@ -27,8 +27,8 @@
                                 <td><?= $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) ?></td>
                                 <td><?= h($post->post_location) ?></td>
                                 <td><?= h($post->post_date->format('d-M-y')) ?></td>
-                                <td><?= ($post->post_status == 0)?'<span class="label label-warning">Pending</span>':'<span class="label label-success">Active</span>' ?></td>
                                 <td><?= $post->has('hiring_manager') ? $this->Html->link($post->hiring_manager->hiring_manager_name, ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id]) : '' ?></td>
+                                <td><?= $post->post_status  ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Pending</span>' ?></td>
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View post"><i class="fa fa-info"></i></button>',

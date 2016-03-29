@@ -94,23 +94,4 @@ class PostsController extends AppController
         $this->set(compact('message', 'post'));
         $this->set('_serialize', ['message', 'post']);
     }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Post id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $post = $this->Posts->get($id);
-        if ($this->Posts->delete($post)) {
-            $this->Flash->success(__('The post has been deleted.'));
-        } else {
-            $this->Flash->error(__('The post could not be deleted. Please, try again.'));
-        }
-        return $this->redirect(['action' => 'index']);
-    }
 }
