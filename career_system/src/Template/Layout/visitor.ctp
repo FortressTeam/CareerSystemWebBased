@@ -111,12 +111,23 @@
     <section id="popular-searches" class="no-padding">
         <div class="popular-searches-inner section-inner">
             <div class="row row-centered no-margin">
-                <div class="col-sm-9 col-centered left-align">
-                    <h1>Popular job searches</h1>
-                </div>
                 <div class="col-sm-3 col-centered left-align top-vertical-align">
                     <h2>By category</h2>
                     <div class="contain">
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-centered left-align top-vertical-align">
+                    <h2>By company</h2>
+                    <div class="contain">
+                        <a href="#" class="tag label label-primary">something</a>
+                        <a href="#" class="tag label label-primary">something</a>
                         <a href="#" class="tag label label-primary">something</a>
                         <a href="#" class="tag label label-primary">something</a>
                         <a href="#" class="tag label label-primary">something</a>
@@ -144,36 +155,21 @@
                         <a href="#" class="tag label label-primary">something</a>
                     </div>
                 </div>
-                <div class="col-sm-3 col-centered left-align top-vertical-align">
-                    <h2>By company</h2>
-                    <div class="contain">
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                    </div>
-                    <div class=""></div>
-                </div>
             </div>
             <div class="row row-centered no-margin">
                 <div class="col-sm-3 col-centered left-align">
                     <button class="btn ink-reaction btn-flat btn-primary">
-                        <i class="fa fa-tags"></i> Browse all categories
+                        <i class="fa fa-tags"></i> All categories
                     </button>
                 </div>
                 <div class="col-sm-3 col-centered left-align">
                     <button class="btn ink-reaction btn-flat btn-primary">
-                        <i class="fa fa-map-marker"></i> Browse all cities
+                        <i class="fa fa-building"></i> All companies
                     </button>
                 </div>
                 <div class="col-sm-3 col-centered left-align">
                     <button class="btn ink-reaction btn-flat btn-primary">
-                        <i class="fa fa-building"></i> Browse all companies
+                        <i class="fa fa-map-marker"></i> All cities
                     </button>
                 </div>
             </div>
@@ -184,7 +180,7 @@
     <section id="help-center" class="no-padding style-primary">
         <div class="section-inner">
             <div class="row no-margin">
-                <h2>Need Help? <a href="#"><b>HELP CENTER</b></a></h2>
+                <h2><a href="#"><b>SUPPORT CENTER</b></a></h2>
             </div>
         </div>
     </section>

@@ -80,6 +80,7 @@ Router::prefix('Api', function ($routes) {
     $routes->resources('Categories');
     $routes->resources('HiringManagers');
     $routes->resources('Applicants');
+    $routes->resources('Skills');
     $routes->resources('Feedbacks', [
        'map' => [
            'month' => [
