@@ -45,12 +45,8 @@
             "type": "String",
             "allowedValues": [
               "id",
-              "post_title",
-              "post_salary",
-              "post_location",
-              "post_date",
-              "category_id",
-              "hiring_manager_id"
+              "skill_name",
+              "skill_type_id"
             ],
             "optional": true,
             "field": "sort",
@@ -223,12 +219,8 @@
             "type": "String",
             "allowedValues": [
               "id",
-              "post_title",
-              "post_salary",
-              "post_location",
-              "post_date",
-              "category_id",
-              "hiring_manager_id"
+              "skill_name",
+              "skill_type_id"
             ],
             "optional": true,
             "field": "sort",
@@ -684,6 +676,138 @@
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 404 Not Found\n {\n     message: \"Record not found in table \"posts\"\",\n     url: \"/CareerSystemWebBased/career_system/api/posts/0.json\",\n     code: 404\n }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "GET",
+    "url": "/skills",
+    "title": "1. Request All Skill information",
+    "name": "GetSkills",
+    "group": "Skill",
+    "version": "0.2.0",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>Request All Skill information. This is a descripton.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "skill_type_id",
+            "description": "<p>Skill Type ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "size": "1-*",
+            "optional": true,
+            "field": "limit",
+            "defaultValue": "20",
+            "description": "<p>Number of results.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "size": "1-*",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>Paginate page.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "id",
+              "skill_name",
+              "skill_type_id"
+            ],
+            "optional": true,
+            "field": "sort",
+            "defaultValue": "id",
+            "description": "<p>Sort by field.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "asc",
+              "desc"
+            ],
+            "optional": true,
+            "field": "direction",
+            "defaultValue": "asc",
+            "description": "<p>Sort direction.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "skills",
+            "description": "<p>List of skills (Array of Objects).</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "skills.id",
+            "description": "<p>Skill ID.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "skills.skill_name",
+            "description": "<p>Skill name.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "skills.skill_type_id",
+            "description": "<p>Skill type ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": " HTTP/1.1 200 OK\n {\n     \"skills\": [\n          {\n              \"id\": 1,\n              \"skill_name\": \"CakePHP\",\n              \"skill_type_id\": 1,\n          }\n     ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "career_system/src/Controller/Api/SkillsController.php",
+    "groupTitle": "Skill",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "SkillNotFound",
+            "description": "<p>The <code>id</code> of the Skill was not found.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n {\n     message: \"Record not found in table \"skills\"\",\n     url: \"/CareerSystemWebBased/career_system/api/skills/0.json\",\n     code: 404\n }",
           "type": "json"
         }
       ]
