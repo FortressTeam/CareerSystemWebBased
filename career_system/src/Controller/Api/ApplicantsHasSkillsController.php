@@ -48,8 +48,22 @@ class ApplicantsHasSkillsController extends AppController
      */
     public function view($id = null)
     {
-        $applicantsHasSkill = $this->ApplicantsHasSkills->get($id, [
-            'contain' => ['Applicants', 'Skills']
+        $conditions = [];
+        $contain = [];
+        if(isset($this->request->params['applicant_id'])) {
+            $conditions['applicant_id'] = $this->request->params['applicant_id'];
+            $conditions['skill_id'] = $id;
+            $contain[] = 'Skills';
+        }
+        else if(isset($this->request->params['skill_id'])) {
+            $conditions['skill_id'] = $this->request->params['skill_id'];
+            $conditions['applicant_id'] = $id;
+            $contain[] = 'Applicants';
+        }
+
+        $applicantsHasSkill = $this->ApplicantsHasSkills->find('all', [
+            'conditions' => $conditions,
+            'contain' => $contain
         ]);
 
         $this->set('applicantsHasSkill', $applicantsHasSkill);
@@ -85,7 +99,7 @@ class ApplicantsHasSkillsController extends AppController
      */
     public function edit($id = null)
     {
-        $applicantsHasSkill = $this->ApplicantsHasSkills->get($id, [
+        $applicantsHasSkill = $this->ApplicantsHasSkills->get([$applicant_id, $skill_id], [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
