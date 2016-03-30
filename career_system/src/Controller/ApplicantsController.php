@@ -36,8 +36,11 @@ class ApplicantsController extends AppController
      */
     public function view($id = null)
     {
+        // $applicant = $this->Applicants->get($id, [
+        //     'contain' => ['CareerPaths', 'ApplicantsFollowPosts', 'ApplicantsHasHobbies', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users']
+        // ]);
         $applicant = $this->Applicants->get($id, [
-            'contain' => ['CareerPaths', 'ApplicantsFollowPosts', 'ApplicantsHasHobbies', 'ApplicantsHasSkills', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users']
+            'contain' => ['CareerPaths', 'Users'],
         ]);
 
         $careerPaths = $this->Applicants->CareerPaths->find('list', ['limit' => 200]);

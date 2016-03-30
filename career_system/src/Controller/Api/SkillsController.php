@@ -18,6 +18,13 @@ class SkillsController extends AppController
      */
     public function index()
     {
+        $conditions = [];
+        if(isset($this->request->params['skill_type_id'])) {
+            $conditions['skill_type_id'] = $this->request->params['skill_type_id'];
+        }
+        $this->paginate = [
+            'conditions' => $conditions
+        ];
         $skills = $this->paginate($this->Skills);
 
         $this->set(compact('skills'));
@@ -31,15 +38,15 @@ class SkillsController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
-        $skill = $this->Skills->get($id, [
-            'contain' => ['ApplicantsHasSkills']
-        ]);
+    // public function view($id = null)
+    // {
+    //     $skill = $this->Skills->get($id, [
+    //         'contain' => ['ApplicantsHasSkills']
+    //     ]);
 
-        $this->set('skill', $skill);
-        $this->set('_serialize', ['skill']);
-    }
+    //     $this->set('skill', $skill);
+    //     $this->set('_serialize', ['skill']);
+    // }
 
     /**
      * Add method

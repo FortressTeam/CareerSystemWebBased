@@ -64,6 +64,9 @@ class ApplicantsTable extends Table
         $this->hasOne('Users', [
             'foreignKey' => 'id'
         ]);
+        $this->belongsToMany('Skills', [
+            'joinTable' => 'applicants_has_skills',
+        ]);
     }
 
     /**

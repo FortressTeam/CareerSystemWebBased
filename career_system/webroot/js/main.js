@@ -1,15 +1,45 @@
+/*
+====================================================
+* [Main Javascript]
 
-/*! Scroll Smoothy v1.5.2 by @mathias */
-// (function(a,c){var b=(function(){var d=c(a.documentElement),f=c(a.body),e;if(d.scrollTop()){return d}else{e=f.scrollTop();if(f.scrollTop(e+1).scrollTop()==e){return d}else{return f.scrollTop(e)}}}());c.fn.smoothScroll=function(d){d=~~d||400;return this.find( 'a[href*="#"]' ).click(function(f){var g=this.hash,e=c(g);if(location.pathname.replace(/^\//,'' )===this.pathname.replace(/^\//,'' )&&location.hostname===this.hostname){if(e.length){f.preventDefault();b.stop().animate({scrollTop:e.offset().top},d,function(){location.hash=g})}}}).end()}}(document,jQuery));
+  Theme Name :  Career System
+  Version    :  1.0
+  Author     :  Fortress Team
+  Author URI :  https://github.com/FortressTeam
+====================================================
 
-/*! Mouse Scroll Smoothy v1.5.2 by @mathias */
-!function(t){jQuery.scrollSpeed=function(e,n,o){var i,l,r,u=t(document),h=t(window),a=t("html, body"),c=o||"default",d=0,s=!1;return window.navigator.msPointerEnabled?!1:void h.on("mousewheel DOMMouseScroll",function(t){var o=t.originalEvent.wheelDeltaY,f=t.originalEvent.detail;return i=u.height()>h.height(),l=u.width()>h.width(),s=!0,i&&(r=h.height(),(0>o||f>0)&&(d=d+r>=u.height()?d:d+=e),(o>0||0>f)&&(d=0>=d?0:d-=e),a.stop().animate({scrollTop:d},n,c,function(){s=!1})),l&&(r=h.width(),(0>o||f>0)&&(d=d+r>=u.width()?d:d+=e),(o>0||0>f)&&(d=0>=d?0:d-=e),a.stop().animate({scrollLeft:d},n,c,function(){s=!1})),!1}).on("scroll",function(){i&&!s&&(d=h.scrollTop()),l&&!s&&(d=h.scrollLeft())}).on("resize",function(){i&&!s&&(r=h.height()),l&&!s&&(r=h.width())})},jQuery.easing["default"]=function(t,e,n,o,i){return-o*((e=e/i-1)*e*e*e-1)+n}}(jQuery);
+   TOC:
+  =======
+
+  1. Mouse Scroll Smoothy
+  2. Scroll Top Menu Bar
+
+===================================================== */
 
 
-var lastScrollTop = 0;$( window ).scroll(function(event){var st = $( this ).scrollTop();if (st > lastScrollTop && st > 400){$( '.non-side-bar>#header' ).css( 'top','-70px' );} else {$( '.non-side-bar>#header' ).css( 'top','0px' );}lastScrollTop = st;});
+/* --------------------------------- */
+/* 1. Mouse Scroll Smoothy
+ ----------------------------------- */
+//!function(t){jQuery.scrollSpeed=function(e,n,o){var i,l,r,u=t(document),h=t(window),a=t("html, body"),c=o||"default",d=0,s=!1;return window.navigator.msPointerEnabled?!1:void h.on("mousewheel DOMMouseScroll",function(t){var o=t.originalEvent.wheelDeltaY,f=t.originalEvent.detail;return i=u.height()>h.height(),l=u.width()>h.width(),s=!0,i&&(r=h.height(),(0>o||f>0)&&(d=d+r>=u.height()?d:d+=e),(o>0||0>f)&&(d=0>=d?0:d-=e),a.stop().animate({scrollTop:d},n,c,function(){s=!1})),l&&(r=h.width(),(0>o||f>0)&&(d=d+r>=u.width()?d:d+=e),(o>0||0>f)&&(d=0>=d?0:d-=e),a.stop().animate({scrollLeft:d},n,c,function(){s=!1})),!1}).on("scroll",function(){i&&!s&&(d=h.scrollTop()),l&&!s&&(d=h.scrollLeft())}).on("resize",function(){i&&!s&&(r=h.height()),l&&!s&&(r=h.width())})},jQuery.easing["default"]=function(t,e,n,o,i){return-o*((e=e/i-1)*e*e*e-1)+n}}(jQuery);
+
+
+/* --------------------------------- */
+/* 2. Scroll Top Menu Bar
+ ----------------------------------- */
+var lastScrollTop = 0;
+$(window).scroll(function(event) {
+    var st = $(this).scrollTop();
+    if (st > lastScrollTop && st > 400) {
+        $('.non-side-bar>#header').css('top', '-70px');
+    } else {
+        $('.non-side-bar>#header').css('top', '0px');
+    }
+    lastScrollTop = st;
+});
+
+
 
 $( document).ready(function(){
-    $.scrollSpeed(100, 500);
 
     $( '#usabilla-feedback-bar' ).on( 'click', function() {
         $.ajax({
@@ -74,6 +104,11 @@ $( document).ready(function(){
 
 
 (function( $ ) {
+    
+    /*! Check if element empty */
+    $.fn.isEmpty = function(){
+        return this.html() === "";
+    }
 
     /*! Create Profile Panel elements */
     $.fn.addProfilePanel = function( data ) {
@@ -81,7 +116,7 @@ $( document).ready(function(){
         var infomation = $.extend({
             id: "1",
             name: "Vic",
-            jobTitle: "Developer",
+            major: "Developer",
             image: "img/avatar.jpg"
         }, data );
 
@@ -91,7 +126,7 @@ $( document).ready(function(){
                 "data-toggle": "dropdown"
             })
             .append($( "<img></img>", { "src": infomation.image, "alt": infomation.name}))
-            .append($( "<span></span>", { "class": "profile-info", "text": infomation.name}).append("<small>" + infomation.jobTitle + "</small>" ));
+            .append($( "<span></span>", { "class": "profile-info", "text": infomation.name}).append("<small>" + infomation.major + "</small>" ));
 
         var bodyProfilePanel = $( "<ul></ul>", {
                 "class": "dropdown-menu animation-dock"
@@ -109,4 +144,45 @@ $( document).ready(function(){
 
         return this;
     };
+
+    /*! Create Skill Column elements */
+    $.fn.addSkillColumn = function( data ) {
+
+        var skill = $.extend({
+            id: '1',
+            name: 'CakePHP 3',
+            level: '90%',
+        }, data );
+
+        var inner = $('<div></div>')
+                        .addClass('skill-inner')
+                        .data('level', skill.level + '%')
+                        .append(
+                            $('<div></div>')
+                                .addClass('skill-visiable')
+                                .append(
+                                    $('<span></span>')
+                                        .addClass('skill-title')
+                                        .text(skill.name)
+                                    )
+                                .append(
+                                    $('<div><div class="hrc"></div></div>')
+                                        .addClass('hr-wrap')
+                                    )
+                        );
+        var count = $('<div></div>')
+                        .addClass('skill-count')
+                        .text(skill.level + '%');
+
+        $('<li></li>')
+            .addClass( "single-skill" )
+            .append(inner)
+            .append(count)
+            .appendTo(this);
+
+        return this;
+    };
 }( jQuery ));
+
+
+

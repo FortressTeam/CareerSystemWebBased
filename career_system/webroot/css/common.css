@@ -249,3 +249,72 @@ footer {
 .editable.edit-flat:hover>.btn-hide {
     display: inherit;
 }
+
+/* --------------------------------- */
+/* 7. Skill Panel
+ ----------------------------------- */
+ #skillSlider {    
+    white-space: nowrap;
+    overflow: auto;
+    display: block;
+    padding-top: 10em;
+ }
+.skill-graph .single-skill {
+    display: inline-block;
+    position: relative;
+    height: 300px;
+    width: 60px;
+    margin: 10px;
+}
+.skill-inner {
+    position: absolute;
+    width: 100%;
+    bottom: 33px;
+    border-radius: 2px;
+    height: 0px;
+    -webkit-transition: all 1.2s;
+    transition: all 1.2s;
+    background-color: #1178AB;
+    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+.skill-visiable {
+    position: relative;
+}
+.skill-title, .skill-count {
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-weight: 400;
+    position: absolute;
+}
+.skill-count {
+    color: #1178AB;
+    bottom: 0;
+}
+.skill-title {
+    white-space: normal;
+    color: #1178AB;
+    font-size: 13px;
+    line-height: 15px;
+    top: -70px;
+}
+.hr-wrap {
+    background-color: #1178AB;
+    color: #1178AB;
+    position: absolute;
+    height: 35px;
+    width: 1px;
+    top: -35px;
+    left: 50%;
+}
+.hrc {
+    background-color: #1178AB;
+    position: absolute;
+    border-radius: 50%;
+    content: '';
+    width: 7px;
+    height: 7px;
+    left: -3px;
+    top: 0;
+}

@@ -168,7 +168,59 @@
     </div>
 </div>
 
-<br/>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="card editable">
+            <div class="card-head">
+                <header>Skills</header>
+                <div class="tools">
+                    <div class="btn-group">
+                        <?= $this->Form->button('<i class="fa fa-pencil"></i>',
+                            [
+                                'type' => 'button',
+                                'class' => 'btn btn-icon-toggle btn-OpenForm',
+                                'data-form' => 'skills'
+                            ],
+                            [ 'escape' => false ]
+                        ) ?>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div id="skillsPanel" class="animated fadeIn">
+                        <ul id="skillSlider" class="skill-graph" data-id="<?= $applicant->id ?>"></ul><!-- Skill Here -->
+                    </div>
+                    <div  id="skillsForm" class="animated fadeIn" style="display: none">
+                            <?= $this->Form->create($applicant, [
+                                    'class' => 'form',
+                                    'templates' => [
+                                        'formGroup' => '{{label}}{{input}}',
+                                        'nestingLabel' => '<div class="checkbox checkbox-styled"><label{{attrs}}>{{input}}<span>{{text}}</span></label></div>',
+                                        'inputContainer' => '<div class="form-group floating-label col-md-6">{{content}}</div>'
+                                    ]
+                                ])
+                            ?>
+                            <?= $this->Form->button(__('Save'), [
+                                'type' => 'button',
+                                'class' => 'btn ink-reaction btn-raised btn-primary',
+                                'id' => 'buttonEditPersonalInfo',
+                                'data-form' => 'skills',
+                                'data-id' => $applicant->id,
+                            ]) ?>
+                            <?= $this->Form->button(__('Cancel'), [
+                                'type' => 'button',
+                                'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm',
+                                'data-form' => 'skills',
+                            ]) ?>
+                            <?= $this->Form->end() ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-6">
         <div class="card">
@@ -221,7 +273,6 @@
         </div>
     </div>
 </div>
-
 <!-- <div class="applicants view large-9 medium-8 columns content">
     <div class="related">
         <h4><?= __('Related Applicants Follow Posts') ?></h4>

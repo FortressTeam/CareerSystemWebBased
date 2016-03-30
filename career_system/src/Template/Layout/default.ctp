@@ -248,6 +248,7 @@ $cakeDescription = 'Career System: Something';
     <!-- Put App.js last in your javascript imports -->
     <?= $this->Html->script('main') ?>
     <?= $this->Html->script('form') ?>
+    <?= $this->Html->script('resume') ?>
     <?= $this->Html->script('app.min') ?>
 </body>
 </html>

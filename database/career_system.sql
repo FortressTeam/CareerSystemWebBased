@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.13.1deb1
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 30, 2016 at 02:34 AM
--- Server version: 5.6.28-0ubuntu0.15.10.1
--- PHP Version: 5.6.11-1ubuntu3.1
+-- Generation Time: Mar 30, 2016 at 06:28 PM
+-- Server version: 5.5.47-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `career_system`
@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS `administrators` (
   `administrator_name` varchar(512) DEFAULT NULL,
   `administrator_phone_number` varchar(30) DEFAULT NULL,
   `administrator_date_of_birth` date DEFAULT NULL,
-  `administrator_address` varchar(1024) DEFAULT NULL
+  `administrator_address` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -52,7 +53,9 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `applicant_future_goals` longtext NOT NULL,
   `applicant_website` varchar(45) DEFAULT NULL,
   `applicant_status` tinyint(1) NOT NULL COMMENT 'Status mean that application is a employee or an umemployee',
-  `career_path_id` int(11) NOT NULL
+  `career_path_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_applicants_cs_career_paths1_idx` (`career_path_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -60,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
 --
 
 INSERT INTO `applicants` (`id`, `applicant_name`, `applicant_phone_number`, `applicant_date_of_birth`, `applicant_sex`, `applicant_address`, `applicant_about`, `applicant_marital_status`, `applicant_future_goals`, `applicant_website`, `applicant_status`, `career_path_id`) VALUES
-(4, 'Lê Công Quốc', '0963935711', '1994-09-28', 1, 'Quan Son Tra, Da Nang2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 0, 'Some websites go the extra mile and make their About page more than just a testimony of who they are', NULL, 0, 1),
+(4, 'Lê Công Quốc', '0963935710000', '1994-09-28', 1, 'Quan Son Tra, Da Nang', 'L22222orem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 0, 'Some websites go the extra mile and make their About page more than just a testimony of who they are', NULL, 1, 1),
 (5, 'aaaaaaaa', '11111111111', '1990-07-16', 1, 'da nang', 'If you want to know more about a company, website, and a person, you’ll certainly go to their About page - which I always do. I love reading people''s about page especially those who are in the same industry as me. It''s always quite interesting to have a quick glimpse of who and what they are.', 1, 'While the About Page can be very informative, some websites go the extra mile and make their About page more than just a testimony of who they are...', 'fb.com', 1, 1);
 
 -- --------------------------------------------------------
@@ -71,7 +74,10 @@ INSERT INTO `applicants` (`id`, `applicant_name`, `applicant_phone_number`, `app
 
 CREATE TABLE IF NOT EXISTS `applicants_follow_posts` (
   `applicant_id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL
+  `post_id` int(11) NOT NULL,
+  PRIMARY KEY (`applicant_id`,`post_id`),
+  KEY `fk_cs_applicants_has_cs_posts_cs_posts1_idx` (`post_id`),
+  KEY `fk_cs_applicants_has_cs_posts_cs_applicants1_idx` (`applicant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -82,7 +88,10 @@ CREATE TABLE IF NOT EXISTS `applicants_follow_posts` (
 
 CREATE TABLE IF NOT EXISTS `applicants_has_hobbies` (
   `applicant_id` int(11) NOT NULL,
-  `hobby_id` int(11) NOT NULL
+  `hobby_id` int(11) NOT NULL,
+  PRIMARY KEY (`applicant_id`,`hobby_id`),
+  KEY `fk_cs_applicants_has_cs_hobbies_cs_hobbies1_idx` (`hobby_id`),
+  KEY `fk_cs_applicants_has_cs_hobbies_cs_applicants1_idx` (`applicant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -94,8 +103,28 @@ CREATE TABLE IF NOT EXISTS `applicants_has_hobbies` (
 CREATE TABLE IF NOT EXISTS `applicants_has_skills` (
   `applicant_id` int(11) NOT NULL,
   `skill_id` int(11) NOT NULL,
-  `skill_level` int(11) DEFAULT NULL
+  `skill_level` int(11) DEFAULT NULL,
+  PRIMARY KEY (`applicant_id`,`skill_id`),
+  KEY `fk_cs_applicants_has_cs_skills_cs_skills1_idx` (`skill_id`),
+  KEY `fk_cs_applicants_has_cs_skills_cs_applicants1_idx` (`applicant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `applicants_has_skills`
+--
+
+INSERT INTO `applicants_has_skills` (`applicant_id`, `skill_id`, `skill_level`) VALUES
+(4, 2, 35),
+(4, 100, 85),
+(4, 123, 65),
+(4, 213, 80),
+(4, 233, 80),
+(4, 312, 70),
+(4, 412, 50),
+(4, 432, 50),
+(4, 511, 95),
+(4, 812, 100),
+(5, 2, 60);
 
 -- --------------------------------------------------------
 
@@ -105,7 +134,8 @@ CREATE TABLE IF NOT EXISTS `applicants_has_skills` (
 
 CREATE TABLE IF NOT EXISTS `apply_status` (
   `id` int(11) NOT NULL,
-  `status_name` varchar(45) DEFAULT NULL
+  `status_name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -122,7 +152,9 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `appointment_end` datetime DEFAULT NULL,
   `appointment_address` varchar(512) DEFAULT NULL,
   `appointment_SMS_alert` int(11) DEFAULT NULL,
-  `hiring_manager_id` int(11) NOT NULL
+  `hiring_manager_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_appointments_cs_hiring_managers1_idx` (`hiring_manager_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -134,7 +166,10 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 CREATE TABLE IF NOT EXISTS `appointments_has_applicants` (
   `appointment_id` int(11) NOT NULL,
   `applicant_id` int(11) NOT NULL,
-  `user_rating` int(11) DEFAULT NULL
+  `user_rating` int(11) DEFAULT NULL,
+  PRIMARY KEY (`appointment_id`,`applicant_id`),
+  KEY `fk_cs_appointments_has_cs_applicants_cs_applicants1_idx` (`applicant_id`),
+  KEY `fk_cs_appointments_has_cs_applicants_cs_appointments1_idx` (`appointment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -144,10 +179,11 @@ CREATE TABLE IF NOT EXISTS `appointments_has_applicants` (
 --
 
 CREATE TABLE IF NOT EXISTS `career_paths` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `career_path_name` varchar(512) DEFAULT NULL,
-  `career_path_description` text
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `career_path_description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `career_paths`
@@ -163,13 +199,14 @@ INSERT INTO `career_paths` (`id`, `career_path_name`, `career_path_description`)
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(512) NOT NULL,
   `category_description` text,
   `parent_id` int(11) DEFAULT NULL,
   `lft` int(11) DEFAULT NULL,
-  `rght` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+  `rght` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- Dumping data for table `categories`
@@ -226,10 +263,13 @@ INSERT INTO `categories` (`id`, `category_name`, `category_description`, `parent
 --
 
 CREATE TABLE IF NOT EXISTS `curriculum_vitaes` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `applicant_id` int(11) NOT NULL,
-  `curriculum_vitae_template_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `curriculum_vitae_template_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_curriculum_vitaes_cs_applicants1_idx` (`applicant_id`),
+  KEY `fk_cs_curriculum_vitaes_cs_curriculum_vitae_templates1_idx` (`curriculum_vitae_template_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -238,11 +278,12 @@ CREATE TABLE IF NOT EXISTS `curriculum_vitaes` (
 --
 
 CREATE TABLE IF NOT EXISTS `curriculum_vitae_templates` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `curriculum_vitae_template_name` varchar(512) NOT NULL,
   `curriculum_vitae_template_description` text,
-  `curriculum_vitae_template_url` varchar(1024) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `curriculum_vitae_template_url` varchar(1024) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -251,14 +292,17 @@ CREATE TABLE IF NOT EXISTS `curriculum_vitae_templates` (
 --
 
 CREATE TABLE IF NOT EXISTS `feedbacks` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `feedback_title` varchar(1024) DEFAULT NULL,
   `feedback_comment` text,
   `feedback_date` date NOT NULL,
   `feedback_result` text,
   `feedback_type_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_feedbacks_cs_feedback_types1_idx` (`feedback_type_id`),
+  KEY `fk_cs_feedbacks_cs_users1_idx` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `feedbacks`
@@ -291,9 +335,10 @@ INSERT INTO `feedbacks` (`id`, `feedback_title`, `feedback_comment`, `feedback_d
 --
 
 CREATE TABLE IF NOT EXISTS `feedback_types` (
-  `id` int(11) NOT NULL,
-  `feedback_type_name` varchar(512) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `feedback_type_name` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `feedback_types`
@@ -315,7 +360,10 @@ CREATE TABLE IF NOT EXISTS `follow` (
   `hiring_manager_id` int(11) NOT NULL,
   `applicant_id` int(11) NOT NULL,
   `follow_hiring_manager` tinyint(1) DEFAULT NULL,
-  `follow_applicant` tinyint(1) DEFAULT NULL
+  `follow_applicant` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`hiring_manager_id`,`applicant_id`),
+  KEY `fk_cs_hiring_managers_has_cs_applicants_cs_applicants1_idx` (`applicant_id`),
+  KEY `fk_cs_hiring_managers_has_cs_applicants_cs_hiring_managers1_idx` (`hiring_manager_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -325,10 +373,11 @@ CREATE TABLE IF NOT EXISTS `follow` (
 --
 
 CREATE TABLE IF NOT EXISTS `groups` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `group_name` varchar(512) NOT NULL,
-  `group_description` text
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `group_description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `groups`
@@ -355,7 +404,9 @@ CREATE TABLE IF NOT EXISTS `hiring_managers` (
   `company_email` varchar(100) DEFAULT NULL,
   `company_size` int(11) DEFAULT NULL,
   `company_about` text,
-  `company_logo` varchar(1024) DEFAULT NULL
+  `company_logo` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_hiring_managers_cs_users1_idx` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -373,10 +424,309 @@ INSERT INTO `hiring_managers` (`id`, `hiring_manager_name`, `hiring_manager_phon
 --
 
 CREATE TABLE IF NOT EXISTS `hobbies` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `hobby_name` varchar(512) NOT NULL,
-  `hobby_description` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=294 ;
+
+--
+-- Dumping data for table `hobbies`
+--
+
+INSERT INTO `hobbies` (`id`, `hobby_name`) VALUES
+(1, '3D printing'),
+(2, 'Amateur radio'),
+(3, 'Acting'),
+(4, 'Baton twirling'),
+(5, 'Board games'),
+(6, 'Book restoration'),
+(7, 'Cabaret'),
+(8, 'Calligraphy'),
+(9, 'Candle making'),
+(10, 'Computer programming'),
+(11, 'Coffee roasting'),
+(12, 'Cooking'),
+(13, 'Coloring'),
+(14, 'Cosplaying'),
+(15, 'Couponing'),
+(16, 'Creative writing'),
+(17, 'Crocheting'),
+(18, 'Crossword puzzles'),
+(19, 'Cryptography'),
+(20, 'Dance'),
+(21, 'Digital arts'),
+(22, 'Drama'),
+(23, 'Drawing'),
+(24, 'Do it yourself'),
+(25, 'Electronics'),
+(26, 'Embroidery'),
+(27, 'Fashion'),
+(28, 'Flower arranging'),
+(29, 'Foreign language learning'),
+(30, 'Gaming'),
+(31, 'tabletop games'),
+(32, 'role-playing games'),
+(33, 'Gambling'),
+(34, 'Genealogy'),
+(35, 'Glassblowing'),
+(36, 'Gunsmithing'),
+(37, 'Homebrewing'),
+(38, 'Ice skating'),
+(39, 'Jewelry making'),
+(40, 'Jigsaw puzzles'),
+(41, 'Juggling'),
+(42, 'Knapping'),
+(43, 'Knitting'),
+(44, 'Kabaddi'),
+(45, 'Knife making'),
+(46, 'Kombucha Brewing'),
+(47, 'Lacemaking'),
+(48, 'Lapidary'),
+(49, 'Leather crafting'),
+(50, 'Lego building'),
+(51, 'Lockpicking'),
+(52, 'Machining'),
+(53, 'Macrame'),
+(54, 'Metalworking'),
+(55, 'Magic'),
+(56, 'Model building'),
+(57, 'Listening to music'),
+(58, 'Origami'),
+(59, 'Painting'),
+(60, 'Playing musical instruments'),
+(61, 'Pet'),
+(62, 'Poi'),
+(63, 'Pottery'),
+(64, 'Puzzles'),
+(65, 'Quilting'),
+(66, 'Reading'),
+(67, 'Scrapbooking'),
+(68, 'Sculpting'),
+(69, 'Sewing'),
+(70, 'Singing'),
+(71, 'Sudoku'),
+(72, 'Sketching'),
+(73, 'Soapmaking'),
+(74, 'Stand-up comedy'),
+(75, 'Table tennis'),
+(76, 'Video gaming'),
+(77, 'Watching movies'),
+(78, 'Web surfing'),
+(79, 'Whittling'),
+(80, 'Wood carving'),
+(81, 'Woodworking'),
+(82, 'Worldbuilding'),
+(83, 'Writing'),
+(84, 'Yoga'),
+(85, 'Yo-yoing'),
+(86, 'Air sports'),
+(87, 'Archery'),
+(88, 'Astronomy'),
+(89, 'Backpacking'),
+(90, 'BASE jumping'),
+(91, 'Baseball'),
+(92, 'Basketball'),
+(93, 'Beekeeping'),
+(94, 'Bird watching'),
+(95, 'Blacksmithing'),
+(96, 'Board sports'),
+(97, 'Bodybuilding'),
+(98, 'Brazilian jiu-jitsu'),
+(99, 'Community'),
+(100, 'Cycling'),
+(101, 'Camping'),
+(102, 'Dowsing'),
+(103, 'Driving'),
+(104, 'Fishing'),
+(105, 'Flag Football'),
+(106, 'Flying'),
+(107, 'Flying disc'),
+(108, 'Foraging'),
+(109, 'Gardening'),
+(110, 'Geocaching'),
+(111, 'Ghost hunting'),
+(112, 'Graffiti'),
+(113, 'Handball'),
+(114, 'Hiking'),
+(115, 'Hooping'),
+(116, 'Horseback riding'),
+(117, 'Hunting'),
+(118, 'Inline skating'),
+(119, 'Jogging'),
+(120, 'Kayaking'),
+(121, 'Kite flying'),
+(122, 'Kitesurfing'),
+(123, 'LARPing'),
+(124, 'Letterboxing'),
+(125, 'Metal detecting'),
+(126, 'Motor sports'),
+(127, 'Mountain biking'),
+(128, 'Mountaineering'),
+(129, 'Mushroom hunting'),
+(130, 'Mycology'),
+(131, 'Netball'),
+(132, 'Nordic skating'),
+(133, 'Orienteering'),
+(134, 'Paintball'),
+(135, 'Parkour'),
+(136, 'Photography'),
+(137, 'Polo'),
+(138, 'Rafting'),
+(139, 'Rappelling'),
+(140, 'Rock climbing'),
+(141, 'Roller skating'),
+(142, 'Rugby'),
+(143, 'Running'),
+(144, 'Sailing'),
+(145, 'Sand art'),
+(146, 'Scouting'),
+(147, 'Scuba diving'),
+(148, 'Sculling'),
+(149, 'Rowing'),
+(150, 'Topiary'),
+(151, 'Shooting'),
+(152, 'Shopping'),
+(153, 'Skateboarding'),
+(154, 'Skiing'),
+(155, 'Skimboarding'),
+(156, 'Skydiving'),
+(157, 'Slacklining'),
+(158, 'Snowboarding'),
+(159, 'Stone skipping'),
+(160, 'Surfing'),
+(161, 'Swimming'),
+(162, 'Taekwondo'),
+(163, 'Tai chi'),
+(164, 'Urban exploration'),
+(165, 'Vacation'),
+(166, 'Vehicle restoration'),
+(167, 'Walking'),
+(168, 'Water sports'),
+(169, 'Action figure'),
+(170, 'Antiquing'),
+(171, 'Art collecting'),
+(172, 'Book collecting'),
+(173, 'Card collecting'),
+(174, 'Coin collecting'),
+(175, 'Comic book collecting'),
+(176, 'Deltiology'),
+(177, 'Die-cast toy'),
+(178, 'Element collecting'),
+(179, 'Movie and movie memorabilia collecting'),
+(180, 'Record collecting'),
+(181, 'Stamp collecting'),
+(182, 'Video game collecting'),
+(183, 'Vintage cars'),
+(184, 'Antiquities'),
+(185, 'Auto audiophilia'),
+(186, 'Flower collecting and pressing'),
+(187, 'Fossil hunting'),
+(188, 'Insect collecting'),
+(189, 'Metal detecting'),
+(190, 'Stone collecting'),
+(191, 'Mineral collecting'),
+(192, 'Rock balancing'),
+(193, 'Sea glass collecting'),
+(194, 'Seashell collecting'),
+(195, 'Aqua-lung'),
+(196, 'Animal fancy'),
+(197, 'Badminton'),
+(198, 'Baton Twirling'),
+(199, 'Billiards'),
+(200, 'Bowling'),
+(201, 'Boxing'),
+(202, 'Bridge'),
+(203, 'Cheerleading'),
+(204, 'Chess'),
+(205, 'Color guard'),
+(206, 'Curling'),
+(207, 'Dancing'),
+(208, 'Darts'),
+(209, 'Debate'),
+(210, 'Fencing'),
+(211, 'Go'),
+(212, 'Gymnastics'),
+(213, 'Marbles'),
+(214, 'Martial arts'),
+(215, 'Mahjong'),
+(216, 'Poker'),
+(217, 'Slot car racing'),
+(218, 'Table football'),
+(219, 'Video Games'),
+(220, 'Volleyball'),
+(221, 'Weightlifting'),
+(222, 'Airsoft'),
+(223, 'American football'),
+(224, 'Archery'),
+(225, 'Association football'),
+(226, 'Australian rules football'),
+(227, 'Auto racing'),
+(228, 'Baseball'),
+(229, 'Beach Volleyball'),
+(230, 'Breakdancing'),
+(231, 'Climbing'),
+(232, 'Cricket'),
+(233, 'Cycling'),
+(234, 'Disc golf'),
+(235, 'Dog sport'),
+(236, 'Equestrianism'),
+(237, 'Exhibition drill'),
+(238, 'Field hockey'),
+(239, 'Figure skating'),
+(240, 'Fishing'),
+(241, 'Footbag'),
+(242, 'Golfing'),
+(243, 'Handball'),
+(244, 'Ice hockey'),
+(245, 'Judo'),
+(246, 'Jukskei'),
+(247, 'Kart racing'),
+(248, 'Knife throwing'),
+(249, 'Lacrosse'),
+(250, 'Laser tag'),
+(251, 'Model aircraft'),
+(252, 'Pigeon racing'),
+(253, 'Racquetball'),
+(254, 'Radio-controlled car racing'),
+(255, 'Roller derby'),
+(256, 'Rugby league football'),
+(257, 'Sculling'),
+(258, 'Rowing'),
+(259, 'Shooting sport'),
+(260, 'Skateboarding'),
+(261, 'Speed skating'),
+(262, 'Squash'),
+(263, 'Surfing'),
+(264, 'Swimming'),
+(265, 'Table tennis'),
+(266, 'Tennis'),
+(267, 'Tour skating'),
+(268, 'Triathlon'),
+(269, 'Ultimate Disc'),
+(270, 'Volleyball'),
+(271, 'Fishkeeping'),
+(272, 'Learning'),
+(273, 'Microscopy'),
+(274, 'Reading'),
+(275, 'Shortwave listening'),
+(276, 'Videophilia'),
+(277, 'Aircraft spotting'),
+(278, 'Amateur astronomy'),
+(279, 'Amateur geology'),
+(280, 'Astrology'),
+(281, 'Birdwatching'),
+(282, 'Bus spotting'),
+(283, 'Geocaching'),
+(284, 'Gongoozling'),
+(285, 'Herping'),
+(286, 'Meteorology'),
+(287, 'People watching'),
+(288, 'Photography'),
+(289, 'Trainspotting'),
+(290, 'Traveling'),
+(291, 'Hiking'),
+(292, 'backpacking'),
+(293, 'Whale Watching');
 
 -- --------------------------------------------------------
 
@@ -385,11 +735,13 @@ CREATE TABLE IF NOT EXISTS `hobbies` (
 --
 
 CREATE TABLE IF NOT EXISTS `logs` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `log_activity` varchar(45) DEFAULT NULL,
   `log_date` varchar(45) DEFAULT NULL,
-  `administrator_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `administrator_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_logs_cs_administrators1_idx` (`administrator_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -398,13 +750,15 @@ CREATE TABLE IF NOT EXISTS `logs` (
 --
 
 CREATE TABLE IF NOT EXISTS `notifications` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `notification_title` varchar(512) DEFAULT NULL,
   `notification_detail` text,
   `notification_time` datetime DEFAULT NULL,
   `is_seen` tinyint(1) DEFAULT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_notifications_cs_users1_idx` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -413,14 +767,17 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 --
 
 CREATE TABLE IF NOT EXISTS `personal_history` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `personal_history_title` varchar(1024) NOT NULL,
   `personal_history_detail` text NOT NULL,
   `personal_history_start` date NOT NULL,
   `personal_history_end` date DEFAULT NULL,
   `personal_history_type_id` int(11) NOT NULL,
-  `applicant_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `applicant_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_personal_history_cs_personal_history_types1_idx` (`personal_history_type_id`),
+  KEY `fk_cs_personal_history_cs_applicants1_idx` (`applicant_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `personal_history`
@@ -437,10 +794,11 @@ INSERT INTO `personal_history` (`id`, `personal_history_title`, `personal_histor
 --
 
 CREATE TABLE IF NOT EXISTS `personal_history_types` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `personal_history_type_name` varchar(512) NOT NULL,
-  `personal_history_type_description` text
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `personal_history_type_description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `personal_history_types`
@@ -459,7 +817,7 @@ INSERT INTO `personal_history_types` (`id`, `personal_history_type_name`, `perso
 --
 
 CREATE TABLE IF NOT EXISTS `posts` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_title` varchar(1024) NOT NULL,
   `post_content` longtext NOT NULL,
   `post_salary` int(11) DEFAULT NULL,
@@ -467,8 +825,11 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `post_date` date DEFAULT NULL,
   `post_status` tinyint(1) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
-  `hiring_manager_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+  `hiring_manager_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_posts_cs_categories_idx` (`category_id`),
+  KEY `fk_cs_posts_cs_hiring_managers1_idx` (`hiring_manager_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 --
 -- Dumping data for table `posts`
@@ -527,7 +888,11 @@ INSERT INTO `posts` (`id`, `post_title`, `post_content`, `post_salary`, `post_lo
 CREATE TABLE IF NOT EXISTS `posts_has_curriculum_vitaes` (
   `post_id` int(11) NOT NULL,
   `curriculum_vitae_id` int(11) NOT NULL,
-  `apply_status_id` int(11) NOT NULL
+  `apply_status_id` int(11) NOT NULL,
+  PRIMARY KEY (`post_id`,`curriculum_vitae_id`),
+  KEY `fk_cs_posts_has_cs_curriculum_vitaes_cs_curriculum_vitaes1_idx` (`curriculum_vitae_id`),
+  KEY `fk_cs_posts_has_cs_curriculum_vitaes_cs_posts1_idx` (`post_id`),
+  KEY `fk_posts_has_curriculum_vitaes_apply_status1_idx` (`apply_status_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -537,10 +902,12 @@ CREATE TABLE IF NOT EXISTS `posts_has_curriculum_vitaes` (
 --
 
 CREATE TABLE IF NOT EXISTS `skills` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `skill_name` varchar(512) NOT NULL,
-  `skill_type_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=898 DEFAULT CHARSET=utf8;
+  `skill_type_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cs_skills_cs_skill_types1_idx` (`skill_type_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=898 ;
 
 --
 -- Dumping data for table `skills`
@@ -1452,28 +1819,28 @@ INSERT INTO `skills` (`id`, `skill_name`, `skill_type_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `skill_types` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `skill_type_name` varchar(512) NOT NULL,
-  `skill_type_description` varchar(1024) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `skill_types`
 --
 
-INSERT INTO `skill_types` (`id`, `skill_type_name`, `skill_type_description`) VALUES
-(1, 'Websites, IT & Software', 'Description'),
-(2, 'Mobile Phones & Computing', 'Description'),
-(3, 'Writing & Content', 'Description'),
-(4, 'Design, Media & Architecture', 'Description'),
-(5, 'Data Entry & Admin', 'Description'),
-(6, 'Engineering & Science', 'Description'),
-(7, 'Product Sourcing & Manufacturing', 'Description'),
-(8, 'Sales & Marketing', 'Description'),
-(9, 'Business, Accounting, Human Resources & Legal', 'Description'),
-(10, 'Translation & Languages', 'Description'),
-(11, 'Local Jobs & Services', 'Description'),
-(12, 'Other', 'Description');
+INSERT INTO `skill_types` (`id`, `skill_type_name`) VALUES
+(1, 'Websites, IT & Software'),
+(2, 'Mobile Phones & Computing'),
+(3, 'Writing & Content'),
+(4, 'Design, Media & Architecture'),
+(5, 'Data Entry & Admin'),
+(6, 'Engineering & Science'),
+(7, 'Product Sourcing & Manufacturing'),
+(8, 'Sales & Marketing'),
+(9, 'Business, Accounting, Human Resources & Legal'),
+(10, 'Translation & Languages'),
+(11, 'Local Jobs & Services'),
+(12, 'Other');
 
 -- --------------------------------------------------------
 
@@ -1482,7 +1849,7 @@ INSERT INTO `skill_types` (`id`, `skill_type_name`, `skill_type_description`) VA
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `user_email` varchar(100) NOT NULL,
@@ -1490,8 +1857,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_status` tinyint(1) DEFAULT NULL,
   `user_activation_key` varchar(10) NOT NULL,
   `user_avatar` varchar(1024) DEFAULT NULL,
-  `group_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_activation_key_UNIQUE` (`user_activation_key`),
+  UNIQUE KEY `user_email_UNIQUE` (`user_email`),
+  KEY `fk_cs_users_cs_groups1_idx` (`group_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `users`
@@ -1503,286 +1874,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `user_email`, `user_registere
 (4, 'vic', '123456789', 'vic@gmail.com', '2016-03-28', 1, '1231', '1.jpg', 3),
 (5, 'abcccc', '123123', 'abc@abc.com', '2016-03-29', 1, '1313413r1', '1.jpg', 3);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `administrators`
---
-ALTER TABLE `administrators`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `applicants`
---
-ALTER TABLE `applicants`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_applicants_cs_career_paths1_idx` (`career_path_id`);
-
---
--- Indexes for table `applicants_follow_posts`
---
-ALTER TABLE `applicants_follow_posts`
-  ADD PRIMARY KEY (`applicant_id`,`post_id`),
-  ADD KEY `fk_cs_applicants_has_cs_posts_cs_posts1_idx` (`post_id`),
-  ADD KEY `fk_cs_applicants_has_cs_posts_cs_applicants1_idx` (`applicant_id`);
-
---
--- Indexes for table `applicants_has_hobbies`
---
-ALTER TABLE `applicants_has_hobbies`
-  ADD PRIMARY KEY (`applicant_id`,`hobby_id`),
-  ADD KEY `fk_cs_applicants_has_cs_hobbies_cs_hobbies1_idx` (`hobby_id`),
-  ADD KEY `fk_cs_applicants_has_cs_hobbies_cs_applicants1_idx` (`applicant_id`);
-
---
--- Indexes for table `applicants_has_skills`
---
-ALTER TABLE `applicants_has_skills`
-  ADD PRIMARY KEY (`applicant_id`,`skill_id`),
-  ADD KEY `fk_cs_applicants_has_cs_skills_cs_skills1_idx` (`skill_id`),
-  ADD KEY `fk_cs_applicants_has_cs_skills_cs_applicants1_idx` (`applicant_id`);
-
---
--- Indexes for table `apply_status`
---
-ALTER TABLE `apply_status`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `appointments`
---
-ALTER TABLE `appointments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_appointments_cs_hiring_managers1_idx` (`hiring_manager_id`);
-
---
--- Indexes for table `appointments_has_applicants`
---
-ALTER TABLE `appointments_has_applicants`
-  ADD PRIMARY KEY (`appointment_id`,`applicant_id`),
-  ADD KEY `fk_cs_appointments_has_cs_applicants_cs_applicants1_idx` (`applicant_id`),
-  ADD KEY `fk_cs_appointments_has_cs_applicants_cs_appointments1_idx` (`appointment_id`);
-
---
--- Indexes for table `career_paths`
---
-ALTER TABLE `career_paths`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `curriculum_vitaes`
---
-ALTER TABLE `curriculum_vitaes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_curriculum_vitaes_cs_applicants1_idx` (`applicant_id`),
-  ADD KEY `fk_cs_curriculum_vitaes_cs_curriculum_vitae_templates1_idx` (`curriculum_vitae_template_id`);
-
---
--- Indexes for table `curriculum_vitae_templates`
---
-ALTER TABLE `curriculum_vitae_templates`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `feedbacks`
---
-ALTER TABLE `feedbacks`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_feedbacks_cs_feedback_types1_idx` (`feedback_type_id`),
-  ADD KEY `fk_cs_feedbacks_cs_users1_idx` (`user_id`);
-
---
--- Indexes for table `feedback_types`
---
-ALTER TABLE `feedback_types`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `follow`
---
-ALTER TABLE `follow`
-  ADD PRIMARY KEY (`hiring_manager_id`,`applicant_id`),
-  ADD KEY `fk_cs_hiring_managers_has_cs_applicants_cs_applicants1_idx` (`applicant_id`),
-  ADD KEY `fk_cs_hiring_managers_has_cs_applicants_cs_hiring_managers1_idx` (`hiring_manager_id`);
-
---
--- Indexes for table `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `hiring_managers`
---
-ALTER TABLE `hiring_managers`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_hiring_managers_cs_users1_idx` (`id`);
-
---
--- Indexes for table `hobbies`
---
-ALTER TABLE `hobbies`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `logs`
---
-ALTER TABLE `logs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_logs_cs_administrators1_idx` (`administrator_id`);
-
---
--- Indexes for table `notifications`
---
-ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_notifications_cs_users1_idx` (`user_id`);
-
---
--- Indexes for table `personal_history`
---
-ALTER TABLE `personal_history`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_personal_history_cs_personal_history_types1_idx` (`personal_history_type_id`),
-  ADD KEY `fk_cs_personal_history_cs_applicants1_idx` (`applicant_id`);
-
---
--- Indexes for table `personal_history_types`
---
-ALTER TABLE `personal_history_types`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `posts`
---
-ALTER TABLE `posts`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_posts_cs_categories_idx` (`category_id`),
-  ADD KEY `fk_cs_posts_cs_hiring_managers1_idx` (`hiring_manager_id`);
-
---
--- Indexes for table `posts_has_curriculum_vitaes`
---
-ALTER TABLE `posts_has_curriculum_vitaes`
-  ADD PRIMARY KEY (`post_id`,`curriculum_vitae_id`),
-  ADD KEY `fk_cs_posts_has_cs_curriculum_vitaes_cs_curriculum_vitaes1_idx` (`curriculum_vitae_id`),
-  ADD KEY `fk_cs_posts_has_cs_curriculum_vitaes_cs_posts1_idx` (`post_id`),
-  ADD KEY `fk_posts_has_curriculum_vitaes_apply_status1_idx` (`apply_status_id`);
-
---
--- Indexes for table `skills`
---
-ALTER TABLE `skills`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_cs_skills_cs_skill_types1_idx` (`skill_type_id`);
-
---
--- Indexes for table `skill_types`
---
-ALTER TABLE `skill_types`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_activation_key_UNIQUE` (`user_activation_key`),
-  ADD UNIQUE KEY `user_email_UNIQUE` (`user_email`),
-  ADD KEY `fk_cs_users_cs_groups1_idx` (`group_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `career_paths`
---
-ALTER TABLE `career_paths`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
---
--- AUTO_INCREMENT for table `curriculum_vitaes`
---
-ALTER TABLE `curriculum_vitaes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `curriculum_vitae_templates`
---
-ALTER TABLE `curriculum_vitae_templates`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `feedbacks`
---
-ALTER TABLE `feedbacks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
---
--- AUTO_INCREMENT for table `feedback_types`
---
-ALTER TABLE `feedback_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `groups`
---
-ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `hobbies`
---
-ALTER TABLE `hobbies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `logs`
---
-ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `notifications`
---
-ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `personal_history`
---
-ALTER TABLE `personal_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `personal_history_types`
---
-ALTER TABLE `personal_history_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT for table `posts`
---
-ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
---
--- AUTO_INCREMENT for table `skills`
---
-ALTER TABLE `skills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=898;
---
--- AUTO_INCREMENT for table `skill_types`
---
-ALTER TABLE `skill_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --

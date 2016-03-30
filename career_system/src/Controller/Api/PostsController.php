@@ -6,15 +6,6 @@ use App\Controller\Api\AppController;
 class PostsController extends AppController
 {
 
-    public $paginate = [
-        'page' => 1,
-        'limit' => 5,
-        'maxLimit' => 15,
-        'sortWhitelist' => [
-            'id', 'name'
-        ]
-    ];
-
     /**
      * Index method
      *
@@ -23,8 +14,8 @@ class PostsController extends AppController
     public function index()
     {
         $conditions = [];
-        if($this->request->query('hiring_manager_id')) {
-            $conditions['hiring_manager_id'] = $this->request->query('hiring_manager_id');
+        if(isset($this->request->params['hiring_manager_id'])) {
+            $conditions['hiring_manager_id'] = $this->request->params['hiring_manager_id'];
         }
         $this->paginate = [
             'conditions' => $conditions,

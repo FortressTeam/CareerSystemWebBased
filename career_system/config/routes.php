@@ -76,11 +76,22 @@ Router::scope('/', function (RouteBuilder $routes) {
 
 Router::prefix('Api', function ($routes) {
     $routes->extensions(['json', 'xml']);
-    $routes->resources('Posts');
     $routes->resources('Categories');
-    $routes->resources('HiringManagers');
-    $routes->resources('Applicants');
-    $routes->resources('Skills');
+    $routes->resources('Posts');
+    $routes->resources('HiringManagers', function ($routes) {
+        $routes->resources('Posts');
+    });
+    $routes->resources('Skills', function ($routes) {
+        $routes->resources('ApplicantsHasSkills', [
+            
+        ]);
+    });
+    $routes->resources('Applicants', function ($routes) {
+        $routes->resources('ApplicantsHasSkills');
+    });
+    $routes->resources('SkillTypes', function ($routes) {
+        $routes->resources('Skills');
+    });
     $routes->resources('Feedbacks', [
        'map' => [
            'month' => [
