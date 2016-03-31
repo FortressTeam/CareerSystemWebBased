@@ -50,10 +50,6 @@ class SkillTypesTable extends Table
             ->requirePresence('skill_type_name', 'create')
             ->notEmpty('skill_type_name');
 
-        $validator
-            ->requirePresence('skill_type_description', 'create')
-            ->notEmpty('skill_type_description');
-
         return $validator;
     }
 }

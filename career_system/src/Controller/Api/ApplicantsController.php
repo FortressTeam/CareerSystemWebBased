@@ -11,11 +11,7 @@ use App\Controller\Api\AppController;
 class ApplicantsController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
+
     public function index()
     {
         $this->paginate = [
@@ -27,30 +23,18 @@ class ApplicantsController extends AppController
         $this->set('_serialize', ['applicants']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Applicant id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+
     public function view($id = null)
     {
         $applicant = $this->Applicants->get($id, [
-            'contain' => ['CareerPaths', 'ApplicantsFollowPosts', 'ApplicantsHasHobbies', 'ApplicantsHasSkills', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users']
+            'contain' => ['CareerPaths', 'ApplicantsFollowPosts', 'ApplicantsHasHobbies', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users', 'Skills']
         ]);
 
         $this->set('applicant', $applicant);
         $this->set('_serialize', ['applicant']);
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Applicant id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
+
     public function edit($id = null)
     {
         $applicant = $this->Applicants->get($id, [

@@ -37,6 +37,9 @@ class SkillsTable extends Table
         $this->hasMany('ApplicantsHasSkills', [
             'foreignKey' => 'skill_id'
         ]);
+        $this->belongsToMany('Applicants', [
+            'joinTable' => 'applicants_has_skills',
+        ]);
     }
 
     /**

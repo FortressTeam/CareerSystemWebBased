@@ -12,11 +12,9 @@ class SkillsController extends AppController
 {
 
     /**
-     * @apiDefine DefaultGetParameter
-     * @apiParam {Number{1-*}}      [limit=20] Number of results.
-     * @apiParam {Number{1-*}}      [page=1] Paginate page.
+     * @apiDefine SkillDefaultGetParameter
+     *
      * @apiParam {String=id,skill_name,skill_type_id} [sort=id] Sort by field.
-     * @apiParam {String=asc,desc}  [direction=asc] Sort direction.
      */
 
     /**
@@ -28,7 +26,7 @@ class SkillsController extends AppController
      *     HTTP/1.1 404 Not Found
      *      {
      *          message: "Record not found in table "skills"",
-     *          url: "/CareerSystemWebBased/career_system/api/skills/0.json",
+     *          url: "/CareerSystemWebBased/career_system/api/skills/0",
      *          code: 404
      *      }
      */
@@ -44,6 +42,7 @@ class SkillsController extends AppController
      *
      * @apiParam {Number}       [skill_type_id] Skill Type ID.
      * @apiUse DefaultGetParameter
+     * @apiUse SkillDefaultGetParameter
      *
      * @apiSuccess {Object[]}   skills List of skills (Array of Objects).
      * @apiSuccess {Number}     skills.id Skill ID.
@@ -62,7 +61,6 @@ class SkillsController extends AppController
      *          ]
      *     }
      *
-     * @apiUse SkillNotFoundError
      */
     public function index()
     {
@@ -79,13 +77,7 @@ class SkillsController extends AppController
         $this->set('_serialize', ['skills']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Skill id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+
     // public function view($id = null)
     // {
     //     $skill = $this->Skills->get($id, [
@@ -96,11 +88,7 @@ class SkillsController extends AppController
     //     $this->set('_serialize', ['skill']);
     // }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
+
     // public function add()
     // {
     //     $skill = $this->Skills->newEntity();
@@ -117,13 +105,7 @@ class SkillsController extends AppController
     //     $this->set('_serialize', ['skill']);
     // }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Skill id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
+
     // public function edit($id = null)
     // {
     //     $skill = $this->Skills->get($id, [
@@ -140,24 +122,5 @@ class SkillsController extends AppController
     //     }
     //     $this->set(compact('skill'));
     //     $this->set('_serialize', ['skill']);
-    // }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Skill id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    // public function delete($id = null)
-    // {
-    //     $this->request->allowMethod(['post', 'delete']);
-    //     $skill = $this->Skills->get($id);
-    //     if ($this->Skills->delete($skill)) {
-    //         $this->Flash->success(__('The skill has been deleted.'));
-    //     } else {
-    //         $this->Flash->error(__('The skill could not be deleted. Please, try again.'));
-    //     }
-    //     return $this->redirect(['action' => 'index']);
     // }
 }

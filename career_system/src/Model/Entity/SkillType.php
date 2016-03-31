@@ -8,7 +8,6 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $skill_type_name
- * @property string $skill_type_description
  * @property \App\Model\Entity\Skill[] $skills
  */
 class SkillType extends Entity

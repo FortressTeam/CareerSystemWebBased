@@ -257,7 +257,6 @@ footer {
     white-space: nowrap;
     overflow: auto;
     display: block;
-    padding-top: 10em;
  }
 .skill-graph .single-skill {
     display: inline-block;

@@ -80,7 +80,20 @@ Router::prefix('Api', function ($routes) {
     $routes->resources('Categories');
     $routes->resources('Posts');
     $routes->resources('Applicants');
-    $routes->resources('ApplicantsHasSkills');
+    $routes->resources('ApplicantsHasSkills', [
+        'map' => [
+            'update' => [
+                'action' => 'edit',
+                'method' => 'PUT',
+                'path' => '/'
+            ],
+            'delete' => [
+                'action' => 'delete',
+                'method' => 'DELETE',
+                'path' => '/'
+            ],
+        ]
+    ]);
     $routes->resources('Skills');
     $routes->resources('SkillTypes');
     $routes->resources('Feedbacks', [

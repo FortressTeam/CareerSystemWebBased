@@ -26,7 +26,7 @@ class ApplicantsHasSkill extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'applicant_id' => false,
-        'skill_id' => false,
+        'applicant_id' => true,
+        'skill_id' => true,
     ];
 }

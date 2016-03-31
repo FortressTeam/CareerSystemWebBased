@@ -151,12 +151,12 @@ $( document).ready(function(){
         var skill = $.extend({
             id: '1',
             name: 'CakePHP 3',
-            level: '90%',
+            level: '5',
         }, data );
 
         var inner = $('<div></div>')
                         .addClass('skill-inner')
-                        .data('level', skill.level + '%')
+                        .data('level', skill.level)
                         .append(
                             $('<div></div>')
                                 .addClass('skill-visiable')
@@ -172,7 +172,7 @@ $( document).ready(function(){
                         );
         var count = $('<div></div>')
                         .addClass('skill-count')
-                        .text(skill.level + '%');
+                        .text(skill.level + ' star(s)');
 
         $('<li></li>')
             .addClass( "single-skill" )

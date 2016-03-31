@@ -7,10 +7,16 @@ class PostsController extends AppController
 {
     /**
      * @apiDefine DefaultGetParameter
+     *
      * @apiParam {Number{1-*}}      [limit=20] Number of results.
      * @apiParam {Number{1-*}}      [page=1] Paginate page.
-     * @apiParam {String=id,post_title,post_salary,post_location,post_date,category_id,hiring_manager_id} [sort=id] Sort by field.
      * @apiParam {String=asc,desc}  [direction=asc] Sort direction.
+     */
+
+    /**
+     * @apiDefine PostDefaultGetParameter
+     *
+     * @apiParam {String=id,post_title,post_salary,post_location,post_date,category_id,hiring_manager_id} [sort=id] Sort by field.
      */
 
     /**
@@ -22,7 +28,7 @@ class PostsController extends AppController
      *     HTTP/1.1 404 Not Found
      *      {
      *          message: "Record not found in table "posts"",
-     *          url: "/CareerSystemWebBased/career_system/api/posts/0.json",
+     *          url: "/CareerSystemWebBased/career_system/api/posts/0",
      *          code: 404
      *      }
      */
@@ -36,8 +42,10 @@ class PostsController extends AppController
      *
      * @apiDescription Request All Posts information. This is a descripton.
      *
+     * @apiParam {Number}       [category_id] Category ID.
      * @apiParam {Number}       [hiring_manager_id] Hiring Manager ID.
      * @apiUse DefaultGetParameter
+     * @apiUse PostDefaultGetParameter
      *
      * @apiSuccess {Object[]}   posts List of posts (Array of Objects).
      * @apiSuccess {Number}     posts.id Post ID.
@@ -68,11 +76,13 @@ class PostsController extends AppController
      *          ]
      *     }
      *
-     * @apiUse PostNotFoundError
      */
     public function index()
     {
         $conditions = [];
+        if(isset($this->request->query['category_id'])) {
+            $conditions['category_id'] = $this->request->query['category_id'];
+        }
         if(isset($this->request->query['hiring_manager_id'])) {
             $conditions['hiring_manager_id'] = $this->request->query['hiring_manager_id'];
         }
@@ -96,7 +106,6 @@ class PostsController extends AppController
      * @apiDescription Request Post information. This is a descripton.
      *
      * @apiParam {Number}       id Post ID.
-     * @apiUse DefaultGetParameter
      *
      * @apiSuccess {Object}     post Post object.
      * @apiSuccess {Number}     post.id Post ID.
@@ -142,7 +151,7 @@ class PostsController extends AppController
      * @apiName PostPost
      * @apiGroup Post
      * @apiVersion 0.2.0
-     * @apiPermission none
+     * @apiPermission Hiring Manager
      *
      * @apiDescription Create a new Post. This is a descripton.
      *
@@ -157,10 +166,12 @@ class PostsController extends AppController
      *
      * @apiSuccess {String}     message POST message (Values: <code>Saved</code>,<code>Error</code>).
      * @apiSuccess {Object}     post Post object.
+     * @apiSuccess {Number}     post.id Post ID.
      * @apiSuccess {String}     post.post_title Post title.
      * @apiSuccess {String}     post.post_content Post content.
      * @apiSuccess {Number}     post.post_salary Job's salary.
      * @apiSuccess {String}     post.post_location Job's location.
+     * @apiSuccess {Date}       post.post_date Created date.
      * @apiSuccess {Boolean}    post.post_status Post status.
      * @apiSuccess {Number}     post.category_id Category ID.
      * @apiSuccess {Number}     post.hiring_manager_id Hiring manager ID.
@@ -170,10 +181,12 @@ class PostsController extends AppController
      *      {
      *          "message": "Saved",
      *          "post": {
+     *              "id": 2
      *              "post_title": "SUMMER INTERN",
      *              "post_content": "If full is true, the full base URL will be prepended to the result",
      *              "post_salary": 5000000,
      *              "post_location": "Danang, Vietnam",
+     *              "post_date": "2016-03-22T00:00:00+0000",
      *              "post_status": true,
      *              "category_id": 1,
      *              "hiring_manager_id": 1,
@@ -201,7 +214,7 @@ class PostsController extends AppController
      * @apiName PutPost
      * @apiGroup Post
      * @apiVersion 0.2.0
-     * @apiPermission none
+     * @apiPermission Hiring Manager
      *
      * @apiDescription Modify Post information. This is a descripton.
      *

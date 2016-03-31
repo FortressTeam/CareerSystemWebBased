@@ -18,7 +18,8 @@
 function loadSkills( parent ) {
     $.ajax({
         type: 'GET',
-        url: $('#webInfo').data('url') + '/api' + '/applicants' + '/' + parent.data('id') + '/applicants_has_skills',
+        url: $('#webInfo').data('url') + '/api' + '/applicants_has_skills' 
+                    + '?applicant_id=' + parent.data('id'),
         dataType: 'json',
         success: function(response) {
             $.each(response.applicantsHasSkills, function(index, value){
@@ -41,7 +42,7 @@ $( document).ready(function(){
     $(window).scroll(function(event) {
         if($(this).scrollTop() > $('#skillSlider').offset().top - 400) {
             $('#skillSlider').find('.skill-inner').height(function() {
-                return $(this).data('level');
+                return $(this).data('level') * 200 / 5;
             });
         }
     });

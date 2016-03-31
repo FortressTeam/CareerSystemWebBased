@@ -12,9 +12,52 @@ class SkillTypesController extends AppController
 {
 
     /**
-     * Index method
+     * @apiDefine SkillTypeDefaultGetParameter
      *
-     * @return \Cake\Network\Response|null
+     * @apiParam {String=id,skill_type_name} [sort=id] Sort by field.
+     */
+
+    /**
+     * @apiDefine SkillTypeNotFoundError
+     *
+     * @apiError SkillTypeNotFound The <code>id</code> of the SkillType was not found.
+     *
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *      {
+     *          message: "Record not found in table "skill_types"",
+     *          url: "/CareerSystemWebBased/career_system/api/skill_types/0",
+     *          code: 404
+     *      }
+     */
+
+    /**
+     * @api {GET} /skill_types 1. Request All Skill Types information
+     * @apiName GetSkillTypes
+     * @apiGroup Skill Type
+     * @apiVersion 0.2.0
+     * @apiPermission none
+     *
+     * @apiDescription Request All Skill Types information. This is a descripton.
+     *
+     * @apiUse DefaultGetParameter
+     * @apiUse SkillTypeDefaultGetParameter
+     *
+     * @apiSuccess {Object[]}   skillTypes List of Skill Types (Array of Objects).
+     * @apiSuccess {Number}     skillTypes.id Skill Type ID.
+     * @apiSuccess {String}     skillTypes.skill_type_name Skill Type name.
+     *
+     * @apiSuccessExample Success-Response:
+     *      HTTP/1.1 200 OK
+     *      {
+     *          "skillTypes": [
+     *               {
+     *                   "id": 1,
+     *                   "skill_type_name": "Websites, IT & Software"
+     *               }
+     *          ]
+     *     }
+     *
      */
     public function index()
     {
@@ -24,28 +67,17 @@ class SkillTypesController extends AppController
         $this->set('_serialize', ['skillTypes']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Skill Type id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $skillType = $this->SkillTypes->get($id, [
-            'contain' => ['Skills']
-        ]);
+    // public function view($id = null)
+    // {
+    //     $skillType = $this->SkillTypes->get($id, [
+    //         'contain' => ['Skills']
+    //     ]);
 
-        $this->set('skillType', $skillType);
-        $this->set('_serialize', ['skillType']);
-    }
+    //     $this->set('skillType', $skillType);
+    //     $this->set('_serialize', ['skillType']);
+    // }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
+
     // public function add()
     // {
     //     $skillType = $this->SkillTypes->newEntity();
@@ -62,13 +94,7 @@ class SkillTypesController extends AppController
     //     $this->set('_serialize', ['skillType']);
     // }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Skill Type id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
+
     // public function edit($id = null)
     // {
     //     $skillType = $this->SkillTypes->get($id, [
@@ -85,24 +111,5 @@ class SkillTypesController extends AppController
     //     }
     //     $this->set(compact('skillType'));
     //     $this->set('_serialize', ['skillType']);
-    // }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Skill Type id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    // public function delete($id = null)
-    // {
-    //     $this->request->allowMethod(['post', 'delete']);
-    //     $skillType = $this->SkillTypes->get($id);
-    //     if ($this->SkillTypes->delete($skillType)) {
-    //         $this->Flash->success(__('The skill type has been deleted.'));
-    //     } else {
-    //         $this->Flash->error(__('The skill type could not be deleted. Please, try again.'));
-    //     }
-    //     return $this->redirect(['action' => 'index']);
     // }
 }
