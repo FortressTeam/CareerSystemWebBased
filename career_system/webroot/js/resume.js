@@ -15,37 +15,4 @@
 
 ===================================================== */
 
-function loadSkills( parent ) {
-    $.ajax({
-        type: 'GET',
-        url: $('#webInfo').data('url') + '/api' + '/applicants_has_skills' 
-                    + '?applicant_id=' + parent.data('id'),
-        dataType: 'json',
-        success: function(response) {
-            $.each(response.applicantsHasSkills, function(index, value){
-                $('#skillSlider').addSkillColumn({
-                    id: value.skill.id,
-                    name: value.skill.skill_name,
-                    level: value.skill_level
-                });
-            });
-            
-        }
-    });
-}
-
-
-$( document).ready(function(){
-
-    loadSkills($('#skillSlider'));
-
-    $(window).scroll(function(event) {
-        if($(this).scrollTop() > $('#skillSlider').offset().top - 400) {
-            $('#skillSlider').find('.skill-inner').height(function() {
-                return $(this).data('level') * 200 / 5;
-            });
-        }
-    });
-});
-
 

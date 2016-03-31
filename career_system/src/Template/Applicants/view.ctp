@@ -40,7 +40,7 @@
                     <div class="card-body">
                         <div id="aboutMePanel" class="animated fadeIn">
                             <span class="text-xl">I'm <b id="textName"><?= h($applicant->applicant_name) ?></b></span><br/>
-                            <span class="text-lg"><?= $applicant->career_path->career_path_name ?></span><hr class="hr-mini" />
+                            <span class="text-lg" id="textCareerPath"><?= $applicant->career_path->career_path_name ?></span><hr class="hr-mini" />
                             <p id="textAbout"><?= h($applicant->applicant_about); ?></p>
                             <p id="textFutureGoals"><?= h($applicant->applicant_future_goals); ?></p>
                         </div>
@@ -178,7 +178,7 @@
                         <?= $this->Form->button('<i class="fa fa-pencil"></i>',
                             [
                                 'type' => 'button',
-                                'class' => 'btn btn-icon-toggle btn-OpenForm',
+                                'class' => 'btn btn-icon-toggle btn-OpenForm btn-OpenChangeChart',
                                 'data-form' => 'skills'
                             ],
                             [ 'escape' => false ]
@@ -188,32 +188,22 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div id="skillsPanel" class="animated fadeIn">
+                    <div class="animated fadeIn">
                         <ul id="skillSlider" class="skill-graph" data-id="<?= $applicant->id ?>"></ul><!-- Skill Here -->
                     </div>
                     <div  id="skillsForm" class="animated fadeIn" style="display: none">
-                            <?= $this->Form->create($applicant, [
-                                    'class' => 'form',
-                                    'templates' => [
-                                        'formGroup' => '{{label}}{{input}}',
-                                        'nestingLabel' => '<div class="checkbox checkbox-styled"><label{{attrs}}>{{input}}<span>{{text}}</span></label></div>',
-                                        'inputContainer' => '<div class="form-group floating-label col-md-6">{{content}}</div>'
-                                    ]
-                                ])
-                            ?>
                             <?= $this->Form->button(__('Save'), [
                                 'type' => 'button',
                                 'class' => 'btn ink-reaction btn-raised btn-primary',
-                                'id' => 'buttonEditPersonalInfo',
+                                'id' => 'buttonEditSkills',
                                 'data-form' => 'skills',
                                 'data-id' => $applicant->id,
                             ]) ?>
                             <?= $this->Form->button(__('Cancel'), [
                                 'type' => 'button',
-                                'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm',
+                                'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm btn-CloseChangeChart',
                                 'data-form' => 'skills',
                             ]) ?>
-                            <?= $this->Form->end() ?>
                     </div>
                 </div>
             </div>
@@ -314,31 +304,6 @@
                     <?= $this->Html->link(__('View'), ['controller' => 'ApplicantsHasHobbies', 'action' => 'view', $applicantsHasHobbies->applicant_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'ApplicantsHasHobbies', 'action' => 'edit', $applicantsHasHobbies->applicant_id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'ApplicantsHasHobbies', 'action' => 'delete', $applicantsHasHobbies->applicant_id], ['confirm' => __('Are you sure you want to delete # {0}?', $applicantsHasHobbies->applicant_id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Applicants Has Skills') ?></h4>
-        <?php if (!empty($applicant->applicants_has_skills)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Applicant Id') ?></th>
-                <th><?= __('Skill Id') ?></th>
-                <th><?= __('Skill Level') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($applicant->applicants_has_skills as $applicantsHasSkills): ?>
-            <tr>
-                <td><?= h($applicantsHasSkills->applicant_id) ?></td>
-                <td><?= h($applicantsHasSkills->skill_id) ?></td>
-                <td><?= h($applicantsHasSkills->skill_level) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'ApplicantsHasSkills', 'action' => 'view', $applicantsHasSkills->applicant_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'ApplicantsHasSkills', 'action' => 'edit', $applicantsHasSkills->applicant_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ApplicantsHasSkills', 'action' => 'delete', $applicantsHasSkills->applicant_id], ['confirm' => __('Are you sure you want to delete # {0}?', $applicantsHasSkills->applicant_id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

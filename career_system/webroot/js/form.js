@@ -43,7 +43,6 @@ function closeForm( id ) {
 $('.editable').find('.btn-OpenForm').click(function(){
 	var formName = $(this).data('form');
 	openForm(formName);
-	console.log($(this).parent());
 });
 $('.editable').find('.btn-CloseForm').click(function(){
 	var formName = $(this).data('form');
@@ -161,17 +160,17 @@ $('#imputCompanyImage').change(function() {
 })
 
 /* ------------------------------------------- */
-/* 1. App;icant
+/* 1. Applicant
  --------------------------------------------- */
 /* ------------------------------------------- */
-/* 1.1. App;icant: About Me
+/* 1.1. Applicant: About Me
  --------------------------------------------- */
 $('.editable').find('#buttonEditAboutMe').click(function(){
 	var data = {
 	    "applicant_name": $("#inputName").val(),
-	    //"applicant_career_path": $("#inputCareerPath").val(),
 	    "applicant_about": $("#inputAbout").val(),
 	    "applicant_future_goals": $("#inputFutureGoals").val(),
+	    "career_path_id": $("#inputCareerPath").val(),
 	};
 	var idApplicant = $(this).data('id');
 	var formName = $(this).data('form');
@@ -185,11 +184,96 @@ $('.editable').find('#buttonEditAboutMe').click(function(){
 	    success: function(response) {
 	        if( response["message"] == 'Saved') {
 	        	$("#textName").text( response["applicant"]["applicant_name"] );
-	        	//$("#inputName").text( response["applicant"]["applicant_career_path"] );
+	        	$("#textCareerPath").text( response["applicant"]["career_path"]["career_path_name"] );
 	        	$("#textAbout").text( response["applicant"]["applicant_about"] );
 	        	$("#textFutureGoals").text( response["applicant"]["applicant_future_goals"] );
 	        	closeForm(formName);
 	        }
 	    }
 	});
+});
+
+/* ------------------------------------------- */
+/* 1.2. Applicant: Personal information
+ --------------------------------------------- */
+
+
+
+/* ------------------------------------------- */
+/* 1.3. Applicant: Skills
+ --------------------------------------------- */
+function loadSkills( parent ) {
+    $.ajax({
+        type: 'GET',
+        url: $('#webInfo').data('url') + '/api' + '/applicants_has_skills' 
+                    + '?applicant_id=' + parent.data('id'),
+        dataType: 'json',
+        success: function(response) {
+            $.each(response.applicantsHasSkills, function(index, value){
+                $('#skillSlider').addSkillColumn({
+                    id: value.skill.id,
+                    name: value.skill.skill_name,
+                    level: value.skill_level
+                });
+            });
+            
+        }
+    });
+}
+$( document).ready(function(){
+
+    loadSkills($('#skillSlider'));
+
+    $(window).scroll(function(event) {
+        if($(this).scrollTop() > $('#skillSlider').offset().top - 400) {
+            $('#skillSlider').find('.skill-inner').height(function() {
+                return $(this).data('level') * 200 / 5;
+            });
+        }
+    });
+});
+
+$('.btn-OpenChangeChart').click(function(){
+	$('#skillSlider>.single-skill>.skill-inner').addClass('heightEditable');
+});
+$('.btn-CloseChangeChart').click(function(){
+	$('#skillSlider>.single-skill>.skill-inner').removeClass('heightEditable');
+});
+
+$('.editable').find('#buttonEditSkills').click(function(){
+	var applicantId = $('#skillSlider').data('id');
+	var formName = $(this).data('form');
+
+	var flat = true;
+	$('.heightEditable').each(function(index){
+		var skillId = $(this).data('id');
+		var skillLevel = $(this).data('level');
+		var data = {
+			"applicant_id": applicantId,
+			"skill_id": skillId,
+			"skill_level": skillLevel
+		};
+		var dataJSON = JSON.stringify(data);
+		$.ajax({
+		    type: 'PUT',
+		    url: $('#webInfo').data('url') + '/api' + '/applicants_has_skills',
+		    contentType: 'application/json',
+		    dataType: 'json',
+		    data: dataJSON,
+		    error: function(error){
+		    	flat = false;
+		    }
+		});
+	});
+	if(flat){
+		$('#skillSlider>.single-skill>.skill-inner').removeClass('heightEditable');
+		closeForm(formName);
+	}
+	else{
+		$('<p/>', {
+				'class': 'text-danger',
+				'text': 'Cannot save. Please try again!'
+			})
+			.insertAfter($('button.btn-CloseChangeChart'));
+	}
 });

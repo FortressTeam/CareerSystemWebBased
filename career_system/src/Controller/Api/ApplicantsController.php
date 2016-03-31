@@ -48,6 +48,9 @@ class ApplicantsController extends AppController
                 $message = 'Error';
             }
         }
+        $applicant = $this->Applicants->get($id, [
+            'contain' => ['CareerPaths']
+        ]);
         $this->set(compact('message', 'applicant'));
         $this->set('_serialize', ['message', 'applicant']);
     }

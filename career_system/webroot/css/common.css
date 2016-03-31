@@ -265,14 +265,29 @@ footer {
     width: 60px;
     margin: 10px;
 }
+.heightEditable {
+    cursor: pointer;
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+    -webkit-transition: -webkit-box-shadow 0.15s ease-out;
+    -moz-transition: -moz-box-shadow 0.15s ease-out;
+    -o-transition: -o-box-shadow 0.15s ease-out;
+    transition: box-shadow 0.15s ease-out;
+}
+.heightEditable:hover {
+    background-color: #066290;
+    border-color: #066290;
+    -webkit-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.38);
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.38);
+}
 .skill-inner {
     position: absolute;
     width: 100%;
     bottom: 33px;
     border-radius: 2px;
     height: 0px;
-    -webkit-transition: all 1.2s;
-    transition: all 1.2s;
+    -webkit-transition: height 1.2s;
+    transition: height 1.2s;
     background-color: #1178AB;
     -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     transition-timing-function: cubic-bezier(0.7,0,0.3,1);

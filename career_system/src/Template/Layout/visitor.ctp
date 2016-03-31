@@ -19,6 +19,7 @@
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
     <?= $this->Html->css('theme/material-design-iconic-font.min') ?><!--Material Design Iconic Font-->
     <?= $this->Html->css('theme/animate') ?>
+    <?= $this->Html->css('theme/libs/select2/select2') ?>
     
     <!-- Additional CSS includes -->
     <?= $this->Html->css('common') ?>
@@ -240,6 +241,7 @@
     <?= $this->Html->script('libs/jquery/jquery-migrate-1.2.1.min') ?>
     <?= $this->Html->script('libs/bootstrap/bootstrap.min') ?>
     <?= $this->Html->script('libs/nanoscroller/jquery.nanoscroller.min') ?>
+    <?= $this->Html->script('libs/select2/select2') ?>
     
     <!-- Put App.js last in your javascript imports -->
     <?= $this->Html->script('main') ?>

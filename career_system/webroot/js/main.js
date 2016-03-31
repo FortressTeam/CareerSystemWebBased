@@ -39,62 +39,62 @@ $(window).scroll(function(event) {
 
 
 
-$( document).ready(function(){
+$(document).ready(function(){
 
-    $( '#usabilla-feedback-bar' ).on( 'click', function() {
+    $('#usabilla-feedback-bar').on('click', function() {
         $.ajax({
-            url: $( this ).data('url'),
+            url: $(this).data('url'),
             context: document.body
-        }).done(function( data ) {
-            $( '#contentFeedback' ).html( data );
+        }).done(function(data) {
+            $('#contentFeedback').html(data);
         });
     });
 
-    $( '#signinButton' ).on( 'click', function() {
+    $('#signinButton').on('click', function() {
 
         // Zoom out elements
-        $( '#signupButton' ).addClass( 'animated zoomOut' );
-        $( '#hiringmanagerButton' ).addClass( 'animated zoomOut' );
-        $( '#signinButton' ).addClass( 'animated zoomOut' );
-        $( '#home' ).addClass( 'animated fadeOut' );
-        $( '#searchCard' ).addClass( 'animated zoomOut' );
+        $('#signupButton').addClass('animated zoomOut');
+        $('#hiringmanagerButton').addClass('animated zoomOut');
+        $('#signinButton').addClass('animated zoomOut');
+        $('#home').addClass('animated fadeOut');
+        $('#searchCard').addClass('animated zoomOut');
 
         setTimeout(function() {
-            if($( window ).width() >= 1024){
-                $( 'body' ).addClass( 'menubar-pin menubar-visible' );
+            if($(window).width() >= 1024){
+                $('body').addClass('menubar-pin menubar-visible');
             }
 
-            $( '#menubar' ).removeClass( 'hidden' )
-            if($( window ).width() >= 768){
-                $( '#menubar' ).addClass( 'animated fadeInLeft' );
+            $('#menubar').removeClass('hidden')
+            if($(window).width() >= 768){
+                $('#menubar').addClass('animated fadeInLeft');
                 setTimeout(function() {
-                    $( '#menubar' ).removeClass( 'animated' );
+                    $('#menubar').removeClass('animated');
                 }, 750);
             }
 
             // Hidden elements
-            $( '#signupButton' ).remove();
-            $( '#hiringmanagerButton' ).remove();
-            $( '#signinButton' ).remove();
-            $( '#home' ).remove();
+            $('#signupButton').remove();
+            $('#hiringmanagerButton').remove();
+            $('#signinButton').remove();
+            $('#home').remove();
 
             // Show elements
-            $( '#menubarToggleButton' ).removeClass( 'hidden' ).addClass( 'animated fadeInLeft' );;
+            $('#menubarToggleButton').removeClass('hidden').addClass('animated fadeInLeft');;
 
 
             /*! Add Profile Panel elements */
-            if( !$( '#headerProfile>li').length ){
-                $( '#headerProfile' ).addProfilePanel({name: "Vien"});
+            if(!$('#headerProfile>li').length){
+                $('#headerProfile').addProfilePanel({name: "Vien"});
             }
 
-            $( "#content" ).empty();
+            $("#content").empty();
 
             $.ajax({ type: "GET",   
                 url: "notifications.html",   
                 async: false,
-                success : function( result )
+                success : function(result)
                 {
-                        $( "#content" ).append( result );
+                        $("#content").append(result);
                 }
             });
 
@@ -103,7 +103,7 @@ $( document).ready(function(){
 });
 
 
-(function( $ ) {
+(function($) {
     
     /*! Check if element empty */
     $.fn.isEmpty = function(){
@@ -111,33 +111,33 @@ $( document).ready(function(){
     }
 
     /*! Create Profile Panel elements */
-    $.fn.addProfilePanel = function( data ) {
+    $.fn.addProfilePanel = function(data) {
 
         var infomation = $.extend({
-            id: "1",
-            name: "Vic",
-            major: "Developer",
-            image: "img/avatar.jpg"
-        }, data );
+                id: "1",
+                name: "Vic",
+                major: "Developer",
+                image: "img/avatar.jpg"
+            }, data);
 
-        var titleProfilePanel = $( "<a></a>", {
+        var titleProfilePanel = $("<a/>", {
                 "href": "javascript:void(0);",
                 "class": "dropdown-toggle ink-reaction",
                 "data-toggle": "dropdown"
             })
-            .append($( "<img></img>", { "src": infomation.image, "alt": infomation.name}))
-            .append($( "<span></span>", { "class": "profile-info", "text": infomation.name}).append("<small>" + infomation.major + "</small>" ));
+            .append($("<img></img>", { "src": infomation.image, "alt": infomation.name}))
+            .append($("<span></span>", { "class": "profile-info", "text": infomation.name}).append("<small>" + infomation.major + "</small>"));
 
-        var bodyProfilePanel = $( "<ul></ul>", {
+        var bodyProfilePanel = $("<ul/>", {
                 "class": "dropdown-menu animation-dock"
             })
-                .append($( "<li></li>" ).html($( "<a></a>",{"href": "#", "text": "My profile"})))
-                .append($( "<li></li>" ).html($( "<a></a>",{"href": "#", "text": "My appointments"})))
-                .append($( "<li></li>", {"class": "divider"}))
-                .append($( "<li></li>" ).html($("<a></a>",{"href": "#", "text": "Logout"}).prepend($( "<i></i>", { "class": "fa fa-fw fa-power-off text-danger"}))));
+            .append($("<li/>").html($("<a/>",{"href": "#", "text": "My profile"})))
+            .append($("<li/>").html($("<a/>",{"href": "#", "text": "My appointments"})))
+            .append($("<li/>", {"class": "divider"}))
+            .append($("<li/>").html($("<a/>",{"href": "#", "text": "Logout"}).prepend($("<i></i>", { "class": "fa fa-fw fa-power-off text-danger"}))));
         
-        $( "<li></li>" )
-            .addClass( "dropdown animated fadeInRight" )
+        $("<li/>")
+            .addClass("dropdown animated fadeInRight")
             .append(titleProfilePanel)
             .append(bodyProfilePanel)
             .appendTo(this);
@@ -146,43 +146,48 @@ $( document).ready(function(){
     };
 
     /*! Create Skill Column elements */
-    $.fn.addSkillColumn = function( data ) {
+    $.fn.addSkillColumn = function(data) {
 
         var skill = $.extend({
-            id: '1',
-            name: 'CakePHP 3',
-            level: '5',
-        }, data );
+                id: '1',
+                name: 'CakePHP 3',
+                level: '5',
+            }, data);
 
-        var inner = $('<div></div>')
-                        .addClass('skill-inner')
-                        .data('level', skill.level)
-                        .append(
-                            $('<div></div>')
-                                .addClass('skill-visiable')
-                                .append(
-                                    $('<span></span>')
-                                        .addClass('skill-title')
-                                        .text(skill.name)
-                                    )
-                                .append(
-                                    $('<div><div class="hrc"></div></div>')
-                                        .addClass('hr-wrap')
-                                    )
-                        );
-        var count = $('<div></div>')
-                        .addClass('skill-count')
-                        .text(skill.level + ' star(s)');
+        var inner = $('<div/>', {
+                'class': 'skill-inner',
+                'data-level': skill.level,
+                'data-id': skill.id,
+                click: function() {
+                    if($(this).hasClass('heightEditable')) {
+                        var nextLevel = $(this).data('level') % 5 + 1;
+                        $(this)
+                            .data('level', nextLevel)
+                            .height(nextLevel * 200 / 5)
+                            .next().text(nextLevel + ' star(s)');
+                    }
+                }
+            })
+            .append(
+                $('<div/>', {'class': 'skill-visiable'})
+                    .append($('<span/>', {'class': 'skill-title', 'text': skill.name}))
+                    .append($('<div class="hr-wrap"><div class="hrc"></div></div>'))
+            );
+        var count = $('<div/>', {
+                'class': 'skill-count',
+                'text': skill.level + ' star(s)'
+            });
 
-        $('<li></li>')
-            .addClass( "single-skill" )
+        $('<li/>', {'class': 'single-skill'})
             .append(inner)
             .append(count)
             .appendTo(this);
 
         return this;
     };
-}( jQuery ));
+}(jQuery));
+
+$('select').select2();
 
 
 
