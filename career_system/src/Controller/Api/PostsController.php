@@ -5,17 +5,76 @@ use App\Controller\Api\AppController;
 
 class PostsController extends AppController
 {
+    /**
+     * @apiDefine DefaultGetParameter
+     * @apiParam {Number{1-*}}      [limit=20] Number of results.
+     * @apiParam {Number{1-*}}      [page=1] Paginate page.
+     * @apiParam {String=id,post_title,post_salary,post_location,post_date,category_id,hiring_manager_id} [sort=id] Sort by field.
+     * @apiParam {String=asc,desc}  [direction=asc] Sort direction.
+     */
 
     /**
-     * Index method
+     * @apiDefine PostNotFoundError
      *
-     * @return \Cake\Network\Response|null
+     * @apiError PostNotFound The <code>id</code> of the Post was not found.
+     *
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *      {
+     *          message: "Record not found in table "posts"",
+     *          url: "/CareerSystemWebBased/career_system/api/posts/0.json",
+     *          code: 404
+     *      }
+     */
+
+    /**
+     * @api {GET} /posts 1. Request All Posts information
+     * @apiName GetPosts
+     * @apiGroup Post
+     * @apiVersion 0.2.0
+     * @apiPermission none
+     *
+     * @apiDescription Request All Posts information. This is a descripton.
+     *
+     * @apiParam {Number}       [hiring_manager_id] Hiring Manager ID.
+     * @apiUse DefaultGetParameter
+     *
+     * @apiSuccess {Object[]}   posts List of posts (Array of Objects).
+     * @apiSuccess {Number}     posts.id Post ID.
+     * @apiSuccess {String}     posts.post_title Post title.
+     * @apiSuccess {String}     posts.post_content Post content.
+     * @apiSuccess {Number}     posts.post_salary Job's salary.
+     * @apiSuccess {String}     posts.post_location Job's location.
+     * @apiSuccess {Date}       posts.post_date Created date.
+     * @apiSuccess {Boolean}    posts.post_status Post status.
+     * @apiSuccess {Number}     posts.category_id Category ID.
+     * @apiSuccess {Number}     posts.hiring_manager_id Hiring manager ID.
+     *
+     * @apiSuccessExample Success-Response:
+     *      HTTP/1.1 200 OK
+     *      {
+     *          "posts": [
+     *               {
+     *                   "id": 1,
+     *                   "post_title": "SUMMER INTERN",
+     *                   "post_content": "If full is true, the full base URL will be prepended to the result",
+     *                   "post_salary": 5000000,
+     *                   "post_location": "Danang, Vietnam",
+     *                   "post_date": "2016-03-25T00:00:00+0000",
+     *                   "post_status": true,
+     *                   "category_id": 1,
+     *                   "hiring_manager_id": 1,
+     *               }
+     *          ]
+     *     }
+     *
+     * @apiUse PostNotFoundError
      */
     public function index()
     {
         $conditions = [];
-        if(isset($this->request->params['hiring_manager_id'])) {
-            $conditions['hiring_manager_id'] = $this->request->params['hiring_manager_id'];
+        if(isset($this->request->query['hiring_manager_id'])) {
+            $conditions['hiring_manager_id'] = $this->request->query['hiring_manager_id'];
         }
         $this->paginate = [
             'conditions' => $conditions,
@@ -28,11 +87,45 @@ class PostsController extends AppController
     }
 
     /**
-     * View method
+     * @api {GET} /posts/:id 2. Request Post information
+     * @apiName GetPost
+     * @apiGroup Post
+     * @apiVersion 0.2.0
+     * @apiPermission none
      *
-     * @param string|null $id Post id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @apiDescription Request Post information. This is a descripton.
+     *
+     * @apiParam {Number}       id Post ID.
+     * @apiUse DefaultGetParameter
+     *
+     * @apiSuccess {Object}     post Post object.
+     * @apiSuccess {Number}     post.id Post ID.
+     * @apiSuccess {String}     post.post_title Post title.
+     * @apiSuccess {String}     post.post_content Post content.
+     * @apiSuccess {Number}     post.post_salary Job's salary.
+     * @apiSuccess {String}     post.post_location Job's location.
+     * @apiSuccess {Date}       post.post_date Created date.
+     * @apiSuccess {Boolean}    post.post_status Post status.
+     * @apiSuccess {Number}     post.category_id Category ID.
+     * @apiSuccess {Number}     post.hiring_manager_id Hiring manager ID.
+     *
+     * @apiSuccessExample Success-Response:
+     *      HTTP/1.1 200 OK
+     *      {
+     *          "post": {
+     *              "id": 1,
+     *              "post_title": "SUMMER INTERN",
+     *              "post_content": "If full is true, the full base URL will be prepended to the result",
+     *              "post_salary": 5000000,
+     *              "post_location": "Danang, Vietnam",
+     *              "post_date": "2016-03-25T00:00:00+0000",
+     *              "post_status": true,
+     *              "category_id": 1,
+     *              "hiring_manager_id": 1,
+     *          }
+     *     }
+     *
+     * @apiUse PostNotFoundError
      */
     public function view($id = null)
     {
@@ -45,9 +138,48 @@ class PostsController extends AppController
     }
 
     /**
-     * Add method
+     * @api {POST} /posts 3. Create a new Post
+     * @apiName PostPost
+     * @apiGroup Post
+     * @apiVersion 0.2.0
+     * @apiPermission none
      *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+     * @apiDescription Create a new Post. This is a descripton.
+     *
+     * @apiParam {String}       post_title Post title.
+     * @apiParam {String}       post_content Post content.
+     * @apiParam {Number}       post_salary Job's salary.
+     * @apiParam {String}       post_location Job's location.
+     * @apiParam {Date}         post_date Created date.
+     * @apiParam {Boolean}      post_status Post status.
+     * @apiParam {Number}       category_id Category ID.
+     * @apiParam {Number}       hiring_manager_id Hiring manager ID.
+     *
+     * @apiSuccess {String}     message POST message (Values: <code>Saved</code>,<code>Error</code>).
+     * @apiSuccess {Object}     post Post object.
+     * @apiSuccess {String}     post.post_title Post title.
+     * @apiSuccess {String}     post.post_content Post content.
+     * @apiSuccess {Number}     post.post_salary Job's salary.
+     * @apiSuccess {String}     post.post_location Job's location.
+     * @apiSuccess {Boolean}    post.post_status Post status.
+     * @apiSuccess {Number}     post.category_id Category ID.
+     * @apiSuccess {Number}     post.hiring_manager_id Hiring manager ID.
+     *
+     * @apiSuccessExample Success-Response:
+     *      HTTP/1.1 200 OK
+     *      {
+     *          "message": "Saved",
+     *          "post": {
+     *              "post_title": "SUMMER INTERN",
+     *              "post_content": "If full is true, the full base URL will be prepended to the result",
+     *              "post_salary": 5000000,
+     *              "post_location": "Danang, Vietnam",
+     *              "post_status": true,
+     *              "category_id": 1,
+     *              "hiring_manager_id": 1,
+     *          }
+     *      }
+     *
      */
     public function add()
     {
@@ -65,11 +197,51 @@ class PostsController extends AppController
     }
 
     /**
-     * Edit method
+     * @api {PUT} /posts/:id 4. Modify Post information
+     * @apiName PutPost
+     * @apiGroup Post
+     * @apiVersion 0.2.0
+     * @apiPermission none
      *
-     * @param string|null $id Post id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @apiDescription Modify Post information. This is a descripton.
+     *
+     * @apiParam {Number}       id Post ID.
+     * @apiParam {String}       [post_title] Post title.
+     * @apiParam {String}       [post_content] Post content.
+     * @apiParam {Number}       [post_salary] Job's salary.
+     * @apiParam {String}       [post_location] Job's location.
+     * @apiParam {Boolean}      [post_status] Post status.
+     * @apiParam {Number}       [category_id] Category ID.
+     * @apiParam {Number}       [hiring_manager_id] Hiring manager ID.
+     *
+     * @apiSuccess {String}     message PUT message (Values: <code>Saved</code>,<code>Error</code>).
+     * @apiSuccess {Object}     post Post object.
+     * @apiSuccess {Number}     post.id Post ID.
+     * @apiSuccess {String}     post.post_title Post title.
+     * @apiSuccess {String}     post.post_content Post content.
+     * @apiSuccess {Number}     post.post_salary Job's salary.
+     * @apiSuccess {String}     post.post_location Job's location.
+     * @apiSuccess {Boolean}    post.post_status Post status.
+     * @apiSuccess {Number}     post.category_id Category ID.
+     * @apiSuccess {Number}     post.hiring_manager_id Hiring manager ID.
+     *
+     * @apiSuccessExample Success-Response:
+     *      HTTP/1.1 200 OK
+     *      {
+     *          "message": "Saved",
+     *          "post": {
+     *              "id": 1,
+     *              "post_title": "SUMMER INTERN",
+     *              "post_content": "If full is true, the full base URL will be prepended to the result",
+     *              "post_salary": 5000000,
+     *              "post_location": "Danang, Vietnam",
+     *              "post_status": true,
+     *              "category_id": 1,
+     *              "hiring_manager_id": 1,
+     *          }
+     *      }
+     *
+     * @apiUse PostNotFoundError
      */
     public function edit($id = null)
     {

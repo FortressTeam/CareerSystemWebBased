@@ -12,15 +12,63 @@ class SkillsController extends AppController
 {
 
     /**
-     * Index method
+     * @apiDefine DefaultGetParameter
+     * @apiParam {Number{1-*}}      [limit=20] Number of results.
+     * @apiParam {Number{1-*}}      [page=1] Paginate page.
+     * @apiParam {String=id,skill_name,skill_type_id} [sort=id] Sort by field.
+     * @apiParam {String=asc,desc}  [direction=asc] Sort direction.
+     */
+
+    /**
+     * @apiDefine SkillNotFoundError
      *
-     * @return \Cake\Network\Response|null
+     * @apiError SkillNotFound The <code>id</code> of the Skill was not found.
+     *
+     * @apiErrorExample {json} Error-Response:
+     *     HTTP/1.1 404 Not Found
+     *      {
+     *          message: "Record not found in table "skills"",
+     *          url: "/CareerSystemWebBased/career_system/api/skills/0.json",
+     *          code: 404
+     *      }
+     */
+
+    /**
+     * @api {GET} /skills 1. Request All Skills information
+     * @apiName GetSkills
+     * @apiGroup Skill
+     * @apiVersion 0.2.0
+     * @apiPermission none
+     *
+     * @apiDescription Request All Skills information. This is a descripton.
+     *
+     * @apiParam {Number}       [skill_type_id] Skill Type ID.
+     * @apiUse DefaultGetParameter
+     *
+     * @apiSuccess {Object[]}   skills List of skills (Array of Objects).
+     * @apiSuccess {Number}     skills.id Skill ID.
+     * @apiSuccess {String}     skills.skill_name Skill name.
+     * @apiSuccess {Number}     skills.skill_type_id Skill type ID.
+     *
+     * @apiSuccessExample Success-Response:
+     *      HTTP/1.1 200 OK
+     *      {
+     *          "skills": [
+     *               {
+     *                   "id": 1,
+     *                   "skill_name": "CakePHP",
+     *                   "skill_type_id": 1,
+     *               }
+     *          ]
+     *     }
+     *
+     * @apiUse SkillNotFoundError
      */
     public function index()
     {
         $conditions = [];
-        if(isset($this->request->params['skill_type_id'])) {
-            $conditions['skill_type_id'] = $this->request->params['skill_type_id'];
+        if(isset($this->request->query['skill_type_id'])) {
+            $conditions['skill_type_id'] = $this->request->query['skill_type_id'];
         }
         $this->paginate = [
             'conditions' => $conditions
