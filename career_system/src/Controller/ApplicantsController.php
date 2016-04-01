@@ -43,9 +43,12 @@ class ApplicantsController extends AppController
             'contain' => ['CareerPaths', 'Users'],
         ]);
 
-        $careerPaths = $this->Applicants->CareerPaths->find('list', ['limit' => 200]);
-        $this->set(compact('applicant', 'careerPaths'));
-        $this->set('_serialize', ['applicant']);
+        $careerPaths = $this->Applicants->CareerPaths->find('list');
+
+        $this->loadModel('Skills');
+        $skills = $this->Skills->find('list');
+        $this->set(compact('applicant', 'careerPaths', 'skills'));
+        $this->set('_serialize', ['applicant', 'careerPaths', 'skills']);
     }
 
     /**

@@ -108,7 +108,7 @@ class CategoriesController extends AppController
                 $this->Flash->error(__('The category could not be saved. Please, try again.'));
             }
         }
-        $parentCategories = $this->Categories->ParentCategories->find('treeList', ['limit' => 200, 'spacer' => '__']);
+        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
         $this->set(compact('category', 'parentCategories'));
         $this->set('_serialize', ['category']);
     }
@@ -132,7 +132,7 @@ class CategoriesController extends AppController
                 $this->Flash->error(__('The category could not be saved. Please, try again.'));
             }
         }
-        $parentCategories = $this->Categories->ParentCategories->find('treeList', ['limit' => 200, 'spacer' => '__']);
+        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
         $this->set(compact('category', 'parentCategories'));
         $this->set('_serialize', ['category']);
     }

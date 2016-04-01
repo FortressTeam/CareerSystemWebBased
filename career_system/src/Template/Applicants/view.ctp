@@ -139,7 +139,7 @@
                                 ])
                             ?>
                             <?php 
-                                echo $this->Form->input('applicant_date_of_birth', ['label' => 'Date of birth', 'class' => 'form-control', 'id' => 'inputBirthDay']);
+                                echo $this->Form->input('applicant_date_of_birth', ['label' => 'Date of birth', 'class' => 'form-control', 'id' => 'inputBirthDay', 'data-inputmask' => '"\'alias\': \'date\'"']);
                                 echo $this->Form->input('applicant_address', ['label' => 'Address', 'class' => 'form-control', 'id' => 'inputAddress']);
                                 echo $this->Form->input('applicant_phone_number', ['label' => 'Phone Number', 'class' => 'form-control', 'id' => 'inputPhone']);
                                 //echo $this->Form->input('applicant_email', ['class' => 'form-control', 'id' => 'inputFutureGoals']);
@@ -187,24 +187,49 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="animated fadeIn">
-                        <ul id="skillSlider" class="skill-graph" data-id="<?= $applicant->id ?>"></ul><!-- Skill Here -->
-                    </div>
-                    <div  id="skillsForm" class="animated fadeIn" style="display: none">
-                            <?= $this->Form->button(__('Save'), [
-                                'type' => 'button',
-                                'class' => 'btn ink-reaction btn-raised btn-primary',
-                                'id' => 'buttonEditSkills',
-                                'data-form' => 'skills',
-                                'data-id' => $applicant->id,
-                            ]) ?>
-                            <?= $this->Form->button(__('Cancel'), [
-                                'type' => 'button',
-                                'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm btn-CloseChangeChart',
-                                'data-form' => 'skills',
-                            ]) ?>
-                    </div>
+                <div class="animated fadeIn">
+                    <ul id="skillSlider" class="skill-graph" data-id="<?= $applicant->id ?>"></ul><!-- Skill Here -->
+                </div>
+                <div  id="skillsForm" class="animated fadeIn" style="display: none">
+                        <?= $this->Form->create($applicant, [
+                                'class' => 'form',
+                                'templates' => [
+                                    'formGroup' => '{{label}}{{input}}',
+                                    'inputContainer' => '<div class="form-group floating-label col-md-6">{{content}}</div>'
+                                ]
+                            ])
+                        ?>
+
+                        <?= $this->Form->input('skill_name', [
+                            'class' => 'form-control findable',
+                            'id' => 'inputSkillId',
+                            'options' => $skills
+                        ]) ?>
+                        <?= $this->Form->input('skill_level', [
+                            'class' => 'form-control',
+                            'id' => 'inputSkillLevel',
+                            'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
+                        ]) ?>
+                        <?= $this->Form->button(__('Add'), [
+                            'type' => 'button',
+                            'class' => 'btn ink-reaction btn-raised btn-success',
+                            'id' => 'buttonAddSkills',
+                            'data-form' => 'skills',
+                            'data-id' => $applicant->id,
+                        ]) ?>
+                        <?= $this->Form->button(__('Save'), [
+                            'type' => 'button',
+                            'class' => 'btn ink-reaction btn-raised btn-primary',
+                            'id' => 'buttonEditSkills',
+                            'data-form' => 'skills',
+                            'data-id' => $applicant->id,
+                        ]) ?>
+                        <?= $this->Form->button(__('Cancel'), [
+                            'type' => 'button',
+                            'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm btn-CloseChangeChart',
+                            'data-form' => 'skills',
+                        ]) ?>
+                        <?= $this->Form->end() ?>
                 </div>
             </div>
         </div>

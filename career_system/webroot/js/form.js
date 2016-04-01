@@ -97,12 +97,12 @@ $('.editable').find('#buttonEditCompanyInfo').click(function(){
 		"company_address": $("#inputAddress").val(),
 		"company_email": $("#inputEmail").val()
 	};
-	var idHiringManager = $(this).data('id');
+	var hiringManagerId = $(this).data('id');
 	var formName = $(this).data('form');
 	var dataJSON = JSON.stringify(data);
 	$.ajax({
 	    type: 'PUT',
-	    url: $('#webInfo').data('url') + '/api' + '/hiring_managers' + '/' + idHiringManager,
+	    url: $('#webInfo').data('url') + '/api' + '/hiring_managers' + '/' + hiringManagerId,
 	    contentType: 'application/json',
 	    dataType: 'json',
 	    data: dataJSON,
@@ -126,12 +126,12 @@ $('.editable').find('#buttonEditCompanyAbout').click(function(){
 	var data = {
 	    "company_about": $("#inputAbout").val()
 	};
-	var idHiringManager = $(this).data('id');
+	var hiringManagerId = $(this).data('id');
 	var formName = $(this).data('form');
 	var dataJSON = JSON.stringify(data);
 	$.ajax({
 	    type: 'PUT',
-	    url: $('#webInfo').data('url') + '/api' + '/hiring_managers' + '/' + idHiringManager,
+	    url: $('#webInfo').data('url') + '/api' + '/hiring_managers' + '/' + hiringManagerId,
 	    contentType: 'application/json',
 	    dataType: 'json',
 	    data: dataJSON,
@@ -172,12 +172,12 @@ $('.editable').find('#buttonEditAboutMe').click(function(){
 	    "applicant_future_goals": $("#inputFutureGoals").val(),
 	    "career_path_id": $("#inputCareerPath").val(),
 	};
-	var idApplicant = $(this).data('id');
+	var applicantId = $(this).data('id');
 	var formName = $(this).data('form');
 	var dataJSON = JSON.stringify(data);
 	$.ajax({
 	    type: 'PUT',
-	    url: $('#webInfo').data('url') + '/api' + '/applicants' + '/' + idApplicant,
+	    url: $('#webInfo').data('url') + '/api' + '/applicants' + '/' + applicantId,
 	    contentType: 'application/json',
 	    dataType: 'json',
 	    data: dataJSON,
@@ -235,13 +235,30 @@ $( document).ready(function(){
 
 $('.btn-OpenChangeChart').click(function(){
 	$('#skillSlider>.single-skill>.skill-inner').addClass('heightEditable');
+    $('#skillSlider').find('.skill-inner').height(function() {
+        $('.editable').find('#inputSkillId>option[value="' + $(this).data('id') + '"]').remove();
+    });
 });
 $('.btn-CloseChangeChart').click(function(){
 	$('#skillSlider>.single-skill>.skill-inner').removeClass('heightEditable');
 });
 
+$('.editable').find('#buttonAddSkills').click(function(){
+    $('#skillSlider').addSkillColumn({
+        id: $('#inputSkillId').val(),
+        name: $('#inputSkillId>option[value="' + $('#inputSkillId').val() + '"]').text(),
+        level: $('#inputSkillLevel').val(),
+        edit: 'heightEditable'
+    });
+    $('.editable').find('#inputSkillId>option[value="' + $('#inputSkillId').val() + '"]').remove();
+    
+    $('#skillSlider').find('.skill-inner').height(function() {
+        return $(this).data('level') * 200 / 5;
+    });
+});
+
 $('.editable').find('#buttonEditSkills').click(function(){
-	var applicantId = $('#skillSlider').data('id');
+	var applicantId = $(this).data('id');
 	var formName = $(this).data('form');
 
 	var flat = true;
@@ -254,13 +271,15 @@ $('.editable').find('#buttonEditSkills').click(function(){
 			"skill_level": skillLevel
 		};
 		var dataJSON = JSON.stringify(data);
+		console.log(dataJSON);
 		$.ajax({
-		    type: 'PUT',
+		    type: 'POST',
 		    url: $('#webInfo').data('url') + '/api' + '/applicants_has_skills',
 		    contentType: 'application/json',
 		    dataType: 'json',
 		    data: dataJSON,
 		    error: function(error){
+		    	console.log(error);
 		    	flat = false;
 		    }
 		});
@@ -277,3 +296,4 @@ $('.editable').find('#buttonEditSkills').click(function(){
 			.insertAfter($('button.btn-CloseChangeChart'));
 	}
 });
+

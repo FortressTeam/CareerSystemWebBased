@@ -27,7 +27,7 @@ class SkillsTable extends Table
         parent::initialize($config);
 
         $this->table('skills');
-        $this->displayField('id');
+        $this->displayField('skill_name');
         $this->primaryKey('id');
 
         $this->belongsTo('SkillTypes', [
