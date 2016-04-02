@@ -11,6 +11,26 @@ use App\Controller\AppController;
 class PostsController extends AppController
 {
 
+    public $paginate = [
+        'fields' => ['Posts.id', 'Posts.post_title', 'Posts.hiring_manager_id', 'Posts.post_date', 'Posts.post_status'],
+        'order' => ['Posts.post_date' => 'DESC'],
+        'limit' => 10
+    ];
+
+
+    /**
+     * Initialize method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['index'],
+        ]);
+    }
+
     /**
      * Index method
      *
@@ -18,11 +38,13 @@ class PostsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Categories', 'HiringManagers']
-        ];
-        $posts = $this->paginate($this->Posts);
-
+        $query = $this->Posts
+            ->find('search', $this->Posts->filterParams($this->request->query))
+            ->contain(['Categories', 'HiringManagers'])
+            ->autoFields(true)
+            ->where(['post_title IS NOT' => null]);
+            
+        $posts = $this->paginate($query);
         $this->set(compact('posts'));
         $this->set('_serialize', ['posts']);
     }

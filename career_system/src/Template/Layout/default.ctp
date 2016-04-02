@@ -32,12 +32,9 @@ $cakeDescription = 'Career System: Something';
     <meta name="description" content="Short explanation about this website">
 
     <!-- BEGIN STYLESHEETS -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700,800' rel='stylesheet' type='text/css'/>
     <?= $this->Html->css('theme/bootstrap') ?>
     <?= $this->Html->css('theme/materialadmin') ?>
-    <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css') ?>
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
-    <?= $this->Html->css('theme/material-design-iconic-font.min') ?><!--Material Design Iconic Font-->
     <?= $this->Html->css('theme/animate') ?>
     <?= $this->Html->css('theme/libs/select2/select2') ?>
     
@@ -55,7 +52,7 @@ $cakeDescription = 'Career System: Something';
     <script type="text/javascript" src="assets/js/libs/utils/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="menubar-hoverable header-fixed menubar-pin menubar-visible">
+<body class="menubar-hoverable header-fixed">
 
     <!-- BEGIN HEADER-->
     <header id="header">
@@ -170,23 +167,95 @@ $cakeDescription = 'Career System: Something';
             </div>
             <div class="menubar-scroll-panel">
                     <ul id="main-menu" class="gui-controls">
-                        <!--<li>
-                            <div class="row">
-                                <div class="col-xs-6 col-xs-offset-3">
-                                    <?= $this->Html->image('avatar.jpg', ['alt' => 'Vic', 'class' => 'img-circle border-white border-xl img-responsive']) ?>
-                                </div>
-                            </div>
+                        <li>
+                            <?= $this->Html->image('home-bg.jpg', ['style' => 'width: 100%']) ?>                        
                         </li><!--end /menu-li -->
-                        <!--<li>
-                            <div class="row">
-                                <button class="btn ink-reaction btn-raised btn-primary col-xs-12">Jobs</button>
-                            </div>
-                        </li><!--end /menu-li -->
+                        <li class="<?= $this->request->params['controller'] === 'Pages' ? 'active' : '' ?>" >
+                            <?= $this->Html->link(
+                                '<div class="gui-icon"><i class="fa fa-dashboard"></i></div>
+                                <span class="title">Dashboard</span>',
+                                ['controller' => 'dashboard'],
+                                ['escape' => false]
+                                ) ?>
+                        </li>
                         <li>
                             <a href="#">
                                 <div class="gui-icon"><i class="fa fa-search"></i></div>
-                                <span class="title">Search company</span>
+                                <span class="title">Search</span>
                             </a>
+                        </li><!--end /menu-li -->
+                        <li class="gui-folder <?= $this->request->params['controller'] === 'Posts' || $this->request->params['controller'] === 'Categories' ? 'active' : '' ?>">
+                            <a>
+                                <div class="gui-icon"><i class="fa fa-thumb-tack"></i></div>
+                                <span class="title">Posts</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<span class="title">All posts</span>',
+                                        ['controller' => 'Posts', 'action' => 'index'],
+                                        ['escape' => false]
+                                        ) ?>
+                                </li>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<span class="title">Add new</span>',
+                                        ['controller' => 'Posts', 'action' => 'add'],
+                                        ['escape' => false]
+                                        ) ?>
+                                </li>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<span class="title">Categories</span>',
+                                        ['controller' => 'categories', 'action' => 'index'],
+                                        ['escape' => false]
+                                        ) ?>
+                                </li>
+                            </ul>
+                        </li><!--end /menu-li -->
+                        <li class="gui-folder <?= $this->request->params['controller'] === 'HiringManagers' ? 'active' : '' ?>">
+                            <a>
+                                <div class="gui-icon"><i class="fa fa-building-o"></i></div>
+                                <span class="title">Hiring Managers</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<span class="title">All hiring managers</span>',
+                                        ['controller' => 'HiringManagers', 'action' => 'index'],
+                                        ['escape' => false]
+                                        ) ?>
+                                </li>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<span class="title">Add new</span>',
+                                        ['controller' => 'HiringManagers', 'action' => 'add'],
+                                        ['escape' => false]
+                                        ) ?>
+                                </li>
+                            </ul>
+                        </li><!--end /menu-li -->
+                        <li class="gui-folder <?= $this->request->params['controller'] === 'Applicants' ? 'active' : '' ?>">
+                            <a>
+                                <div class="gui-icon"><i class="fa fa-male"></i></div>
+                                <span class="title">Applicants</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<span class="title">All applicants   </span>',
+                                        ['controller' => 'Applicants', 'action' => 'index'],
+                                        ['escape' => false]
+                                        ) ?>
+                                </li>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<span class="title">Add new</span>',
+                                        ['controller' => 'Applicants', 'action' => 'add'],
+                                        ['escape' => false]
+                                        ) ?>
+                                </li>
+                            </ul>
                         </li><!--end /menu-li -->
                         <li>
                             <a href="#">
@@ -204,13 +273,6 @@ $cakeDescription = 'Career System: Something';
                             <a href="#">
                                 <div class="gui-icon"><i class="fa fa-file"></i></div>
                                 <span class="title">My CVs</span>
-                            </a>
-                        </li><!--end /menu-li -->
-                        <li>
-                            <a href="#">
-                                <div class="gui-icon"><i class="fa fa-bell"></i></div>
-                                <span class="title">Notifications</span>
-                                <span class="badge style-danger pull-right">6</span>
                             </a>
                         </li><!--end /menu-li -->
                     </ul><!--end .main-menu -->
@@ -250,7 +312,7 @@ $cakeDescription = 'Career System: Something';
     <!-- Put App.js last in your javascript imports -->
     <?= $this->Html->script('main') ?>
     <?= $this->Html->script('form') ?>
-    <?= $this->Html->script('resume') ?>
+    <?= $this->Html->script('statistic') ?>
     <?= $this->Html->script('app.min') ?>
 </body>
 </html>

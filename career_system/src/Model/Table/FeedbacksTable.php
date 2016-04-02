@@ -30,6 +30,8 @@ class FeedbacksTable extends Table
         $this->displayField('feedback_title');
         $this->primaryKey('id');
 
+        $this->addBehavior('Search.Search');
+
         $this->belongsTo('FeedbackTypes', [
             'foreignKey' => 'feedback_type_id',
             'joinType' => 'INNER'
@@ -38,6 +40,23 @@ class FeedbacksTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
+
+        $this->searchManager()
+            ->add('feedback_type_id', 'Search.Value')
+            ->add('q', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'field' => [
+                    $this->aliasField('feedback_title'),
+                    $this->aliasField('feedback_comment'),
+                    $this->aliasField('feedback_result')
+                ]
+            ])
+            ->add('foo', 'Search.Callback', [
+                'callback' => function ($query, $args, $manager) {
+                    
+                }
+            ]);
     }
 
     /**

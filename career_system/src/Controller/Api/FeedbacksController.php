@@ -151,7 +151,7 @@ class FeedbacksController extends AppController
      * @apiParam {String}       feedback_result Feedback result.
      * @apiParam {Number}       feedback_type_id Feedback type ID.
      * @apiParam {Number}       user_id User ID.
-
+     *
      * @apiSuccess {String}     message POST message (Values: <code>Saved</code>,<code>Error</code>).
      * @apiSuccess {Object}     feedback Feedback Objects.
      * @apiSuccess {Number}     feedback.id Feedback ID.
@@ -205,14 +205,18 @@ class FeedbacksController extends AppController
      */
     public function month()
     {
-        $dataByMonth = $this->Feedbacks->find();
-        $month = $dataByMonth->func()->month([
+        $months = $this->Feedbacks->find();
+        $year_month = $months->func()->date_format([
+            'feedback_date' => 'literal',
+            "'%Y-%m'" => 'literal'
+        ]);
+        $month = $months->func()->month([
             'feedback_date' => 'literal'
         ]);
-        $dataByMonth
+        $months
             ->select([
-                'monthSubmited' => 'feedback_date',
-                'totalFeedbacks' => $dataByMonth->func()->count('Feedbacks.id')
+                'month' => $year_month,
+                'value' => $months->func()->count('Feedbacks.id')
             ])
             ->where(function($exp, $q){
                 $year = $q->func()->year([
@@ -221,8 +225,8 @@ class FeedbacksController extends AppController
                 return $exp->eq($year, 2016);
             })
             ->group($month);
-        $this->set(compact('dataByMonth'));
-        $this->set('_serialize', ['dataByMonth']);
+        $this->set(compact('months'));
+        $this->set('_serialize', ['months']);
     }
 
     /**

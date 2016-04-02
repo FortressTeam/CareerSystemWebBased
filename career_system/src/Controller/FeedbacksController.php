@@ -11,6 +11,31 @@ use App\Controller\AppController;
 class FeedbacksController extends AppController
 {
 
+    public $paginate = [
+        'fields' => [
+            'Feedbacks.id',
+            'Feedbacks.feedback_title',
+            'Feedbacks.feedback_date',
+            'Feedbacks.user_id'
+        ],
+        'order' => ['Feedbacks.feedback_date' => 'DESC'],
+        'limit' => 10
+    ];
+
+
+    /**
+     * Initialize method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['index'],
+        ]);
+    }
+
     /**
      * Index method
      *
@@ -18,10 +43,12 @@ class FeedbacksController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['FeedbackTypes', 'Users']
-        ];
-        $feedbacks = $this->paginate($this->Feedbacks);
+        $query = $this->Feedbacks
+            ->find('search', $this->Feedbacks->filterParams($this->request->query))
+            ->contain(['FeedbackTypes', 'Users'])
+            ->autoFields(true)
+            ->where(['feedback_title IS NOT' => null]);
+        $feedbacks = $this->paginate($query);
 
         $this->set(compact('feedbacks'));
         $this->set('_serialize', ['feedbacks']);
@@ -75,61 +102,4 @@ class FeedbacksController extends AppController
             return $this->redirect($this->referer());
         }
     }
-
-    /**
-     * Statistic method
-     *
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function statistic()
-    {
-        
-    }
-
-    // /**
-    //  * Edit method
-    //  *
-    //  * @param string|null $id Feedback id.
-    //  * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-    //  * @throws \Cake\Network\Exception\NotFoundException When record not found.
-    //  */
-    // public function edit($id = null)
-    // {
-    //     $feedback = $this->Feedbacks->get($id, [
-    //         'contain' => []
-    //     ]);
-    //     if ($this->request->is(['patch', 'post', 'put'])) {
-    //         $feedback = $this->Feedbacks->patchEntity($feedback, $this->request->data);
-    //         if ($this->Feedbacks->save($feedback)) {
-    //             $this->Flash->success(__('The feedback has been saved.'));
-    //             return $this->redirect(['action' => 'index']);
-    //         } else {
-    //             $this->Flash->error(__('The feedback could not be saved. Please, try again.'));
-    //         }
-    //     }
-    //     $feedbackTypes = $this->Feedbacks->FeedbackTypes->find('list', ['limit' => 200]);
-    //     $users = $this->Feedbacks->Users->find('list', ['limit' => 200]);
-    //     $this->set(compact('feedback', 'feedbackTypes', 'users'));
-    //     $this->set('_serialize', ['feedback']);
-    // }
-
-    // /**
-    //  * Delete method
-    //  *
-    //  * @param string|null $id Feedback id.
-    //  * @return \Cake\Network\Response|null Redirects to index.
-    //  * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-    //  */
-    // public function delete($id = null)
-    // {
-    //     $this->request->allowMethod(['post', 'delete']);
-    //     $feedback = $this->Feedbacks->get($id);
-    //     if ($this->Feedbacks->delete($feedback)) {
-    //         $this->Flash->success(__('The feedback has been deleted.'));
-    //     } else {
-    //         $this->Flash->error(__('The feedback could not be deleted. Please, try again.'));
-    //     }
-    //     return $this->redirect(['action' => 'index']);
-    // }
 }

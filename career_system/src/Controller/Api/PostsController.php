@@ -270,4 +270,29 @@ class PostsController extends AppController
         $this->set(compact('message', 'post'));
         $this->set('_serialize', ['message', 'post']);
     }
+
+    public function thisYear() {
+        $months = $this->Posts->find();
+        $year_month = $months->func()->date_format([
+            'post_date' => 'literal',
+            "'%Y-%m'" => 'literal'
+        ]);
+        $month = $months->func()->month([
+            'post_date' => 'literal'
+        ]);
+        $months
+            ->select([
+                'month' => $year_month,
+                'value' => $months->func()->count('Posts.id')
+            ])
+            ->where(function($exp, $q){
+                $year = $q->func()->year([
+                    'post_date' => 'literal'
+                ]);
+                return $exp->eq($year, 2016);
+            })
+            ->group($month);
+        $this->set(compact('months'));
+        $this->set('_serialize', ['months']);
+    }
 }

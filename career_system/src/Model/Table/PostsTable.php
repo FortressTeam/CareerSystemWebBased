@@ -33,6 +33,7 @@ class PostsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Search.Search');
 
         $this->belongsTo('Categories', [
             'foreignKey' => 'category_id',
@@ -48,6 +49,19 @@ class PostsTable extends Table
         $this->hasMany('PostsHasCurriculumVitaes', [
             'foreignKey' => 'post_id'
         ]);
+
+        $this->searchManager()
+            ->add('hiring_manager_id', 'Search.Value')
+            ->add('q', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'field' => [$this->aliasField('post_title'), $this->aliasField('post_content')]
+            ])
+            ->add('foo', 'Search.Callback', [
+                'callback' => function ($query, $args, $manager) {
+                    
+                }
+            ]);
     }
 
     /**

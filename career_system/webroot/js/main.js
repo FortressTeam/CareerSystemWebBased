@@ -13,6 +13,9 @@
 
   1. Mouse Scroll Smoothy
   2. Scroll Top Menu Bar
+  3. MorissJS Chart
+  .
+  n. Other functions
 
 ===================================================== */
 
@@ -39,8 +42,63 @@ $(window).scroll(function(event) {
 });
 
 
+/* --------------------------------- */
+/* 3. MorrisJS Chart
+ ----------------------------------- */
+/*
+ * @param: input{url, data}
+ */
+var getMonthlyData = function(input) {
+    var res;
+    $.ajax({
+        type: 'POST',
+        url: input.url,
+        contentType: 'application/json',
+        dataType: 'json',
+        data: input.data,
+        success: input.success,
+        error: input.error
+    });
+};
 
+/*
+ * @param: input{element, data}
+ */
+var renderLineChart = function(input) {
+    new Morris.Line({
+        element: input.element,
+        data: input.data,
+        xkey: 'month',
+        xLabelFormat: function (x) { 
+            var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            return months[x.getMonth()];
+        },
+        xLabels: 'month',
+        ykeys: ['value'],
+        labels: ['Value'],
+        resize: true
+    });
+};
+
+$.getJSON($('#typeDonutChart' ).data('url'), function(response ){
+    new Morris.Donut({
+        element: 'typeDonutChart',
+        data: response.dataByType,
+        colors: ['#2196f3', '#ff9800', '#9c27b0', '#4caf50'],
+        resize: true
+    });
+});
+
+
+
+/* --------------------------------- */
+/* n. Other functions
+ ----------------------------------- */
 $(document).ready(function(){
+
+    // MorrisJS Chart
+    $('#lineChart').drawChart({type: 'month'});
+
 
     $('#usabilla-feedback-bar').on('click', function() {
         $.ajax({
@@ -103,13 +161,30 @@ $(document).ready(function(){
     });
 });
 
-
 (function($) {
     
+    $.fn.drawChart = function(input){
+        var postData = '{"type":' + input.type + '}';
+        var elementId = $(this).attr('id');
+        getMonthlyData({
+            url: $(this).data('url'),
+            data: 'a',
+            success: function(response){
+                renderLineChart({
+                    element: elementId,
+                    data: response.months
+                });
+            },
+            error: function(){
+                $(this).html('<p class="text-danger">Error</p>');
+            }
+        });
+    };
+
     /*! Check if element empty */
     $.fn.isEmpty = function(){
         return this.html() === "";
-    }
+    };
 
     /*! Create Profile Panel elements */
     $.fn.addProfilePanel = function(data) {
@@ -174,6 +249,17 @@ $(document).ready(function(){
                 $('<div/>', {'class': 'skill-visiable'})
                     .append($('<span/>', {'class': 'skill-title', 'text': skill.name}))
                     .append($('<div class="hr-wrap"><div class="hrc"></div></div>'))
+            )   
+            .append(
+                $('<div/>', {
+                        'class': 'btn btn-flat btn-danger btn-sx btn-block btn-remove',
+                        'style': 'display: none',
+                        click: function() {
+                            $(this).parent().parent().remove();
+                            
+                        }
+                    })
+                    .append($('<i/>', {'class': 'fa fa-remove'}))
             );
         var count = $('<div/>', {
                 'class': 'skill-count',

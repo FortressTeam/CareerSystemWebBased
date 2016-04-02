@@ -225,22 +225,24 @@ $( document).ready(function(){
     loadSkills($('#skillSlider'));
 
     $(window).scroll(function(event) {
-        if($(this).scrollTop() > $('#skillSlider').offset().top - 400) {
-            $('#skillSlider').find('.skill-inner').height(function() {
-                return $(this).data('level') * 200 / 5;
-            });
-        }
+	        if(($('#skillSlider').length) && ($(this).scrollTop() > $('#skillSlider').offset().top - 400)) {
+	            $('#skillSlider').find('.skill-inner').height(function() {
+	                return $(this).data('level') * 200 / 5;
+	            });
+	        }
     });
 });
 
 $('.btn-OpenChangeChart').click(function(){
 	$('#skillSlider>.single-skill>.skill-inner').addClass('heightEditable');
+	$('#skillSlider>.single-skill>.skill-inner>.btn-remove').show();
     $('#skillSlider').find('.skill-inner').height(function() {
         $('.editable').find('#inputSkillId>option[value="' + $(this).data('id') + '"]').remove();
     });
 });
 $('.btn-CloseChangeChart').click(function(){
 	$('#skillSlider>.single-skill>.skill-inner').removeClass('heightEditable');
+	$('#skillSlider>.single-skill>.skill-inner>.btn-remove').hide();
 });
 
 $('.editable').find('#buttonAddSkills').click(function(){

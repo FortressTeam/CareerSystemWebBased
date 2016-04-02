@@ -53,8 +53,14 @@ Router::scope('/', function (RouteBuilder $routes) {
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
+    $routes->connect('/dashboard', ['controller' => 'Pages', 'action' => 'dashboard']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'home']);
 
+    Router::connect(
+        '/post/:slug-:id',
+        ['controller' => 'Posts', 'action' => 'view'],
+        ['id' => '\d+', 'pass' => ['id', 'slug']]
+    );
     /**
      * Connect catchall routes for all controllers.
      *
@@ -78,7 +84,14 @@ Router::prefix('Api', function ($routes) {
     $routes->extensions(['json', 'xml']);
     $routes->resources('HiringManagers');
     $routes->resources('Categories');
-    $routes->resources('Posts');
+    $routes->resources('Posts', [
+       'map' => [
+           'this_year' => [
+               'action' => 'thisYear',
+               'method' => 'POST'
+           ]
+       ]
+    ]);
     $routes->resources('Applicants');
     $routes->resources('ApplicantsHasSkills', [
         'map' => [
@@ -100,7 +113,7 @@ Router::prefix('Api', function ($routes) {
        'map' => [
            'month' => [
                'action' => 'month',
-               'method' => 'GET'
+               'method' => 'POST'
            ],
            'type' => [
                'action' => 'type',

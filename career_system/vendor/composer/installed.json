@@ -1261,5 +1261,52 @@
             "bake",
             "cakephp"
         ]
+    },
+    {
+        "name": "friendsofcake/search",
+        "version": "1.2.2",
+        "version_normalized": "1.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/FriendsOfCake/search.git",
+            "reference": "055cddb21f4436b074c1895839097c106b827be9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/FriendsOfCake/search/zipball/055cddb21f4436b074c1895839097c106b827be9",
+            "reference": "055cddb21f4436b074c1895839097c106b827be9",
+            "shasum": ""
+        },
+        "require-dev": {
+            "cakephp/cakephp": "~3.0",
+            "friendsofcake/cakephp-test-utilities": "dev-master"
+        },
+        "time": "2016-02-22 12:37:41",
+        "type": "cakephp-plugin",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Search\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Christian Winther",
+                "homepage": "http://cakephp.nu/",
+                "role": "Author"
+            }
+        ],
+        "description": "CakePHP 3.0 easy search framework",
+        "homepage": "https://github.com/FriendsOfCake/search",
+        "keywords": [
+            "cake3",
+            "cakephp",
+            "cakephp3",
+            "search"
+        ]
     }
 ]

@@ -40,6 +40,18 @@ class PagesController extends AppController
         $this->viewBuilder()->layout('ajax');
     }
 
+    /**
+     * Displays a dashboard page
+     *
+     * @return void|\Cake\Network\Response
+     * @throws \Cake\Network\Exception\NotFoundException When the view file could not
+     *   be found or \Cake\View\Exception\MissingTemplateException in debug mode.
+     */
+    public function dashboard()
+    {
+
+    }
+
 
     public function display()
     {

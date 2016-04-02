@@ -1,6 +1,6 @@
 /*
 ====================================================
-* [Resume Javascript]
+* [Statistic Javascript]
 
   Name 		 :  Career System
   Version    :  1.0
@@ -10,9 +10,7 @@
 
    TOC:
   =======
-  	1. Applicant Skill
+  	1. Feedbacks statistic Panel
 
 
 ===================================================== */
-
-
