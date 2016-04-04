@@ -10,7 +10,7 @@
                         <div class="alert alert-callout alert-success no-margin">
                             <h1 class="pull-right text-success"><i class="fa fa-tags"></i></h1>
                             <strong class="text-xl">40 Cats.</strong><br>
-                            <span class="opacity-50">Number of categories.</span>
+                            <span class="opacity-50">Sum. categories on the system</span>
                         </div>
                     </div><!--end .card-body -->
                 </div><!--end .card -->
@@ -21,7 +21,7 @@
                         <div class="alert alert-callout alert-info no-margin">
                             <h1 class="pull-right text-info"><i class="fa fa-thumb-tack"></i></h1>
                             <strong class="text-xl">324 Posts.</strong><br>
-                            <span class="opacity-50">Number of posts.</span>
+                            <span class="opacity-50">Sum. posts on the system   </span>
                         </div>
                     </div><!--end .card-body -->
                 </div><!--end .card -->
@@ -78,7 +78,7 @@
                                 <td><?= h($post->post_title) ?></td>
                                 <td class="hidden-xs"><?= $post->has('hiring_manager') ? $this->Html->link($post->hiring_manager->hiring_manager_name, ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id]) : '' ?></td>
                                 <td class="hidden-xs"><?= h($post->post_date->format('d-M-y')) ?></td>
-                                <td><?= $post->post_status  ? '<span class="label label-success col-xs-12">Active</span>' : '<span class="label label-warning col-xs-12">Pending</span>' ?></td>
+                                <td><?= $post->post_status  ? '<span class="label label-primary col-xs-12">Active</span>' : '<span class="label label-warning col-xs-12">Pending</span>' ?></td>
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View post"><i class="fa fa-info"></i></button>',
