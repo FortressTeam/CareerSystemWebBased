@@ -216,11 +216,6 @@ class ApplicantsHasSkillsController extends AppController
      * @apiParam {Number}       applicant_id Applicant ID.
      * @apiParam {Number}       skill_id Skill ID.
      *
-     * @apiParamExample {json} Request-Data-Example:
-     *      {
-     *          "applicant_id": 4,
-     *          "skill_id": 4,
-     *      }
      * @apiSuccess {String}     message PUT message (Values: <code>Deleted</code>,<code>Error</code>).
      *
      * @apiSuccessExample Success-Response:
@@ -235,8 +230,8 @@ class ApplicantsHasSkillsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
 
-        $conditions['applicant_id'] = $this->request->data['applicant_id'];
-        $conditions['skill_id'] = $this->request->data['skill_id'];
+        $conditions['applicant_id'] = $this->request->query['applicant_id'];
+        $conditions['skill_id'] = $this->request->query['skill_id'];
         $applicantsHasSkill = $this->ApplicantsHasSkills->find('all', [
             'conditions' => $conditions,
             'contain' => []

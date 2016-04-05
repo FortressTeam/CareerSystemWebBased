@@ -271,6 +271,7 @@ class PostsController extends AppController
         $this->set('_serialize', ['message', 'post']);
     }
 
+
     public function thisYear() {
         $months = $this->Posts->find();
         $year_month = $months->func()->date_format([

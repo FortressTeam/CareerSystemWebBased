@@ -25,23 +25,6 @@ class FeedbackTypesController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Feedback Type id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $feedbackType = $this->FeedbackTypes->get($id, [
-            'contain' => ['Feedbacks']
-        ]);
-
-        $this->set('feedbackType', $feedbackType);
-        $this->set('_serialize', ['feedbackType']);
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.

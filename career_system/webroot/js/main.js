@@ -84,7 +84,7 @@ $.getJSON($('#typeDonutChart' ).data('url'), function(response ){
     new Morris.Donut({
         element: 'typeDonutChart',
         data: response.dataByType,
-        colors: ['#2196f3', '#ff9800', '#9c27b0', '#4caf50'],
+        colors: ['#1178AB', '#ff9800', '#9c27b0', '#4caf50', '#f44336', '#96999c'],
         resize: true
     });
 });

@@ -19,7 +19,7 @@ class FeedbacksController extends AppController
             'Feedbacks.user_id'
         ],
         'order' => ['Feedbacks.feedback_date' => 'DESC'],
-        'limit' => 10
+        'limit' => 20
     ];
 
 

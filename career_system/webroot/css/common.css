@@ -96,6 +96,9 @@ footer {
 .gui-icon {
     text-align: center;
 }
+.label-accent {
+    background-color: #9C27B0;
+}
 /* --------------------------------- */
 /* 3. Navigation Menu Styles
  ----------------------------------- */

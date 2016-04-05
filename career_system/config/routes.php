@@ -85,12 +85,12 @@ Router::prefix('Api', function ($routes) {
     $routes->resources('HiringManagers');
     $routes->resources('Categories');
     $routes->resources('Posts', [
-       'map' => [
-           'this_year' => [
-               'action' => 'thisYear',
-               'method' => 'POST'
+        'map' => [
+            'this_year' => [
+                'action' => 'thisYear',
+                'method' => 'POST'
            ]
-       ]
+        ]
     ]);
     $routes->resources('Applicants');
     $routes->resources('ApplicantsHasSkills', [

@@ -5,21 +5,24 @@
 <div class="row">
     <div class="col-lg-4">
         <div class="row">
-            <div class="card col-lg-12 col-md-6 col-sm-12">
-                <div class="card-head">
-                    <header>Line chart</header>
-                </div>
-                <div class="card-body">
-                    <div id="lineChart" data-url="<?= $this->Url->build('/api/feedbacks/month'); ?>"></div>
+            <div class="col-lg-12 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="card-head">
+                        <header>Donut chart</header>
+                    </div>
+                    <div class="card-body">
+                        <div id="typeDonutChart" data-url="<?= $this->Url->build('/api/feedbacks/type'); ?>"></div>
+                    </div>
                 </div>
             </div>
-
-            <div class="card col-lg-12 col-md-6 col-sm-12">
-                <div class="card-head">
-                    <header>Donut chart</header>
-                </div>
-                <div class="card-body">
-                    <div id="typeDonutChart" data-url="<?= $this->Url->build('/api/feedbacks/type'); ?>"></div>
+            <div class="col-lg-12 col-md-6 col-sm-12">
+                <div class="card">
+                    <div class="card-head">
+                        <header>Line chart</header>
+                    </div>
+                    <div class="card-body">
+                        <div id="lineChart" data-url="<?= $this->Url->build('/api/feedbacks/month'); ?>"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -27,7 +30,7 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-head">
-                <header>List Feedbacks</header>
+                <header>Feedbacks</header>
                 <div class="tools">
                 <?php
                     echo $this->Form->create('', [
@@ -48,23 +51,42 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table cellpadding="0" cellspacing="0" class="table table-condensed table-hover no-margin">
+                    <table cellpadding="0" cellspacing="0" class="table">
                         <thead>
                             <tr>
                                 <th class="col-xs-10 col-sm-5"><?= $this->Paginator->sort('feedback_title', ['label' => 'Title']) ?></th>
                                 <th class="col-xs-2 hidden-xs"><?= $this->Paginator->sort('feedback_date', ['label' => 'Date']) ?></th>
-                                <th class="col-xs-2 hidden-xs"><?= $this->Paginator->sort('feedback_type_id', ['label' => 'Type']) ?></th>
                                 <th class="col-xs-2 hidden-xs"><?= $this->Paginator->sort('user_id') ?></th>
-                                <th class="actions text-right col-xs-2 col-sm-1"><?= __('Actions') ?></th>
+                                <th class="col-xs-1 hidden-xs"><?= $this->Paginator->sort('feedback_type_id', ['label' => 'Type']) ?></th>
+                                <th class="actions text-right col-xs-2 col-sm-2"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php foreach ($feedbacks as $feedback): ?>
                             <tr>
-                                <td><?= h($feedback->feedback_title) ?></td>
+                                <td><?= $this->Html->link(h($feedback->feedback_title),
+                                    ['action' => 'view', $feedback->id],
+                                    ['escape' => false]) ?></td>
                                 <td class="hidden-xs"><?= h($feedback->feedback_date->format('d-M-y')) ?></td>
-                                <td class="hidden-xs"><?= $feedback->has('feedback_type') ? $this->Html->link($feedback->feedback_type->feedback_type_name, ['controller' => 'FeedbackTypes', 'action' => 'view', $feedback->feedback_type->id]) : '' ?></td>
                                 <td class="hidden-xs"><?= $feedback->has('user') ? $this->Html->link($feedback->user->username, ['controller' => 'Users', 'action' => 'view', $feedback->user->id]) : '' ?></td>
+                                <td class="hidden-xs"><?php 
+                                    if($feedback->has('feedback_type')){
+                                        $type = 'default';
+                                        if($feedback->feedback_type->id === 1)
+                                            $type = 'info';
+                                        else if($feedback->feedback_type->id === 2)
+                                            $type = 'warning';
+                                        else if($feedback->feedback_type->id === 3)
+                                            $type = 'accent';
+                                        else if($feedback->feedback_type->id === 4)
+                                            $type = 'success';
+                                        echo $this->Html->link(
+                                            '<span class="label label-' . $type . ' col-xs-12">' . $feedback->feedback_type->feedback_type_name . '</span>',
+                                            ['controller' => 'FeedbackTypes', 'action' => 'view', $feedback->feedback_type->id],
+                                            ['escape' => false]
+                                        );
+                                    }  
+                                ?></td>
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View feedback"><i class="fa fa-info"></i></button>',
@@ -87,11 +109,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="fab_wrapper">
-        <?= $this->Html->link(
-            '<button class="btn btn_fab btn-primary"><i class="fa fa-plus"></i></button>',
-            ['action' => 'add'],
-            ['escape' => false]) ?>
     </div>
 </div>

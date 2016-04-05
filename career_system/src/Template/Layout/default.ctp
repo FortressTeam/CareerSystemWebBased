@@ -178,12 +178,6 @@ $cakeDescription = 'Career System: Something';
                                 ['escape' => false]
                                 ) ?>
                         </li>
-                        <li>
-                            <a href="#">
-                                <div class="gui-icon"><i class="fa fa-search"></i></div>
-                                <span class="title">Search</span>
-                            </a>
-                        </li><!--end /menu-li -->
                         <li class="gui-folder <?= $this->request->params['controller'] === 'Posts' || $this->request->params['controller'] === 'Categories' ? 'active' : '' ?>">
                             <a>
                                 <div class="gui-icon"><i class="fa fa-thumb-tack"></i></div>
@@ -256,6 +250,14 @@ $cakeDescription = 'Career System: Something';
                                         ) ?>
                                 </li>
                             </ul>
+                        </li><!--end /menu-li -->
+                        <li class="<?= $this->request->params['controller'] === 'Feedbacks' ? 'active' : '' ?>">
+                            <?= $this->Html->link(
+                                '<div class="gui-icon"><i class="fa fa-reply-all"></i></div>
+                                <span class="title">Feedbacks</span>',
+                                ['controller' => 'Feedbacks', 'action' => 'index'],
+                                ['escape' => false]
+                                ) ?>
                         </li><!--end /menu-li -->
                         <li>
                             <a href="#">
