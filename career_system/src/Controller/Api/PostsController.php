@@ -271,29 +271,35 @@ class PostsController extends AppController
         $this->set('_serialize', ['message', 'post']);
     }
 
-
-    public function thisYear() {
-        $months = $this->Posts->find();
-        $year_month = $months->func()->date_format([
-            'post_date' => 'literal',
-            "'%Y-%m'" => 'literal'
-        ]);
-        $month = $months->func()->month([
-            'post_date' => 'literal'
-        ]);
-        $months
+    /**
+     * @apiIgnore Not finished Method
+     * @api {POST} /posts/this_year 5. Get Analytic
+     * @apiName GetAnalytic
+     * @apiGroup Post
+     * @apiVersion 0.2.0
+     * @apiPermission Admin
+     *
+     * @apiDescription Get Analytic. This is a descripton.
+     */
+    public function thisYear() 
+    {
+        $during = isset($this->request->data['during']) ? $this->request->data['during'] : '7';
+        $days = $this->Posts->find();
+        $dateFormat = $days->func()->date_format([
+                'post_date' => 'literal',
+                "'%Y-%m-%d'" => 'literal'
+            ]);
+        $countFormat = $days->func()->count(
+                'Posts.id'
+            );
+        $days
             ->select([
-                'month' => $year_month,
-                'value' => $months->func()->count('Posts.id')
+                'label' => $dateFormat,
+                'value' => $countFormat
             ])
-            ->where(function($exp, $q){
-                $year = $q->func()->year([
-                    'post_date' => 'literal'
-                ]);
-                return $exp->eq($year, 2016);
-            })
-            ->group($month);
-        $this->set(compact('months'));
-        $this->set('_serialize', ['months']);
+            ->where(['post_date >=' => new \DateTime('-' . $during . ' days')])
+            ->group($dateFormat);
+        $this->set(compact('days'));
+        $this->set('_serialize', ['days']);
     }
 }

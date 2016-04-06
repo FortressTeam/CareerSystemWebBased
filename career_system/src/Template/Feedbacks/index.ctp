@@ -3,22 +3,22 @@
 
 
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-12">
         <div class="row">
-            <div class="col-lg-12 col-md-6 col-sm-12">
+            <div class="col-md-3 col-sm-12">
                 <div class="card">
                     <div class="card-head">
                         <header>Donut chart</header>
                     </div>
                     <div class="card-body">
-                        <div id="typeDonutChart" data-url="<?= $this->Url->build('/api/feedbacks/type'); ?>"></div>
+                        <div id="donutChart" data-url="<?= $this->Url->build('/api/feedbacks/type'); ?>"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 col-md-6 col-sm-12">
+            <div class="col-md-9 col-sm-12">
                 <div class="card">
                     <div class="card-head">
-                        <header>Line chart</header>
+                        <header>Feedback history</header>
                     </div>
                     <div class="card-body">
                         <div id="lineChart" data-url="<?= $this->Url->build('/api/feedbacks/month'); ?>"></div>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-head">
                 <header>Feedbacks</header>

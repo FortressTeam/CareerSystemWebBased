@@ -2,34 +2,38 @@
 <?= $this->Html->script('libs/morissjs/raphael.min.js') ?>
 
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-12">
         <div class="row">
-            <div class="col-lg-12 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-body no-padding">
-                        <div class="alert alert-callout alert-info no-margin">
-                            <h1 class="pull-right text-info"><i class="fa fa-tags"></i></h1>
-                            <strong class="text-xl"><?= $countCats->toArray()[0]->count ?> Categoies</strong><br>
-                            <span class="opacity-50">Total categories on the system</span>
-                        </div>
-                    </div><!--end .card-body -->
-                </div><!--end .card -->
+            <div class="col-md-3 col-sm-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-body no-padding">
+                                <div class="alert alert-callout alert-info no-margin">
+                                    <h1 class="pull-right text-info"><i class="fa fa-tags"></i></h1>
+                                    <strong class="text-xl"><?= $countCats->toArray()[0]->count ?> Categoies</strong><br>
+                                    <span class="opacity-50">Total categories on the system</span>
+                                </div>
+                            </div><!--end .card-body -->
+                        </div><!--end .card -->
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-body no-padding">
+                                <div class="alert alert-callout alert-info no-margin">
+                                    <h1 class="pull-right text-info"><i class="fa fa-thumb-tack"></i></h1>
+                                    <strong class="text-xl"><?= $countPosts->toArray()[0]->count ?> Posts</strong><br>
+                                    <span class="opacity-50">Total posts on the system   </span>
+                                </div>
+                            </div><!--end .card-body -->
+                        </div><!--end .card -->
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-12 col-md-6 col-sm-12">
-                <div class="card">
-                    <div class="card-body no-padding">
-                        <div class="alert alert-callout alert-info no-margin">
-                            <h1 class="pull-right text-info"><i class="fa fa-thumb-tack"></i></h1>
-                            <strong class="text-xl"><?= $countPosts->toArray()[0]->count ?> Posts</strong><br>
-                            <span class="opacity-50">Total posts on the system   </span>
-                        </div>
-                    </div><!--end .card-body -->
-                </div><!--end .card -->
-            </div>
-            <div class="col-xs-12">
+            <div class="col-md-9 col-sm-12">
                 <div class="card">
                     <div class="card-head">
-                        <header>Statistic</header>
+                        <header>Post history</header>
                     </div>
                     <div class="card-body">
                         <div id="lineChart" data-url="<?= $this->Url->build('/api/posts/this_year'); ?>"></div>
@@ -38,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="card">
             <div class="card-head">
                 <header>Posts</header>
