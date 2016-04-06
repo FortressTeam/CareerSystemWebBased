@@ -40,7 +40,7 @@ class ApplicantsController extends AppController
         //     'contain' => ['CareerPaths', 'ApplicantsFollowPosts', 'ApplicantsHasHobbies', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users']
         // ]);
         $applicant = $this->Applicants->get($id, [
-            'contain' => ['CareerPaths', 'Users'],
+            'contain' => ['CareerPaths', 'Users', 'PersonalHistory'],
         ]);
 
         $careerPaths = $this->Applicants->CareerPaths->find('list');

@@ -109,6 +109,16 @@ Router::prefix('Api', function ($routes) {
     ]);
     $routes->resources('Skills');
     $routes->resources('SkillTypes');
+    $routes->resources('ApplicantsHasHobbies', [
+        'map' => [
+            'delete' => [
+                'action' => 'delete',
+                'method' => 'DELETE',
+                'path' => '/'
+            ],
+        ]
+    ]);
+    $routes->resources('Hobbies');
     $routes->resources('Feedbacks', [
        'map' => [
            'month' => [

@@ -25,7 +25,7 @@ class ApplicantsHasHobby extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'applicant_id' => false,
-        'hobby_id' => false,
+        'applicant_id' => true,
+        'hobby_id' => true,
     ];
 }

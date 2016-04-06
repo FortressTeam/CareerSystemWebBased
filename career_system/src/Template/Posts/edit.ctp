@@ -38,10 +38,10 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-xs-8">
                         <h4><b>Active</b></h4>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-xs-4">
                         <?= $this->Form->button(
                             $post->post_status ? 'ON' : 'OFF',
                             [
@@ -66,10 +66,10 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-xs-8">
                         <h4><b>Delete this post</b></h4>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-xs-4">
                         <?= $this->Form->postLink(
                                 'Delete',
                                 ['action' => 'delete', $post->id],

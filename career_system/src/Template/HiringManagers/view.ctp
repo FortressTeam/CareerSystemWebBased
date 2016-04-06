@@ -184,10 +184,10 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-xs-8">
                         <h4><b>Active</b></h4>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-xs-4">
                         <?= $this->Form->button(
                             $hiringManager->hiring_manager_status ? 'ON' : 'OFF',
                             [
@@ -212,10 +212,10 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-xs-8">
                         <h4><b>Delete this hiring manager</b></h4>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-xs-4">
                         <?= $this->Form->postLink(
                                 'Delete',
                                 ['action' => 'delete', $hiringManager->id],

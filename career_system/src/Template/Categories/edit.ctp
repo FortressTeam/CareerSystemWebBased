@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-head style-primary">
+            <div class="card-head">
                 <header>Create a categories</header>
             </div>
             <div class="card-body">
@@ -31,15 +31,14 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-xs-8">
                         <h4><b>Delete this category</b></h4>
-                        Once you delete a category, there is no going back. Please be certain.
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-xs-4">
                         <?= $this->Form->postLink(
                                 'Delete',
                                 ['action' => 'delete', $category->id],
-                                ['class' => 'btn ink-reaction btn-flat btn-danger col-xs-12', 'escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $category->id)]
+                                ['class' => 'btn ink-reaction btn-flat btn-danger col-xs-12', 'escape' => false, 'confirm' => __('Once you delete a category, there is no going back. Please be certain. Are you sure you want to delete # {0}?', $category->id)]
                             )
                         ?>
                     </div>

@@ -57,8 +57,8 @@ class PersonalHistoryFixture extends TestFixture
             'id' => 1,
             'personal_history_title' => 'Lorem ipsum dolor sit amet',
             'personal_history_detail' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'personal_history_start' => '2016-03-29',
-            'personal_history_end' => '2016-03-29',
+            'personal_history_start' => '2016-04-06',
+            'personal_history_end' => '2016-04-06',
             'personal_history_type_id' => 1,
             'applicant_id' => 1
         ],

@@ -1,6 +1,277 @@
 define({ "api": [
   {
     "type": "DELETE",
+    "url": "/applicants_has_hobbies",
+    "title": "2. Delete Applicants Hobbies",
+    "name": "DeleteApplicantsHasHobbies",
+    "group": "Applicants_Hobbies",
+    "version": "0.2.0",
+    "permission": [
+      {
+        "name": "Applicant"
+      }
+    ],
+    "description": "<p>Delete Applicants Hobbies. This is a descripton.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "applicant_id",
+            "description": "<p>Applicant ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "hobby_id",
+            "description": "<p>Hobby ID.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>PUT message (Values: <code>Deleted</code>,<code>Error</code>).</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"message\": \"Deleted\",\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "career_system/src/Controller/Api/ApplicantsHasHobbiesController.php",
+    "groupTitle": "Applicants_Hobbies",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "ApplicantsHasHobbiesNotFound",
+            "description": "<p>The <code>applicant_id</code> and <code>hobby_id</code> of the ApplicantsHasHobbies was not found.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n {\n     message: \"Record not found in table \"applicants_has_hobbies\"\",\n     url: \"/CareerSystemWebBased/career_system/api/applicants_has_hobbies\",\n     code: 404\n }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "GET",
+    "url": "/applicants_has_hobbies",
+    "title": "1. Request All Applicants Hobbies information",
+    "name": "GetApplicantsHasHobbies",
+    "group": "Applicants_Hobbies",
+    "version": "0.2.0",
+    "permission": [
+      {
+        "name": "Applicant"
+      }
+    ],
+    "description": "<p>Request All Applicants Hobbies information. This is a descripton.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "applicant_id",
+            "description": "<p>Applicant ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "hobby_id",
+            "description": "<p>Hobby ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "size": "1-*",
+            "optional": true,
+            "field": "limit",
+            "defaultValue": "20",
+            "description": "<p>Number of results.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "size": "1-*",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>Paginate page.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "asc",
+              "desc"
+            ],
+            "optional": true,
+            "field": "direction",
+            "defaultValue": "asc",
+            "description": "<p>Sort direction.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "applicant_id",
+              "hobby_id"
+            ],
+            "optional": true,
+            "field": "sort",
+            "defaultValue": "id",
+            "description": "<p>Sort by field.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "applicantsHasHobbies",
+            "description": "<p>List of Applicants Hobbies (Array of Objects).</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "applicantsHasHobbies.applicant_id",
+            "description": "<p>Applicant ID.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "applicantsHasHobbies.hobby_id",
+            "description": "<p>Hobby ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": " HTTP/1.1 200 OK\n {\n     \"applicantsHasHobbies\": [\n          {\n              \"applicant_id\": 4,\n              \"hobby_id\": 12\n          }\n     ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "career_system/src/Controller/Api/ApplicantsHasHobbiesController.php",
+    "groupTitle": "Applicants_Hobbies"
+  },
+  {
+    "type": "POST",
+    "url": "/applicants_has_hobbie",
+    "title": "2. Create a new Applicants Hobbies",
+    "name": "PostApplicantsHasHobbies",
+    "group": "Applicants_Hobbies",
+    "version": "0.2.0",
+    "permission": [
+      {
+        "name": "Applicant"
+      }
+    ],
+    "description": "<p>Create a new Applicants Hobbies. This is a descripton.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "applicant_id",
+            "description": "<p>Applicant ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "hobby_id",
+            "description": "<p>Hobby ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Data-Example:",
+          "content": "{\n    \"applicant_id\": 4,\n    \"hobby_id\": 12\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>POST message (Values: <code>Saved</code>,<code>Error</code>).</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "applicantsHasHobby",
+            "description": "<p>Applicants Hoobies Objects.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "applicantsHasHobby.applicant_id",
+            "description": "<p>Applicant ID.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "applicantsHasHobby.hobby_id",
+            "description": "<p>Hobby ID.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"message\": \"Saved\",\n    \"applicantsHasHobby\": {\n        \"applicant_id\": 4,\n        \"hobby_id\": 12\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "career_system/src/Controller/Api/ApplicantsHasHobbiesController.php",
+    "groupTitle": "Applicants_Hobbies"
+  },
+  {
+    "type": "DELETE",
     "url": "/applicants_has_skills",
     "title": "4. Delete Applicants Skills",
     "name": "DeleteApplicantsHasSkills",
@@ -30,14 +301,7 @@ define({ "api": [
             "description": "<p>Skill ID.</p>"
           }
         ]
-      },
-      "examples": [
-        {
-          "title": "Request-Data-Example:",
-          "content": "{\n    \"applicant_id\": 4,\n    \"skill_id\": 4,\n}",
-          "type": "json"
-        }
-      ]
+      }
     },
     "success": {
       "fields": {

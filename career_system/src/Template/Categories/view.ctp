@@ -2,11 +2,7 @@
     <div class="section-body contain-lg">
     <div class="row">
         <?php foreach ($posts as $post): ?>
-<<<<<<< HEAD
-        <div class="col-md-6 col-lg-4 animated fadeInUp">
-=======
         <div class="col-sm-6 col-lg-4 animated zoomIn">
->>>>>>> 0b6456c3fa0c48f5e5285b76f13852d8271705fb
             <div class="card card-underline">
                 <div class="card-body">
                     <div class="row">

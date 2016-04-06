@@ -29,11 +29,10 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-xs-8">
                         <h4><b>Delete this skillType</b></h4>
-                        Once you delete a skillType, there is no going back. Please be certain.
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-xs-4">
                         <?= $this->Form->postLink(
                                 'Delete',
                                 ['action' => 'delete', $skillType->id],

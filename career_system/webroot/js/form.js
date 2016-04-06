@@ -67,7 +67,7 @@ $('#buttonChangeStatus').click(function(){
 		dataType: 'json',
 		data: dataJSON,
 		success: function(data){
-			if(data["message"] == 'Saved'){
+			if(data['message'] == 'Saved'){
 				if(value == '1'){
 					$('#buttonChangeStatus')
 						.html('ON')
@@ -95,12 +95,12 @@ $('#buttonChangeStatus').click(function(){
  --------------------------------------------- */
 $('.editable').find('#buttonEditCompanyInfo').click(function(){
 	var data ={
-		"hiring_manager_name": $("#inputManagerName").val(),
-		"hiring_manager_phone_number": $("#inputManagerPhone").val(),
-		"company_name": $("#inputName").val(),
-		"company_size": $("#inputSize").val(),
-		"company_address": $("#inputAddress").val(),
-		"company_email": $("#inputEmail").val()
+		"hiring_manager_name": $('#inputManagerName').val(),
+		"hiring_manager_phone_number": $('#inputManagerPhone').val(),
+		"company_name": $('#inputName').val(),
+		"company_size": $('#inputSize').val(),
+		"company_address": $('#inputAddress').val(),
+		"company_email": $('#inputEmail').val()
 	};
 	var hiringManagerId = $(this).data('id');
 	var formName = $(this).data('form');
@@ -112,13 +112,13 @@ $('.editable').find('#buttonEditCompanyInfo').click(function(){
 	    dataType: 'json',
 	    data: dataJSON,
 	    success: function(response){
-	        if(response["message"] == 'Saved'){
-	        	$('#textManagerName').text(response["hiringManager"]["hiring_manager_name"]);
-	        	$('#textManagerPhone').text(response["hiringManager"]["hiring_manager_phone_number"]);
-	        	$('#textName').text(response["hiringManager"]["company_name"]);
-	        	$('#textSize').text(response["hiringManager"]["company_size"] + ' people');
-	        	$('#textAddress').text(response["hiringManager"]["company_address"]);
-	        	$('#textEmail').text(response["hiringManager"]["company_email"]);
+	        if(response['message'] == 'Saved'){
+	        	$('#textManagerName').text(response['hiringManager']['hiring_manager_name']);
+	        	$('#textManagerPhone').text(response['hiringManager']['hiring_manager_phone_number']);
+	        	$('#textName').text(response['hiringManager']['company_name']);
+	        	$('#textSize').text(response['hiringManager']['company_size'] + ' people');
+	        	$('#textAddress').text(response['hiringManager']['company_address']);
+	        	$('#textEmail').text(response['hiringManager']['company_email']);
 	        	closeForm(formName);
 	        }
 	    } 
@@ -129,7 +129,7 @@ $('.editable').find('#buttonEditCompanyInfo').click(function(){
  --------------------------------------------- */
 $('.editable').find('#buttonEditCompanyAbout').click(function(){
 	var data ={
-	    "company_about": $("#inputAbout").val()
+	    "company_about": $('#inputAbout').val()
 	};
 	var hiringManagerId = $(this).data('id');
 	var formName = $(this).data('form');
@@ -141,8 +141,8 @@ $('.editable').find('#buttonEditCompanyAbout').click(function(){
 	    dataType: 'json',
 	    data: dataJSON,
 	    success: function(response){
-	        if(response["message"] == 'Saved'){
-	        	$('#textAbout').text(response["hiringManager"]["company_about"]);
+	        if(response['message'] == 'Saved'){
+	        	$('#textAbout').text(response['hiringManager']['company_about']);
 	        	closeForm(formName);
 	        }
 	    }
@@ -172,10 +172,10 @@ $('#imputCompanyImage').change(function(){
  --------------------------------------------- */
 $('.editable').find('#buttonEditAboutMe').click(function(){
 	var data ={
-	    "applicant_name": $("#inputName").val(),
-	    "applicant_about": $("#inputAbout").val(),
-	    "applicant_future_goals": $("#inputFutureGoals").val(),
-	    "career_path_id": $("#inputCareerPath").val(),
+	    "applicant_name": $('#inputName').val(),
+	    "applicant_about": $('#inputAbout').val(),
+	    "applicant_future_goals": $('#inputFutureGoals').val(),
+	    "career_path_id": $('#inputCareerPath').val(),
 	};
 	var applicantId = $(this).data('id');
 	var formName = $(this).data('form');
@@ -187,11 +187,11 @@ $('.editable').find('#buttonEditAboutMe').click(function(){
 	    dataType: 'json',
 	    data: dataJSON,
 	    success: function(response){
-	        if(response["message"] == 'Saved'){
-	        	$("#textName").text(response["applicant"]["applicant_name"]);
-	        	$("#textCareerPath").text(response["applicant"]["career_path"]["career_path_name"]);
-	        	$("#textAbout").text(response["applicant"]["applicant_about"]);
-	        	$("#textFutureGoals").text(response["applicant"]["applicant_future_goals"]);
+	        if(response['message'] == 'Saved'){
+	        	$('#textName').text(response['applicant']['applicant_name']);
+	        	$('#textCareerPath').text(response['applicant']['career_path']['career_path_name']);
+	        	$('#textAbout').text(response['applicant']['applicant_about']);
+	        	$('#textFutureGoals').text(response['applicant']['applicant_future_goals']);
 	        	closeForm(formName);
 	        }
 	    }
@@ -203,12 +203,12 @@ $('.editable').find('#buttonEditAboutMe').click(function(){
  --------------------------------------------- */
 $('.editable').find('#buttonEditPersonalInfo').click(function(){
 	var data ={
-		"applicant_date_of_birth": 	$("#inputBirthDay").val(),
-		"applicant_address": 		$("#inputAddress").val(),
-		"applicant_phone_number": 	$("#inputPhone").val(),
-		"applicant_website": 		$("#inputWebsite").val(),
-		"applicant_sex": 			$("#inputSex").val(),
-		"applicant_marital_status": $("#inputMarital").val(),
+		"applicant_date_of_birth": 	$('#inputBirthDay').val(),
+		"applicant_address": 		$('#inputAddress').val(),
+		"applicant_phone_number": 	$('#inputPhone').val(),
+		"applicant_website": 		$('#inputWebsite').val(),
+		"applicant_sex": 			$('#inputSex').is(':checked'),
+		"applicant_marital_status": $('#inputMarital').is(':checked'),
 	};
 	var applicantId = $(this).data('id');
 	var formName = $(this).data('form');
@@ -220,15 +220,15 @@ $('.editable').find('#buttonEditPersonalInfo').click(function(){
 		dataType: 'json',
 		data: dataJSON,
 		success: function(response){
-			if(response["message"] == 'Saved'){
-				var d = new Date(response["applicant"]["applicant_date_of_birth"]).getYear();
+			if(response['message'] == 'Saved'){
+				var d = new Date(response['applicant']['applicant_date_of_birth']).getYear();
 				var c = new Date().getYear();
-				$("#textAge").text((c - d) + ' Years');
-				$("#textAddress").text(response["applicant"]["applicant_address"]);
-				$("#textPhone").text(response["applicant"]["applicant_phone_number"]);
-				$("#textWebsite").text(response["applicant"]["applicant_website"]);
-				$("#textSex").text(response["applicant"]["applicant_sex"] ? 'Male' : 'Female');
-				$("#textMarital").text(response["applicant"]["applicant_marital_status"] ? 'Single' : 'Married');
+				$('#textAge').text((c - d) + ' Years');
+				$('#textAddress').text(response['applicant']['applicant_address']);
+				$('#textPhone').text(response['applicant']['applicant_phone_number']);
+				$('#textWebsite').text(response['applicant']['applicant_website']);
+				$('#textSex').text(response['applicant']['applicant_sex'] ? 'Male' : 'Female');
+				$('#textMarital').text(response['applicant']['applicant_marital_status'] ? 'Married' : 'Single');
 				closeForm(formName);
 			}
 		}
@@ -296,3 +296,6 @@ $('.editable').find('#buttonAddSkills').click(function(){
     });
 });
 
+/* ------------------------------------------- */
+/* 2.4. Applicant: Hobbies
+ --------------------------------------------- */
