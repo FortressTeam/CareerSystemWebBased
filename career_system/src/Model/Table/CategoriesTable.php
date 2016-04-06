@@ -32,6 +32,7 @@ class CategoriesTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Tree');
+        $this->addBehavior('Search.Search');
 
         $this->belongsTo('ParentCategories', [
             'className' => 'Categories',
@@ -44,6 +45,16 @@ class CategoriesTable extends Table
         $this->hasMany('Posts', [
             'foreignKey' => 'category_id'
         ]);
+
+        $this->searchManager()
+            ->add('q', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'field' => [
+                    $this->aliasField('category_name'),
+                    $this->aliasField('category_description')
+                ]
+            ]);
     }
 
     /**

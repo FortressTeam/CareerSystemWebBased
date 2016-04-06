@@ -218,6 +218,7 @@ $(document).ready(function(){
                     id: '1',
                     name: 'CakePHP 3',
                     level: '5',
+                    applicant: null,
                     edit: null
                 }, data);
 
@@ -232,6 +233,26 @@ $(document).ready(function(){
                                 .data('level', nextLevel)
                                 .height(nextLevel * 200 / 5)
                                 .next().text(nextLevel + ' star(s)');
+                            if(skill.applicant != null){
+                                var data = {
+                                    "applicant_id": skill.applicant,
+                                    "skill_id": skill.id,
+                                    "skill_level": nextLevel
+                                };
+                                var dataJSON = JSON.stringify(data);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: $('#webInfo').data('url') + '/api' + '/applicants_has_skills',
+                                    contentType: 'application/json',
+                                    dataType: 'json',
+                                    data: dataJSON,
+                                    error: function(error){
+                                        flat = false;
+                                        alert('Error when change skill level. Please try again!')
+                                    }
+                                });
+                            }
+
                         }
                     }
                 }).append($('<div/>',{
@@ -240,11 +261,26 @@ $(document).ready(function(){
                     'class': 'skill-title',
                     'text': skill.name
                 })).append($('<div class="hr-wrap"><div class="hrc"></div></div>'))).append($('<div/>',{
-                    'class': 'btn btn-flat btn-danger btn-sx btn-block btn-remove',
-                    'style': 'display: none',
+                    'class': 'btn btn-flat btn-danger btn-sx btn-block btn-remove no-padding',
+                    'style': (skill.edit == null) ? 'display: none' : '',
                     click: function(){
                         $(this).parent().parent().remove();
-                        
+                        if(skill.applicant != null){
+                            $.ajax({
+                                type: 'DELETE',
+                                url: $('#webInfo').data('url') 
+                                        + '/api' 
+                                        + '/applicants_has_skills'
+                                        + '?applicant_id=' + skill.applicant
+                                        + '&skill_id=' + skill.id,
+                                contentType: 'application/json',
+                                dataType: 'json',
+                                error: function(error){
+                                    flat = false;
+                                    alert('Error when delete skill level. Please try again!')
+                                }
+                            });
+                        }
                     }
                 }).append($('<i/>',{
                     'class': 'fa fa-remove'

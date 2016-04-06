@@ -12,11 +12,9 @@ class PostsController extends AppController
 {
 
     public $paginate = [
-        'fields' => ['Posts.id', 'Posts.post_title', 'Posts.hiring_manager_id', 'Posts.post_date', 'Posts.post_status'],
         'order' => ['Posts.post_date' => 'DESC'],
-        'limit' => 20
+        'limit' => 10
     ];
-
 
     /**
      * Initialize method
@@ -46,12 +44,13 @@ class PostsController extends AppController
         $posts = $this->paginate($query);
 
         $countCats = $this->Posts->Categories->find()->select([
-                'count' => $query->func()->count('id')
-            ]);
+            'count' => $query->func()->count('id')
+        ]);
 
         $countPosts = $this->Posts->find()->select([
-                'count' => $query->func()->count('id')
-            ]);
+            'count' => $query->func()->count('id')
+        ]);
+
         $this->set(compact('posts', 'countCats', 'countPosts'));
         $this->set('_serialize', ['posts', 'countCats', 'countPosts']);
     }

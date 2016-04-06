@@ -11,6 +11,24 @@ use App\Controller\AppController;
 class CategoriesController extends AppController
 {
 
+    public $paginate = [
+        'order' => ['Categories.lft' => 'ASC'],
+        'limit' => 10
+    ];
+
+    /**
+     * Initialize method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['index'],
+        ]);
+    }
+
     /**
      * Index method
      *
@@ -18,13 +36,17 @@ class CategoriesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['ParentCategories']
-        ];
-        $categories = $this->paginate($this->Categories);
+        $query = $this->Categories
+            ->find('search', $this->Categories->filterParams($this->request->query))
+            ->contain(['ParentCategories'])
+            ->autoFields(true)
+            ->where(['Categories.parent_id IS NOT' => null]);
+        $categories = $this->paginate($query);
 
-        $this->set(compact('categories'));
-        $this->set('_serialize', ['categories']);
+        $category = $this->Categories->newEntity();
+        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
+        $this->set(compact('categories', 'category', 'parentCategories'));
+        $this->set('_serialize', ['categories', 'category']);
     }
 
     /**
@@ -98,7 +120,6 @@ class CategoriesController extends AppController
      */
     public function add()
     {
-        $category = $this->Categories->newEntity();
         if ($this->request->is('post')) {
             $category = $this->Categories->patchEntity($category, $this->request->data);
             if ($this->Categories->save($category)) {
@@ -108,7 +129,6 @@ class CategoriesController extends AppController
                 $this->Flash->error(__('The category could not be saved. Please, try again.'));
             }
         }
-        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
         $this->set(compact('category', 'parentCategories'));
         $this->set('_serialize', ['category']);
     }

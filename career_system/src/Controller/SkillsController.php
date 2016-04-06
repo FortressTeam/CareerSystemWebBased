@@ -11,6 +11,23 @@ use App\Controller\AppController;
 class SkillsController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 10
+    ];
+
+    /**
+     * Initialize method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['index'],
+        ]);
+    }
+
     /**
      * Index method
      *
@@ -18,9 +35,20 @@ class SkillsController extends AppController
      */
     public function index()
     {
-        $skills = $this->paginate($this->Skills);
+        $query = $this->Skills
+            ->find('search', $this->Skills->filterParams($this->request->query))
+            ->contain(['SkillTypes'])
+            ->autoFields(true);
+        $skills = $this->paginate($query);
 
-        $this->set(compact('skills'));
+        $skill = $this->Skills->newEntity();
+        $skillTypes = $this->Skills->SkillTypes->find('list', ['limit' => 200]);
+
+        $countSkills = $this->Skills->find()->select([
+            'count' => $query->func()->count('id')
+        ]);
+
+        $this->set(compact('skills', 'skill', 'skillTypes', 'countSkills'));
         $this->set('_serialize', ['skills']);
     }
 
@@ -83,7 +111,8 @@ class SkillsController extends AppController
                 $this->Flash->error(__('The skill could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('skill'));
+        $skillTypes = $this->Skills->SkillTypes->find('list', ['limit' => 200]);
+        $this->set(compact('skill', 'skillTypes'));
         $this->set('_serialize', ['skill']);
     }
 

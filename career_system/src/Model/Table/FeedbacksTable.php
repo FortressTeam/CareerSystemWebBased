@@ -51,11 +51,6 @@ class FeedbacksTable extends Table
                     $this->aliasField('feedback_comment'),
                     $this->aliasField('feedback_result')
                 ]
-            ])
-            ->add('foo', 'Search.Callback', [
-                'callback' => function ($query, $args, $manager) {
-                    
-                }
             ]);
     }
 

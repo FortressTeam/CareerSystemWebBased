@@ -54,24 +54,39 @@
                                 ])
                             ?>
                             <?php 
-                                echo $this->Form->input('applicant_name', ['class' => 'form-control', 'id' => 'inputName']);
-                                echo $this->Form->input('career_path_id', ['class' => 'form-control', 'id' => 'inputCareerPath', 'options' => $careerPaths]);
-                                echo $this->Form->input('applicant_about', ['class' => 'form-control', 'id' => 'inputAbout', 'style' => 'height: 90px; overflow: hidden; resize: none']);
-                                echo $this->Form->input('applicant_future_goals', ['class' => 'form-control', 'id' => 'inputFutureGoals', 'style' => 'height: 90px; overflow: hidden; resize: none']);
+                                echo $this->Form->input('applicant_name', [
+                                    'class' => 'form-control',
+                                    'id' => 'inputName'
+                                ]);
+                                echo $this->Form->input('career_path_id', [
+                                    'class' => 'form-control',
+                                    'id' => 'inputCareerPath',
+                                    'options' => $careerPaths
+                                ]);
+                                echo $this->Form->input('applicant_about', [
+                                    'class' => 'form-control',
+                                    'id' => 'inputAbout',
+                                    'style' => 'height: 90px; overflow: hidden; resize: none'
+                                ]);
+                                echo $this->Form->input('applicant_future_goals', [
+                                    'class' => 'form-control',
+                                    'id' => 'inputFutureGoals',
+                                    'style' => 'height: 90px; overflow: hidden; resize: none'
+                                ]);
+                                echo $this->Form->button(__('Save'), [
+                                    'type' => 'button',
+                                    'class' => 'btn ink-reaction btn-raised btn-primary',
+                                    'id' => 'buttonEditAboutMe',
+                                    'data-form' => 'aboutMe',
+                                    'data-id' => $applicant->id,
+                                ]);
+                                echo $this->Form->button(__('Cancel'), [
+                                    'type' => 'button',
+                                    'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm',
+                                    'data-form' => 'aboutMe',
+                                ]); 
+                                echo $this->Form->end();
                             ?>
-                            <?= $this->Form->button(__('Save'), [
-                                'type' => 'button',
-                                'class' => 'btn ink-reaction btn-raised btn-primary',
-                                'id' => 'buttonEditAboutMe',
-                                'data-form' => 'aboutMe',
-                                'data-id' => $applicant->id,
-                            ]) ?>
-                            <?= $this->Form->button(__('Cancel'), [
-                                'type' => 'button',
-                                'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm',
-                                'data-form' => 'aboutMe',
-                            ]) ?>
-                            <?= $this->Form->end() ?>
                         </div>
                     </div>
                 </div>
@@ -97,34 +112,34 @@
                         <div id="personalInfoPanel" class="animated fadeIn">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <b>Age: </b><i class="textAge"><?= date_diff(date_create($applicant->applicant_date_of_birth), date_create('today'))->y, ' Years'; ?></i>
+                                    <b>Age: </b><i id="textAge"><?= date_diff(date_create($applicant->applicant_date_of_birth), date_create('today'))->y, ' Years'; ?></i>
                                 </div>
                                 <div class="col-md-6">
-                                    <b>Address: </b><i class="textAddress"><?= h($applicant->applicant_address) ?></i>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <b>Phone: </b><i class="textPhone"><?= h($applicant->applicant_phone_number) ?></i>
-                                </div>
-                                <div class="col-md-6">
-                                    <b>Email: </b><i class="textEmail"><?= h($applicant->user->user_email) ?></i>
+                                    <b>Address: </b><i id="textAddress"><?= h($applicant->applicant_address) ?></i>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <b>Sex: </b><i class="textSex"><?= $applicant->applicant_sex ? __('Male') : __('Female'); ?></i>
+                                    <b>Phone: </b><i id="textPhone"><?= h($applicant->applicant_phone_number) ?></i>
                                 </div>
                                 <div class="col-md-6">
-                                    <b>Marital: </b><i class="textMarital"><?= $applicant->applicant_marital_status ? __('Single') : __('Married') ?></i>
+                                    <b>Email: </b><i id="textEmail"><?= h($applicant->user->user_email) ?></i>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <b>Website: </b><i class="textWebsite"><?= h($applicant->applicant_website) ?></i>
+                                    <b>Sex: </b><i id="textSex"><?= $applicant->applicant_sex ? __('Male') : __('Female'); ?></i>
                                 </div>
                                 <div class="col-md-6">
-                                    <b>Register: </b><i class="textRegister"><?= h($applicant->user->user_registered->format('d-M-Y')) ?></i>
+                                    <b>Marital: </b><i id="textMarital"><?= $applicant->applicant_marital_status ? __('Single') : __('Married') ?></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Website: </b><i id="textWebsite"><?= h($applicant->applicant_website) ?></i>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Register: </b><i id="textRegister"><?= h($applicant->user->user_registered->format('d-M-Y')) ?></i>
                                 </div>
                             </div>
                         </div>
@@ -138,28 +153,47 @@
                                     ]
                                 ])
                             ?>
-                            <?php 
-                                echo $this->Form->input('applicant_date_of_birth', ['label' => 'Date of birth', 'class' => 'form-control', 'id' => 'inputBirthDay', 'data-inputmask' => '"\'alias\': \'date\'"']);
-                                echo $this->Form->input('applicant_address', ['label' => 'Address', 'class' => 'form-control', 'id' => 'inputAddress']);
-                                echo $this->Form->input('applicant_phone_number', ['label' => 'Phone Number', 'class' => 'form-control', 'id' => 'inputPhone']);
-                                //echo $this->Form->input('applicant_email', ['class' => 'form-control', 'id' => 'inputFutureGoals']);
-                                echo $this->Form->input('applicant_website', ['label' => 'Website', 'class' => 'form-control', 'id' => 'inputWebsite']);
-                                echo $this->Form->input('applicant_sex', ['label' => 'Sex (Male)', 'class' => 'form-control', 'id' => 'inputSex']);
-                                echo $this->Form->input('applicant_marital_status', ['label' => 'Marital Status', 'class' => 'form-control', 'id' => 'inputMarital']);
+                            <?php
+                                echo '<div class="form-group floating-label col-md-6"><label for="inputBirthDay">Date of birth</label><input type="date" name="applicant_date_of_birth" class="form-control dirty" id="inputBirthDay" required="required" value="' , $applicant->applicant_date_of_birth->format('Y-m-d'), '"></div>';
+                                echo $this->Form->input('applicant_address', [
+                                    'label' => 'Address',
+                                    'class' => 'form-control',
+                                    'id' => 'inputAddress'
+                                ]);
+                                echo $this->Form->input('applicant_phone_number', [
+                                    'label' => 'Phone Number',
+                                    'class' => 'form-control',
+                                    'id' => 'inputPhone'
+                                ]);
+                                echo $this->Form->input('applicant_website', [
+                                    'label' => 'Website',
+                                    'class' => 'form-control',
+                                    'id' => 'inputWebsite'
+                                ]);
+                                echo $this->Form->input('applicant_sex', [
+                                    'label' => 'Sex (Male)',
+                                    'class' => 'form-control',
+                                    'id' => 'inputSex'
+                                ]);
+                                echo $this->Form->input('applicant_marital_status', [
+                                    'label' => 'Marital Status',
+                                    'class' => 'form-control',
+                                    'id' => 'inputMarital'
+                                ]);
+                                echo $this->Form->button(__('Save'), [
+                                    'type' => 'button',
+                                    'class' => 'btn ink-reaction btn-raised btn-primary',
+                                    'id' => 'buttonEditPersonalInfo',
+                                    'data-form' => 'personalInfo',
+                                    'data-id' => $applicant->id,
+                                ]);
+                                echo $this->Form->button(__('Cancel'), [
+                                    'type' => 'button',
+                                    'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm',
+                                    'data-form' => 'personalInfo',
+                                ]);
+                                echo $this->Form->end()
                             ?>
-                            <?= $this->Form->button(__('Save'), [
-                                'type' => 'button',
-                                'class' => 'btn ink-reaction btn-raised btn-primary',
-                                'id' => 'buttonEditPersonalInfo',
-                                'data-form' => 'personalInfo',
-                                'data-id' => $applicant->id,
-                            ]) ?>
-                            <?= $this->Form->button(__('Cancel'), [
-                                'type' => 'button',
-                                'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm',
-                                'data-form' => 'personalInfo',
-                            ]) ?>
-                            <?= $this->Form->end() ?>
                         </div>
                     </div>
                 </div>
@@ -188,48 +222,42 @@
             </div>
             <div class="card-body">
                 <div class="animated fadeIn">
-                    <ul id="skillSlider" class="skill-graph" data-id="<?= $applicant->id ?>"></ul><!-- Skill Here -->
+                    <ul id="skillSlider" class="skill-graph" data-id="<?= $applicant->id ?>"></ul>
                 </div>
                 <div  id="skillsForm" class="animated fadeIn" style="display: none">
-                        <?= $this->Form->create($applicant, [
-                                'class' => 'form',
-                                'templates' => [
-                                    'formGroup' => '{{label}}{{input}}',
-                                    'inputContainer' => '<div class="form-group floating-label col-md-6">{{content}}</div>'
-                                ]
-                            ])
-                        ?>
-
-                        <?= $this->Form->input('skill_name', [
+                    <?= $this->Form->create($applicant, [
+                            'class' => 'form',
+                            'templates' => [
+                                'formGroup' => '{{label}}{{input}}',
+                                'inputContainer' => '<div class="form-group floating-label col-md-6">{{content}}</div>'
+                            ]
+                        ])
+                    ?>
+                    <?php
+                        echo $this->Form->input('skill_name', [
                             'class' => 'form-control findable',
                             'id' => 'inputSkillId',
                             'options' => $skills
-                        ]) ?>
-                        <?= $this->Form->input('skill_level', [
+                        ]);
+                        echo $this->Form->input('skill_level', [
                             'class' => 'form-control',
                             'id' => 'inputSkillLevel',
                             'options' => [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]
-                        ]) ?>
-                        <?= $this->Form->button(__('Add'), [
+                        ]);
+                            echo $this->Form->button(__('Add'), [
                             'type' => 'button',
                             'class' => 'btn ink-reaction btn-raised btn-success',
                             'id' => 'buttonAddSkills',
                             'data-form' => 'skills',
                             'data-id' => $applicant->id,
-                        ]) ?>
-                        <?= $this->Form->button(__('Save'), [
-                            'type' => 'button',
-                            'class' => 'btn ink-reaction btn-raised btn-primary',
-                            'id' => 'buttonEditSkills',
-                            'data-form' => 'skills',
-                            'data-id' => $applicant->id,
-                        ]) ?>
-                        <?= $this->Form->button(__('Cancel'), [
+                        ]);
+                        echo $this->Form->button(__('Cancel'), [
                             'type' => 'button',
                             'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm btn-CloseChangeChart',
                             'data-form' => 'skills',
-                        ]) ?>
-                        <?= $this->Form->end() ?>
+                        ]);
+                        echo $this->Form->end();
+                    ?>
                 </div>
             </div>
         </div>

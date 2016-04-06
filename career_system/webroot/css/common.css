@@ -209,6 +209,7 @@ footer {
 }
 .title_post>a {
     white-space: nowrap;
+    text-transform: uppercase;
 }
 
 .post_content {
