@@ -2,7 +2,7 @@
     <div class="section-body contain-lg">
     <div class="row">
         <?php foreach ($posts as $post): ?>
-        <div class="col-sm-6 animated fadeInUp">
+        <div class="col-md-6 col-lg-4 animated fadeInUp">
             <div class="card card-underline">
                 <div class="card-body">
                     <div class="row">
