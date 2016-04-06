@@ -56,11 +56,6 @@ class PostsTable extends Table
                 'before' => true,
                 'after' => true,
                 'field' => [$this->aliasField('post_title'), $this->aliasField('post_content')]
-            ])
-            ->add('foo', 'Search.Callback', [
-                'callback' => function ($query, $args, $manager) {
-                    
-                }
             ]);
     }
 

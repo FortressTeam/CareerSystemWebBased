@@ -20,7 +20,8 @@ class SkillTypesController extends AppController
     {
         $skillTypes = $this->paginate($this->SkillTypes);
 
-        $this->set(compact('skillTypes'));
+        $skillType = $this->SkillTypes->newEntity();
+        $this->set(compact('skillTypes', 'skillType'));
         $this->set('_serialize', ['skillTypes']);
     }
 

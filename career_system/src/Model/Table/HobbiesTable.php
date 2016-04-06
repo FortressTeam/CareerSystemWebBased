@@ -26,11 +26,14 @@ class HobbiesTable extends Table
         parent::initialize($config);
 
         $this->table('hobbies');
-        $this->displayField('id');
+        $this->displayField('hobby_name');
         $this->primaryKey('id');
 
         $this->hasMany('ApplicantsHasHobbies', [
             'foreignKey' => 'hobby_id'
+        ]);
+        $this->belongsToMany('Applicants', [
+            'joinTable' => 'applicants_has_skills'
         ]);
     }
 

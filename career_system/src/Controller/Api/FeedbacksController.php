@@ -195,7 +195,7 @@ class FeedbacksController extends AppController
 
     /**
      * @apiIgnore Not finished Method
-     * @api {get} /feedbacks/month 4. Get Statistic by Month
+     * @api {GET} /feedbacks/month 4. Get Statistic by Month
      * @apiName GetMonthStatistic
      * @apiGroup Feedback
      * @apiVersion 0.2.0
@@ -205,33 +205,29 @@ class FeedbacksController extends AppController
      */
     public function month()
     {
-        $months = $this->Feedbacks->find();
-        $year_month = $months->func()->date_format([
-            'feedback_date' => 'literal',
-            "'%Y-%m'" => 'literal'
-        ]);
-        $month = $months->func()->month([
-            'feedback_date' => 'literal'
-        ]);
-        $months
+        $during = $this->request->data['during'];
+        $days = $this->Feedbacks->find();
+        $dateFormat = $days->func()->date_format([
+                'feedback_date' => 'literal',
+                "'%Y-%m-%d'" => 'literal'
+            ]);
+        $countFormat = $days->func()->count(
+                'Feedbacks.id'
+            );
+        $days
             ->select([
-                'month' => $year_month,
-                'value' => $months->func()->count('Feedbacks.id')
+                'label' => $dateFormat,
+                'value' => $countFormat
             ])
-            ->where(function($exp, $q){
-                $year = $q->func()->year([
-                    'feedback_date' => 'literal'
-                ]);
-                return $exp->eq($year, 2016);
-            })
-            ->group($month);
-        $this->set(compact('months'));
-        $this->set('_serialize', ['months']);
+            ->where(['feedback_date >=' => new \DateTime('-' . $during . ' days')])
+            ->group($dateFormat);
+        $this->set(compact('days'));
+        $this->set('_serialize', ['days']);
     }
 
     /**
      * @apiIgnore Not finished Method
-     * @api {get} /feedbacks/month 5. Get Statistic by Type
+     * @api {GET} /feedbacks/month 5. Get Statistic by Type
      * @apiName GetTypeStatistic
      * @apiGroup Feedback
      * @apiVersion 0.2.0
@@ -241,22 +237,16 @@ class FeedbacksController extends AppController
      */
     public function type()
     {
-        $dataByType = $this->Feedbacks->find();
-        $dataByType
+        $data = $this->Feedbacks->find();
+        $data
         	->contain(['FeedbackTypes'])
         	->select([
         		'label' => 'FeedbackTypes.feedback_type_name',
-                'value' => $dataByType->func()->count('Feedbacks.id')
+                'value' => $data->func()->count('Feedbacks.id')
         	])
-            ->where(function($exp, $q){
-                $year = $q->func()->year([
-                    'feedback_date' => 'literal'
-                ]);
-                return $exp->eq($year, 2016);
-            })
             ->group(['FeedbackTypes.id']);
-        $this->set(compact('dataByType'));
-        $this->set('_serialize', ['dataByType']);
+        $this->set(compact('data'));
+        $this->set('_serialize', ['data']);
     }
 
 }

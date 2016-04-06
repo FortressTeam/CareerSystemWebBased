@@ -65,7 +65,10 @@ class ApplicantsTable extends Table
             'foreignKey' => 'id'
         ]);
         $this->belongsToMany('Skills', [
-            'joinTable' => 'applicants_has_skills',
+            'joinTable' => 'applicants_has_skills'
+        ]);
+        $this->belongsToMany('Hobbies', [
+            'joinTable' => 'applicants_has_skills'
         ]);
     }
 

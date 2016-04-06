@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-head style-primary">
+            <div class="card-head">
                 <header>Create a skillTypes</header>
             </div>
             <div class="card-body">
@@ -16,7 +16,6 @@
                 ?>
                 <?php
                     echo $this->Form->input('skill_type_name', ['class' => 'form-control']);
-                    echo $this->Form->input('skill_type_description', ['class' => 'form-control']);
                 ?>
                 <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary btn-block']) ?>
                 <?= $this->Form->end() ?>

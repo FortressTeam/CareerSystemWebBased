@@ -30,6 +30,8 @@ class SkillsTable extends Table
         $this->displayField('skill_name');
         $this->primaryKey('id');
 
+        $this->addBehavior('Search.Search');
+
         $this->belongsTo('SkillTypes', [
             'foreignKey' => 'skill_type_id',
             'joinType' => 'INNER'
@@ -40,6 +42,16 @@ class SkillsTable extends Table
         $this->belongsToMany('Applicants', [
             'joinTable' => 'applicants_has_skills',
         ]);
+
+        $this->searchManager()
+            ->add('skill_type_id', 'Search.Value')
+            ->add('q', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'field' => [
+                    $this->aliasField('skill_name')
+                ]
+            ]);
     }
 
     /**

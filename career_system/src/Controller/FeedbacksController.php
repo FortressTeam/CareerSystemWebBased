@@ -12,16 +12,9 @@ class FeedbacksController extends AppController
 {
 
     public $paginate = [
-        'fields' => [
-            'Feedbacks.id',
-            'Feedbacks.feedback_title',
-            'Feedbacks.feedback_date',
-            'Feedbacks.user_id'
-        ],
         'order' => ['Feedbacks.feedback_date' => 'DESC'],
-        'limit' => 20
+        'limit' => 10
     ];
-
 
     /**
      * Initialize method

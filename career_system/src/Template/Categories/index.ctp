@@ -1,8 +1,51 @@
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-4">
         <div class="card">
-            <div class="card-head style-primary">
-                <header>List Categories</header>
+            <div class="card-head">
+                <header>Add a new category</header>
+            </div>
+            <div class="card-body">
+                <?= $this->Form->create($category, [
+                        'url' => ['action' => 'add'],
+                        'class' => 'form',
+                        'templates' => [
+                            'formGroup' => '{{input}}{{label}}',
+                            'nestingLabel' => '<div class="checkbox checkbox-styled"><label{{attrs}}>{{input}}<span>{{text}}</span></label></div>',
+                            'inputContainer' => '<div class="form-group floating-label">{{content}}</div>'
+                        ]
+                    ])
+                ?>
+                <?php
+                    echo $this->Form->input('category_name', ['class' => 'form-control']);
+                    echo $this->Form->input('category_description', ['class' => 'form-control']);
+                    echo $this->Form->input('parent_id', ['class' => 'form-control', 'options' => $parentCategories]);
+                ?>
+                <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary btn-block']) ?>
+                <?= $this->Form->end() ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-head">
+                <header>Categories</header>
+                <div class="tools">
+                <?php
+                    echo $this->Form->create('', [
+                        'class' => 'form',
+                        'templates' => [
+                            'formGroup' => '{{input}}{{label}}',
+                            'inputContainer' => '<div class="form-group floating-label  padd-0 marg-0 col-xs-10">{{content}}</div>'
+                        ]
+                    ]);
+                    echo $this->Form->input('q', ['label' => '', 'class' => 'form-control', 'placeholder' => 'Search']);
+                    echo $this->Form->button(
+                        '<i class="fa fa-search"></i>',
+                        ['type' => 'submit','class' => 'btn ink-reaction btn-flat btn-md'],
+                        ['escape' => false]);
+                    echo $this->Form->end();
+                ?>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -23,7 +66,7 @@
                                 <td><?= $category->has('parent_category') ? $this->Html->link($category->parent_category->category_name, ['controller' => 'Categories', 'action' => 'view', $category->parent_category->id]) : '' ?></td>
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View category"><i class="fa fa-info"></i></button>',
+                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View posts"><i class="fa fa-thumb-tack"></i></button>',
                                     ['action' => 'view', $category->id],
                                     ['escape' => false]) ?>
                                 <?= $this->Html->link(
@@ -31,11 +74,11 @@
                                     ['action' => 'edit', $category->id],
                                     ['escape' => false]) ?>
                                 <?= $this->Form->postLink(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete category"><i class="fa fa-arrow-down"></i></button>',
+                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Move down"><i class="fa fa-arrow-down"></i></button>',
                                     ['action' => 'moveDown', $category->id],
                                     ['confirm' => __('Are you sure you want to move down # {0}?', $category->id), 'escape' => false]) ?>
                                 <?= $this->Form->postLink(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete category"><i class="fa fa-arrow-up"></i></button>',
+                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Move up"><i class="fa fa-arrow-up"></i></button>',
                                     ['action' => 'moveUp', $category->id],
                                     ['confirm' => __('Are you sure you want to move up # {0}?', $category->id), 'escape' => false]) ?>
                                 </td>
@@ -52,45 +95,8 @@
                         <?= $this->Paginator->next('<i class="fa fa-angle-right"></i>',
                         ['escape' => false]) ?>
                     </ul>
-                    <p><?= $this->Paginator->counter() ?></p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="fab_wrapper">
-        <?= $this->Html->link(
-            '<button class="btn btn_fab btn-primary"><i class="fa fa-plus"></i></button>',
-            ['action' => 'add'],
-            ['escape' => false]) ?>
-    </div>
-
-<!--     <div class="col-lg-4">
-        <div class="card">
-            <div class="card-head">
-                <header><?= __('Actions') ?></header>
-            </div>
-            <div class="card-body no-padding">
-                <ul class="list divider-full-bleed">
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Category</div>',
-                        ['action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">List Posts</div>',
-                        ['controller' => 'Posts', 'action' => 'index'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                    <li class="tile"><?= $this->Html->link(
-                        '<div class="tile-icon"><i class="fa fa-dot-circle-o"></i></div>
-                        <div class="tile-text">New Post</div>',
-                        ['controller' => 'Posts', 'action' => 'add'],
-                        ['class' => 'tile-content ink-reaction', 'escape' => false]) ?>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
 </div>
