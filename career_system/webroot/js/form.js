@@ -260,7 +260,7 @@ function loadSkills(parent){
         dataType: 'json',
         success: function(response){
             $.each(response.applicantsHasSkills, function(index, value){
-                $('#skillSlider').addSkillColumn({
+                $(parent).addSkillColumn({
                     id: value.skill.id,
                     name: value.skill.skill_name,
                     level: value.skill_level,
@@ -289,8 +289,8 @@ $('.editable').find('#buttonAddSkills').click(function(){
         edit: 'heightEditable',
         applicant: $(this).data('id')
     });
-    $('.editable').find('#inputSkillId>option[value="' + $('#inputSkillId').val() + '"]').remove();
-    
+    //$('.editable').find('#inputSkillId>option[value="' + $('#inputSkillId').val() + '"]').remove();
+
     $('#skillSlider').find('.skill-inner').height(function(){
         return $(this).data('level') * 200 / 5;
     });
@@ -299,3 +299,58 @@ $('.editable').find('#buttonAddSkills').click(function(){
 /* ------------------------------------------- */
 /* 2.4. Applicant: Hobbies
  --------------------------------------------- */
+$(document).ready(function(){
+    loadHobbies($('#listHobbies'));
+});
+function loadHobbies(parent){
+    $.ajax({
+        type: 'GET',
+        url: $('#webInfo').data('url')
+        			+ '/api'
+        			+ '/applicants_has_hobbies' 
+                    + '?applicant_id='
+                    + parent.data('id'),
+        dataType: 'json',
+        success: function(response){
+            $.each(response.applicantsHasHobbies, function(index, value){
+                $(parent).addHobbiesLabel({
+                    id: value.hobby.id,
+                    name: value.hobby.hobby_name,
+                    applicant: parent.data('id')
+                });
+            });
+        }
+    });
+};
+$('.btn-OpenLabel').click(function(){
+	$('#listHobbies>span>i').css('display', 'inherit');
+});
+$('.btn-CloseLabel').click(function(){
+	$('#listHobbies>span>i').css('display', 'none');
+});
+$('.editable').find('#buttonAddHobbies').click(function(){
+    $('#listHobbies').addHobbiesLabel({
+        id: $('#inputHobbyId').val(),
+        name: $('#inputHobbyId>option[value="' + $('#inputHobbyId').val() + '"]').text(),
+        applicant: $(this).data('id'),
+        edit: true
+    });
+    
+    var data = {
+        "applicant_id": $(this).data('id'),
+        "hobby_id": $('#inputHobbyId').val()
+    };
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'POST',
+        url: $('#webInfo').data('url')
+        		+ '/api' 
+        		+ '/applicants_has_hobbies',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        error: function(error){
+            alert('Error when change skill level. Please try again!')
+        }
+    });
+});

@@ -10,6 +10,9 @@ use App\Controller\AppController;
  */
 class ApplicantsController extends AppController
 {
+    public function cv(){
+        $this->viewBuilder()->layout('cv');
+    }
 
     /**
      * Index method
@@ -47,8 +50,10 @@ class ApplicantsController extends AppController
 
         $this->loadModel('Skills');
         $skills = $this->Skills->find('list');
-        $this->set(compact('applicant', 'careerPaths', 'skills'));
-        $this->set('_serialize', ['applicant', 'careerPaths', 'skills']);
+        $this->loadModel('Hobbies');
+        $hobbies = $this->Hobbies->find('list');
+        $this->set(compact('applicant', 'careerPaths', 'skills', 'hobbies'));
+        $this->set('_serialize', ['applicant']);
     }
 
     /**

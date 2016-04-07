@@ -27,7 +27,7 @@ class ApplicantsController extends AppController
     public function view($id = null)
     {
         $applicant = $this->Applicants->get($id, [
-            'contain' => ['CareerPaths', 'ApplicantsFollowPosts', 'ApplicantsHasHobbies', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users', 'Skills']
+            'contain' => ['CareerPaths', 'ApplicantsFollowPosts', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users', 'Skills', 'Hobbies']
         ]);
 
         $this->set('applicant', $applicant);

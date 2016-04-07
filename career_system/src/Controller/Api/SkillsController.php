@@ -11,6 +11,10 @@ use App\Controller\Api\AppController;
 class SkillsController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 1000,
+        'maxLimit' => 1000
+    ];
     /**
      * @apiDefine SkillDefaultGetParameter
      *
@@ -69,6 +73,7 @@ class SkillsController extends AppController
             $conditions['skill_type_id'] = $this->request->query['skill_type_id'];
         }
         $this->paginate = [
+            'limit' => 1000,
             'conditions' => $conditions
         ];
         $skills = $this->paginate($this->Skills);

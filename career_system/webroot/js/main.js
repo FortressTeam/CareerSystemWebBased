@@ -295,6 +295,45 @@ $(document).ready(function(){
             }).append(inner).append(count).appendTo(this);
             return this;
         }; // End Create Skill Column elements
+
+        $.fn.addHobbiesLabel = function(data){
+
+            var hobby = $.extend({
+                    id: '1',
+                    name: 'CakePHP 3',
+                    applicant: null,
+                    edit: false
+                }, data);
+
+            var inner = $('<i/>',{
+                    'class': 'fa fa-remove text-danger btn-remove',
+                    'style': hobby.edit ? '' : 'display: none',
+                    'data-id': hobby.id,
+                    click: function(){
+                        $(this).parent().remove();
+                        if(hobby.applicant != null){
+                            $.ajax({
+                                type: 'DELETE',
+                                url: $('#webInfo').data('url') 
+                                        + '/api' 
+                                        + '/applicants_has_hobbies'
+                                        + '?applicant_id=' + hobby.applicant
+                                        + '&hobby_id=' + hobby.id,
+                                contentType: 'application/json',
+                                dataType: 'json',
+                                error: function(error){
+                                    flat = false;
+                                    alert('Error when delete hobby level. Please try again!')
+                                }
+                            });
+                        }
+                    }
+                });
+            var label = $('<span/>',{
+                'class': 'tag label label-primary text-fit marg-2',
+                'text': hobby.name + ' '
+                }).append(inner).appendTo(this);
+        };
     }(jQuery));
 
 

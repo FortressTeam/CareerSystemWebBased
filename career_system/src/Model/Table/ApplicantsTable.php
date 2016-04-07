@@ -68,7 +68,7 @@ class ApplicantsTable extends Table
             'joinTable' => 'applicants_has_skills'
         ]);
         $this->belongsToMany('Hobbies', [
-            'joinTable' => 'applicants_has_skills'
+            'joinTable' => 'applicants_has_hobbies'
         ]);
     }
 

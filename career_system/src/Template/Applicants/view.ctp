@@ -199,6 +199,40 @@
                 </div>
             </div>
             <div class="col-xs-12">
+                <div class="card">
+                    <div class="card-head">
+                        <header>Education</header>
+                    </div>
+                    <div class="card-body no-padding">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <ul class="list divider-full-bleed">
+                                    <li class="divider-full-bleed"></li>
+                                    <?php foreach ($applicant->personal_history as $personalHistory): ?>
+                                    <?php if(h($personalHistory->personal_history_type_id) === '1'): ?>
+                                    <li class="tile">
+                                        <a class="tile-content ink-reaction">
+                                            <div class="tile-text">
+                                                <span class="text-medium text-upcase"><?= h($personalHistory->personal_history_title) ?></span>
+                                                <span class="text-default-light pull-right">
+                                                    <?= $personalHistory->has('personal_history_start') ? h($personalHistory->personal_history_start->format('M Y')) : '' ?> 
+                                                    - <?= $personalHistory->has('personal_history_end') ? h($personalHistory->personal_history_end->format('M Y')) : 'Now' ?>
+                                                </span>
+                                                <small class="text-default-dark">
+                                                    <?= h($personalHistory->personal_history_detail) ?>
+                                                </small>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card no-margin">
@@ -216,10 +250,10 @@
                                         <div class="card">
                                             <div class="card-body small-padding">
                                                 <p>
-                                                    <span class="text-medium"><?= h($personalHistory->personal_history_title) ?></span><br>
+                                                    <span class="text-medium text-upcase"><?= h($personalHistory->personal_history_title) ?></span><br>
                                                     <span class="text-default-light">
-                                                        <?= $personalHistory->has('personal_history_start') ? h($personalHistory->personal_history_start->format('M-Y')) : '' ?> 
-                                                        -- <?= $personalHistory->has('personal_history_end') ? h($personalHistory->personal_history_end->format('M-Y')) : 'Now' ?>
+                                                        <?= $personalHistory->has('personal_history_start') ? h($personalHistory->personal_history_start->format('M Y')) : '' ?> 
+                                                        - <?= $personalHistory->has('personal_history_end') ? h($personalHistory->personal_history_end->format('M Y')) : 'Now' ?>
                                                     </span>
                                                 </p>
                                                 <?= h($personalHistory->personal_history_detail) ?>
@@ -248,10 +282,10 @@
                                         <div class="card">
                                             <div class="card-body small-padding">
                                                 <p>
-                                                    <span class="text-medium"><?= h($personalHistory->personal_history_title) ?></span><br>
+                                                    <span class="text-medium text-upcase"><?= h($personalHistory->personal_history_title) ?></span><br>
                                                     <span class="text-default-light">
-                                                        <?= $personalHistory->has('personal_history_start') ? h($personalHistory->personal_history_start->format('M-Y')) : '' ?> 
-                                                        -- <?= $personalHistory->has('personal_history_end') ? h($personalHistory->personal_history_end->format('M-Y')) : 'Now' ?>
+                                                        <?= $personalHistory->has('personal_history_start') ? h($personalHistory->personal_history_start->format('M Y')) : '' ?> 
+                                                        - <?= $personalHistory->has('personal_history_end') ? h($personalHistory->personal_history_end->format('M Y')) : 'Now' ?>
                                                     </span>
                                                 </p>
                                                 <?= h($personalHistory->personal_history_detail) ?>
@@ -267,9 +301,9 @@
                                         <div class="card">
                                             <div class="card-body small-padding">
                                                 <p>
-                                                    <span class="text-medium"><?= h($personalHistory->personal_history_title) ?></span><br>
+                                                    <span class="text-medium text-upcase"><?= h($personalHistory->personal_history_title) ?></span><br>
                                                     <span class="text-default-light">
-                                                        Date: <?= $personalHistory->has('personal_history_start') ? h($personalHistory->personal_history_start->format('M-Y')) : '' ?>
+                                                        Date: <?= $personalHistory->has('personal_history_start') ? h($personalHistory->personal_history_start->format('M Y')) : '' ?>
                                                     </span>
                                                 </p>
                                                 <?= h($personalHistory->personal_history_detail) ?>
@@ -344,17 +378,56 @@
                 </div>
             </div>
             <div class="col-xs-12">
-                <div class="card">
+                <div class="card editable">
                     <div class="card-head">
                         <header>Hobbies</header>
+                        <div class="tools">
+                            <div class="btn-group">
+                                <?= $this->Form->button('<i class="fa fa-pencil"></i>',
+                                    [
+                                        'type' => 'button',
+                                        'class' => 'btn btn-icon-toggle btn-OpenForm btn-OpenLabel',
+                                        'data-form' => 'hobbies'
+                                    ],
+                                    [ 'escape' => false ]
+                                ) ?>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <span class="label label-primary text-lg">Hobby Name <i class="fa fa-remove"></i></span>
-                        <span class="label label-primary text-lg">Hobby Name <i class="fa fa-remove"></i></span>
-                        <span class="label label-primary text-lg">Hobby Name <i class="fa fa-remove"></i></span>
-                        <span class="label label-primary text-lg">Hobby Name <i class="fa fa-remove"></i></span>
-                        <span class="label label-primary text-lg">Hobby Name <i class="fa fa-remove"></i></span>
-                        <span class="label label-primary text-lg">Hobby Name <i class="fa fa-remove"></i></span>
+                        <div class="animated fadeIn">
+                            <div id="listHobbies" class="animated fadeIn" data-id="<?= $applicant->id ?>"></div>
+                        </div>
+                        <div id="hobbiesForm" class="animated fadeIn" style="display: none">
+                            <?= $this->Form->create($applicant, [
+                                    'class' => 'form',
+                                    'templates' => [
+                                        'formGroup' => '{{label}}{{input}}',
+                                        'inputContainer' => '<div class="form-group floating-label col-md-12">{{content}}</div>'
+                                    ]
+                                ])
+                            ?>
+                            <?php
+                                echo $this->Form->input('hobby_name', [
+                                    'class' => 'form-control findable',
+                                    'id' => 'inputHobbyId',
+                                    'options' => $hobbies
+                                ]);
+                                    echo $this->Form->button(__('Add'), [
+                                    'type' => 'button',
+                                    'class' => 'btn ink-reaction btn-raised btn-success',
+                                    'id' => 'buttonAddHobbies',
+                                    'data-form' => 'hobbies',
+                                    'data-id' => $applicant->id,
+                                ]);
+                                echo $this->Form->button(__('Cancel'), [
+                                    'type' => 'button',
+                                    'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm btn- btn-CloseLabel',
+                                    'data-form' => 'hobbies',
+                                ]);
+                                echo $this->Form->end();
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>

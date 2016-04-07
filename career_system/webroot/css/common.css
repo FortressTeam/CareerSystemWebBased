@@ -28,16 +28,16 @@
 /* 1. Primary Styles
  ----------------------------------- */
 
-html {
+html{
     font-size: 1em;
 }
-body {
+body{
 	background-color: #E5E6E6;
 }
-a:hover, a:focus {
+a:hover, a:focus{
     text-decoration: none;
 }
-footer {
+footer{
     background-color: #2B323A;
     border-color: #2B323A;
     color: #FFFFFF;
@@ -46,109 +46,118 @@ footer {
 /* 2. Custom Utility Classes
  ----------------------------------- */
  
-.padd-tb-60 {
+.padd-tb-60{
     padding-top: 60px;
     padding-bottom: 60px;
 }
-.padd-0 {
+.padd-0{
     padding: 0!important;
 }
-.marg-0 {
-    margin: 0!important;
-}
-.padd-2 {
+.padd-2{
     padding: 2em;
 }
-.padd-10 {
+.padd-10{
     padding: 10px;
 }
-.left-align {
+.marg-0{
+    margin: 0!important;
+}
+.marg-2{
+    margin: 2px;
+}
+.text-fit{
+    font-size: 100%;
+}
+.left-align{
     text-align: left;
 }
-.top-vertical-align {
+.top-vertical-align{
     vertical-align: top;
 }
 /* centered columns styles */
-.row-centered {
+.row-centered{
     text-align: center;
 }
-.col-centered {
+.col-centered{
     display: inline-block;
     float: none;
 }
-.website_name {
+.website_name{
     vertical-align: middle;
     color: #1178AB;
     padding: 10px;
 }
-.list .tile .tile-text {
+.list .tile .tile-text{
     font-size: 13px;
 }
-.hr-mini {
+.hr-mini{
     margin: 12px 0;
 }
-.alert.alert-callout.fixed {
+.alert.alert-callout.fixed{
     z-index: 1;
     top: 13ex;
     right: 2ex;
     position: fixed;
 }
-.gui-icon {
+.gui-icon{
     text-align: center;
 }
-.label-accent {
+.label-accent{
     background-color: #9C27B0;
+}
+.text-upcase{
+    text-transform: uppercase;
 }
 /* --------------------------------- */
 /* 3. Navigation Menu Styles
  ----------------------------------- */
 
-#header {
+#header{
 	-webkit-transition: top .5s;
     transition: top .5s;
 }
-.non-side-bar>#base {
+.non-side-bar>#base{
     padding: 0 64px;
 }
-#menubar .menubar-scroll-panel {
+#menubar .menubar-scroll-panel{
     padding-top: 0;
 }
 /* --------------------------------- */
 /* 4. Home Section Styles
  ----------------------------------- */
 
-#home {
+#home{
 	background: url('../img/home-bg.jpg') no-repeat fixed center center / cover;
 	position: relative;
 }
-.home-inner {
+.home-inner{
     display: table;
     padding-top: 100px;
 }
-.section-inner {
+.section-inner{
     text-align: center;
     width: 100%;
 }
-.container {
+.container{
 	position: relative;
 }
-.home-content {
+.home-content{
     color: #FFFFFF;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
 }
 @media screen and (max-width: 767px){
-	.home-inner {
+	.home-inner{
 	    padding-top: 50px;
 	}
-	#home {
+	#home{
 		background: #FAFAFA;
 		height: auto;
 	}
 }
 @media screen and (min-width: 768px){
-	#home .sec-overlay {
+	#home .sec-overlay{
 	    background: rgba(0,0,0, .5);
 	    min-height: 400px;
 	    width: 100%;
@@ -156,18 +165,18 @@ footer {
 	}
 }
 
-.marketing-inner>.row {
+.marketing-inner>.row{
     padding-top: 24px;
 }
-.email-subscribe-inner>.row {
+.email-subscribe-inner>.row{
     padding-top: 24px;
 }
-.popular-searches-inner>.row {
+.popular-searches-inner>.row{
     padding-top: 24px;
     padding-bottom: 24px;
 }
 
-.usabilla-feedback-bar {
+.usabilla-feedback-bar{
     display: none;
     position: fixed;
     top: 0;
@@ -197,22 +206,22 @@ footer {
     -webkit-box-sizing: initial;
     -moz-box-sizing: initial;
 }
-@media (min-width: 790px) {
+@media (min-width: 790px){
     .usabilla-feedback-bar{
         display: block;
     }
 }
 
-.title_post {
+.title_post{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.title_post>a {
+.title_post>a{
     white-space: nowrap;
     text-transform: uppercase;
 }
 
-.post_content {
+.post_content{
     text-align: justify;
 }
 
@@ -254,13 +263,13 @@ footer {
 /* --------------------------------- */
 /* 6. Editable Panel
  ----------------------------------- */
-.btn-OpenForm.btn-hide {
+.btn-OpenForm.btn-hide{
     display: none;
     position: absolute;
     top: 0.5em;
     right: 0.5em;
 }
-.editable.edit-flat:hover {
+.editable.edit-flat:hover{
     position: relative;
     border-radius: 2px;
     background-color: #FFFFFF;
@@ -268,26 +277,26 @@ footer {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
 
 }
-.editable.edit-flat:hover>.btn-hide {
+.editable.edit-flat:hover>.btn-hide{
     display: inherit;
 }
 
 /* --------------------------------- */
 /* 7. Skill Panel
  ----------------------------------- */
- #skillSlider {    
+ #skillSlider{    
     white-space: nowrap;
     overflow: auto;
     display: block;
  }
-.skill-graph .single-skill {
+.skill-graph .single-skill{
     display: inline-block;
     position: relative;
     height: 300px;
     width: 60px;
     margin: 10px;
 }
-.heightEditable {
+.heightEditable{
     cursor: pointer;
     -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
@@ -296,13 +305,13 @@ footer {
     -o-transition: -o-box-shadow 0.15s ease-out;
     transition: box-shadow 0.15s ease-out;
 }
-.heightEditable:hover {
+.heightEditable:hover{
     background-color: #066290;
     border-color: #066290;
     -webkit-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.38);
     box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.38);
 }
-.skill-inner {
+.skill-inner{
     position: absolute;
     width: 100%;
     bottom: 33px;
@@ -314,28 +323,28 @@ footer {
     -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
     transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 }
-.skill-visiable {
+.skill-visiable{
     position: relative;
 }
-.skill-title, .skill-count {
+.skill-title, .skill-count{
     width: 100%;
     display: block;
     text-align: center;
     font-weight: 400;
     position: absolute;
 }
-.skill-count {
+.skill-count{
     color: #1178AB;
     bottom: 0;
 }
-.skill-title {
+.skill-title{
     white-space: normal;
     color: #1178AB;
     font-size: 13px;
     line-height: 15px;
     top: -70px;
 }
-.hr-wrap {
+.hr-wrap{
     background-color: #1178AB;
     color: #1178AB;
     position: absolute;
@@ -344,7 +353,7 @@ footer {
     top: -35px;
     left: 50%;
 }
-.hrc {
+.hrc{
     background-color: #1178AB;
     position: absolute;
     border-radius: 50%;

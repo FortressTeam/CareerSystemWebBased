@@ -156,12 +156,12 @@ class ApplicantsHasHobbiesController extends AppController
      *
      * @apiUse ApplicantsHasHobbiesNotFoundError
      */
-    public function delete($id = null)
+    public function delete()
     {
         $this->request->allowMethod(['post', 'delete']);
 
-        $conditions['applicant_id'] = $this->request->data['applicant_id'];
-        $conditions['hobby_id'] = $this->request->data['hobby_id'];
+        $conditions['applicant_id'] = $this->request->query['applicant_id'];
+        $conditions['hobby_id'] = $this->request->query['hobby_id'];
         $applicantsHasHobby = $this->ApplicantsHasHobbies->find('all', [
             'conditions' => $conditions,
             'contain' => []

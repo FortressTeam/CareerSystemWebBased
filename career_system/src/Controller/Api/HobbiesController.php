@@ -10,7 +10,10 @@ use App\Controller\Api\AppController;
  */
 class HobbiesController extends AppController
 {
-
+    public $paginate = [
+        'limit' => 1000,
+        'maxLimit' => 1000
+    ];
     /**
      * Index method
      *
