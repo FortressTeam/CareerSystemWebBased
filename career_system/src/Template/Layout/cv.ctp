@@ -13,7 +13,6 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'Career System: Something';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,44 +22,8 @@ $cakeDescription = 'Career System: Something';
     <?= $this->Html->css('theme/bootstrap') ?>
     <?= $this->Html->css('theme/materialadmin') ?>
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
-    
-    <!-- Additional CSS includes -->
-    <?= $this->Html->css('cv') ?>
-    <style type="text/css">
-    #content{
-        padding: 0;
-    }
-    .cv{
-        margin: auto;
-        width: 793px;
-    }
-    .cv hr{
-        margin-top: 12px;
-        margin-bottom: 12px;
-        border: 1px dashed #E2E2E2;
-    }
-    .cv .cv-date{
-        font-size: 12px;
-    }
-    .cv .cv-title{
-        /*text-transform: uppercase;*/
-    }
-    .cv .cv-block{
-        border-left: 3px solid #E2E2E2;
-        padding-left: 5px;
-    }
-    .cv .cv-skills>ul>li, .cv .cv-hobbies>ul>li{
-        padding: 5px 0;
-    }
-    .cv .cv-skills>ul {
-        list-style: none;
-        padding-left: 0;
-    }
-    .cv .cv-skills .level{
-        background-color: #727272;
-        height: 15px
-    }
-    </style>
+
+    <?= $this->Html->script('libs/jquery/jquery-1.11.2.min') ?>
 </head>
 <body>
 
@@ -83,6 +46,5 @@ $cakeDescription = 'Career System: Something';
 
     </div><!--end #base-->
     <!-- END BASE -->
-    <?= $this->Html->script('libs/bootstrap/bootstrap.min') ?>
 </body>
 </html>

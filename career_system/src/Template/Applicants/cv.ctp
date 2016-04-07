@@ -1,10 +1,21 @@
+<style type="text/css">
+#content{padding: 0;}
+.cv{margin: auto;width: 793px;}
+.cv hr{margin-top: 12px;margin-bottom: 12px;border: 1px dashed #E2E2E2;}
+.cv .cv-date{font-size: 12px;}
+.cv .cv-title{/*text-transform: uppercase;*/}
+.cv .cv-block{border-left: 3px solid #E2E2E2;padding-left: 5px;}
+.cv .cv-skills>ul>li, .cv .cv-hobbies>ul>li{padding: 5px 0;}
+.cv .cv-skills>ul {list-style: none;padding-left: 0;}
+.cv .cv-skills .level{background-color: #727272;height: 15px}
+</style>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="card cv">
 			<div class="card-body">
-				<div class="row">
+				<div class="row" id="templatePersonalInformation">
 					<div class="col-xs-2 row-centered">
-						<img src="/CareerSystemWebBased/career_system/img/user_img/1.jpg" class="img-circle border-white border-xl img-responsive" id="companyImage" alt="">
+						<img src="{{applicant.image}}" class="img-circle border-white border-xl img-responsive" id="companyImage" alt="">
 					</div>
 					<div class="col-xs-5">
 						<h1><b>{{applicant.name}}</b></h1>
@@ -105,3 +116,20 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $.ajax({
+        'type': 'GET',
+        'url': 'http://localhost/CareerSystemWebBased/career_system/api/applicants/4.json',
+        'contentType': 'application/json',
+        'dataType': 'json',
+        success: function(response){
+        	
+        },
+        error: function(message){
+
+        }
+    });
+});
+
+</script>
