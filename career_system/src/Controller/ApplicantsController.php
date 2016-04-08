@@ -11,7 +11,7 @@ use App\Controller\AppController;
 class ApplicantsController extends AppController
 {
     public function cv(){
-        $this->viewBuilder()->layout('cv');
+        // $this->viewBuilder()->layout('cv');
     }
 
     /**

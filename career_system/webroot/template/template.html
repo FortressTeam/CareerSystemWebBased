@@ -1,0 +1,176 @@
+<style type="text/css">
+#templateCV{display: none}
+.cv{margin: auto;width: 793px;}
+.cv hr{margin-top: 12px;margin-bottom: 12px;border: 1px dashed #E2E2E2;}
+.cv .cv-date{font-size: 12px;}
+.cv .cv-title{/*text-transform: uppercase;*/}
+.cv .cv-block{border-left: 3px solid #E2E2E2;padding-left: 5px;}
+.cv .cv-skills>ul>li, .cv .cv-hobbies>ul>li{padding: 5px 0;}
+.cv .cv-skills>ul {list-style: none;padding-left: 0;}
+.cv .cv-skills .level{background-color: #727272;height: 15px}
+</style>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="card cv">
+			<div class="card-head" id="loadingCV"><header>LOADING......</header></div>
+			<div class="card-body" id="templateCV">
+				<div class="row">
+					<div class="col-xs-2 row-centered">
+						<img src="{{applicant.image}}" class="img-circle border-white border-xl img-responsive" alt="" id="applicantImage">
+					</div>
+					<div class="col-xs-5">
+						<h1><b id="applicantName">{{applicant.name}}</b></h1>
+						<h4 class="text-default-light" id="applicantCareerPath">{{applicant.careerpath}}</h4>
+					</div>
+					<div class="col-xs-5" style="padding-top: 24px">
+						<div class="row">
+							<div class="col-xs-12">
+								<span class="text-default-light pull-right" id="applicantAddress">{{applicant.address}}</span>
+							</div>
+							<div class="col-xs-12">
+								<span class="text-default-light pull-right" id="applicantEmail">{{applicant.email}}</span>
+							</div>
+							<div class="col-xs-12">
+								<span class="text-default-light pull-right" id="applicantPhone">{{applicant.phone}}</span>
+							</div>
+						</div>
+					</div>
+				</div><hr/>
+				<div class="row">
+					<div class="col-xs-7">
+						<div class="row">
+							<div class="col-xs-12" id="applicantEducation">
+								<h2><b>Education</b></h2><hr/>
+							</div>	
+						</div>
+						<div class="row">
+							<div class="col-xs-12" id="applicantExperience">
+								<h2><b>Work Experience</b></h2><hr/>
+							</div>	
+						</div>
+						<div class="row">
+							<div class="col-xs-12" id="applicantActivity">
+								<h2><b>Activity, Certification and Award</b></h2><hr/>
+							</div>	
+						</div>
+					</div>
+					<div class="col-xs-5">
+						<div class="row">
+							<div class="col-xs-12">
+								<h2><b>Objective</b></h2><hr/>
+								<p id="applicantFutureGoal">{{applicant.futuregoal}}</p>
+							</div>	
+						</div>
+						<div class="row">
+							<div class="col-xs-12 cv-skills">
+								<h2><b>Skills</b></h2><hr/>
+								<ul id="applicantSkill">
+								</ul>
+							</div>	
+						</div>
+						<div class="row">
+							<div class="col-xs-12 cv-hobbies">
+								<h2><b>Hobbies</b></h2><hr/>
+								<ul id="applicantHobby">
+								</ul>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+var _hostName 			= window.location.origin;
+var _historyPattern 	= '<div class="row">'
+						+ '<div class="col-xs-4">'
+						+ '<h4 class="cv-date pull-right">{{start}} - {{end}}</h4>'
+						+ '</div>'
+						+ '<div class="col-xs-8">'
+						+ '<h4 class="cv-title">{{title}}</h4>'
+						+ '<p class="text-default-light cv-block">{{detail}}</p>'
+						+ '</div>'
+						+ '</div>';
+var _skillPattern		= '<li>'
+						+ '<div class="row">'
+						+ '<div class="col-xs-12">{{name}}</div>'
+						+ '<div class="col-xs-12">'
+						+ '<div class="level" style="width: {{level}}%"></div>'
+						+ '</div>'
+						+ '</div>'
+						+ '</li>';
+var _hobbyPattern		= '<li>{{name}}</li>';
+
+function convertDate(input){
+	if(input.string === null) return input.message;
+	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+	var date = new Date(input.string);
+	return months[date.getMonth()] + ' ' + date.getFullYear(); 
+}
+
+function CVPut(input){
+	$('#applicantImage').attr({'src': _hostName + '/CareerSystemWebBased/career_system/img/user_img/' +input.applicant.user.user_avatar});
+	$('#applicantName').text(input.applicant.applicant_name);
+	$('#applicantCareerPath').text(input.applicant.career_path.career_path_name);
+	$('#applicantAddress').text(input.applicant.applicant_address);
+	$('#applicantEmail').text(input.applicant.user.user_email);
+	$('#applicantPhone').text(input.applicant.applicant_phone_number);
+	$('#applicantPhone').text(input.applicant.applicant_phone_number);
+	$('#applicantFutureGoal').text(input.applicant.applicant_future_goals);
+	$.each(input.applicant.personal_history, function(index, value){
+		var tmp = _historyPattern;
+		tmp = tmp.replace('{{start}}', convertDate({
+			string: value.personal_history_start,
+			message: 'Error'
+		}));
+		tmp = tmp.replace('{{title}}', value.personal_history_title);
+		tmp = tmp.replace('{{detail}}', value.personal_history_detail);
+
+		if(value.personal_history_type_id === 1){
+			tmp = tmp.replace('{{end}}', convertDate({
+				string: value.personal_history_end,
+				message: 'Now'
+			}));
+			$('#applicantEducation').append(tmp);
+		}
+		else if(value.personal_history_type_id === 2){
+			tmp = tmp.replace('{{end}}', convertDate({
+				string: value.personal_history_end,
+				message: 'Now'
+			}));
+			$('#applicantExperience').append(tmp);
+		}
+		else if(value.personal_history_type_id === 3){
+			tmp = tmp.replace('{{end}}', convertDate({
+				string: value.personal_history_end,
+				message: 'Now'
+			}));
+			$('#applicantActivity').append(tmp);
+		}
+		else if(value.personal_history_type_id === 4){
+			tmp = tmp.replace('{{end}}', '');
+			$('#applicantActivity').append(tmp);
+		}
+	});
+	$.each(input.applicant.skills, function(index, value){
+		var tmp = _skillPattern;
+		tmp = tmp.replace('{{name}}', value.skill_name);
+		tmp = tmp.replace('{{level}}', value._joinData.skill_level * 100 / 5);
+		$('#applicantSkill').append(tmp);
+	});
+	$.each(input.applicant.hobbies, function(index, value){
+		var tmp = _hobbyPattern;
+		tmp = tmp.replace('{{name}}', value.hobby_name);
+		$('#applicantHobby').append(tmp);
+	});
+
+	$('#templateCV').css({'display': 'inherit'});
+	$('#loadingCV').css({'display': 'none'});
+}
+
+function CVError(message){
+	$('#templateCV').css({'display': 'none'});
+	$('#loadingCV').css({'display': 'inherit'}).text('<p class="text-dnager">Error while loading. Please try again!</p>');
+}
+</script>
