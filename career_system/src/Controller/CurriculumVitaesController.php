@@ -38,7 +38,7 @@ class CurriculumVitaesController extends AppController
     {
         $this->viewBuilder()->layout('cv');
         $curriculumVitae = $this->CurriculumVitaes->get($id, [
-            'contain' => ['Applicants', 'CurriculumVitaeTemplates', 'PostsHasCurriculumVitaes']
+            'contain' => ['Applicants']
         ]);
 
         $this->set('curriculumVitae', $curriculumVitae);

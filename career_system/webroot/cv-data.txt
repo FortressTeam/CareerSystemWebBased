@@ -1,0 +1,54 @@
+{
+	"cvdata": {
+		"major": "Web Developer",
+		"objective": "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
+		"personal_history": [
+			{
+				"personal_history_title": "DN of Education University",
+				"personal_history_detail": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.",
+				"personal_history_start": "2010-09-11T00:00:00+0000",
+				"personal_history_end": "2014-03-29T00:00:00+0000",
+				"personal_history_type_id": 1
+			},
+			{
+				"personal_history_title": "FACEBOOK",
+				"personal_history_detail": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.",
+				"personal_history_start": "2011-02-22T00:00:00+0000",
+				"personal_history_end": "2013-06-22T00:00:00+0000",
+				"personal_history_type_id": 2
+			},
+			{
+				"personal_history_title": "MARKETING CLUB",
+				"personal_history_detail": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.",
+				"personal_history_start": "2013-04-04T00:00:00+0000",
+				"personal_history_end": "2014-01-02T00:00:00+0000",
+				"personal_history_type_id": 3
+			},
+			{
+				"personal_history_title": "Windows certifications",
+				"personal_history_detail": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.",
+				"personal_history_start": "2015-11-11T00:00:00+0000",
+				"personal_history_end": null,
+				"personal_history_type_id": 4
+			}
+		],
+		"skills": [
+			{
+				"skill_name": ".NET",
+				"skill_level": 5
+			},
+			{
+				"skill_name": "AJAX",
+				"skill_level": 3
+			}
+		],
+		"hobbies": [
+			{
+				"hobby_name": "3D printing"
+			},
+			{
+				"hobby_name": "Amateur radio"
+			}
+		]
+	}
+}

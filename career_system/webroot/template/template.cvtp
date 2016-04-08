@@ -1,12 +1,13 @@
 <style type="text/css">
 .cv{margin: auto;width: 793px;}
 .cv hr{margin-top: 12px;margin-bottom: 12px;border: 1px dashed #E2E2E2;}
-.cv .cv-date{font-size: 12px;}
-.cv .cv-title{/*text-transform: uppercase;*/}
-.cv .cv-content{border-left: 3px solid #E2E2E2; padding-left: 5px;}
-.cv .cv-skills>ul>li, .cv .cv-hobbies>ul>li{padding: 5px 0;}
-.cv .cv-skills>ul {list-style: none;padding-left: 0;}
-.cv .cv-skills .level{background-color: #727272;height: 15px}
+.cv .cvcs-objective{text-align: justify;}
+.cv .cvcs-date{font-size: 12px;}
+.cv .cvcs-title{/*text-transform: uppercase;*/}
+.cv .cvcs-content{border-left: 3px solid #E2E2E2; padding-left: 5px; text-align: justify;}
+.cv .cvcs-skills>ul>li, .cv .cvcs-hobbies>ul>li{padding: 5px 0;}
+.cv .cvcs-skills>ul {list-style: none;padding-left: 0;}
+.cv .cvcs-skills .level{background-color: #727272;height: 15px}
 </style>
 <div class="row">
 	<div class="col-xs-12">
@@ -18,7 +19,7 @@
 					</div>
 					<div class="col-xs-5">
 						<h1><b id="applicantName">{{applicant.name}}</b></h1>
-						<h4 class="text-default-light" id="applicantMajor">{{applicant.major}}</h4>
+						<h4 class="text-default-light contenteditable" id="applicantMajor">{{applicant.major}}</h4>
 					</div>
 					<div class="col-xs-5" style="padding-top: 24px">
 						<div class="row">
@@ -56,18 +57,18 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<h2><b>Objective</b></h2><hr/>
-								<p id="applicantObjective">{{applicant.objective}}</p>
+								<p class="cvcs-objective contenteditable" id="applicantObjective">{{applicant.objective}}</p>
 							</div>	
 						</div>
 						<div class="row">
-							<div class="col-xs-12 cv-skills">
+							<div class="col-xs-12 cvcs-skills">
 								<h2><b>Skills</b></h2><hr/>
 								<ul id="applicantSkill">
 								</ul>
 							</div>	
 						</div>
 						<div class="row">
-							<div class="col-xs-12 cv-hobbies">
+							<div class="col-xs-12 cvcs-hobbies">
 								<h2><b>Hobbies</b></h2><hr/>
 								<ul id="applicantHobby">
 								</ul>
@@ -81,24 +82,26 @@
 </div>
 <script type="text/javascript">
 var _hostName 			= window.location.origin;
-var _historyPattern 	= '<div class="row cv-block history-block" history-id="{{id}}" history-status="{{status}}">'
+var _historyPattern 	= '<div class="row cvcs-block">'
 						+ '<div class="col-xs-4">'
-						+ '<h4 class="cv-date pull-right">{{start}} - {{end}}</h4>'
+						+ '<h4 class="cvcs-date pull-right">'
+						+ '<span id="educationStart" class="contenteditable">{{education.start}}</span> - <span id="educationEnd" class="contenteditable">{{education.end}}</span>'
+						+ '</h4>'
 						+ '</div>'
 						+ '<div class="col-xs-8">'
-						+ '<h4 class="cv-title">{{title}}</h4>'
-						+ '<p class="text-default-light cv-content detail">{{detail}}</p>'
+						+ '<h4 id="educationTitle" class="cvcs-title contenteditable">{{education.title}}</h4>'
+						+ '<p id="educationDetail" class="text-default-light cvcs-content detail contenteditable">{{education.detail}}</p>'
 						+ '</div>'
 						+ '</div>';
-var _skillPattern		= '<li class="cv-block skill-block" skill-id="{{id}}" skill-status="{{status}}">'
+var _skillPattern		= '<li class="cvcs-block skill-block">'
 						+ '<div class="row">'
-						+ '<h4 class="col-xs-12">{{name}}</h4>'
+						+ '<div class="col-xs-12"><h4 class="col-xs-12 contenteditable" id="skillName">{{skill.name}}</h4></div>'
 						+ '<div class="col-xs-12 line">'
-						+ '<div class="level" style="width: {{level}}%"></div>'
+						+ '<div class="level" skill-level="{{skill.level}}"></div>'
 						+ '</div>'
 						+ '</div>'
 						+ '</li>';
-var _hobbyPattern		= '<li class="cv-block hobby-block" hobby-id="{{id}}" hobby-status="{{status}}">{{name}}</li>';
+var _hobbyPattern		= '<li id="hobbyName" class="cvcs-block contenteditable">{{hobby.name}}</li>';
 
 function convertDate(input){
 	if(input.string === null) return input.message;

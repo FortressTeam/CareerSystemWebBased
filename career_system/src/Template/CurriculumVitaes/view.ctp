@@ -8,11 +8,11 @@ $(document).ready(function(){
     $('#cv-container').load("<?= $this->Url->build('/template/' . 'template.cvtp'); ?>");
     $.ajax({
         'type': 'GET',
-        'url': "<?= $this->Url->build('/api/applicants/' . '4'); ?>",
+        'url': "<?= $this->Url->build('/' . 'cv-data.txt'); ?>",
         'contentType': 'application/json',
         'dataType': 'json',
         success: function(responce){
-            CVPut(responce);
+            CVPut(responce.cvdata);
         },
         error: CVError
     });
