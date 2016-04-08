@@ -119,6 +119,7 @@ Router::prefix('Api', function ($routes) {
         ]
     ]);
     $routes->resources('Hobbies');
+    $routes->resources('PersonalHistory');
     $routes->resources('Feedbacks', [
        'map' => [
            'month' => [

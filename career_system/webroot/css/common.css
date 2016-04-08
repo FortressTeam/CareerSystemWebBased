@@ -388,3 +388,25 @@ footer{
     white-space:nowrap;
     margin:0.1em 0
 }
+
+/* --------------------------------- */
+/* 9. CV
+ ----------------------------------- */
+.cv-button{
+    top: 0;
+    right: 0;
+    height: 100%;
+    position: absolute;
+}
+.cv-block{
+    position: relative;
+}
+.cv-block:hover{
+    background: #F1F1F1;
+}
+.cv-block:hover>.btn-hide{
+    display: inherit;
+}
+.btn-hide{
+    display: none;
+}

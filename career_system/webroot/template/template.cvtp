@@ -1,10 +1,9 @@
 <style type="text/css">
-#templateCV{display: none}
 .cv{margin: auto;width: 793px;}
 .cv hr{margin-top: 12px;margin-bottom: 12px;border: 1px dashed #E2E2E2;}
 .cv .cv-date{font-size: 12px;}
 .cv .cv-title{/*text-transform: uppercase;*/}
-.cv .cv-block{border-left: 3px solid #E2E2E2;padding-left: 5px;}
+.cv .cv-content{border-left: 3px solid #E2E2E2; padding-left: 5px;}
 .cv .cv-skills>ul>li, .cv .cv-hobbies>ul>li{padding: 5px 0;}
 .cv .cv-skills>ul {list-style: none;padding-left: 0;}
 .cv .cv-skills .level{background-color: #727272;height: 15px}
@@ -12,8 +11,7 @@
 <div class="row">
 	<div class="col-xs-12">
 		<div class="card cv">
-			<div class="card-head" id="loadingCV"><header>LOADING......</header></div>
-			<div class="card-body" id="templateCV">
+			<div class="card-body">
 				<div class="row">
 					<div class="col-xs-2 row-centered">
 						<img src="{{applicant.image}}" class="img-circle border-white border-xl img-responsive" alt="" id="applicantImage">
@@ -83,94 +81,29 @@
 </div>
 <script type="text/javascript">
 var _hostName 			= window.location.origin;
-var _historyPattern 	= '<div class="row">'
+var _historyPattern 	= '<div class="row cv-block history-block" history-id="{{id}}" history-status="{{status}}">'
 						+ '<div class="col-xs-4">'
 						+ '<h4 class="cv-date pull-right">{{start}} - {{end}}</h4>'
 						+ '</div>'
 						+ '<div class="col-xs-8">'
 						+ '<h4 class="cv-title">{{title}}</h4>'
-						+ '<p class="text-default-light cv-block">{{detail}}</p>'
+						+ '<p class="text-default-light cv-content detail">{{detail}}</p>'
 						+ '</div>'
 						+ '</div>';
-var _skillPattern		= '<li>'
+var _skillPattern		= '<li class="cv-block skill-block" skill-id="{{id}}" skill-status="{{status}}">'
 						+ '<div class="row">'
-						+ '<div class="col-xs-12">{{name}}</div>'
-						+ '<div class="col-xs-12">'
+						+ '<h4 class="col-xs-12">{{name}}</h4>'
+						+ '<div class="col-xs-12 line">'
 						+ '<div class="level" style="width: {{level}}%"></div>'
 						+ '</div>'
 						+ '</div>'
 						+ '</li>';
-var _hobbyPattern		= '<li>{{name}}</li>';
+var _hobbyPattern		= '<li class="cv-block hobby-block" hobby-id="{{id}}" hobby-status="{{status}}">{{name}}</li>';
 
 function convertDate(input){
 	if(input.string === null) return input.message;
 	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 	var date = new Date(input.string);
 	return months[date.getMonth()] + ' ' + date.getFullYear(); 
-}
-
-function CVPut(input){
-	$('#applicantImage').attr({'src': _hostName + '/CareerSystemWebBased/career_system/img/user_img/' +input.applicant.user.user_avatar});
-	$('#applicantName').text(input.applicant.applicant_name);
-	$('#applicantCareerPath').text(input.applicant.career_path.career_path_name);
-	$('#applicantAddress').text(input.applicant.applicant_address);
-	$('#applicantEmail').text(input.applicant.user.user_email);
-	$('#applicantPhone').text(input.applicant.applicant_phone_number);
-	$('#applicantPhone').text(input.applicant.applicant_phone_number);
-	$('#applicantFutureGoal').text(input.applicant.applicant_future_goals);
-	$.each(input.applicant.personal_history, function(index, value){
-		var tmp = _historyPattern;
-		tmp = tmp.replace('{{start}}', convertDate({
-			string: value.personal_history_start,
-			message: 'Error'
-		}));
-		tmp = tmp.replace('{{title}}', value.personal_history_title);
-		tmp = tmp.replace('{{detail}}', value.personal_history_detail);
-
-		if(value.personal_history_type_id === 1){
-			tmp = tmp.replace('{{end}}', convertDate({
-				string: value.personal_history_end,
-				message: 'Now'
-			}));
-			$('#applicantEducation').append(tmp);
-		}
-		else if(value.personal_history_type_id === 2){
-			tmp = tmp.replace('{{end}}', convertDate({
-				string: value.personal_history_end,
-				message: 'Now'
-			}));
-			$('#applicantExperience').append(tmp);
-		}
-		else if(value.personal_history_type_id === 3){
-			tmp = tmp.replace('{{end}}', convertDate({
-				string: value.personal_history_end,
-				message: 'Now'
-			}));
-			$('#applicantActivity').append(tmp);
-		}
-		else if(value.personal_history_type_id === 4){
-			tmp = tmp.replace('{{end}}', '');
-			$('#applicantActivity').append(tmp);
-		}
-	});
-	$.each(input.applicant.skills, function(index, value){
-		var tmp = _skillPattern;
-		tmp = tmp.replace('{{name}}', value.skill_name);
-		tmp = tmp.replace('{{level}}', value._joinData.skill_level * 100 / 5);
-		$('#applicantSkill').append(tmp);
-	});
-	$.each(input.applicant.hobbies, function(index, value){
-		var tmp = _hobbyPattern;
-		tmp = tmp.replace('{{name}}', value.hobby_name);
-		$('#applicantHobby').append(tmp);
-	});
-
-	$('#templateCV').css({'display': 'inherit'});
-	$('#loadingCV').css({'display': 'none'});
-}
-
-function CVError(message){
-	$('#templateCV').css({'display': 'none'});
-	$('#loadingCV').css({'display': 'inherit'}).text('<p class="text-dnager">Error while loading. Please try again!</p>');
 }
 </script>

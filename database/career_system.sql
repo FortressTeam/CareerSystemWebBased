@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 07, 2016 at 05:53 PM
+-- Generation Time: Apr 08, 2016 at 06:34 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
 --
 
 INSERT INTO `applicants` (`id`, `applicant_name`, `applicant_phone_number`, `applicant_date_of_birth`, `applicant_sex`, `applicant_address`, `applicant_about`, `applicant_marital_status`, `applicant_future_goals`, `applicant_website`, `applicant_status`, `career_path_id`) VALUES
-(4, 'Lê Công Quốc', '09639357101', '1994-08-28', 1, 'Quan Son Tra, Da Nang', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 0, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'careersystem.vn', 1, 8),
+(4, 'Lê Công Quốc', '0969696969', '1994-06-09', 1, 'Quan Son Tra, Da Nang', '21Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 0, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'careersystem.vn', 1, 12),
 (5, 'Huỳnh Kim Khoa Học', '11111111111', '1990-07-16', 1, 'da nang', 'If you want to know more about a company, website, and a person, you’ll certainly go to their About page - which I always do. I love reading people''s about page especially those who are in the same industry as me. It''s always quite interesting to have a quick glimpse of who and what they are.', 1, 'While the About Page can be very informative, some websites go the extra mile and make their About page more than just a testimony of who they are...', 'fb.com', 1, 6);
 
 -- --------------------------------------------------------
@@ -102,7 +102,11 @@ INSERT INTO `applicants_has_hobbies` (`applicant_id`, `hobby_id`) VALUES
 (4, 1),
 (5, 1),
 (4, 2),
+(4, 4),
+(4, 5),
 (4, 8),
+(4, 9),
+(4, 20),
 (5, 230),
 (5, 245);
 
@@ -126,6 +130,7 @@ CREATE TABLE IF NOT EXISTS `applicants_has_skills` (
 --
 
 INSERT INTO `applicants_has_skills` (`applicant_id`, `skill_id`, `skill_level`) VALUES
+(4, 1, 5),
 (4, 6, 2),
 (4, 8, 5),
 (4, 11, 5),
@@ -373,10 +378,18 @@ CREATE TABLE IF NOT EXISTS `curriculum_vitaes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `applicant_id` int(11) NOT NULL,
   `curriculum_vitae_template_id` int(11) NOT NULL,
+  `curriculum_vitae_data` mediumtext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cs_curriculum_vitaes_cs_applicants1_idx` (`applicant_id`),
   KEY `fk_cs_curriculum_vitaes_cs_curriculum_vitae_templates1_idx` (`curriculum_vitae_template_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `curriculum_vitaes`
+--
+
+INSERT INTO `curriculum_vitaes` (`id`, `applicant_id`, `curriculum_vitae_template_id`, `curriculum_vitae_data`) VALUES
+(1, 4, 1, '');
 
 -- --------------------------------------------------------
 
@@ -390,7 +403,14 @@ CREATE TABLE IF NOT EXISTS `curriculum_vitae_templates` (
   `curriculum_vitae_template_description` text,
   `curriculum_vitae_template_url` varchar(1024) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `curriculum_vitae_templates`
+--
+
+INSERT INTO `curriculum_vitae_templates` (`id`, `curriculum_vitae_template_name`, `curriculum_vitae_template_description`, `curriculum_vitae_template_url`) VALUES
+(1, 'Simple', NULL, 'template.cvtp');
 
 -- --------------------------------------------------------
 
@@ -886,7 +906,7 @@ CREATE TABLE IF NOT EXISTS `personal_history` (
   PRIMARY KEY (`id`),
   KEY `fk_cs_personal_history_cs_personal_history_types1_idx` (`personal_history_type_id`),
   KEY `fk_cs_personal_history_cs_applicants1_idx` (`applicant_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `personal_history`
@@ -900,7 +920,10 @@ INSERT INTO `personal_history` (`id`, `personal_history_title`, `personal_histor
 (5, 'MICROSOFT', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2014-08-12', NULL, 2, 4),
 (6, 'MARKETING CLUB', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2013-04-04', '2014-01-02', 3, 4),
 (7, 'IStork CLUB', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2015-09-01', NULL, 3, 4),
-(8, 'Windows certifications', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2015-11-11', NULL, 4, 4);
+(8, 'Windows certifications', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2015-11-11', NULL, 4, 4),
+(12, 'DN of Education University', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2010-09-11', '2014-03-29', 1, 4),
+(15, 'aaaaaaaaaaabbbbbbbbbbbb', 'aaaaaaaaaaaaadbadbadbadb', '2016-04-03', '2016-05-08', 1, 4),
+(17, 'agadgadga', 'adgadgadg', '2016-04-07', '2016-08-08', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -1983,7 +2006,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `user_email`, `user_registered`, `user_status`, `user_activation_key`, `user_avatar`, `group_id`) VALUES
 (1, 'noname', '123456798v', 'thevien@outlook.com', '2016-03-16', 1, '123', '1.jpg', 2),
 (2, 'kyler', '123123', 'kyler@gmail.com', '2016-03-22', 1, '123123', '1.jpg', 2),
-(4, 'vic', '123456789', 'vic@gmail.com', '2016-03-28', 1, '1231', '1.jpg', 3),
+(4, 'mark', '123456789', 'mark@enclave.vn', '2016-03-28', 1, '1231', '1.jpg', 3),
 (5, 'abcccc', '123123', 'abc@abc.com', '2016-03-29', 1, '1313413r1', '1.jpg', 3);
 
 --

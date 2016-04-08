@@ -1,10 +1,5 @@
 <div class="row">
-	<div class="col-lg-2 col-md-12 visible-lg visible-md">
-		<div class="card">
-			<div class="card-body"></div>
-		</div>
-	</div> 
-	<div class="col-lg-10 col-md-12 visible-lg visible-md" id="cv-content"></div>
+	<div class="col-lg-12 col-md-12 visible-lg visible-md" id="cv-content"></div>
 	<div class="col-xs-12 hidden-lg hidden-md">
 		<div class="alert alert-callout alert-danger">View CV is not support your screen size.</div>
 	</div>
@@ -26,6 +21,8 @@ function CVPut(input){
 			string: value.personal_history_start,
 			message: 'Error'
 		}));
+		tmp = tmp.replace('{{id}}', value.id);
+		tmp = tmp.replace('{{status}}', 'open');
 		tmp = tmp.replace('{{title}}', value.personal_history_title);
 		tmp = tmp.replace('{{detail}}', value.personal_history_detail);
 
@@ -57,33 +54,38 @@ function CVPut(input){
 	});
 	$.each(input.applicant.skills, function(index, value){
 		var tmp = _skillPattern;
+		tmp = tmp.replace('{{id}}', value.id);
+		tmp = tmp.replace('{{status}}', 'open');
 		tmp = tmp.replace('{{name}}', value.skill_name);
 		tmp = tmp.replace('{{level}}', value._joinData.skill_level * 100 / 5);
 		$('#applicantSkill').append(tmp);
 	});
 	$.each(input.applicant.hobbies, function(index, value){
 		var tmp = _hobbyPattern;
+		tmp = tmp.replace('{{id}}', value.id);
+		tmp = tmp.replace('{{status}}', 'open');
 		tmp = tmp.replace('{{name}}', value.hobby_name);
 		$('#applicantHobby').append(tmp);
 	});
-
-	$('#templateCV').css({'display': 'inherit'});
-	$('#loadingCV').css({'display': 'none'});
 }
 
 function CVError(message){
 	$('#templateCV').css({'display': 'none'});
-	$('#loadingCV').css({'display': 'inherit'}).text('<p class="text-dnager">Error while loading. Please try again!</p>');
+	$('#loadingCV').css({'display': 'inherit'}).html('<header>Error while loading. Please try again!</header>');
 }
 
 $(document).ready(function(){
-	$('#cv-content').load('http://localhost/CareerSystemWebBased/career_system/template/template.html');
+	$('#cv-content').load("<?= $this->Url->build('/template/' . 'template.cvtp'); ?>");
     $.ajax({
         'type': 'GET',
-        'url': 'http://localhost/CareerSystemWebBased/career_system/api/applicants/4.json',
+        'url': "<?= $this->Url->build('/api/applicants/' . '4'); ?>",
         'contentType': 'application/json',
         'dataType': 'json',
-        success: CVPut,
+        success: function(responce){
+			CVPut(responce);
+			$('#templateCV').css({'display': 'inherit'});
+			$('#loadingCV').css({'display': 'none'});
+        },
         error: CVError
     });
 });

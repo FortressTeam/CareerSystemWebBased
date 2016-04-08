@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\Api;
 
-use App\Controller\AppController;
+use App\Controller\Api\AppController;
 
 /**
  * PersonalHistory Controller
@@ -18,7 +18,12 @@ class PersonalHistoryController extends AppController
      */
     public function index()
     {
+        $conditions = [];
+        if(isset($this->request->query['applicant_id'])) {
+            $conditions['applicant_id'] = $this->request->query['applicant_id'];
+        }
         $this->paginate = [
+            'conditions' => $conditions,
             'contain' => ['PersonalHistoryTypes', 'Applicants']
         ];
         $personalHistory = $this->paginate($this->PersonalHistory);
@@ -55,16 +60,13 @@ class PersonalHistoryController extends AppController
         if ($this->request->is('post')) {
             $personalHistory = $this->PersonalHistory->patchEntity($personalHistory, $this->request->data);
             if ($this->PersonalHistory->save($personalHistory)) {
-                $this->Flash->success(__('The personal history has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                $message = 'Saved';
             } else {
-                $this->Flash->error(__('The personal history could not be saved. Please, try again.'));
+                $message = 'Error';
             }
         }
-        $personalHistoryTypes = $this->PersonalHistory->PersonalHistoryTypes->find('list', ['limit' => 200]);
-        $applicants = $this->PersonalHistory->Applicants->find('list', ['limit' => 200]);
-        $this->set(compact('personalHistory', 'personalHistoryTypes', 'applicants'));
-        $this->set('_serialize', ['personalHistory']);
+        $this->set(compact('message', 'personalHistory'));
+        $this->set('_serialize', ['message', 'personalHistory']);
     }
 
     /**
@@ -82,16 +84,13 @@ class PersonalHistoryController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $personalHistory = $this->PersonalHistory->patchEntity($personalHistory, $this->request->data);
             if ($this->PersonalHistory->save($personalHistory)) {
-                $this->Flash->success(__('The personal history has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                $message = 'Saved';
             } else {
-                $this->Flash->error(__('The personal history could not be saved. Please, try again.'));
+                $message = 'Error';
             }
         }
-        $personalHistoryTypes = $this->PersonalHistory->PersonalHistoryTypes->find('list', ['limit' => 200]);
-        $applicants = $this->PersonalHistory->Applicants->find('list', ['limit' => 200]);
-        $this->set(compact('personalHistory', 'personalHistoryTypes', 'applicants'));
-        $this->set('_serialize', ['personalHistory']);
+        $this->set(compact('message', 'personalHistory'));
+        $this->set('_serialize', ['message', 'personalHistory']);
     }
 
     /**
@@ -106,10 +105,11 @@ class PersonalHistoryController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $personalHistory = $this->PersonalHistory->get($id);
         if ($this->PersonalHistory->delete($personalHistory)) {
-            $this->Flash->success(__('The personal history has been deleted.'));
+            $message = 'Deleted';
         } else {
-            $this->Flash->error(__('The personal history could not be deleted. Please, try again.'));
+            $message = 'Error';
         }
-        return $this->redirect(['action' => 'index']);
+        $this->set(compact('message'));
+        $this->set('_serialize', ['message']);
     }
 }
