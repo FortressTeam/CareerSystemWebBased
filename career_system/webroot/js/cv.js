@@ -18,12 +18,11 @@
 function CVPut(input){
     $('#applicantImage').attr({'src': _hostName + '/CareerSystemWebBased/career_system/img/user_img/' +input.applicant.user.user_avatar});
     $('#applicantName').text(input.applicant.applicant_name);
-    $('#applicantCareerPath').text(input.applicant.career_path.career_path_name);
+    $('#applicantMajor').text(input.applicant.career_path.career_path_name);
     $('#applicantAddress').text(input.applicant.applicant_address);
     $('#applicantEmail').text(input.applicant.user.user_email);
     $('#applicantPhone').text(input.applicant.applicant_phone_number);
-    $('#applicantPhone').text(input.applicant.applicant_phone_number);
-    $('#applicantFutureGoal').text(input.applicant.applicant_future_goals);
+    $('#applicantObjective').text(input.applicant.applicant_future_goals);
     $.each(input.applicant.personal_history, function(index, value){
         var tmp = _historyPattern;
         tmp = tmp.replace('{{start}}', convertDate({
