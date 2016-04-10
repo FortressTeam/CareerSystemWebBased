@@ -1,20 +1,19 @@
+<div id="cvdata" class="hidden" cvcs-data='<?= $curriculumVitae->curriculum_vitae_data ?>'></div>
+<div id="applicantdata" class="hidden" applicant-data='<?= $applicantInfo ?>'></div>
 <div class="row">
-    <div class="col-lg-12" id="cv-container"></div>
+    <div class="col-lg-12" id="cvcs-container"></div>
 </div>
  
 <?= $this->Html->script('cv') ?>
 <script type="text/javascript">
 $(document).ready(function(){
-    $('#cv-container').load("<?= $this->Url->build('/template/' . 'template.cvtp'); ?>");
-    $.ajax({
-        'type': 'GET',
-        'url': "<?= $this->Url->build('/' . 'cv-data.txt'); ?>",
-        'contentType': 'application/json',
-        'dataType': 'json',
-        success: function(responce){
-            CVPut(responce.cvdata);
-        },
-        error: CVError
+    $('#cvcs-container').load(
+        "<?= $this->Url->build('/template/' . $curriculumVitae->curriculum_vitae_template->curriculum_vitae_template_url); ?>",
+        function() {
+        var applicant_data = $.parseJSON($('#applicantdata').attr('applicant-data'));
+        ApplicantPut(applicant_data);
+        var data = $.parseJSON($('#cvdata').attr('cvcs-data'));
+        CVPut(data.cvdata);
     });
 });
 

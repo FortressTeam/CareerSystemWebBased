@@ -35,6 +35,10 @@ class CurriculumVitaesTable extends Table
             'foreignKey' => 'applicant_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'applicant_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('CurriculumVitaeTemplates', [
             'foreignKey' => 'curriculum_vitae_template_id',
             'joinType' => 'INNER'
@@ -55,6 +59,10 @@ class CurriculumVitaesTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
+
+        $validator
+            ->requirePresence('curriculum_vitae_name', 'create')
+            ->notEmpty('curriculum_vitae_name');
 
         $validator
             ->requirePresence('curriculum_vitae_data', 'create')

@@ -4,19 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * CurriculumVitae Entity.
+ * CurriculumVitaeTemplate Entity.
  *
  * @property int $id
- * @property int $applicant_id
- * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\Applicant $applicant
- * @property string $curriculum_vitae_name
- * @property int $curriculum_vitae_template_id
- * @property \App\Model\Entity\CurriculumVitaeTemplate $curriculum_vitae_template
- * @property string $curriculum_vitae_data
- * @property \App\Model\Entity\PostsHasCurriculumVitae[] $posts_has_curriculum_vitaes
+ * @property string $curriculum_vitae_template_name
+ * @property string $curriculum_vitae_template_image
+ * @property string $curriculum_vitae_template_url
+ * @property \App\Model\Entity\CurriculumVitae[] $curriculum_vitaes
  */
-class CurriculumVitae extends Entity
+class CurriculumVitaeTemplate extends Entity
 {
 
     /**

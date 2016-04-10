@@ -38,10 +38,18 @@ class CurriculumVitaesController extends AppController
     {
         $this->viewBuilder()->layout('cv');
         $curriculumVitae = $this->CurriculumVitaes->get($id, [
-            'contain' => ['Applicants']
+            'contain' => ['Applicants', 'Users', 'CurriculumVitaeTemplates']
         ]);
 
-        $this->set('curriculumVitae', $curriculumVitae);
+        $applicantInfo = [];
+        $applicantInfo['applicant']['applicantImage'] = $curriculumVitae->has('user')? $curriculumVitae->user->user_avatar : 'default.jpg';
+        $applicantInfo['applicant']['applicantEmail'] = $curriculumVitae->has('user')? $curriculumVitae->user->user_email : '';
+        $applicantInfo['applicant']['applicantName'] = $curriculumVitae->has('applicant')? $curriculumVitae->applicant->applicant_name : '';
+        $applicantInfo['applicant']['applicantPhone'] = $curriculumVitae->has('applicant')? $curriculumVitae->applicant->applicant_phone_number : '';
+        $applicantInfo['applicant']['applicantAddress'] = $curriculumVitae->has('applicant')? $curriculumVitae->applicant->applicant_address : '';
+        $applicantInfo = json_encode($applicantInfo);
+        
+        $this->set(compact('curriculumVitae', 'applicantInfo'));
         $this->set('_serialize', ['curriculumVitae']);
     }
 
@@ -52,19 +60,8 @@ class CurriculumVitaesController extends AppController
      */
     public function add()
     {
-        $curriculumVitae = $this->CurriculumVitaes->newEntity();
-        if ($this->request->is('post')) {
-            $curriculumVitae = $this->CurriculumVitaes->patchEntity($curriculumVitae, $this->request->data);
-            if ($this->CurriculumVitaes->save($curriculumVitae)) {
-                $this->Flash->success(__('The curriculum vitae has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The curriculum vitae could not be saved. Please, try again.'));
-            }
-        }
-        $applicants = $this->CurriculumVitaes->Applicants->find('list', ['limit' => 200]);
-        $curriculumVitaeTemplates = $this->CurriculumVitaes->CurriculumVitaeTemplates->find('list', ['limit' => 200]);
-        $this->set(compact('curriculumVitae', 'applicants', 'curriculumVitaeTemplates'));
+        $curriculumVitaeTemplates = $this->CurriculumVitaes->CurriculumVitaeTemplates->find('all');
+        $this->set(compact('curriculumVitae', 'curriculumVitaeTemplates'));
         $this->set('_serialize', ['curriculumVitae']);
     }
 
@@ -78,20 +75,21 @@ class CurriculumVitaesController extends AppController
     public function edit($id = null)
     {
         $curriculumVitae = $this->CurriculumVitaes->get($id, [
+            'contain' => ['Applicants', 'Users', 'CurriculumVitaeTemplates']
+        ]);
+        $curriculumVitaeTemplates = $this->CurriculumVitaes->CurriculumVitaeTemplates->find('all', [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $curriculumVitae = $this->CurriculumVitaes->patchEntity($curriculumVitae, $this->request->data);
-            if ($this->CurriculumVitaes->save($curriculumVitae)) {
-                $this->Flash->success(__('The curriculum vitae has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The curriculum vitae could not be saved. Please, try again.'));
-            }
-        }
-        $applicants = $this->CurriculumVitaes->Applicants->find('list', ['limit' => 200]);
-        $curriculumVitaeTemplates = $this->CurriculumVitaes->CurriculumVitaeTemplates->find('list', ['limit' => 200]);
-        $this->set(compact('curriculumVitae', 'applicants', 'curriculumVitaeTemplates'));
+
+        $applicantInfo = [];
+        $applicantInfo['applicant']['applicantImage'] = $curriculumVitae->has('user')? $curriculumVitae->user->user_avatar : 'default.jpg';
+        $applicantInfo['applicant']['applicantEmail'] = $curriculumVitae->has('user')? $curriculumVitae->user->user_email : '';
+        $applicantInfo['applicant']['applicantName'] = $curriculumVitae->has('applicant')? $curriculumVitae->applicant->applicant_name : '';
+        $applicantInfo['applicant']['applicantPhone'] = $curriculumVitae->has('applicant')? $curriculumVitae->applicant->applicant_phone_number : '';
+        $applicantInfo['applicant']['applicantAddress'] = $curriculumVitae->has('applicant')? $curriculumVitae->applicant->applicant_address : '';
+        $applicantInfo = json_encode($applicantInfo);
+
+        $this->set(compact('curriculumVitae', 'applicantInfo', 'curriculumVitaeTemplates'));
         $this->set('_serialize', ['curriculumVitae']);
     }
 

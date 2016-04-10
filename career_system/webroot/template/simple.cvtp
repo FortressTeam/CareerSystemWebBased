@@ -3,7 +3,7 @@
 .cv hr{margin-top: 12px;margin-bottom: 12px;border: 1px dashed #E2E2E2;}
 .cv .cvcs-objective{text-align: justify;}
 .cv .cvcs-date{font-size: 12px;}
-.cv .cvcs-title{/*text-transform: uppercase;*/}
+.cv .cvcs-title{text-transform: uppercase;}
 .cv .cvcs-content{border-left: 3px solid #E2E2E2; padding-left: 5px; text-align: justify;}
 .cv .cvcs-skills>ul>li, .cv .cvcs-hobbies>ul>li{padding: 5px 0;}
 .cv .cvcs-skills>ul {list-style: none;padding-left: 0;}
@@ -38,18 +38,30 @@
 				<div class="row">
 					<div class="col-xs-7">
 						<div class="row">
-							<div class="col-xs-12" id="applicantEducation">
+							<div class="col-xs-12">
 								<h2><b>Education</b></h2><hr/>
+								<div class="row">
+									<div class="col-xs-12" id="applicantEducations"></div>
+								</div>
 							</div>	
 						</div>
 						<div class="row">
-							<div class="col-xs-12" id="applicantExperience">
+							<div class="col-xs-12">
 								<h2><b>Work Experience</b></h2><hr/>
+								<div class="row">
+									<div class="col-xs-12" id="applicantExperiences"></div>
+								</div>
 							</div>	
 						</div>
 						<div class="row">
-							<div class="col-xs-12" id="applicantActivity">
+							<div class="col-xs-12">
 								<h2><b>Activity, Certification and Award</b></h2><hr/>
+								<div class="row">
+									<div class="col-xs-12" id="applicantActivities"></div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12" id="applicantAwards"></div>
+								</div>
 							</div>	
 						</div>
 					</div>
@@ -57,20 +69,20 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<h2><b>Objective</b></h2><hr/>
-								<p class="cvcs-objective contenteditable" id="applicantObjective">{{applicant.objective}}</p>
+								<div class="cvcs-objective contenteditable" id="applicantObjective">{{applicant.objective}}</div>
 							</div>	
 						</div>
 						<div class="row">
 							<div class="col-xs-12 cvcs-skills">
 								<h2><b>Skills</b></h2><hr/>
-								<ul id="applicantSkill">
+								<ul id="applicantSkills">
 								</ul>
 							</div>	
 						</div>
 						<div class="row">
 							<div class="col-xs-12 cvcs-hobbies">
 								<h2><b>Hobbies</b></h2><hr/>
-								<ul id="applicantHobby">
+								<ul id="applicantHobbies">
 								</ul>
 							</div>	
 						</div>
@@ -81,8 +93,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-var _hostName 			= window.location.origin;
-var _historyPattern 	= '<div class="row cvcs-block">'
+var _educationPattern 	= '<div class="row cvcs-block">'
 						+ '<div class="col-xs-4">'
 						+ '<h4 class="cvcs-date pull-right">'
 						+ '<span id="educationStart" class="contenteditable">{{education.start}}</span> - <span id="educationEnd" class="contenteditable">{{education.end}}</span>'
@@ -93,20 +104,60 @@ var _historyPattern 	= '<div class="row cvcs-block">'
 						+ '<p id="educationDetail" class="text-default-light cvcs-content detail contenteditable">{{education.detail}}</p>'
 						+ '</div>'
 						+ '</div>';
+
+var _experiencePattern 	= '<div class="row cvcs-block">'
+						+ '<div class="col-xs-4">'
+						+ '<h4 class="cvcs-date pull-right">'
+						+ '<span id="experienceStart" class="contenteditable">{{experience.start}}</span> - <span id="experienceEnd" class="contenteditable">{{experience.end}}</span>'
+						+ '</h4>'
+						+ '</div>'
+						+ '<div class="col-xs-8">'
+						+ '<h4 id="experienceTitle" class="cvcs-title contenteditable">{{experience.title}}</h4>'
+						+ '<p id="experienceDetail" class="text-default-light cvcs-content detail contenteditable">{{experience.detail}}</p>'
+						+ '</div>'
+						+ '</div>';
+
+var _activityPattern 	= '<div class="row cvcs-block">'
+						+ '<div class="col-xs-4">'
+						+ '<h4 class="cvcs-date pull-right">'
+						+ '<span id="activityStart" class="contenteditable">{{activity.start}}</span> - <span id="activityEnd" class="contenteditable">{{activity.end}}</span>'
+						+ '</h4>'
+						+ '</div>'
+						+ '<div class="col-xs-8">'
+						+ '<h4 id="activityTitle" class="cvcs-title contenteditable">{{activity.title}}</h4>'
+						+ '<p id="activityDetail" class="text-default-light cvcs-content detail contenteditable">{{activity.detail}}</p>'
+						+ '</div>'
+						+ '</div>';
+
+var _awardPattern 		= '<div class="row cvcs-block">'
+						+ '<div class="col-xs-4">'
+						+ '<h4 class="cvcs-date pull-right">'
+						+ '<span id="awardDate" class="contenteditable">{{award.date}}</span>'
+						+ '</h4>'
+						+ '</div>'
+						+ '<div class="col-xs-8">'
+						+ '<h4 id="awardTitle" class="cvcs-title contenteditable">{{award.title}}</h4>'
+						+ '<p id="awardDetail" class="text-default-light cvcs-content detail contenteditable">{{award.detail}}</p>'
+						+ '</div>'
+						+ '</div>';
+
 var _skillPattern		= '<li class="cvcs-block skill-block">'
 						+ '<div class="row">'
-						+ '<div class="col-xs-12"><h4 class="col-xs-12 contenteditable" id="skillName">{{skill.name}}</h4></div>'
+						+ '<div class="col-xs-12"><h4 class="contenteditable" id="skillName">{{skill.name}}</h4></div>'
 						+ '<div class="col-xs-12 line">'
-						+ '<div class="level" skill-level="{{skill.level}}"></div>'
+						+ '<div id="skillLevel" class="level" skill-level="{{skill.level}}"></div>'
 						+ '</div>'
 						+ '</div>'
 						+ '</li>';
-var _hobbyPattern		= '<li id="hobbyName" class="cvcs-block contenteditable">{{hobby.name}}</li>';
+
+var _hobbyPattern		= '<li class="cvcs-block contenteditable"><div id="hobbyName">{{hobby.name}}</div></li>';
 
 function convertDate(input){
 	if(input.string === null) return input.message;
 	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 	var date = new Date(input.string);
+	if(input.format === 'd M Y')
+		return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear(); 
 	return months[date.getMonth()] + ' ' + date.getFullYear(); 
 }
 </script>

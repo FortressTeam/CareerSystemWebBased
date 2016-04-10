@@ -259,6 +259,28 @@ $cakeDescription = 'Career System: Something';
                                 ['escape' => false]
                                 ) ?>
                         </li><!--end /menu-li -->
+                        <li class="gui-folder <?= $this->request->params['controller'] === 'CurriculumVitaes' ? 'active' : '' ?>">
+                            <a>
+                                <div class="gui-icon"><i class="fa fa-file"></i></div>
+                                <span class="title">My CVs</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<span class="title">All CV</span>',
+                                        ['controller' => 'CurriculumVitaes', 'action' => 'index'],
+                                        ['escape' => false]
+                                        ) ?>
+                                </li>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<span class="title">Create new</span>',
+                                        ['controller' => 'CurriculumVitaes', 'action' => 'add'],
+                                        ['escape' => false]
+                                        ) ?>
+                                </li>
+                            </ul>
+                        </li><!--end /menu-li -->
                         <li>
                             <a href="#">
                                 <div class="gui-icon"><i class="fa fa-line-chart"></i></div>
@@ -269,12 +291,6 @@ $cakeDescription = 'Career System: Something';
                             <a href="#">
                                 <div class="gui-icon"><i class="fa fa-rss"></i></div>
                                 <span class="title">News feed</span>
-                            </a>
-                        </li><!--end /menu-li -->
-                        <li>
-                            <a href="#">
-                                <div class="gui-icon"><i class="fa fa-file"></i></div>
-                                <span class="title">My CVs</span>
                             </a>
                         </li><!--end /menu-li -->
                     </ul><!--end .main-menu -->

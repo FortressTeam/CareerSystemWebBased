@@ -25,7 +25,7 @@
 
     <?= $this->Html->script('libs/jquery/jquery-1.11.2.min') ?>
 </head>
-<body>
+<body style="background: #607D8B;">
 
     <!-- BEGIN BASE-->
     <div id="base">

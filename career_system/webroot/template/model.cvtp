@@ -1,0 +1,175 @@
+<style type="text/css">
+.no-padding-left{padding-left: 0}
+.no-padding-right{padding-right: 0}
+.card .card-body{padding: 24px 24px 0 24px;}
+.cv{margin: auto;width: 793px;background: #F1F1F1;}
+.cv hr{margin-top: 12px;margin-bottom: 12px;border: 1px solid #E2E2E2;}
+.cv .cvcs-objective{text-align: justify;}
+.cv .cvcs-date{font-size: 12px;}
+.cv .cvcs-title{text-transform: uppercase; font-weight: bold;}
+.cv .cvcs-date{text-transform: uppercase;}
+.cv .cvcs-content{text-align: justify;}
+.cv .cvcs-skills>ul>li, .cv .cvcs-hobbies>ul>li{padding: 5px 0;}
+.cv .cvcs-skills>ul {list-style: none;padding-left: 0;}
+.cv .cvcs-skills .level{background-color: #FFFFFF;height: 15px}
+.cvcs-block:hover{
+    color: #343434;
+}
+</style>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="card cv">
+			<div class="card-body">
+				<div class="row">
+					<div class="card">
+						<div class="card-body no-padding">
+							<div class="col-xs-4 row-centered no-padding">
+								<img src="{{applicant.image}}" class="img-responsive" alt="" id="applicantImage">
+							</div>
+							<div class="col-xs-8">
+								<h1><b id="applicantName">{{applicant.name}}</b></h1>
+								<h4 class="contenteditable" id="applicantMajor">{{applicant.major}}</h4>
+								<br/>
+								<div id="applicantObjective" class="text-default-light cvcs-objective contenteditable">{{applicant.objective}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-8 no-padding-left">
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-xs-12">
+										<h2><b class="text-primary"><i class="fa fa-briefcase"></i> WORK EXPERIENCE</b></h2>
+										<div class="row">
+											<div class="col-xs-12" id="applicantExperiences"></div>
+										</div>
+									</div>	
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<h2><b class="text-primary"><i class="fa fa-graduation-cap"></i> EDUCATION</b></h2>
+										<div class="row">
+											<div class="col-xs-12" id="applicantEducations"></div>
+										</div>
+									</div>	
+								</div>
+								<div class="row">
+									<div class="col-xs-12">
+										<h2><b class="text-primary"><i class="fa fa-trophy"></i> ACTIVITY, CERTIFICATION & AWARD</b></h2>
+										<div class="row">
+											<div class="col-xs-12" id="applicantActivities"></div>
+										</div>
+										<div class="row">
+											<div class="col-xs-12" id="applicantAwards"></div>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-4 no-padding-right">
+						<div class="card style-primary">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-xs-12">
+										<h2><b><i class="fa fa-fax"></i> CONTACT</b></h2>
+										<div>
+											<b>Phone: </b>
+											<span id="applicantPhone">{{applicant.phone}}</span>
+										</div>
+										<div>
+											<b>Email: </b>
+											<span id="applicantEmail">{{applicant.email}}</span>
+										</div>
+										<div>
+											<b>Address: </b>
+											<span id="applicantAddress">{{applicant.address}}</span>
+										</div>
+									</div>
+								</div><hr/>
+								<div class="row">
+									<div class="col-xs-12 cvcs-hobbies">
+										<h2><b><i class="fa fa-heart"></i> Hobbies</b></h2>
+										<ul id="applicantHobbies">
+										</ul>
+									</div>	
+								</div><hr/>
+								<div class="row">
+									<div class="col-xs-12 cvcs-skills">
+										<h2><b><i class="fa fa-heart"></i> Skills</b></h2>
+										<ul id="applicantSkills">
+										</ul>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+var _educationPattern 	= '<div class="row cvcs-block">'
+						+ '<div class="col-xs-11 col-xs-offset-1">'
+						+ '<h4 id="educationTitle" class="cvcs-title contenteditable">{{education.title}}</h4>'
+						+ '<h4 class="cvcs-date">'
+						+ '<span id="educationStart" class="contenteditable">{{education.start}}</span> TO <span id="educationEnd" class="contenteditable">{{education.end}}</span>'
+						+ '</h4>'
+						+ '<p id="educationDetail" class="text-default-light cvcs-content detail contenteditable">{{education.detail}}</p>'
+						+ '</div>'
+						+ '</div>';
+
+var _experiencePattern 	= '<div class="row cvcs-block">'
+						+ '<div class="col-xs-11 col-xs-offset-1">'
+						+ '<h4 id="experienceTitle" class="cvcs-title contenteditable">{{experience.title}}</h4>'
+						+ '<h4 class="cvcs-date">'
+						+ '<span id="experienceStart" class="contenteditable">{{experience.start}}</span> TO <span id="experienceEnd" class="contenteditable">{{experience.end}}</span>'
+						+ '</h4>'
+						+ '<p id="experienceDetail" class="text-default-light cvcs-content detail contenteditable">{{experience.detail}}</p>'
+						+ '</div>'
+						+ '</div>';
+
+var _activityPattern 	= '<div class="row cvcs-block">'
+						+ '<div class="col-xs-11 col-xs-offset-1">'
+						+ '<h4 id="activityTitle" class="cvcs-title contenteditable">{{activity.title}}</h4>'
+						+ '<h4 class="cvcs-date">'
+						+ '<span id="activityStart" class="contenteditable">{{activity.start}}</span> TO <span id="activityEnd" class="contenteditable">{{activity.end}}</span>'
+						+ '</h4>'
+						+ '<p id="activityDetail" class="text-default-light cvcs-content detail contenteditable">{{activity.detail}}</p>'
+						+ '</div>'
+						+ '</div>';
+
+var _awardPattern	 	= '<div class="row cvcs-block">'
+						+ '<div class="col-xs-11 col-xs-offset-1">'
+						+ '<h4 id="awardTitle" class="cvcs-title contenteditable">{{award.title}}</h4>'
+						+ '<h4 class="cvcs-date">'
+						+ '<span id="awardStart" class="contenteditable">{{award.date}}</span>'
+						+ '</h4>'
+						+ '<p id="awardDetail" class="text-default-light cvcs-content detail contenteditable">{{award.detail}}</p>'
+						+ '</div>'
+						+ '</div>';
+
+var _skillPattern		= '<li class="cvcs-block skill-block">'
+						+ '<div class="row">'
+						+ '<div class="col-xs-12"><h4 class="contenteditable" id="skillName">{{skill.name}}</h4></div>'
+						+ '<div class="col-xs-12 line">'
+						+ '<div id="skillLevel" class="level" skill-level="{{skill.level}}"></div>'
+						+ '</div>'
+						+ '</div>'
+						+ '</li>';
+
+var _hobbyPattern		= '<li class="cvcs-block contenteditable"><div id="hobbyName">{{hobby.name}}</div></li>';
+
+function convertDate(input){
+	if(input.string === null) return input.message;
+	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+	var date = new Date(input.string);
+	if(input.format === 'd M Y')
+		return date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear(); 
+	return months[date.getMonth()] + ' ' + date.getFullYear(); 
+}
+</script>
