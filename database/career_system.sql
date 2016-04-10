@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.4.13.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 08, 2016 at 06:34 PM
--- Server version: 5.5.47-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.14
+-- Generation Time: Apr 10, 2016 at 11:05 PM
+-- Server version: 5.6.28-0ubuntu0.15.10.1
+-- PHP Version: 5.6.11-1ubuntu3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `career_system`
@@ -31,8 +31,7 @@ CREATE TABLE IF NOT EXISTS `administrators` (
   `administrator_name` varchar(512) DEFAULT NULL,
   `administrator_phone_number` varchar(30) DEFAULT NULL,
   `administrator_date_of_birth` date DEFAULT NULL,
-  `administrator_address` varchar(1024) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `administrator_address` varchar(1024) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -53,9 +52,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   `applicant_future_goals` longtext NOT NULL,
   `applicant_website` varchar(45) DEFAULT NULL,
   `applicant_status` tinyint(1) NOT NULL COMMENT 'Status mean that application is a employee or an umemployee',
-  `career_path_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_applicants_cs_career_paths1_idx` (`career_path_id`)
+  `career_path_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -63,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
 --
 
 INSERT INTO `applicants` (`id`, `applicant_name`, `applicant_phone_number`, `applicant_date_of_birth`, `applicant_sex`, `applicant_address`, `applicant_about`, `applicant_marital_status`, `applicant_future_goals`, `applicant_website`, `applicant_status`, `career_path_id`) VALUES
-(4, 'Lê Công Quốc', '0969696969', '1994-06-09', 1, 'Quan Son Tra, Da Nang', '21Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 0, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'careersystem.vn', 1, 12),
+(4, 'Lê Công Quốc', '0969696969', '1994-06-09', 1, 'Son Tra District, Danang City, Vietnam', '21Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 0, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'careersystem.vn', 1, 12),
 (5, 'Huỳnh Kim Khoa Học', '11111111111', '1990-07-16', 1, 'da nang', 'If you want to know more about a company, website, and a person, you’ll certainly go to their About page - which I always do. I love reading people''s about page especially those who are in the same industry as me. It''s always quite interesting to have a quick glimpse of who and what they are.', 1, 'While the About Page can be very informative, some websites go the extra mile and make their About page more than just a testimony of who they are...', 'fb.com', 1, 6);
 
 -- --------------------------------------------------------
@@ -74,10 +71,7 @@ INSERT INTO `applicants` (`id`, `applicant_name`, `applicant_phone_number`, `app
 
 CREATE TABLE IF NOT EXISTS `applicants_follow_posts` (
   `applicant_id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL,
-  PRIMARY KEY (`applicant_id`,`post_id`),
-  KEY `fk_cs_applicants_has_cs_posts_cs_posts1_idx` (`post_id`),
-  KEY `fk_cs_applicants_has_cs_posts_cs_applicants1_idx` (`applicant_id`)
+  `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -88,10 +82,7 @@ CREATE TABLE IF NOT EXISTS `applicants_follow_posts` (
 
 CREATE TABLE IF NOT EXISTS `applicants_has_hobbies` (
   `applicant_id` int(11) NOT NULL,
-  `hobby_id` int(11) NOT NULL,
-  PRIMARY KEY (`applicant_id`,`hobby_id`),
-  KEY `fk_cs_applicants_has_cs_hobbies_cs_hobbies1_idx` (`hobby_id`),
-  KEY `fk_cs_applicants_has_cs_hobbies_cs_applicants1_idx` (`applicant_id`)
+  `hobby_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -119,10 +110,7 @@ INSERT INTO `applicants_has_hobbies` (`applicant_id`, `hobby_id`) VALUES
 CREATE TABLE IF NOT EXISTS `applicants_has_skills` (
   `applicant_id` int(11) NOT NULL,
   `skill_id` int(11) NOT NULL,
-  `skill_level` int(11) DEFAULT NULL,
-  PRIMARY KEY (`applicant_id`,`skill_id`),
-  KEY `fk_cs_applicants_has_cs_skills_cs_skills1_idx` (`skill_id`),
-  KEY `fk_cs_applicants_has_cs_skills_cs_applicants1_idx` (`applicant_id`)
+  `skill_level` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -147,8 +135,7 @@ INSERT INTO `applicants_has_skills` (`applicant_id`, `skill_id`, `skill_level`) 
 
 CREATE TABLE IF NOT EXISTS `apply_status` (
   `id` int(11) NOT NULL,
-  `status_name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `status_name` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -165,9 +152,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `appointment_end` datetime DEFAULT NULL,
   `appointment_address` varchar(512) DEFAULT NULL,
   `appointment_SMS_alert` int(11) DEFAULT NULL,
-  `hiring_manager_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_appointments_cs_hiring_managers1_idx` (`hiring_manager_id`)
+  `hiring_manager_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -179,10 +164,7 @@ CREATE TABLE IF NOT EXISTS `appointments` (
 CREATE TABLE IF NOT EXISTS `appointments_has_applicants` (
   `appointment_id` int(11) NOT NULL,
   `applicant_id` int(11) NOT NULL,
-  `user_rating` int(11) DEFAULT NULL,
-  PRIMARY KEY (`appointment_id`,`applicant_id`),
-  KEY `fk_cs_appointments_has_cs_applicants_cs_applicants1_idx` (`applicant_id`),
-  KEY `fk_cs_appointments_has_cs_applicants_cs_appointments1_idx` (`appointment_id`)
+  `user_rating` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -192,11 +174,10 @@ CREATE TABLE IF NOT EXISTS `appointments_has_applicants` (
 --
 
 CREATE TABLE IF NOT EXISTS `career_paths` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `career_path_name` varchar(512) DEFAULT NULL,
-  `career_path_description` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=104 ;
+  `career_path_description` text
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `career_paths`
@@ -311,14 +292,13 @@ INSERT INTO `career_paths` (`id`, `career_path_name`, `career_path_description`)
 --
 
 CREATE TABLE IF NOT EXISTS `categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `category_name` varchar(512) NOT NULL,
   `category_description` text,
   `parent_id` int(11) DEFAULT NULL,
   `lft` int(11) DEFAULT NULL,
-  `rght` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
+  `rght` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `categories`
@@ -375,21 +355,21 @@ INSERT INTO `categories` (`id`, `category_name`, `category_description`, `parent
 --
 
 CREATE TABLE IF NOT EXISTS `curriculum_vitaes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `applicant_id` int(11) NOT NULL,
+  `curriculum_vitae_name` varchar(512) NOT NULL,
   `curriculum_vitae_template_id` int(11) NOT NULL,
-  `curriculum_vitae_data` mediumtext NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_curriculum_vitaes_cs_applicants1_idx` (`applicant_id`),
-  KEY `fk_cs_curriculum_vitaes_cs_curriculum_vitae_templates1_idx` (`curriculum_vitae_template_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `curriculum_vitae_data` mediumtext NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `curriculum_vitaes`
 --
 
-INSERT INTO `curriculum_vitaes` (`id`, `applicant_id`, `curriculum_vitae_template_id`, `curriculum_vitae_data`) VALUES
-(1, 4, 1, '');
+INSERT INTO `curriculum_vitaes` (`id`, `applicant_id`, `curriculum_vitae_name`, `curriculum_vitae_template_id`, `curriculum_vitae_data`) VALUES
+(1, 4, 'First CV', 1, '{"cvdata":{"major":"Web Developer","objective":"The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \\"de Finibus Bonorum et Malorum\\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.","educations":[{"education_title":"DN of Education University","education_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","education_start":"Sep 2010","education_end":"Mar 2014"}],"experiences":[{"experience_title":"MICROSOFT","experience_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","experience_start":"Aug 2014","experience_end":"Now"}],"activities":[{"activity_title":"MARKETING CLUB","activity_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","activity_start":"Apr 2013","activity_end":"Jan 2014"}],"awards":[{"award_title":"Windows certifications","award_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","award_date":"11 Nov 2015"}],"skills":[{"skill_name":".NET","skill_level":"5"},{"skill_name":"AJAX","skill_level":"2"},{"skill_name":"Amazon Web Services","skill_level":"5"},{"skill_name":"Android Wear SDK","skill_level":"5"},{"skill_name":"3D Animation","skill_level":"4"}],"hobbies":[{"hobby_name":"3D printing"},{"hobby_name":"Amateur radio"},{"hobby_name":"Baton twirling"},{"hobby_name":"Board games"},{"hobby_name":"Calligraphy"},{"hobby_name":"Candle making"},{"hobby_name":"Dance"}]}}'),
+(6, 4, 'Undefine', 2, '{"cvdata":{"major":"Web Developer","objective":"The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \\"de Finibus Bonorum et Malorum\\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.","educations":[{"education_title":"DN of Education University","education_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","education_start":"Sep 2010","education_end":"Mar 2014"}],"experiences":[{"experience_title":"FACEBOOK","experience_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","experience_start":"Feb 2011","experience_end":"Jun 2013"},{"experience_title":"GOOGLE","experience_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","experience_start":"Jul 2013","experience_end":"Aug 2014"},{"experience_title":"MICROSOFT","experience_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","experience_start":"Aug 2014","experience_end":"Now"}],"activities":[{"activity_title":"MARKETING CLUB","activity_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","activity_start":"Apr 2013","activity_end":"Jan 2014"}],"awards":[{"award_title":"Windows certifications","award_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","award_date":""}],"skills":[{"skill_name":".NET","skill_level":"5"},{"skill_name":"AJAX","skill_level":"2"},{"skill_name":"Amazon Web Services","skill_level":"5"},{"skill_name":"Android Wear SDK","skill_level":"5"},{"skill_name":"3D Animation","skill_level":"4"}],"hobbies":[{"hobby_name":"3D printing"},{"hobby_name":"Amateur radio"},{"hobby_name":"Baton twirling"},{"hobby_name":"Board games"},{"hobby_name":"Calligraphy"},{"hobby_name":"Candle making"},{"hobby_name":"Dance"}]}}'),
+(7, 4, 'Undefine', 2, '{"cvdata":{"major":"Web Developer","objective":"The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \\"de Finibus Bonorum et Malorum\\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.","educations":[{"education_title":"DN of Education University","education_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","education_start":"Sep 2010","education_end":"Mar 2014"}],"experiences":[{"experience_title":"FACEBOOK Fake","experience_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","experience_start":"Feb 2011","experience_end":"Jun 2013"},{"experience_title":"GOOGLE","experience_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","experience_start":"Jul 2013","experience_end":"Aug 2014"},{"experience_title":"MICROSOFT","experience_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","experience_start":"Aug 2014","experience_end":"Now"}],"activities":[{"activity_title":"MARKETING CLUB","activity_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","activity_start":"Apr 2013","activity_end":"Jan 2014"},{"activity_title":"IStork CLUB","activity_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","activity_start":"Sep 2015","activity_end":"Now"}],"awards":[{"award_title":"Windows certifications","award_detail":"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.","award_date":""}],"skills":[{"skill_name":".NET","skill_level":"5"},{"skill_name":"AJAX","skill_level":"2"},{"skill_name":"Amazon Web Services","skill_level":"5"},{"skill_name":"Android Wear SDK","skill_level":"5"},{"skill_name":"3D Animation","skill_level":"4"}],"hobbies":[{"hobby_name":"3D printing"},{"hobby_name":"Amateur radio"},{"hobby_name":"Baton twirling"},{"hobby_name":"Board games"},{"hobby_name":"Calligraphy"},{"hobby_name":"Candle making"},{"hobby_name":"Dance"}]}}');
 
 -- --------------------------------------------------------
 
@@ -398,19 +378,19 @@ INSERT INTO `curriculum_vitaes` (`id`, `applicant_id`, `curriculum_vitae_templat
 --
 
 CREATE TABLE IF NOT EXISTS `curriculum_vitae_templates` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `curriculum_vitae_template_name` varchar(512) NOT NULL,
-  `curriculum_vitae_template_description` text,
-  `curriculum_vitae_template_url` varchar(1024) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `curriculum_vitae_template_image` varchar(1024) DEFAULT NULL,
+  `curriculum_vitae_template_url` varchar(1024) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `curriculum_vitae_templates`
 --
 
-INSERT INTO `curriculum_vitae_templates` (`id`, `curriculum_vitae_template_name`, `curriculum_vitae_template_description`, `curriculum_vitae_template_url`) VALUES
-(1, 'Simple', NULL, 'template.cvtp');
+INSERT INTO `curriculum_vitae_templates` (`id`, `curriculum_vitae_template_name`, `curriculum_vitae_template_image`, `curriculum_vitae_template_url`) VALUES
+(1, 'Simple', 'simple.png', 'simple.cvtp'),
+(2, 'model', 'model.png', 'model.cvtp');
 
 -- --------------------------------------------------------
 
@@ -419,17 +399,14 @@ INSERT INTO `curriculum_vitae_templates` (`id`, `curriculum_vitae_template_name`
 --
 
 CREATE TABLE IF NOT EXISTS `feedbacks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `feedback_title` varchar(1024) DEFAULT NULL,
   `feedback_comment` text,
   `feedback_date` date NOT NULL,
   `feedback_result` text,
   `feedback_type_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_feedbacks_cs_feedback_types1_idx` (`feedback_type_id`),
-  KEY `fk_cs_feedbacks_cs_users1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `feedbacks`
@@ -464,10 +441,9 @@ INSERT INTO `feedbacks` (`id`, `feedback_title`, `feedback_comment`, `feedback_d
 --
 
 CREATE TABLE IF NOT EXISTS `feedback_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `feedback_type_name` varchar(512) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `id` int(11) NOT NULL,
+  `feedback_type_name` varchar(512) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `feedback_types`
@@ -489,10 +465,7 @@ CREATE TABLE IF NOT EXISTS `follow` (
   `hiring_manager_id` int(11) NOT NULL,
   `applicant_id` int(11) NOT NULL,
   `follow_hiring_manager` tinyint(1) DEFAULT NULL,
-  `follow_applicant` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`hiring_manager_id`,`applicant_id`),
-  KEY `fk_cs_hiring_managers_has_cs_applicants_cs_applicants1_idx` (`applicant_id`),
-  KEY `fk_cs_hiring_managers_has_cs_applicants_cs_hiring_managers1_idx` (`hiring_manager_id`)
+  `follow_applicant` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -502,11 +475,10 @@ CREATE TABLE IF NOT EXISTS `follow` (
 --
 
 CREATE TABLE IF NOT EXISTS `groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `group_name` varchar(512) NOT NULL,
-  `group_description` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `group_description` text
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `groups`
@@ -533,9 +505,7 @@ CREATE TABLE IF NOT EXISTS `hiring_managers` (
   `company_email` varchar(100) DEFAULT NULL,
   `company_size` int(11) DEFAULT NULL,
   `company_about` text,
-  `company_logo` varchar(1024) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_hiring_managers_cs_users1_idx` (`id`)
+  `company_logo` varchar(1024) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -553,10 +523,9 @@ INSERT INTO `hiring_managers` (`id`, `hiring_manager_name`, `hiring_manager_phon
 --
 
 CREATE TABLE IF NOT EXISTS `hobbies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `hobby_name` varchar(512) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=294 ;
+  `id` int(11) NOT NULL,
+  `hobby_name` varchar(512) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=294 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `hobbies`
@@ -864,13 +833,11 @@ INSERT INTO `hobbies` (`id`, `hobby_name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `logs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `log_activity` varchar(45) DEFAULT NULL,
   `log_date` varchar(45) DEFAULT NULL,
-  `administrator_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_logs_cs_administrators1_idx` (`administrator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `administrator_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -879,15 +846,13 @@ CREATE TABLE IF NOT EXISTS `logs` (
 --
 
 CREATE TABLE IF NOT EXISTS `notifications` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `notification_title` varchar(512) DEFAULT NULL,
   `notification_detail` text,
   `notification_time` datetime DEFAULT NULL,
   `is_seen` tinyint(1) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_notifications_cs_users1_idx` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -896,17 +861,14 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 --
 
 CREATE TABLE IF NOT EXISTS `personal_history` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `personal_history_title` varchar(1024) NOT NULL,
   `personal_history_detail` text NOT NULL,
   `personal_history_start` date NOT NULL,
   `personal_history_end` date DEFAULT NULL,
   `personal_history_type_id` int(11) NOT NULL,
-  `applicant_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_personal_history_cs_personal_history_types1_idx` (`personal_history_type_id`),
-  KEY `fk_cs_personal_history_cs_applicants1_idx` (`applicant_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+  `applicant_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `personal_history`
@@ -914,16 +876,12 @@ CREATE TABLE IF NOT EXISTS `personal_history` (
 
 INSERT INTO `personal_history` (`id`, `personal_history_title`, `personal_history_detail`, `personal_history_start`, `personal_history_end`, `personal_history_type_id`, `applicant_id`) VALUES
 (1, 'DN of Education University', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2010-09-11', '2014-03-29', 1, 4),
-(2, 'BK University', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2014-03-29', '2016-03-29', 1, 4),
 (3, 'FACEBOOK', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2011-02-22', '2013-06-22', 2, 4),
 (4, 'GOOGLE', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2013-07-02', '2014-08-12', 2, 4),
 (5, 'MICROSOFT', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2014-08-12', NULL, 2, 4),
 (6, 'MARKETING CLUB', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2013-04-04', '2014-01-02', 3, 4),
 (7, 'IStork CLUB', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2015-09-01', NULL, 3, 4),
-(8, 'Windows certifications', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2015-11-11', NULL, 4, 4),
-(12, 'DN of Education University', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2010-09-11', '2014-03-29', 1, 4),
-(15, 'aaaaaaaaaaabbbbbbbbbbbb', 'aaaaaaaaaaaaadbadbadbadb', '2016-04-03', '2016-05-08', 1, 4),
-(17, 'agadgadga', 'adgadgadg', '2016-04-07', '2016-08-08', 3, 4);
+(8, 'Windows certifications', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet.', '2015-11-11', NULL, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -932,11 +890,10 @@ INSERT INTO `personal_history` (`id`, `personal_history_title`, `personal_histor
 --
 
 CREATE TABLE IF NOT EXISTS `personal_history_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `personal_history_type_name` varchar(512) NOT NULL,
-  `personal_history_type_description` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `personal_history_type_description` text
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `personal_history_types`
@@ -955,7 +912,7 @@ INSERT INTO `personal_history_types` (`id`, `personal_history_type_name`, `perso
 --
 
 CREATE TABLE IF NOT EXISTS `posts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `post_title` varchar(1024) NOT NULL,
   `post_content` longtext NOT NULL,
   `post_salary` int(11) DEFAULT NULL,
@@ -963,11 +920,8 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `post_date` date DEFAULT NULL,
   `post_status` tinyint(1) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
-  `hiring_manager_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_posts_cs_categories_idx` (`category_id`),
-  KEY `fk_cs_posts_cs_hiring_managers1_idx` (`hiring_manager_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+  `hiring_manager_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `posts`
@@ -1023,11 +977,7 @@ INSERT INTO `posts` (`id`, `post_title`, `post_content`, `post_salary`, `post_lo
 CREATE TABLE IF NOT EXISTS `posts_has_curriculum_vitaes` (
   `post_id` int(11) NOT NULL,
   `curriculum_vitae_id` int(11) NOT NULL,
-  `apply_status_id` int(11) NOT NULL,
-  PRIMARY KEY (`post_id`,`curriculum_vitae_id`),
-  KEY `fk_cs_posts_has_cs_curriculum_vitaes_cs_curriculum_vitaes1_idx` (`curriculum_vitae_id`),
-  KEY `fk_cs_posts_has_cs_curriculum_vitaes_cs_posts1_idx` (`post_id`),
-  KEY `fk_posts_has_curriculum_vitaes_apply_status1_idx` (`apply_status_id`)
+  `apply_status_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1037,12 +987,10 @@ CREATE TABLE IF NOT EXISTS `posts_has_curriculum_vitaes` (
 --
 
 CREATE TABLE IF NOT EXISTS `skills` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `skill_name` varchar(512) NOT NULL,
-  `skill_type_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_cs_skills_cs_skill_types1_idx` (`skill_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=901 ;
+  `skill_type_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=898 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `skills`
@@ -1954,10 +1902,9 @@ INSERT INTO `skills` (`id`, `skill_name`, `skill_type_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `skill_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `skill_type_name` varchar(512) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+  `id` int(11) NOT NULL,
+  `skill_type_name` varchar(512) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `skill_types`
@@ -1984,7 +1931,7 @@ INSERT INTO `skill_types` (`id`, `skill_type_name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `username` varchar(45) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `user_email` varchar(100) NOT NULL,
@@ -1992,12 +1939,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_status` tinyint(1) DEFAULT NULL,
   `user_activation_key` varchar(10) NOT NULL,
   `user_avatar` varchar(1024) DEFAULT NULL,
-  `group_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_activation_key_UNIQUE` (`user_activation_key`),
-  UNIQUE KEY `user_email_UNIQUE` (`user_email`),
-  KEY `fk_cs_users_cs_groups1_idx` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `group_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -2009,6 +1952,286 @@ INSERT INTO `users` (`id`, `username`, `password`, `user_email`, `user_registere
 (4, 'mark', '123456789', 'mark@enclave.vn', '2016-03-28', 1, '1231', '1.jpg', 3),
 (5, 'abcccc', '123123', 'abc@abc.com', '2016-03-29', 1, '1313413r1', '1.jpg', 3);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `administrators`
+--
+ALTER TABLE `administrators`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `applicants`
+--
+ALTER TABLE `applicants`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_applicants_cs_career_paths1_idx` (`career_path_id`);
+
+--
+-- Indexes for table `applicants_follow_posts`
+--
+ALTER TABLE `applicants_follow_posts`
+  ADD PRIMARY KEY (`applicant_id`,`post_id`),
+  ADD KEY `fk_cs_applicants_has_cs_posts_cs_posts1_idx` (`post_id`),
+  ADD KEY `fk_cs_applicants_has_cs_posts_cs_applicants1_idx` (`applicant_id`);
+
+--
+-- Indexes for table `applicants_has_hobbies`
+--
+ALTER TABLE `applicants_has_hobbies`
+  ADD PRIMARY KEY (`applicant_id`,`hobby_id`),
+  ADD KEY `fk_cs_applicants_has_cs_hobbies_cs_hobbies1_idx` (`hobby_id`),
+  ADD KEY `fk_cs_applicants_has_cs_hobbies_cs_applicants1_idx` (`applicant_id`);
+
+--
+-- Indexes for table `applicants_has_skills`
+--
+ALTER TABLE `applicants_has_skills`
+  ADD PRIMARY KEY (`applicant_id`,`skill_id`),
+  ADD KEY `fk_cs_applicants_has_cs_skills_cs_skills1_idx` (`skill_id`),
+  ADD KEY `fk_cs_applicants_has_cs_skills_cs_applicants1_idx` (`applicant_id`);
+
+--
+-- Indexes for table `apply_status`
+--
+ALTER TABLE `apply_status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `appointments`
+--
+ALTER TABLE `appointments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_appointments_cs_hiring_managers1_idx` (`hiring_manager_id`);
+
+--
+-- Indexes for table `appointments_has_applicants`
+--
+ALTER TABLE `appointments_has_applicants`
+  ADD PRIMARY KEY (`appointment_id`,`applicant_id`),
+  ADD KEY `fk_cs_appointments_has_cs_applicants_cs_applicants1_idx` (`applicant_id`),
+  ADD KEY `fk_cs_appointments_has_cs_applicants_cs_appointments1_idx` (`appointment_id`);
+
+--
+-- Indexes for table `career_paths`
+--
+ALTER TABLE `career_paths`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `curriculum_vitaes`
+--
+ALTER TABLE `curriculum_vitaes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_curriculum_vitaes_cs_applicants1_idx` (`applicant_id`),
+  ADD KEY `fk_cs_curriculum_vitaes_cs_curriculum_vitae_templates1_idx` (`curriculum_vitae_template_id`);
+
+--
+-- Indexes for table `curriculum_vitae_templates`
+--
+ALTER TABLE `curriculum_vitae_templates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_feedbacks_cs_feedback_types1_idx` (`feedback_type_id`),
+  ADD KEY `fk_cs_feedbacks_cs_users1_idx` (`user_id`);
+
+--
+-- Indexes for table `feedback_types`
+--
+ALTER TABLE `feedback_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `follow`
+--
+ALTER TABLE `follow`
+  ADD PRIMARY KEY (`hiring_manager_id`,`applicant_id`),
+  ADD KEY `fk_cs_hiring_managers_has_cs_applicants_cs_applicants1_idx` (`applicant_id`),
+  ADD KEY `fk_cs_hiring_managers_has_cs_applicants_cs_hiring_managers1_idx` (`hiring_manager_id`);
+
+--
+-- Indexes for table `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `hiring_managers`
+--
+ALTER TABLE `hiring_managers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_hiring_managers_cs_users1_idx` (`id`);
+
+--
+-- Indexes for table `hobbies`
+--
+ALTER TABLE `hobbies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_logs_cs_administrators1_idx` (`administrator_id`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_notifications_cs_users1_idx` (`user_id`);
+
+--
+-- Indexes for table `personal_history`
+--
+ALTER TABLE `personal_history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_personal_history_cs_personal_history_types1_idx` (`personal_history_type_id`),
+  ADD KEY `fk_cs_personal_history_cs_applicants1_idx` (`applicant_id`);
+
+--
+-- Indexes for table `personal_history_types`
+--
+ALTER TABLE `personal_history_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_posts_cs_categories_idx` (`category_id`),
+  ADD KEY `fk_cs_posts_cs_hiring_managers1_idx` (`hiring_manager_id`);
+
+--
+-- Indexes for table `posts_has_curriculum_vitaes`
+--
+ALTER TABLE `posts_has_curriculum_vitaes`
+  ADD PRIMARY KEY (`post_id`,`curriculum_vitae_id`),
+  ADD KEY `fk_cs_posts_has_cs_curriculum_vitaes_cs_curriculum_vitaes1_idx` (`curriculum_vitae_id`),
+  ADD KEY `fk_cs_posts_has_cs_curriculum_vitaes_cs_posts1_idx` (`post_id`),
+  ADD KEY `fk_posts_has_curriculum_vitaes_apply_status1_idx` (`apply_status_id`);
+
+--
+-- Indexes for table `skills`
+--
+ALTER TABLE `skills`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cs_skills_cs_skill_types1_idx` (`skill_type_id`);
+
+--
+-- Indexes for table `skill_types`
+--
+ALTER TABLE `skill_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_activation_key_UNIQUE` (`user_activation_key`),
+  ADD UNIQUE KEY `user_email_UNIQUE` (`user_email`),
+  ADD KEY `fk_cs_users_cs_groups1_idx` (`group_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `career_paths`
+--
+ALTER TABLE `career_paths`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=104;
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+--
+-- AUTO_INCREMENT for table `curriculum_vitaes`
+--
+ALTER TABLE `curriculum_vitaes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `curriculum_vitae_templates`
+--
+ALTER TABLE `curriculum_vitae_templates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT for table `feedback_types`
+--
+ALTER TABLE `feedback_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `hobbies`
+--
+ALTER TABLE `hobbies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=294;
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `personal_history`
+--
+ALTER TABLE `personal_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `personal_history_types`
+--
+ALTER TABLE `personal_history_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
+--
+-- AUTO_INCREMENT for table `skills`
+--
+ALTER TABLE `skills`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=898;
+--
+-- AUTO_INCREMENT for table `skill_types`
+--
+ALTER TABLE `skill_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
