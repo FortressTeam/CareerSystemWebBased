@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Posts Controller
@@ -16,6 +17,19 @@ class PostsController extends AppController
         'limit' => 10
     ];
 
+    /**
+     * Before filter callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow('view');
+        $this->Auth->allow('index');
+    }
+    
     /**
      * Initialize method
      *

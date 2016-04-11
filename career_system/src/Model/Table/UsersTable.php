@@ -41,6 +41,15 @@ class UsersTable extends Table
         $this->hasMany('Notifications', [
             'foreignKey' => 'user_id'
         ]);
+        $this->hasOne('Applicants', [
+            'foreignKey' => 'id'
+        ]);
+        $this->hasOne('HiringManagers', [
+            'foreignKey' => 'id'
+        ]);
+        $this->hasOne('Administrators', [
+            'foreignKey' => 'id'
+        ]);
     }
 
     /**

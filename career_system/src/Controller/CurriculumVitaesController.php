@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * CurriculumVitaes Controller
@@ -10,6 +11,17 @@ use App\Controller\AppController;
  */
 class CurriculumVitaesController extends AppController
 {
+    /**
+     * Before filter callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow('view');
+    }
 
     /**
      * Index method

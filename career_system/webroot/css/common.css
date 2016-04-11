@@ -405,7 +405,7 @@ footer{
 [contenteditable] {
     outline: 0px;
 }
-[contenteditable]:hover {
+[contenteditable]:hover, [contenteditable]:focus {
     outline: 1px dotted #343434;
 }
 .cvcs-block{
@@ -414,6 +414,7 @@ footer{
 .cvcs-block:hover{
     background: #F1F1F1;
     outline: 2px dotted #343434;
+    color: #343434;
 }
 .cvcs-block:hover>.btn-hide{
     display: inherit;
@@ -442,9 +443,9 @@ footer{
     left: -4px;
     width: 62px;
     height: 62px;
-    -webkit-animation: spin 1s linear infinite;
-    -moz-animation: spin 1s linear infinite;
-    animation: spin 1s linear infinite;
+    -webkit-animation: spin 0.5s linear infinite;
+    -moz-animation: spin 0.5s linear infinite;
+    animation: spin 0.5s linear infinite;
 }
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }

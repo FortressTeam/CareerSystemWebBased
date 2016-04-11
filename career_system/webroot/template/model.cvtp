@@ -12,8 +12,10 @@
 .cv .cvcs-skills>ul>li, .cv .cvcs-hobbies>ul>li{padding: 5px 0;}
 .cv .cvcs-skills>ul {list-style: none;padding-left: 0;}
 .cv .cvcs-skills .level{background-color: #FFFFFF;height: 15px}
-.cvcs-block:hover{
-    color: #343434;
+#applicantExperiences>.cvcs-block:last-child>div>hr,
+#applicantEducations>.cvcs-block:last-child>div>hr,
+#applicantAwards>.cvcs-block:last-child>div>hr{
+	display: none;
 }
 </style>
 <div class="row">
@@ -47,6 +49,10 @@
 										</div>
 									</div>	
 								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-body">
 								<div class="row">
 									<div class="col-xs-12">
 										<h2><b class="text-primary"><i class="fa fa-graduation-cap"></i> EDUCATION</b></h2>
@@ -55,6 +61,10 @@
 										</div>
 									</div>	
 								</div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-body">
 								<div class="row">
 									<div class="col-xs-12">
 										<h2><b class="text-primary"><i class="fa fa-trophy"></i> ACTIVITY, CERTIFICATION & AWARD</b></h2>
@@ -91,14 +101,14 @@
 								</div><hr/>
 								<div class="row">
 									<div class="col-xs-12 cvcs-hobbies">
-										<h2><b><i class="fa fa-heart"></i> Hobbies</b></h2>
+										<h2><b><i class="fa fa-heart"></i> INTERESTS</b></h2>
 										<ul id="applicantHobbies">
 										</ul>
 									</div>	
 								</div><hr/>
 								<div class="row">
 									<div class="col-xs-12 cvcs-skills">
-										<h2><b><i class="fa fa-heart"></i> Skills</b></h2>
+										<h2><b><i class="fa fa-heart"></i> SKILLS</b></h2>
 										<ul id="applicantSkills">
 										</ul>
 									</div>	
@@ -119,7 +129,7 @@ var _educationPattern 	= '<div class="row cvcs-block">'
 						+ '<h4 class="cvcs-date">'
 						+ '<span id="educationStart" class="contenteditable">{{education.start}}</span> TO <span id="educationEnd" class="contenteditable">{{education.end}}</span>'
 						+ '</h4>'
-						+ '<p id="educationDetail" class="text-default-light cvcs-content detail contenteditable">{{education.detail}}</p>'
+						+ '<p id="educationDetail" class="text-default-light cvcs-content detail contenteditable">{{education.detail}}</p><hr/>'
 						+ '</div>'
 						+ '</div>';
 
@@ -129,7 +139,7 @@ var _experiencePattern 	= '<div class="row cvcs-block">'
 						+ '<h4 class="cvcs-date">'
 						+ '<span id="experienceStart" class="contenteditable">{{experience.start}}</span> TO <span id="experienceEnd" class="contenteditable">{{experience.end}}</span>'
 						+ '</h4>'
-						+ '<p id="experienceDetail" class="text-default-light cvcs-content detail contenteditable">{{experience.detail}}</p>'
+						+ '<p id="experienceDetail" class="text-default-light cvcs-content detail contenteditable">{{experience.detail}}</p><hr/>'
 						+ '</div>'
 						+ '</div>';
 
@@ -139,7 +149,7 @@ var _activityPattern 	= '<div class="row cvcs-block">'
 						+ '<h4 class="cvcs-date">'
 						+ '<span id="activityStart" class="contenteditable">{{activity.start}}</span> TO <span id="activityEnd" class="contenteditable">{{activity.end}}</span>'
 						+ '</h4>'
-						+ '<p id="activityDetail" class="text-default-light cvcs-content detail contenteditable">{{activity.detail}}</p>'
+						+ '<p id="activityDetail" class="text-default-light cvcs-content detail contenteditable">{{activity.detail}}</p><hr/>'
 						+ '</div>'
 						+ '</div>';
 
@@ -147,9 +157,9 @@ var _awardPattern	 	= '<div class="row cvcs-block">'
 						+ '<div class="col-xs-11 col-xs-offset-1">'
 						+ '<h4 id="awardTitle" class="cvcs-title contenteditable">{{award.title}}</h4>'
 						+ '<h4 class="cvcs-date">'
-						+ '<span id="awardStart" class="contenteditable">{{award.date}}</span>'
+						+ '<span id="awardDate" class="contenteditable">{{award.date}}</span>'
 						+ '</h4>'
-						+ '<p id="awardDetail" class="text-default-light cvcs-content detail contenteditable">{{award.detail}}</p>'
+						+ '<p id="awardDetail" class="text-default-light cvcs-content detail contenteditable">{{award.detail}}</p><hr/>'
 						+ '</div>'
 						+ '</div>';
 
@@ -165,6 +175,7 @@ var _skillPattern		= '<li class="cvcs-block skill-block">'
 var _hobbyPattern		= '<li class="cvcs-block contenteditable"><div id="hobbyName">{{hobby.name}}</div></li>';
 
 function convertDate(input){
+	if(input.string === 'Now') return input.string;
 	if(input.string === null) return input.message;
 	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 	var date = new Date(input.string);

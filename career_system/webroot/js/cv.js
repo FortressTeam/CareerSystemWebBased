@@ -158,6 +158,10 @@ function CVPut(input){
         });
         $('#applicantHobbies').append(tmp);
     });
+
+    $('.cvcs-block.skill-block').find('.level').width(function(){
+        return ($(this).attr('skill-level') * 100 / 5) + '%';
+    });
 }
 
 function CVPutExample(){

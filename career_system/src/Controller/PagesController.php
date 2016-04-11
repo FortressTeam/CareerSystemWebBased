@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Event\Event;
 
 /**
  * Static content controller
@@ -29,6 +30,18 @@ class PagesController extends AppController
 {
 
     /**
+     * Before filter callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow('home');
+    }
+
+    /**
      * Displays a view
      *
      * @return void|\Cake\Network\Response
@@ -38,6 +51,8 @@ class PagesController extends AppController
     public function home()
     {
         $this->viewBuilder()->layout('ajax');
+        if($this->request->session()->read('Auth.User'))
+            $this->redirect('/dashboard');
     }
 
     /**

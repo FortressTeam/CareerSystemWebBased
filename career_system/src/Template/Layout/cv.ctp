@@ -18,6 +18,18 @@
 <html lang="en">
 <head>
 
+    <!-- BEGIN META -->
+    <?= $this->Html->charset() ?>
+    <title>
+        <?= $this->fetch('title') ?> - 
+        <?= $cakeDescription ?>
+    </title>
+    <?= $this->Html->meta('icon') ?>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="your,keywords">
+    <meta name="description" content="Short explanation about this website">
+
     <!-- BEGIN STYLESHEETS -->
     <?= $this->Html->css('theme/bootstrap') ?>
     <?= $this->Html->css('theme/materialadmin') ?>

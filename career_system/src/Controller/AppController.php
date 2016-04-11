@@ -42,6 +42,25 @@ class AppController extends Controller
         parent::initialize();
 
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'username',
+                        'password' => 'password'
+                    ]
+                ] 
+            ],
+            'authError' => 'Did you really think you are allowed to see that?',
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'signin'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Pages',
+                'action' => 'home'
+            ]
+        ]);
     }
 
     /**
@@ -53,7 +72,13 @@ class AppController extends Controller
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        //$this->viewBuilder()->layout('visitor');
+
+        if($this->request->session()->read('Auth.User')){
+            $this->viewBuilder()->layout('default');
+        }
+        else{
+            $this->viewBuilder()->layout('visitor');
+        }
     }
 
     /**
@@ -69,5 +94,7 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+
+        $this->set('loggedUser', $this->request->session()->read('Auth.User'));
     }
 }

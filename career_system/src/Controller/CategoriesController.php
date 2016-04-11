@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Categories Controller
@@ -15,6 +16,18 @@ class CategoriesController extends AppController
         'order' => ['Categories.lft' => 'ASC'],
         'limit' => 10
     ];
+
+    /**
+     * Before filter callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow('view');
+    }
 
     /**
      * Initialize method

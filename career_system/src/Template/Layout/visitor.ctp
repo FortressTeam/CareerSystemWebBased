@@ -12,12 +12,9 @@
     <meta name="description" content="Short explanation about this website">
 
     <!-- BEGIN STYLESHEETS -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,600,700,800' rel='stylesheet' type='text/css'/>
     <?= $this->Html->css('theme/bootstrap') ?>
     <?= $this->Html->css('theme/materialadmin') ?>
-    <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css') ?>
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
-    <?= $this->Html->css('theme/material-design-iconic-font.min') ?><!--Material Design Iconic Font-->
     <?= $this->Html->css('theme/animate') ?>
     <?= $this->Html->css('theme/libs/select2/select2') ?>
     
@@ -80,7 +77,11 @@
 
                 <ul class="header-nav header-nav-toggle" id="headerToggle">
                     <li id="signinButton">
-                        <button type="button" class="btn btn-block ink-reaction btn-flat btn-sm btn-primary">SIGN IN</button>
+                        <?= $this->Html->link(
+                            __('SIGN IN'),
+                            ['controller' => 'Users', 'action' => 'signin'],
+                            ['class' => 'btn btn-block ink-reaction btn-flat btn-sm btn-primary']
+                        ) ?>
                     </li>
                 </ul><!--end .header-nav-toggle -->
             </div><!--end #header-navbar-collapse -->

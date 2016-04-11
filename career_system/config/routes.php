@@ -61,6 +61,11 @@ Router::scope('/', function (RouteBuilder $routes) {
         ['controller' => 'Posts', 'action' => 'view'],
         ['id' => '\d+', 'pass' => ['id', 'slug']]
     );
+    Router::connect(
+        '/category/:slug-:id',
+        ['controller' => 'Categories', 'action' => 'view'],
+        ['id' => '\d+', 'pass' => ['id', 'slug']]
+    );
     /**
      * Connect catchall routes for all controllers.
      *

@@ -76,7 +76,11 @@
 
                 <ul class="header-nav header-nav-toggle" id="headerToggle">
                     <li id="signinButton">
-                        <button type="button" class="btn btn-block ink-reaction btn-flat btn-sm btn-primary">SIGN IN</button>
+                        <?= $this->Html->link(
+                            __('SIGN IN'),
+                            ['controller' => 'Users', 'action' => 'signin'],
+                            ['class' => 'btn btn-block ink-reaction btn-flat btn-sm btn-primary']
+                        ) ?>
                     </li>
                 </ul><!--end .header-nav-toggle -->
             </div><!--end #header-navbar-collapse -->

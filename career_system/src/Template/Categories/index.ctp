@@ -67,7 +67,7 @@
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View posts"><i class="fa fa-thumb-tack"></i></button>',
-                                    ['action' => 'view', $category->id],
+                                    ['action' => 'view', 'id' => $category->id, 'slug' => $category->category_name],
                                     ['escape' => false]) ?>
                                 <?= $this->Html->link(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Edit category"><i class="fa fa-pencil"></i></button>',

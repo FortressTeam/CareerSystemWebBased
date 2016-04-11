@@ -111,7 +111,53 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function login() {
-        
+    /**
+     * Sign up method
+     *
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function signup()
+    {
+
+    }
+
+    /**
+     * Sign in method
+     *
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function signin()
+    {
+        $this->viewBuilder()->layout('visitor');
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $user = $this->Users->get($user['id'], [
+                    'contain' => ['Groups', 'Applicants', 'HiringManagers', 'Administrators']
+                ]);
+                $this->Auth->setUser($user->toArray());
+                if($this->Auth->redirectUrl() === '/')
+                    return $this->redirect('/dashboard');
+                return $this->redirect($this->Auth->redirectUrl());
+            } else {
+                $this->Flash->error(__('Username or password is incorrect'), [
+                    'key' => 'auth'
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Sign out method
+     *
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function signout()
+    {
+        $this->Flash->success(__('You are logged out'));
+        return $this->redirect($this->Auth->logout());
     }
 }

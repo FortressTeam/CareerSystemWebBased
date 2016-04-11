@@ -153,6 +153,7 @@ var _skillPattern		= '<li class="cvcs-block skill-block">'
 var _hobbyPattern		= '<li class="cvcs-block contenteditable"><div id="hobbyName">{{hobby.name}}</div></li>';
 
 function convertDate(input){
+	if(input.string === 'Now') return input.string;
 	if(input.string === null) return input.message;
 	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 	var date = new Date(input.string);

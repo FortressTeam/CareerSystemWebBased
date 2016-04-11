@@ -110,11 +110,24 @@ $cakeDescription = 'Career System: Something';
                     </li><!--end .dropdown -->
                 </ul><!--end .header-nav-toggle -->
 
+                <?php if(!empty($loggedUser)): ?>
                 <ul class="header-nav header-nav-profile" id="headerProfile">
-                    <li class="dropdown animated fadeInRight">
+                    <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-                            <?= $this->Html->image('avatar.jpg', ['alt' => 'Vic']) ?>
-                            <span class="profile-info">Vien<small>Developer</small></span>
+                            <?= $this->Html->image(
+                                __('user_img/' . $loggedUser['user_avatar']),
+                                ['alt' => 'Vic']) ?>
+                            <span class="profile-info">
+                                <?php 
+                                    if(!empty($loggedUser['applicant']))
+                                        echo $loggedUser['applicant']['applicant_name'];
+                                    else if(!empty($loggedUser['hiring_manager']))
+                                        echo $loggedUser['hiring_manager']['hiring_manager_name'];
+                                    else if(!empty($loggedUser['administrator']))
+                                        echo $loggedUser['administrator']['administrator_name'] 
+                                ?>
+                                <small><?= $loggedUser['group']['group_name'] ?></small>
+                            </span>
                         </a>
                         <ul class="dropdown-menu animation-dock">
                             <li>
@@ -125,11 +138,17 @@ $cakeDescription = 'Career System: Something';
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#"><i class="fa fa-fw fa-power-off text-danger"></i>Logout</a>
+                                <?= $this->Html->link(
+                                    __('<i class="fa fa-fw fa-power-off text-danger"></i> Logout'),
+                                    ['controller' => 'Users', 'action' => 'signout'],
+                                    ['escape' => false]
+                                ); ?>
                             </li>
                         </ul>
                     </li>
-                </ul><!--end .header-nav-profile -->
+                </ul>
+                <?php endif; ?>
+                <!--end .header-nav-profile -->
             </div><!--end #header-navbar-collapse -->
         </div>
     </header>
