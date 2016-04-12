@@ -15,38 +15,23 @@ use Firebase\JWT\JWT;
 class UsersController extends AppController
 {
 
-    public function initialize()
-    {
-        parent::initialize();
-        $this->Auth->allow(['register', 'token']);
-    }
-
     /**
      * Token method
      *
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function token()
+    public function signin()
     {
         $user = $this->Auth->identify();
         if (!$user){
             throw new UnauthorizedException('Error');
         }
-        else{
-            $user = $this->Users->get($user['id'], [
-                'contain' => ['Groups', 'Applicants', 'HiringManagers', 'Administrators']
-            ])->toArray();
+        $user = $this->Users->get($user['id'], [
+            'contain' => ['Groups', 'Applicants', 'HiringManagers', 'Administrators']
+        ])->toArray();
         $message = 'Success';
-        $data = [
-            'token' => JWT::encode([
-                'sub' => $user['id'],
-                'exp' =>  time() + 604800
-            ],
-            Security::salt())
-        ];
-        $this->set(compact('message', 'data', 'user'));
-        $this->set('_serialize', ['message', 'data', 'user']);
+        $this->set(compact('message', 'user'));
+        $this->set('_serialize', ['message', 'user']);
     }
-        }
 }

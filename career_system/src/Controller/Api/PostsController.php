@@ -5,11 +5,6 @@ use App\Controller\Api\AppController;
 
 class PostsController extends AppController
 {
-    public function initialize()
-    {
-        parent::initialize();
-        $this->Auth->allow(['index', 'view']);
-    }
 
     /**
      * @apiDefine DefaultGetParameter

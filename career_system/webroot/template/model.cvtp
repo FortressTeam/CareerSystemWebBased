@@ -31,7 +31,6 @@
 							<div class="col-xs-8">
 								<h1><b id="applicantName">{{applicant.name}}</b></h1>
 								<h4 class="contenteditable" id="applicantMajor">{{applicant.major}}</h4>
-								<br/>
 								<div id="applicantObjective" class="text-default-light cvcs-objective contenteditable">{{applicant.objective}}</div>
 							</div>
 						</div>
