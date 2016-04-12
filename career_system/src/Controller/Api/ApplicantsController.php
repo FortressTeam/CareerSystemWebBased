@@ -10,6 +10,11 @@ use App\Controller\Api\AppController;
  */
 class ApplicantsController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(['index', 'view']);
+    }
 
 
     public function index()

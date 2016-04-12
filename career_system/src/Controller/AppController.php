@@ -48,7 +48,8 @@ class AppController extends Controller
                     'fields' => [
                         'username' => 'username',
                         'password' => 'password'
-                    ]
+                    ],
+                    'scope' => ['Users.user_status' => 1]
                 ] 
             ],
             'authError' => 'Did you really think you are allowed to see that?',
@@ -73,7 +74,8 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
 
-        if($this->request->session()->read('Auth.User')){
+        $loggedUser = $this->request->session()->read('Auth.User');
+        if($loggedUser){
             $this->viewBuilder()->layout('default');
         }
         else{

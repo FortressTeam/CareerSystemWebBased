@@ -109,9 +109,31 @@
     </div><!--end #base-->
     <!-- END BASE -->
 
+    <!-- START EMAIL SUBCRIBE -->
+    <section id="email-subscribe" class="no-padding style-primary">
+        <div class="email-subscribe-inner section-inner contain-lg ">
+            <div class="row no-margin">
+                <div class="card col-sm-6 col-sm-offset-3">
+                    <div class="card-body">
+                        <div class="form-group has-primary no-margin">
+                                <div class="input-group-content">
+                                    <input type="text" class="form-control" id="emailgroup" placeholder="Enter your email address to subcribe to career news">
+                                    <label for="emailgroup"></label>
+                                </div>
+                                <div class="input-group-btn">
+                                    <button class="btn ink-reaction btn-primary" type="button"><i class="fa fa-envelope-o"></i></button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END EMAIL SUBCRIBE -->
+
     <!-- START POPULAR SEARCHES -->
     <section id="popular-searches" class="no-padding">
-        <div class="popular-searches-inner section-inner">
+        <div class="popular-searches-inner section-inner contain-lg">
             <div class="row row-centered no-margin">
                 <div class="col-sm-3 col-centered left-align top-vertical-align">
                     <h2>By category</h2>
@@ -139,24 +161,6 @@
                         <a href="#" class="tag label label-primary">something</a>
                     </div>
                 </div>
-                <div class="col-sm-3 col-centered left-align top-vertical-align">
-                    <h2>By city</h2>
-                    <div class="contain">
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                    </div>
-                </div>
             </div>
             <div class="row row-centered no-margin">
                 <div class="col-sm-3 col-centered left-align">
@@ -169,25 +173,20 @@
                         <i class="fa fa-building"></i> All companies
                     </button>
                 </div>
-                <div class="col-sm-3 col-centered left-align">
-                    <button class="btn ink-reaction btn-flat btn-primary">
-                        <i class="fa fa-map-marker"></i> All cities
-                    </button>
-                </div>
             </div>
         </div>
     </section>
     <!-- END POPULAR SEARCHES -->
 
     <section id="help-center" class="no-padding style-primary">
-        <div class="section-inner">
+        <div class="section-inner contain-lg ">
             <div class="row no-margin">
                 <h2><a href="#"><b>SUPPORT CENTER</b></a></h2>
             </div>
         </div>
     </section>
     <footer id="footer" class="no-padding">
-        <div class="footer-inner section-inner">
+        <div class="footer-inner section-inner contain-lg ">
             <div class="row row-centered no-margin">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-centered left-align top-vertical-align">
                     <h3>CAREER SYSTEM</h3>
@@ -246,7 +245,6 @@
     
     <!-- Put App.js last in your javascript imports -->
     <?= $this->Html->script('main') ?>
-    <?= $this->Html->script('form') ?>
     <?= $this->Html->script('app.min') ?>
 </body>
 </html>

@@ -31,7 +31,7 @@
     <script type="text/javascript" src="assets/js/libs/utils/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="header-fixed">
+<body class="header-fixed non-side-bar">
 
     <!-- BEGIN HEADER-->
     <header id="header">
@@ -53,18 +53,6 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="headerbar-right">
-                <ul class="header-nav header-nav-options">
-                    <li>
-                        <!-- Search form -->
-                        <form class="navbar-search" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
-                            </div>
-                            <button type="submit" class="btn btn-icon-toggle ink-reaction btn-sm"><i class="fa fa-search"></i></button>
-                        </form>
-                    </li>
-                </ul><!--end .header-nav-options -->
-
                 <ul class="header-nav header-nav-profile" id="headerProfile">
                     <li id="signupButton">
                         <button type="button" class="btn ink-reaction btn-raised btn-sm btn-default">SIGN UP</button>
@@ -91,7 +79,7 @@
     <!-- BEGIN HOME SEARCH-->
     <section id="home" class="no-padding">
         <div class="sec-overlay">
-            <div class="container home-inner section-inner">
+            <div class="container home-inner section-inner contain-lg ">
                 <div class="card col-sm-6 col-sm-offset-3" id="searchCard">
                     <div class="card-body">
                         <h1>Something here</h1>
@@ -101,10 +89,10 @@
                             <label for="regular"></label>
                         </div>
                         <div class="form-group">
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
                                 <div class="btn-group">
                                     <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        Category <i class="fa fa-caret-down"></i>
+                                        What <i class="fa fa-caret-down"></i>
                                     </button>
                                     <ul class="dropdown-menu animation-expand" role="menu">
                                         <li><a href="#">Add</a></li>
@@ -114,16 +102,24 @@
                                 </div>
                             </div> 
                             <!-- Category Button -->
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
                                 <div class="btn-group">
                                     <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        Location <i class="fa fa-caret-down"></i>
+                                        Where <i class="fa fa-caret-down"></i>
                                     </button>
                                     <ul class="dropdown-menu animation-expand" role="menu">
                                         <li><a href="#">Add</a></li>
                                         <li class="divider"></li>
                                         <li><a href="#"><i class="fa fa-fw fa-times text-danger"></i> Remove item</a></li>
                                     </ul>
+                                </div>
+                            </div> 
+                            <!-- Location Button -->
+                            <div class="col-xs-4">
+                                <div class="btn-group">
+                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle">
+                                        Search <i class="fa fa-search"></i>
+                                    </button>
                                 </div>
                             </div> 
                             <!-- Location Button -->
@@ -138,28 +134,18 @@
 
     <!-- START MAIN FEATURE -->
     <section id="marketing" class="no-padding">
-        <div class="marketing-inner section-inner">
+        <div class="marketing-inner section-inner contain-lg ">
             <div class="row row-centered no-margin">
                 <div class="col-md-3 col-centered">
                     <div class="card">
                         <div class="card-head">
-                            <header>Main function</header>
+                            <header>CV Maker Online</header>
                         </div>
-                        <div class="card-body no-padding">
-                            <img src="img/avatar.jpg" class="img-circle border-gray border-xl">
-                        </div>
-                        <div class="card-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-centered">
-                    <div class="card">
-                        <div class="card-head">
-                            <header>Main function</header>
-                        </div>
-                        <div class="card-body no-padding">
-                            <img src="img/avatar.jpg" class="img-circle border-gray border-xl">
+                        <div class="card-body no-padding feature-image">
+                            <?= $this->Html->image(
+                                __('feature-cv-maker.png'),
+                                ['class' => 'img-circle border-gray border-xl']
+                            ) ?>
                         </div>
                         <div class="card-body">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
@@ -169,10 +155,29 @@
                 <div class="col-md-3 col-centered">
                     <div class="card">
                         <div class="card-head">
-                            <header>Main function</header>
+                            <header>Interview Online</header>
                         </div>
-                        <div class="card-body no-padding">
-                            <img src="img/avatar.jpg" class="img-circle border-gray border-xl">
+                        <div class="card-body no-padding feature-image">
+                            <?= $this->Html->image(
+                                __('feature-interview-online.png'),
+                                ['class' => 'img-circle border-gray border-xl']
+                            ) ?>
+                        </div>
+                        <div class="card-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-centered">
+                    <div class="card">
+                        <div class="card-head">
+                            <header>SMS Reminder</header>
+                        </div>
+                        <div class="card-body no-padding feature-image">
+                            <?= $this->Html->image(
+                                __('feature-sms-reminder.png'),
+                                ['class' => 'img-circle border-gray border-xl']
+                            ) ?>
                         </div>
                         <div class="card-body">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
@@ -186,11 +191,11 @@
 
     <!-- START EMAIL SUBCRIBE -->
     <section id="email-subscribe" class="no-padding style-primary">
-        <div class="email-subscribe-inner section-inner">
+        <div class="email-subscribe-inner section-inner contain-lg ">
             <div class="row no-margin">
                 <div class="card col-sm-6 col-sm-offset-3">
                     <div class="card-body">
-                        <div class="form-group has-primary">
+                        <div class="form-group has-primary no-margin">
                                 <div class="input-group-content">
                                     <input type="text" class="form-control" id="emailgroup" placeholder="Enter your email address to subcribe to career news">
                                     <label for="emailgroup"></label>
@@ -208,7 +213,7 @@
 
     <!-- START POPULAR SEARCHES -->
     <section id="popular-searches" class="no-padding">
-        <div class="popular-searches-inner section-inner">
+        <div class="popular-searches-inner section-inner contain-lg ">
             <div class="row row-centered no-margin">
                 <div class="col-sm-3 col-centered left-align top-vertical-align">
                     <h2>By category</h2>
@@ -236,24 +241,6 @@
                         <a href="#" class="tag label label-primary">something</a>
                     </div>
                 </div>
-                <div class="col-sm-3 col-centered left-align top-vertical-align">
-                    <h2>By city</h2>
-                    <div class="contain">
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                        <a href="#" class="tag label label-primary">something</a>
-                    </div>
-                </div>
             </div>
             <div class="row row-centered no-margin">
                 <div class="col-sm-3 col-centered left-align">
@@ -266,25 +253,20 @@
                         <i class="fa fa-building"></i> All companies
                     </button>
                 </div>
-                <div class="col-sm-3 col-centered left-align">
-                    <button class="btn ink-reaction btn-flat btn-primary">
-                        <i class="fa fa-map-marker"></i> All cities
-                    </button>
-                </div>
             </div>
         </div>
     </section>
     <!-- END POPULAR SEARCHES -->
 
     <section id="help-center" class="no-padding style-primary">
-        <div class="section-inner">
+        <div class="section-inner contain-lg ">
             <div class="row no-margin">
                 <h2><a href="#"><b>SUPPORT CENTER</b></a></h2>
             </div>
         </div>
     </section>
     <footer id="footer" class="no-padding">
-        <div class="footer-inner section-inner">
+        <div class="footer-inner section-inner contain-lg ">
             <div class="row row-centered no-margin">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-centered left-align top-vertical-align">
                     <h3>CAREER SYSTEM</h3>

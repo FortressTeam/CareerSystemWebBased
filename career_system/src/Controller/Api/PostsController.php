@@ -5,6 +5,12 @@ use App\Controller\Api\AppController;
 
 class PostsController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(['index', 'view']);
+    }
+
     /**
      * @apiDefine DefaultGetParameter
      *
@@ -44,6 +50,7 @@ class PostsController extends AppController
      *
      * @apiParam {Number}       [category_id] Category ID.
      * @apiParam {Number}       [hiring_manager_id] Hiring Manager ID.
+     * @apiParam {Number}       [post_status] Posts' status (<code>0</code>, <code>1</code>).
      * @apiUse DefaultGetParameter
      * @apiUse PostDefaultGetParameter
      *
@@ -85,6 +92,9 @@ class PostsController extends AppController
         }
         if(isset($this->request->query['hiring_manager_id'])) {
             $conditions['hiring_manager_id'] = $this->request->query['hiring_manager_id'];
+        }
+        if(isset($this->request->query['post_status'])) {
+            $conditions['post_status'] = $this->request->query['post_status'];
         }
         $this->paginate = [
             'conditions' => $conditions,

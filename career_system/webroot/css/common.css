@@ -165,6 +165,14 @@ footer{
 	}
 }
 
+.feature-image{
+    height: 10em;
+}
+
+.feature-image>img{
+    height: 100%;
+}
+
 .marketing-inner>.row{
     padding-top: 24px;
 }

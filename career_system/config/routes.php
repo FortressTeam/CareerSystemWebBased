@@ -66,6 +66,11 @@ Router::scope('/', function (RouteBuilder $routes) {
         ['controller' => 'Categories', 'action' => 'view'],
         ['id' => '\d+', 'pass' => ['id', 'slug']]
     );
+    Router::connect(
+        '/applicant/:slug-:id',
+        ['controller' => 'Applicants', 'action' => 'view'],
+        ['id' => '\d+', 'pass' => ['id', 'slug']]
+    );
     /**
      * Connect catchall routes for all controllers.
      *
@@ -85,7 +90,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->fallbacks('DashedRoute');
 });
 
-Router::prefix('Api', function ($routes) {
+Router::prefix('api', function ($routes) {
     $routes->extensions(['json', 'xml']);
     $routes->resources('HiringManagers');
     $routes->resources('Categories');
@@ -138,6 +143,8 @@ Router::prefix('Api', function ($routes) {
            ]
        ]
     ]);
+    $routes->resources('Users');
+    $routes->fallbacks('InflectedRoute');
 });
 
 /**
