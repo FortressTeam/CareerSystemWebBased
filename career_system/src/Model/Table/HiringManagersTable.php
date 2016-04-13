@@ -31,6 +31,8 @@ class HiringManagersTable extends Table
         $this->displayField('hiring_manager_name');
         $this->primaryKey('id');
 
+        $this->addBehavior('Search.Search');
+
         $this->hasMany('Appointments', [
             'foreignKey' => 'hiring_manager_id'
         ]);
@@ -43,6 +45,20 @@ class HiringManagersTable extends Table
         $this->hasOne('Users', [
             'foreignKey' => 'id'
         ]);
+
+        $this->searchManager()
+            ->add('q', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'field' => [
+                    $this->aliasField('hiring_manager_name'),
+                    $this->aliasField('hiring_manager_phone_number'),
+                    $this->aliasField('company_name'),
+                    $this->aliasField('company_address'),
+                    $this->aliasField('company_email'),
+                    $this->aliasField('company_about')
+                ]
+            ]);
     }
 
     /**

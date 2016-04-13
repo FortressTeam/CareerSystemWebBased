@@ -29,11 +29,11 @@
                     <table cellpadding="0" cellspacing="0" class="table">
                         <thead>
                             <tr>
-                                <th class="col-xs-8 col-sm-3"><?= $this->Paginator->sort('post_title', ['label' => 'Title']) ?></th>
-                                <th class="col-xs-2 hidden-xs"><?= $this->Paginator->sort('hiring_manager_id', ['label' => 'Hiring Manager']) ?></th>
-                                <th class="col-xs-2 hidden-xs"><?= $this->Paginator->sort('post_date', ['label' => 'Date']) ?></th>
-                                <th class="col-xs-2 col-sm-1"><?= $this->Paginator->sort('post_status', ['label' => 'Status']) ?></th>
-                                <th class="actions text-right col-xs-2 col-sm-2"><?= __('Actions') ?></th>
+                                <th class="col-xs-5"><?= $this->Paginator->sort('post_title', ['label' => 'Title']) ?></th>
+                                <th class="col-xs-2"><?= $this->Paginator->sort('hiring_manager_id', ['label' => 'Hiring Manager']) ?></th>
+                                <th class="col-xs-2"><?= $this->Paginator->sort('post_date', ['label' => 'Date']) ?></th>
+                                <th class="col-xs-1"><?= $this->Paginator->sort('post_status', ['label' => 'Status']) ?></th>
+                                <th class="actions text-right col-xs-2"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,8 +43,8 @@
                                     $this->Html->link(h($post->post_title),
                                     ['action' => 'view', 'slug' => $post->post_title, 'id' => $post->id],
                                     ['escape' => false]) ?></td>
-                                <td class="hidden-xs"><?= $post->has('hiring_manager') ? $this->Html->link($post->hiring_manager->hiring_manager_name, ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id]) : '' ?></td>
-                                <td class="hidden-xs"><?= h($post->post_date->format('d-M-y')) ?></td>
+                                <td><?= $post->has('hiring_manager') ? $this->Html->link($post->hiring_manager->hiring_manager_name, ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id]) : '' ?></td>
+                                <td><?= h($post->post_date->format('d-M-y')) ?></td>
                                 <td><?= $post->post_status ? '<span class="label label-primary col-xs-12">Active</span>' : '<span class="label label-warning col-xs-12">Pending</span>' ?></td>
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
@@ -115,7 +115,7 @@
     </div>
     <div class="fab_wrapper">
         <?= $this->Html->link(
-            '<button class="btn btn_fab btn-primary animated zoomIn"><i class="fa fa-plus"></i></button>',
+            '<button class="btn ink-reaction btn-floating-action btn-fix-bottom btn-lg btn-primary"><i class="fa fa-plus"></i></button>',
             ['action' => 'add'],
             ['escape' => false]) ?>
     </div>

@@ -99,9 +99,6 @@ footer{
     right: 2ex;
     position: fixed;
 }
-.gui-icon{
-    text-align: center;
-}
 .label-accent{
     background-color: #9C27B0;
 }
@@ -239,7 +236,7 @@ footer{
  ----------------------------------- */
 
 /* Float Action Button */
-.fab_wrapper{
+/*.fab_wrapper{
     z-index: 9999;
     width: 100%;
     height: 240px;
@@ -247,24 +244,11 @@ footer{
     right: 0px;
     bottom: 0px;
     pointer-events: none;
-}
-.btn_fab{
-    width: 56px;
-    height: 56px;
+}*/
+.btn-fix-bottom{
     right: 2ex;
     bottom: 2ex;
-    font-size: 1.5em;
-    border-radius: 100%;
     position: absolute;
-    margin-right: 0;
-    margin-bottom: 0;
-    padding: 0;
-    border: none;
-    outline: none;
-    color: #FFF;
-    box-shadow:  0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    transition: .3s;  
-    -webkit-tap-highlight-color:  rgba(0,0,0,0);
     pointer-events: all;
 }
 
@@ -370,6 +354,9 @@ footer{
     height: 7px;
     left: -3px;
     top: 0;
+}
+.tag{
+    display: inline-block;
 }
 
 /* --------------------------------- */

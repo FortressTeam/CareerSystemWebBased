@@ -36,10 +36,10 @@ $cakeDescription = 'Career System: Something';
     <?= $this->Html->css('theme/materialadmin') ?>
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
     <?= $this->Html->css('theme/animate') ?>
-    <?= $this->Html->css('theme/libs/select2/select2') ?>
     
     <!-- Additional CSS includes -->
     <?= $this->Html->css('common') ?>
+    <?= $this->Html->css('theme/libs/select2/select2') ?>
     <?= $this->Html->script('libs/jquery/jquery-1.11.2.min') ?>
 
     <?= $this->fetch('meta') ?>
@@ -79,18 +79,6 @@ $cakeDescription = 'Career System: Something';
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="headerbar-right">
-                <ul class="header-nav header-nav-options">
-                    <li>
-                        <!-- Search form -->
-                        <form class="navbar-search" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
-                            </div>
-                            <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
-                        </form>
-                    </li>
-                </ul><!--end .header-nav-options -->
-
                 <ul class="header-nav header-nav-toggle" id="headerToggle">
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="btn btn-icon-toggle btn-default" data-toggle="dropdown" aria-expanded="false">
@@ -129,7 +117,7 @@ $cakeDescription = 'Career System: Something';
                                 <small><?= $loggedUser['group']['group_name'] ?></small>
                             </span>
                         </a>
-                        <ul class="dropdown-menu animation-dock">
+                        <ul class="dropdown-menu animation-expand">
                             <li>
                                 <a href="#">My profile</a>
                             </li>
@@ -191,7 +179,7 @@ $cakeDescription = 'Career System: Something';
                         </li><!--end /menu-li -->
                         <li class="<?= $this->request->params['controller'] === 'Pages' ? 'active' : '' ?>" >
                             <?= $this->Html->link(
-                                '<div class="gui-icon"><i class="fa fa-dashboard"></i></div>
+                                '<div class="gui-icon"><i class="fa fa-dashboard fa-fw"></i></div>
                                 <span class="title">Dashboard</span>',
                                 ['controller' => 'dashboard'],
                                 ['escape' => false]
@@ -199,7 +187,7 @@ $cakeDescription = 'Career System: Something';
                         </li>
                         <li class="gui-folder <?= $this->request->params['controller'] === 'Posts' || $this->request->params['controller'] === 'Categories' ? 'active' : '' ?>">
                             <a>
-                                <div class="gui-icon"><i class="fa fa-thumb-tack"></i></div>
+                                <div class="gui-icon"><i class="fa fa-thumb-tack fa-fw"></i></div>
                                 <span class="title">Posts</span>
                             </a>
                             <ul>
@@ -228,7 +216,7 @@ $cakeDescription = 'Career System: Something';
                         </li><!--end /menu-li -->
                         <li class="gui-folder <?= $this->request->params['controller'] === 'HiringManagers' ? 'active' : '' ?>">
                             <a>
-                                <div class="gui-icon"><i class="fa fa-building-o"></i></div>
+                                <div class="gui-icon"><i class="fa fa-building-o fa-fw"></i></div>
                                 <span class="title">Hiring Managers</span>
                             </a>
                             <ul>
@@ -250,7 +238,7 @@ $cakeDescription = 'Career System: Something';
                         </li><!--end /menu-li -->
                         <li class="gui-folder <?= $this->request->params['controller'] === 'Applicants' ? 'active' : '' ?>">
                             <a>
-                                <div class="gui-icon"><i class="fa fa-male"></i></div>
+                                <div class="gui-icon"><i class="fa fa-male fa-fw"></i></div>
                                 <span class="title">Applicants</span>
                             </a>
                             <ul>
@@ -272,7 +260,7 @@ $cakeDescription = 'Career System: Something';
                         </li><!--end /menu-li -->
                         <li class="<?= $this->request->params['controller'] === 'Feedbacks' ? 'active' : '' ?>">
                             <?= $this->Html->link(
-                                '<div class="gui-icon"><i class="fa fa-reply-all"></i></div>
+                                '<div class="gui-icon"><i class="fa fa-reply-all fa-fw"></i></div>
                                 <span class="title">Feedbacks</span>',
                                 ['controller' => 'Feedbacks', 'action' => 'index'],
                                 ['escape' => false]
@@ -280,7 +268,7 @@ $cakeDescription = 'Career System: Something';
                         </li><!--end /menu-li -->
                         <li class="gui-folder <?= $this->request->params['controller'] === 'CurriculumVitaes' ? 'active' : '' ?>">
                             <a>
-                                <div class="gui-icon"><i class="fa fa-file"></i></div>
+                                <div class="gui-icon"><i class="fa fa-file fa-fw"></i></div>
                                 <span class="title">My CVs</span>
                             </a>
                             <ul>
@@ -302,13 +290,13 @@ $cakeDescription = 'Career System: Something';
                         </li><!--end /menu-li -->
                         <li>
                             <a href="#">
-                                <div class="gui-icon"><i class="fa fa-line-chart"></i></div>
+                                <div class="gui-icon"><i class="fa fa-line-chart fa-fw"></i></div>
                                 <span class="title">Activity</span>
                             </a>
                         </li><!--end /menu-li -->
                         <li>
                             <a href="#">
-                                <div class="gui-icon"><i class="fa fa-rss"></i></div>
+                                <div class="gui-icon"><i class="fa fa-rss fa-fw"></i></div>
                                 <span class="title">News feed</span>
                             </a>
                         </li><!--end /menu-li -->

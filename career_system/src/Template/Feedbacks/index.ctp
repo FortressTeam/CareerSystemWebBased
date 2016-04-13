@@ -30,11 +30,11 @@
                     <table cellpadding="0" cellspacing="0" class="table">
                         <thead>
                             <tr>
-                                <th class="col-xs-10 col-sm-5"><?= $this->Paginator->sort('feedback_title', ['label' => 'Title']) ?></th>
-                                <th class="col-xs-2 hidden-xs"><?= $this->Paginator->sort('feedback_date', ['label' => 'Date']) ?></th>
-                                <th class="col-xs-2 hidden-xs"><?= $this->Paginator->sort('user_id') ?></th>
-                                <th class="col-xs-1 hidden-xs"><?= $this->Paginator->sort('feedback_type_id', ['label' => 'Type']) ?></th>
-                                <th class="actions text-right col-xs-2 col-sm-2"><?= __('Actions') ?></th>
+                                <th class="col-xs-6"><?= $this->Paginator->sort('feedback_title', ['label' => 'Title']) ?></th>
+                                <th class="col-xs-2"><?= $this->Paginator->sort('feedback_date', ['label' => 'Date']) ?></th>
+                                <th class="col-xs-2"><?= $this->Paginator->sort('user_id') ?></th>
+                                <th class="col-xs-1"><?= $this->Paginator->sort('feedback_type_id', ['label' => 'Type']) ?></th>
+                                <th class="actions text-right col-xs-1"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,9 +43,9 @@
                                 <td><?= $this->Html->link(h($feedback->feedback_title),
                                     ['action' => 'view', $feedback->id],
                                     ['escape' => false]) ?></td>
-                                <td class="hidden-xs"><?= h($feedback->feedback_date->format('d-M-y')) ?></td>
-                                <td class="hidden-xs"><?= $feedback->has('user') ? $this->Html->link($feedback->user->username, ['controller' => 'Users', 'action' => 'view', $feedback->user->id]) : '' ?></td>
-                                <td class="hidden-xs"><?php 
+                                <td><?= h($feedback->feedback_date->format('d-M-y')) ?></td>
+                                <td><?= $feedback->has('user') ? $this->Html->link($feedback->user->username, ['controller' => 'Users', 'action' => 'view', $feedback->user->id]) : '' ?></td>
+                                <td><?php 
                                     if($feedback->has('feedback_type')){
                                         $type = 'default';
                                         if($feedback->feedback_type->id === 1)

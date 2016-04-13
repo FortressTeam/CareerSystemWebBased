@@ -27,7 +27,6 @@ class PostsController extends AppController
     {
         parent::beforeFilter($event);
         $this->Auth->allow('view');
-        $this->Auth->allow('index');
     }
     
     /**

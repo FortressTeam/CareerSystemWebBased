@@ -36,6 +36,8 @@ class ApplicantsTable extends Table
         $this->displayField('applicant_name');
         $this->primaryKey('id');
 
+        $this->addBehavior('Search.Search');
+
         $this->belongsTo('CareerPaths', [
             'foreignKey' => 'career_path_id',
             'joinType' => 'INNER'
@@ -70,6 +72,21 @@ class ApplicantsTable extends Table
         $this->belongsToMany('Hobbies', [
             'joinTable' => 'applicants_has_hobbies'
         ]);
+
+        $this->searchManager()
+            ->add('q', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'field' => [
+                    $this->aliasField('applicant_name'),
+                    $this->aliasField('applicant_phone_number'),
+                    $this->aliasField('applicant_date_of_birth'),
+                    $this->aliasField('applicant_address'),
+                    $this->aliasField('applicant_about'),
+                    $this->aliasField('applicant_future_goals'),
+                    $this->aliasField('applicant_website')
+                ]
+            ]);
     }
 
     /**

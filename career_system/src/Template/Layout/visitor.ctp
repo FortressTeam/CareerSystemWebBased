@@ -16,10 +16,10 @@
     <?= $this->Html->css('theme/materialadmin') ?>
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
     <?= $this->Html->css('theme/animate') ?>
-    <?= $this->Html->css('theme/libs/select2/select2') ?>
     
     <!-- Additional CSS includes -->
     <?= $this->Html->css('common') ?>
+    <?= $this->Html->css('theme/libs/select2/select2') ?>
     <?= $this->Html->script('libs/jquery/jquery-1.11.2.min') ?>
 
     <?= $this->fetch('meta') ?>

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * HiringManagers Controller
@@ -11,6 +12,36 @@ use App\Controller\AppController;
 class HiringManagersController extends AppController
 {
 
+    public $paginate = [
+        'order' => ['HiringManagers.id' => 'DESC'],
+        'limit' => 10
+    ];
+
+    /**
+     * Before filter callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow('view');
+    }
+    
+    /**
+     * Initialize method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['index'],
+        ]);
+    }
+
     /**
      * Index method
      *
@@ -18,7 +49,12 @@ class HiringManagersController extends AppController
      */
     public function index()
     {
-        $hiringManagers = $this->paginate($this->HiringManagers);
+        $query = $this->HiringManagers
+            ->find('search', $this->HiringManagers->filterParams($this->request->query))
+            ->contain(['Users'])
+            ->autoFields(true)
+            ->where(['hiring_manager_name IS NOT' => null]);
+        $hiringManagers = $this->paginate($query);
 
         $this->set(compact('hiringManagers'));
         $this->set('_serialize', ['hiringManagers']);

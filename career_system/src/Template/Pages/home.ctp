@@ -15,7 +15,6 @@
     <?= $this->Html->css('theme/bootstrap') ?>
     <?= $this->Html->css('theme/materialadmin') ?>
     <?= $this->Html->css('theme/font-awesome.min') ?><!--Font Awesome Icon Font-->
-    <?= $this->Html->css('theme/material-design-iconic-font.min') ?><!--Material Design Iconic Font-->
     <?= $this->Html->css('theme/animate') ?>
     
     <!-- Additional CSS includes -->
@@ -136,7 +135,7 @@
     <section id="marketing" class="no-padding">
         <div class="marketing-inner section-inner contain-lg ">
             <div class="row row-centered no-margin">
-                <div class="col-md-3 col-centered">
+                <div class="col-md-3 col-centered animated zoomInLeft">
                     <div class="card">
                         <div class="card-head">
                             <header>CV Maker Online</header>
@@ -152,7 +151,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-centered">
+                <div class="col-md-3 col-centered animated zoomInUp">
                     <div class="card">
                         <div class="card-head">
                             <header>Interview Online</header>
@@ -168,7 +167,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-centered">
+                <div class="col-md-3 col-centered animated zoomInRight">
                     <div class="card">
                         <div class="card-head">
                             <header>SMS Reminder</header>
@@ -322,6 +321,7 @@
     <?= $this->Html->script('libs/jquery/jquery-migrate-1.2.1.min') ?>
     <?= $this->Html->script('libs/bootstrap/bootstrap.min') ?>
     <?= $this->Html->script('libs/nanoscroller/jquery.nanoscroller.min') ?>
+    <?= $this->Html->script('libs/select2/select2') ?>
     
     <!-- Put App.js last in your javascript imports -->
     <?= $this->Html->script('main') ?>

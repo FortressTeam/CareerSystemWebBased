@@ -55,7 +55,11 @@ class PostsTable extends Table
             ->add('q', 'Search.Like', [
                 'before' => true,
                 'after' => true,
-                'field' => [$this->aliasField('post_title'), $this->aliasField('post_content')]
+                'field' => [
+                    $this->aliasField('id'),
+                    $this->aliasField('post_title'),
+                    $this->aliasField('post_content')
+                ]
             ]);
     }
 

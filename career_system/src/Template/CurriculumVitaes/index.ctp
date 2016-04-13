@@ -21,7 +21,7 @@
     </div>
     <div class="fab_wrapper">
         <?= $this->Html->link(
-            '<button class="btn btn_fab btn-primary"><i class="fa fa-plus"></i></button>',
+            '<button class="btn ink-reaction btn-floating-action btn-fix-bottom btn-lg btn-primary"><i class="fa fa-plus"></i></button>',
             ['action' => 'add'],
             ['escape' => false]) ?>
     </div>
