@@ -85,7 +85,6 @@ footer{
 .website_name{
     vertical-align: middle;
     color: #1178AB;
-    padding: 10px;
 }
 .list .tile .tile-text{
     font-size: 13px;
@@ -144,6 +143,11 @@ footer{
     vertical-align: middle;
     text-align: center;
 }
+.dropdown-choose{
+    height: 200px;
+    overflow: overlay;
+    white-space: nowrap;
+}
 @media screen and (max-width: 767px){
 	.home-inner{
 	    padding-top: 50px;
@@ -180,7 +184,6 @@ footer{
     padding-top: 24px;
     padding-bottom: 24px;
 }
-
 .usabilla-feedback-bar{
     display: none;
     position: fixed;

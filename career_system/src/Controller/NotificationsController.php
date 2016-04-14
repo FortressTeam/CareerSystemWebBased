@@ -11,6 +11,17 @@ use App\Controller\AppController;
 class NotificationsController extends AppController
 {
 
+
+    /**
+     * Initialize method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Pna');
+    }
     /**
      * Index method
      *
@@ -18,6 +29,7 @@ class NotificationsController extends AppController
      */
     public function index()
     {
+        dump($this->Pna->send('', '')); die;
         $this->paginate = [
             'contain' => ['Users']
         ];

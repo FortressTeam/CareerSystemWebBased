@@ -19,7 +19,7 @@
 	                    </div>
 	                    <div class="row">
 	                    	<div class="col-xs-12">
-								<?= $this->Form->input('username', ['class' => 'form-control']) ?>
+								<?= $this->Form->input('username', ['class' => 'form-control', 'autofocus']) ?>
 								<?= $this->Form->input('password', ['class' => 'form-control']) ?>
 								<div class="form-group floating-label">
 									<div class="checkbox checkbox-styled">

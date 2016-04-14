@@ -52,9 +52,9 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')){
             $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
+            if ($this->Users->save($user)){
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -78,9 +78,9 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->request->is(['patch', 'post', 'put'])){
             $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
+            if ($this->Users->save($user)){
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -103,7 +103,7 @@ class UsersController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
+        if ($this->Users->delete($user)){
             $this->Flash->success(__('The user has been deleted.'));
         } else {
             $this->Flash->error(__('The user could not be deleted. Please, try again.'));
@@ -131,22 +131,23 @@ class UsersController extends AppController
     public function signin()
     {
         $this->viewBuilder()->layout('visitor');
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')){
             $user = $this->Auth->identify();
-            if ($user) {
+            if ($user){
                 $user = $this->Users->get($user['id'], [
                     'contain' => ['Groups', 'Applicants', 'HiringManagers', 'Administrators']
                 ]);
                 $this->Auth->setUser($user->toArray());
-                if($this->Auth->redirectUrl() === '/')
-                    return $this->redirect('/dashboard');
                 return $this->redirect($this->Auth->redirectUrl());
-            } else {
+            }
+            else {
                 $this->Flash->error(__('Username or password is incorrect'), [
                     'key' => 'auth'
                 ]);
             }
         }
+        if($this->request->session()->read('Auth.User'))
+            $this->redirect($this->Auth->redirectUrl());
     }
 
     /**

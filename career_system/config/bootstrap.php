@@ -212,5 +212,3 @@ Type::build('datetime')
     ->useLocaleParser();
 
 Plugin::load('Search');
-
-Plugin::load('ADmad/JwtAuth');

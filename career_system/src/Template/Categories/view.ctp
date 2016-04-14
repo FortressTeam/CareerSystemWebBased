@@ -1,4 +1,4 @@
-<section>
+<!-- <section>
     <div class="section-body contain-lg">
     <div class="row">
         <?php foreach ($posts as $post): ?>
@@ -68,3 +68,4 @@
     </div>
     </div>
 </section>
+ -->

@@ -51,6 +51,7 @@ class PostsTable extends Table
         ]);
 
         $this->searchManager()
+            ->add('category_id', 'Search.Value')
             ->add('hiring_manager_id', 'Search.Value')
             ->add('q', 'Search.Like', [
                 'before' => true,

@@ -96,7 +96,7 @@ $(document).ready(function(){
                 setTimeout(function(){
                     $('#cvcsSave').find('.fab-image').css({'display': 'none'});
                     $('#cvcsSave').find('i.fa').removeClass('fa-save').addClass('fa-check');
-                }, 2000);
+                }, 500);
             },
             error: CVError
         });
@@ -121,7 +121,7 @@ $(document).ready(function(){
                     $('#cvcsTemplate').find('.fab-image').css({'display': 'none'});
                     $('#cvcsTemplate').find('i.fa').removeClass('fa-save').addClass('fa-check');
                     location.reload();
-                }, 2000);
+                }, 500);
             },
             error: CVError
         });

@@ -11,6 +11,7 @@
    TOC:
   =======
 
+  0. Run when the document ready
   1. Mouse Scroll Smoothy
   2. Scroll Top Menu Bar
   3. MorissJS Chart
@@ -38,6 +39,14 @@ $(document).ready(function(){
         }).done(function(data){
             $('#contentFeedback').html(data);
         });
+    });
+
+    // Home page
+    $('.public-search').find('[class$="search-item"]').click(function(){
+        $(this).parent().parent().prev('button')
+            .html($(this).text() + ' <i class="fa fa-caret-down"></i>')
+            .data({'id': $(this).data('id')});
+        $(this).parent().parent().next().val($(this).data('id'));
     });
 });
 

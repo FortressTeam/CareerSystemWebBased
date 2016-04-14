@@ -68,7 +68,7 @@ $cakeDescription = 'Career System: Something';
                     <li class="header-nav-brand">
                         <div class="brand-holder">
                             <?= $this->Html->link(
-                                $this->Html->image('logo_website.png') . 
+                                $this->Html->image('logo-mini.png') . 
                                 '<span class="text-lg text-bold text-primary website_name">CAREER SYSTEM</span>',
                                 ['controller' => '/'],
                                 ['escape' => false])

@@ -38,11 +38,24 @@ class PagesController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow('home');
+        $this->Auth->allow(['home', 'search']);
     }
 
     /**
-     * Displays a view
+     * Initialize method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['search'],
+        ]);
+    }
+
+    /**
+     * Displays home page
      *
      * @return void|\Cake\Network\Response
      * @throws \Cake\Network\Exception\NotFoundException When the view file could not
@@ -53,10 +66,47 @@ class PagesController extends AppController
         $this->viewBuilder()->layout('ajax');
         if($this->request->session()->read('Auth.User'))
             $this->redirect('/dashboard');
+
+        $this->loadModel('Categories');
+        $categories = $this->Categories->find('list', [
+            'conditions' => ['parent_id IS NOT' => NULL],
+            'order' => ['category_name' => 'ASC']
+        ]);
+
+        $this->set(compact('categories'));
+        $this->set('_serialize', ['categories']);
     }
 
     /**
-     * Displays a dashboard page
+     * Displays home page
+     *
+     * @return void|\Cake\Network\Response
+     * @throws \Cake\Network\Exception\NotFoundException When the view file could not
+     *   be found or \Cake\View\Exception\MissingTemplateException in debug mode.
+     */
+    public function search()
+    {
+        $this->loadModel('Posts');
+        $query = $this->Posts
+            ->find('search', $this->Posts->filterParams($this->request->query))
+            ->contain(['HiringManagers', 'Categories'])
+            ->autoFields(true)
+            ->where(['post_title IS NOT' => null])
+            ->order(['Posts.post_date' => 'DESC']);
+        $posts = $this->paginate($query);
+
+        $categories = $this->Posts->Categories->find('list', [
+            'conditions' => ['parent_id IS NOT' => NULL],
+            'order' => ['category_name' => 'ASC']
+        ]);
+
+        $this->set(compact('posts', 'categories'));
+        $this->set('_serialize', ['posts', 'categories']);
+
+    }
+
+    /**
+     * Displays dashboard page
      *
      * @return void|\Cake\Network\Response
      * @throws \Cake\Network\Exception\NotFoundException When the view file could not

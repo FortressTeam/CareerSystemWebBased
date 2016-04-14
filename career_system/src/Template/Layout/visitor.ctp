@@ -43,7 +43,7 @@
                     <li class="header-nav-brand">
                         <div class="brand-holder">
                             <?= $this->Html->link(
-                                $this->Html->image('logo_website.png') . 
+                                $this->Html->image('logo-mini.png') . 
                                 '<span class="text-lg text-bold text-primary website_name">CAREER SYSTEM</span>',
                                 ['controller' => '/'],
                                 ['escape' => false])
@@ -90,7 +90,7 @@
     <!-- END HEADER-->
 
     <!-- BEGIN BASE-->
-    <div id="base">
+    <div id="base" class="no-padding">
 
         <!-- BEGIN CONTENT-->
         <div id="content">

@@ -41,7 +41,7 @@
                     <li class="header-nav-brand">
                         <div class="brand-holder">
                             <?= $this->Html->link(
-                                $this->Html->image('logo_website.png') . 
+                                $this->Html->image('logo-mini.png') . 
                                 '<span class="text-lg text-bold text-primary website_name">CAREER SYSTEM</span>',
                                 ['controller' => '/'],
                                 ['escape' => false])
@@ -81,48 +81,66 @@
             <div class="container home-inner section-inner contain-lg ">
                 <div class="card col-sm-6 col-sm-offset-3" id="searchCard">
                     <div class="card-body">
+                        <?php 
+                            echo $this->Form->create('', [
+                                'url' => ['controller' => 'Pages', 'action' => 'search'],
+                                'class' => 'form',
+                                'templates' => [
+                                'formGroup' => '{{input}}{{label}}',
+                                'inputContainer' => '<div class="form-group has-primary">{{content}}</div>'
+                            ]
+                            ]); ?>
                         <h1>Something here</h1>
                         <h4>Something here</h4>
-                        <div class="form-group has-primary">
-                            <input type="text" class="form-control" id="inputSearch" placeholder="Enter keyword to search">
-                            <label for="regular"></label>
+                        <?= $this->Form->input('q', ['label' => '', 'class' => 'form-control', 'placeholder' => 'Enter keyword to search']); ?>
+                        <?= $this->Form->input('limit', ['type' => 'hidden', 'value' => 15]); ?>
+                        <div class="form-group public-search">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-5">
+                                    <div class="btn-group btn-block">
+                                        <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle btn-block category-search-button" data-toggle="dropdown" aria-expanded="false">
+                                            What <i class="fa fa-caret-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu animation-expand dropdown-choose" role="menu">
+                                            <?php foreach ($categories as $index => $category): ?>
+                                                <li><a class="category-search-item" data-id=<?= $index ?>><?= $category ?></a></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                        <?= $this->Form->input('category_id', ['type' => 'hidden']);?>
+                                    </div>
+                                </div> 
+                                <!-- Category Button -->
+                                <div class="col-md-6 col-lg-5">
+                                    <div class="btn-group btn-block">
+                                        <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false">
+                                            Where <i class="fa fa-caret-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu animation-expand dropdown-choose" role="menu">
+                                            <li><a class="location-search-item">Ha Noi</a></li>
+                                            <li><a class="location-search-item">Da Nang</a></li>
+                                            <li><a class="location-search-item">Ho CHi Minh City</a></li>
+                                            <li><a class="location-search-item">Binh Duong</a></li>
+                                            <li><a class="location-search-item">Can Tho</a></li>
+                                            <li><a class="location-search-item">Hai Phong</a></li>
+                                            <li><a class="location-search-item">Quang Ninh</a></li>
+                                        </ul>
+                                        <?= $this->Form->input('location_id', ['type' => 'hidden']);?>
+                                    </div>
+                                </div> 
+                                <!-- Location Button -->
+                                <div class="col-md-12 col-lg-2">
+                                    <div class="btn-group btn-block">
+                                        <?= $this->Form->button(
+                                            '<i class="fa fa-search"></i>',
+                                            ['type' => 'submit','class' => 'btn ink-reaction btn-raised btn-primary dropdown-toggle btn-block'],
+                                            ['escape' => false]);
+                                        ?>
+                                    </div>
+                                </div> 
+                                <!-- Search Button -->
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-xs-4">
-                                <div class="btn-group">
-                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        What <i class="fa fa-caret-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu animation-expand" role="menu">
-                                        <li><a href="#">Add</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-fw fa-times text-danger"></i> Remove item</a></li>
-                                    </ul>
-                                </div>
-                            </div> 
-                            <!-- Category Button -->
-                            <div class="col-xs-4">
-                                <div class="btn-group">
-                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        Where <i class="fa fa-caret-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu animation-expand" role="menu">
-                                        <li><a href="#">Add</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#"><i class="fa fa-fw fa-times text-danger"></i> Remove item</a></li>
-                                    </ul>
-                                </div>
-                            </div> 
-                            <!-- Location Button -->
-                            <div class="col-xs-4">
-                                <div class="btn-group">
-                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle">
-                                        Search <i class="fa fa-search"></i>
-                                    </button>
-                                </div>
-                            </div> 
-                            <!-- Location Button -->
-                        </div>
+                        <?= $this->Form->end(); ?>
                     </div>
                 </div>
             </div>
@@ -196,7 +214,7 @@
                     <div class="card-body">
                         <div class="form-group has-primary no-margin">
                                 <div class="input-group-content">
-                                    <input type="text" class="form-control" id="emailgroup" placeholder="Enter your email address to subcribe to career news">
+                                    <input type="text" class="form-control" id="emailgroup" placeholder="Enter your email address to subcribe our career news">
                                     <label for="emailgroup"></label>
                                 </div>
                                 <div class="input-group-btn">
