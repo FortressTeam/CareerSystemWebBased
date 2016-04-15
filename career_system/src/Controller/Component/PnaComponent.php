@@ -24,17 +24,16 @@ class PnaComponent extends Component
         	'data' => $data
         ];
         return json_encode($package);
-	} 
+	}
 
     public function send($objects, $data)
     {
     	///////////////////////////////////////////////
         $objects = [
-            'fBaqW4R9XkA:APA91bH9tZOKGS_QfvEaSiWsrdmIMeps5VHZywN8qXmdLDE0OSisemLck7BOvzcQ9caYj69gdBF15KGFN6moX4NXxKzLzTiI8bWvpbGc5WdMN5iQTB1BYC69kyGTKGBAjMOgsh5xS7QM',
-            'eVCFsTWx9ic:APA91bE4itXCL5gbJqQrMaMATyPWQUENTCYlKu164Nw8cVh2F3rvxv_weBZwJzdqN41zAuyeoSgwLlQSP63uNsXH5ZhJFpEEr9M8zjnxvBmLIQEbcfSIofTS3r0zWktggekNXXfeVkY7'
+            'fPW96qYHMd4:APA91bG-gfVe0nsIr9drbhGWVYR-UgsHCx2ClsO9z82QkpFds28GIyStYANAa1nqtcX70vg16eqtLFs7USTIfE-7d8q8cskT4jHMaw1_eDXtsPTQ2_Yc-grwEAPkCFfnff8xSSrpB5qP'
         ];
         $data = [
-            'title' => 'CakePHP',
+            'title' => 'Khoa Noi',
             'message' => 'Truong Khoa Huynh Kim Khoa San'
         ];
     	///////////////////////////////////////////////

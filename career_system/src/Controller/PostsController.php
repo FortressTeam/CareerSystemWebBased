@@ -152,4 +152,35 @@ class PostsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * is authorized callback.
+     *
+     * @param $user
+     * @return void
+     */    
+    public function isAuthorized($user)
+    {
+        if ($this->request->action === 'index') {
+            if (isset($user['group_id']) 
+                && (($user['group_id'] == '2') || ($user['group_id'] == '1'))) {
+                    return true;
+                }
+        }
+        else if ($this->request->action === 'add'){
+            if (isset($user['group_id']) && $user['group_id'] == '2') {
+                return true;
+            }
+        }
+        else if ($this->request->action === 'view') {
+            return true;
+        }
+        else if (in_array($this->request->action, ['edit', 'delete'])) {
+            $postId = (int)$this->request->params['pass'][0];
+            if ($this->Posts->isOwnedBy($postId, $user['id'])) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

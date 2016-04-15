@@ -115,4 +115,15 @@ class PostsTable extends Table
         $rules->add($rules->existsIn(['hiring_manager_id'], 'HiringManagers'));
         return $rules;
     }
+
+    /**
+     * Returns a boolean value to check if this post is owned by user.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function isOwnedBy($id, $user)
+    {
+        return $this->exists(['id' => $id, 'hiring_manager_id' => $user]);
+    }
 }

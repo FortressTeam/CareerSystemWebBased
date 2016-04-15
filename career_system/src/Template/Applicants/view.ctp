@@ -5,11 +5,11 @@
                 <?= $this->Form->create($applicant, ['type' => 'file', 'class' => 'card']); ?>
                     <?= $this->Html->image(
                         'user_img' . DS . $applicant->user->user_avatar,
-                        ['class' => 'border-white border-xl img-responsive', 'id' => 'companyImage']);
+                        ['class' => 'border-white border-xl img-responsive col-xs-12 no-padding', 'id' => 'companyImage']);
                     ?>
                     <div class="btn btn-icon-toggle" id="buttonCompanyImage"><i class="fa fa-camera"></i></div>
                     <div class="hidden">
-                        <?= $this->Form->input('company_image', ['type' => 'file', 'id' => 'imputCompanyImage']) ?>
+                        <?= $this->Form->input('user_img', ['type' => 'file', 'id' => 'imputCompanyImage']) ?>
                     </div>
                 <?= $this->Form->end() ?>
                 <?= $this->Html->link( 'FOLLOW', [],

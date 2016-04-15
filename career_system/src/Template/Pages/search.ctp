@@ -151,7 +151,7 @@
 	        <?php endforeach; ?>
 	    </div>
 		<?php if($this->Paginator->params()['count']): ?>
-	    <div class="row">
+	    <div class="row row-centered">
 	    	<div class="col-xs-12">
 	            <div class="paginator">
 	                <ul class="pagination">

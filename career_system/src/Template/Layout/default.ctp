@@ -104,22 +104,45 @@ $cakeDescription = 'Career System: Something';
                         <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
                             <?= $this->Html->image(
                                 __('user_img/' . $loggedUser['user_avatar']),
-                                ['alt' => 'Vic']) ?>
+                                ['alt' => $loggedUser['username']]) ?>
                             <span class="profile-info">
                                 <?php 
-                                    if(!empty($loggedUser['applicant']))
+                                    if(!empty($loggedUser['applicant'])){
                                         echo $loggedUser['applicant']['applicant_name'];
-                                    else if(!empty($loggedUser['hiring_manager']))
+                                    }
+                                    else if(!empty($loggedUser['hiring_manager'])){
                                         echo $loggedUser['hiring_manager']['hiring_manager_name'];
-                                    else if(!empty($loggedUser['administrator']))
-                                        echo $loggedUser['administrator']['administrator_name'] 
+                                    }
+                                    else if(!empty($loggedUser['administrator'])){
+                                        echo $loggedUser['administrator']['administrator_name'];
+                                    }
                                 ?>
                                 <small><?= $loggedUser['group']['group_name'] ?></small>
                             </span>
                         </a>
                         <ul class="dropdown-menu animation-expand">
                             <li>
-                                <a href="#">My profile</a>
+                                <?php
+                                    if(!empty($loggedUser['applicant'])){
+                                        echo $this->Html->link(
+                                            __('My profile'),
+                                            ['controller' => 'applicants', 'action' => 'view', $loggedUser['id']]
+                                        );
+                                    }
+                                    else if(!empty($loggedUser['hiring_manager'])){
+                                        echo $this->Html->link(
+                                            __('My profile'),
+                                            ['controller' => 'hiring_managers', 'action' => 'view', $loggedUser['id']]
+                                        );
+                                    }
+                                    else if(!empty($loggedUser['administrator'])){
+                                        echo $this->Html->link(
+                                            __('My profile'),
+                                            ['controller' => 'administrator', 'action' => 'view', $loggedUser['id']]
+                                        );
+
+                                    }
+                                ?>
                             </li>
                             <li>
                                 <a href="#">My appointments</a>
@@ -308,7 +331,7 @@ $cakeDescription = 'Career System: Something';
 
     </div><!--end #base-->
     <!-- END BASE -->
-
+    
     <a class="usabilla-feedback-bar" href="#"  data-toggle="modal" data-target="#simpleModal" data-url="<?= $this->Url->build(["controller" => "feedbacks","action" => "add"]); ?>" id="usabilla-feedback-bar">Feedback</a>
     <div class="modal fade" id="simpleModal" tabindex="-1" role="dialog" aria-labelledby="simpleModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">

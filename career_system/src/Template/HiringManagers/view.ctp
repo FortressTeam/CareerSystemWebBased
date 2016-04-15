@@ -5,13 +5,14 @@
                 <?= $this->Form->create($hiringManager, ['type' => 'file', 'class' => 'card']); ?>
                     <?= $this->Html->image(
                         'company_img' . DS . $hiringManager->company_logo,
-                        ['class' => 'img-circle border-white border-xl img-responsive', 'id' => 'companyImage']);
+                        ['class' => 'img-circle border-white border-xl img-responsive col-xs-12 no-padding', 'id' => 'companyImage']);
                     ?>
                     <div class="btn btn-icon-toggle" id="buttonCompanyImage"><i class="fa fa-camera"></i></div>
                     <div class="hidden">
                         <?= $this->Form->input('company_image', ['type' => 'file', 'id' => 'imputCompanyImage']) ?>
                     </div>
                 <?= $this->Form->end() ?>
+
                 <?= $this->Html->link(
                         'FOLLOW',
                         ['acction' => '#'],

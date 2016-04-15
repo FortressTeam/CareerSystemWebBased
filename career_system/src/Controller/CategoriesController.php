@@ -54,6 +54,7 @@ class CategoriesController extends AppController
             ->contain(['ParentCategories'])
             ->autoFields(true)
             ->where(['Categories.parent_id IS NOT' => null]);
+            dump($query);
         $categories = $this->paginate($query);
 
         $category = $this->Categories->newEntity();

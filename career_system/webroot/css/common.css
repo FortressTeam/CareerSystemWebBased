@@ -126,6 +126,9 @@ footer{
 	background: url('../img/home-bg.jpg') no-repeat fixed center center / cover;
 	position: relative;
 }
+#popular-searches{
+    background-color: #FFF;
+}
 .home-inner{
     display: table;
     padding-top: 100px;
@@ -147,6 +150,9 @@ footer{
     height: 200px;
     overflow: overlay;
     white-space: nowrap;
+}
+.dropdown-choose [class$="search-item"]{
+    cursor: pointer;
 }
 @media screen and (max-width: 767px){
 	.home-inner{
