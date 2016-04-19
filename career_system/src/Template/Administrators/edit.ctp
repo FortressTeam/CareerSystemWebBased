@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-head style-primary">
-                <header>Create a groups</header>
+            <div class="card-head">
+                <header>Edit administrator</header>
             </div>
             <div class="card-body">
-                <?= $this->Form->create($group, [
+                <?= $this->Form->create($administrator, [
                         'class' => 'form',
                         'templates' => [
                             'formGroup' => '{{input}}{{label}}',
@@ -15,8 +15,10 @@
                     ])
                 ?>
                 <?php
-                    echo $this->Form->input('group_name', ['class' => 'form-control']);
-                    echo $this->Form->input('group_description', ['class' => 'form-control']);
+                    echo $this->Form->input('administrator_name', ['class' => 'form-control']);
+                    echo $this->Form->input('administrator_phone_number', ['class' => 'form-control']);
+                    echo $this->Form->input('administrator_date_of_birth', ['class' => 'form-control', 'empty' => true]);
+                    echo $this->Form->input('administrator_address', ['class' => 'form-control']);
                 ?>
                 <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary btn-block']) ?>
                 <?= $this->Form->end() ?>

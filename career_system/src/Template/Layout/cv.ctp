@@ -21,8 +21,7 @@
     <!-- BEGIN META -->
     <?= $this->Html->charset() ?>
     <title>
-        <?= $this->fetch('title') ?> - 
-        <?= $cakeDescription ?>
+        Career System - CV online
     </title>
     <?= $this->Html->meta('icon') ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

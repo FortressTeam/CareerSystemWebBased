@@ -72,7 +72,8 @@ class HiringManagersController extends AppController
         $hiringManager = $this->HiringManagers->get($id, [
             'contain' => ['Users']
         ]);
-        $this->set('hiringManager', $hiringManager);
+        $editable = (int)$id === (int)$this->request->session()->read('Auth.User')['id'];
+        $this->set(compact('hiringManager', 'editable'));
         $this->set('_serialize', ['hiringManager']);
     }
 
@@ -129,15 +130,34 @@ class HiringManagersController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    // public function delete($id = null)
+    // {
+    //     $this->request->allowMethod(['post', 'delete']);
+    //     $hiringManager = $this->HiringManagers->get($id);
+    //     if ($this->HiringManagers->delete($hiringManager)) {
+    //         $this->Flash->success(__('The hiring manager has been deleted.'));
+    //     } else {
+    //         $this->Flash->error(__('The hiring manager could not be deleted. Please, try again.'));
+    //     }
+    //     return $this->redirect(['action' => 'index']);
+    // }
+
+    /**
+     * is authorized callback.
+     *
+     * @param $user
+     * @return void
+     */
+    public function isAuthorized($user)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $hiringManager = $this->HiringManagers->get($id);
-        if ($this->HiringManagers->delete($hiringManager)) {
-            $this->Flash->success(__('The hiring manager has been deleted.'));
-        } else {
-            $this->Flash->error(__('The hiring manager could not be deleted. Please, try again.'));
+        if (($this->request->action === 'index') || ($this->request->action === 'add')) {
+            if (isset($user['group_id']) && ($user['group_id'] == '1')) {
+                return true;
+            }
         }
-        return $this->redirect(['action' => 'index']);
+        else if ($this->request->action === 'view') {
+            return true;
+        }
+        return false;
     }
 }

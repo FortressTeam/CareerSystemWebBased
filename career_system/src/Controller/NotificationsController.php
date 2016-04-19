@@ -61,22 +61,22 @@ class NotificationsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
-        $notification = $this->Notifications->newEntity();
-        if ($this->request->is('post')) {
-            $notification = $this->Notifications->patchEntity($notification, $this->request->data);
-            if ($this->Notifications->save($notification)) {
-                $this->Flash->success(__('The notification has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The notification could not be saved. Please, try again.'));
-            }
-        }
-        $users = $this->Notifications->Users->find('list', ['limit' => 200]);
-        $this->set(compact('notification', 'users'));
-        $this->set('_serialize', ['notification']);
-    }
+    // public function add()
+    // {
+    //     $notification = $this->Notifications->newEntity();
+    //     if ($this->request->is('post')) {
+    //         $notification = $this->Notifications->patchEntity($notification, $this->request->data);
+    //         if ($this->Notifications->save($notification)) {
+    //             $this->Flash->success(__('The notification has been saved.'));
+    //             return $this->redirect(['action' => 'index']);
+    //         } else {
+    //             $this->Flash->error(__('The notification could not be saved. Please, try again.'));
+    //         }
+    //     }
+    //     $users = $this->Notifications->Users->find('list', ['limit' => 200]);
+    //     $this->set(compact('notification', 'users'));
+    //     $this->set('_serialize', ['notification']);
+    // }
 
     /**
      * Edit method
@@ -85,24 +85,24 @@ class NotificationsController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
-        $notification = $this->Notifications->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $notification = $this->Notifications->patchEntity($notification, $this->request->data);
-            if ($this->Notifications->save($notification)) {
-                $this->Flash->success(__('The notification has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The notification could not be saved. Please, try again.'));
-            }
-        }
-        $users = $this->Notifications->Users->find('list', ['limit' => 200]);
-        $this->set(compact('notification', 'users'));
-        $this->set('_serialize', ['notification']);
-    }
+    // public function edit($id = null)
+    // {
+    //     $notification = $this->Notifications->get($id, [
+    //         'contain' => []
+    //     ]);
+    //     if ($this->request->is(['patch', 'post', 'put'])) {
+    //         $notification = $this->Notifications->patchEntity($notification, $this->request->data);
+    //         if ($this->Notifications->save($notification)) {
+    //             $this->Flash->success(__('The notification has been saved.'));
+    //             return $this->redirect(['action' => 'index']);
+    //         } else {
+    //             $this->Flash->error(__('The notification could not be saved. Please, try again.'));
+    //         }
+    //     }
+    //     $users = $this->Notifications->Users->find('list', ['limit' => 200]);
+    //     $this->set(compact('notification', 'users'));
+    //     $this->set('_serialize', ['notification']);
+    // }
 
     /**
      * Delete method
@@ -123,6 +123,12 @@ class NotificationsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * is authorized callback.
+     *
+     * @param $user
+     * @return void
+     */
     public function isAuthorized(){
         return true;
     }

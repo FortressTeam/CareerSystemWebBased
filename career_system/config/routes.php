@@ -72,6 +72,16 @@ Router::scope('/', function (RouteBuilder $routes) {
         ['controller' => 'Applicants', 'action' => 'view'],
         ['id' => '\d+', 'pass' => ['id', 'slug']]
     );
+    Router::connect(
+        '/hiring-manager/:slug-:id',
+        ['controller' => 'HiringManagers', 'action' => 'view'],
+        ['id' => '\d+', 'pass' => ['id', 'slug']]
+    );
+    Router::connect(
+        '/administrator/:slug-:id',
+        ['controller' => 'Administrators', 'action' => 'view'],
+        ['id' => '\d+', 'pass' => ['id', 'slug']]
+    );
     /**
      * Connect catchall routes for all controllers.
      *

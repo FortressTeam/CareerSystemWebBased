@@ -1,18 +1,17 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-head style-primary">
-                <header>List Groups</header>
+            <div class="card-head">
+                <header>Groups</header>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table cellpadding="0" cellspacing="0" class="table table-condensed table-hover no-margin">
+                    <table cellpadding="0" cellspacing="0" class="table">
                         <thead>
                             <tr>
                                 <th><?= $this->Paginator->sort('id') ?></th>
                                 <th><?= $this->Paginator->sort('group_name') ?></th>
                                 <th><?= $this->Paginator->sort('description') ?></th>
-                                <th class="actions text-right"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,16 +20,6 @@
                                 <td><?= $this->Number->format($group->id) ?></td>
                                 <td><?= h($group->group_name) ?></td>
                                 <td><?= h($group->group_description) ?></td>
-                                <td class="actions text-right">
-                                <?= $this->Html->link(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View group"><i class="fa fa-info"></i></button>',
-                                    ['action' => 'view', $group->id],
-                                    ['escape' => false]) ?>
-                                <?= $this->Html->link(
-                                    '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Edit group"><i class="fa fa-pencil"></i></button>',
-                                    ['action' => 'edit', $group->id],
-                                    ['escape' => false]) ?>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
@@ -47,11 +36,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="fab_wrapper">
-        <?= $this->Html->link(
-            '<button class="btn btn_fab btn-primary"><i class="fa fa-plus"></i></button>',
-            ['action' => 'add'],
-            ['escape' => false]) ?>
     </div>
 </div>

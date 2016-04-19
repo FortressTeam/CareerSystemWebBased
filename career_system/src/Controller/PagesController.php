@@ -145,4 +145,15 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+
+    /**
+     * is authorized callback.
+     *
+     * @param $user
+     * @return void
+     */    
+    public function isAuthorized($user)
+    {
+        return true;
+    }
 }

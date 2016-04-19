@@ -160,4 +160,15 @@ class UsersController extends AppController
     {
         return $this->redirect($this->Auth->logout());
     }
+
+    /**
+     * is authorized callback.
+     *
+     * @param $user
+     * @return void
+     */    
+    public function isAuthorized($user)
+    {
+        return true;
+    }
 }

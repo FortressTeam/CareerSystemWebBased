@@ -41,7 +41,7 @@
                             <tr>
                                 <td><?= 
                                     $this->Html->link(h($post->post_title),
-                                    ['action' => 'view', 'slug' => $post->post_title, 'id' => $post->id],
+                                    ['action' => 'view', 'slug' => Cake\Utility\Inflector::slug($post->post_title), 'id' => $post->id],
                                     ['escape' => false]) ?></td>
                                 <td><?= $post->has('hiring_manager') ? $this->Html->link($post->hiring_manager->hiring_manager_name, ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id]) : '' ?></td>
                                 <td><?= h($post->post_date->format('d-M-y')) ?></td>
@@ -49,7 +49,7 @@
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View post"><i class="fa fa-info"></i></button>',
-                                    ['action' => 'view', 'slug' => $post->post_title, 'id' => $post->id],
+                                    ['action' => 'view', 'slug' => Cake\Utility\Inflector::slug($post->post_title), 'id' => $post->id],
                                     ['escape' => false]) ?>
                                 <?= $this->Html->link(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Edit post"><i class="fa fa-pencil"></i></button>',
@@ -73,6 +73,7 @@
             </div>
         </div>
     </div>
+    <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
     <div class="col-lg-12">
         <div class="row">
             <div class="col-md-3 col-sm-12">
@@ -113,6 +114,7 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>
     <div class="fab_wrapper">
         <?= $this->Html->link(
             '<button class="btn ink-reaction btn-floating-action btn-fix-bottom btn-lg btn-primary"><i class="fa fa-plus"></i></button>',

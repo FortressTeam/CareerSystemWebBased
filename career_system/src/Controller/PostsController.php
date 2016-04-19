@@ -49,11 +49,16 @@ class PostsController extends AppController
      */
     public function index()
     {
+        $loggedUser = $this->request->session()->read('Auth.User');
+        $conditions = [];
+        if(isset($loggedUser['id']) && isset($loggedUser['group_id']) && ($loggedUser['group_id'] == '2')){
+            $conditions = ['hiring_manager_id =' => $this->request->session()->read('Auth.User')['id']];
+        }
         $query = $this->Posts
             ->find('search', $this->Posts->filterParams($this->request->query))
             ->contain(['Categories', 'HiringManagers'])
             ->autoFields(true)
-            ->where(['post_title IS NOT' => null]);
+            ->where(['post_title IS NOT' => null, $conditions]);
         $posts = $this->paginate($query);
 
         $countCats = $this->Posts->Categories->find()->select([
@@ -78,7 +83,7 @@ class PostsController extends AppController
     public function view($id = null)
     {
         $post = $this->Posts->get($id, [
-            'contain' => ['Categories', 'HiringManagers', 'ApplicantsFollowPosts', 'PostsHasCurriculumVitaes']
+            'contain' => ['Categories', 'HiringManagers', 'ApplicantsFollowPosts', 'PostsHasCurriculumVitaes'],
         ]);
         $this->set(compact('post'));
         $this->set('_serialize', ['post']);
@@ -102,8 +107,7 @@ class PostsController extends AppController
             }
         }
         $categories = $this->Posts->Categories->find('list', ['limit' => 200]);
-        $hiringManagers = $this->Posts->HiringManagers->find('list', ['limit' => 200]);
-        $this->set(compact('post', 'categories', 'hiringManagers'));
+        $this->set(compact('post', 'categories'));
         $this->set('_serialize', ['post']);
     }
 
@@ -158,7 +162,7 @@ class PostsController extends AppController
      *
      * @param $user
      * @return void
-     */    
+     */
     public function isAuthorized($user)
     {
         if ($this->request->action === 'index') {

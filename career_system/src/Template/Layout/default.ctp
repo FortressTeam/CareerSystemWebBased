@@ -55,7 +55,7 @@ $cakeDescription = 'Career System: Something';
 <body class="menubar-hoverable header-fixed">
 
     <!-- BEGIN HEADER-->
-    <header id="header">
+    <header id="header" class="header<?= $loggedUser['group_id'] == '1' ? '-inverse' : ''?>">
         <div class="headerbar">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="headerbar-left">
@@ -68,7 +68,9 @@ $cakeDescription = 'Career System: Something';
                     <li class="header-nav-brand">
                         <div class="brand-holder">
                             <?= $this->Html->link(
-                                $this->Html->image('logo-mini.png') . 
+                                $this->Html->image(
+                                   $loggedUser['group_id'] == '1' ? 'logo-96-inverse.png' : 'logo-96.png'
+                                ) . 
                                 '<span class="text-lg text-bold text-primary website_name">CAREER SYSTEM</span>',
                                 ['controller' => '/'],
                                 ['escape' => false])
@@ -138,7 +140,7 @@ $cakeDescription = 'Career System: Something';
                                     else if(!empty($loggedUser['administrator'])){
                                         echo $this->Html->link(
                                             __('My profile'),
-                                            ['controller' => 'administrator', 'action' => 'view', $loggedUser['id']]
+                                            ['controller' => 'administrators', 'action' => 'view', $loggedUser['id']]
                                         );
 
                                     }
@@ -182,7 +184,7 @@ $cakeDescription = 'Career System: Something';
         <!-- END CONTENT -->
 
         <!-- BEGIN MENU BAR -->
-        <div id="menubar" class="menubar-inverse animate">
+        <div id="menubar" class="menubar<?= $loggedUser['group_id'] != '3' ? '-inverse' : ''?> animate">
             <div class="menubar-fixed-panel">
                 <div>
                     <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
@@ -208,6 +210,7 @@ $cakeDescription = 'Career System: Something';
                                 ['escape' => false]
                                 ) ?>
                         </li>
+                        <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1' || $loggedUser['group_id'] == '2')): ?>
                         <li class="gui-folder <?= $this->request->params['controller'] === 'Posts' || $this->request->params['controller'] === 'Categories' ? 'active' : '' ?>">
                             <a>
                                 <div class="gui-icon"><i class="fa fa-thumb-tack fa-fw"></i></div>
@@ -221,6 +224,7 @@ $cakeDescription = 'Career System: Something';
                                         ['escape' => false]
                                         ) ?>
                                 </li>
+                                <?php if($loggedUser['group_id'] == '2'): ?>
                                 <li>
                                     <?= $this->Html->link(
                                         '<span class="title">Add new</span>',
@@ -228,6 +232,7 @@ $cakeDescription = 'Career System: Something';
                                         ['escape' => false]
                                         ) ?>
                                 </li>
+                                <?php elseif($loggedUser['group_id'] == '1'): ?>
                                 <li>
                                     <?= $this->Html->link(
                                         '<span class="title">Categories</span>',
@@ -235,8 +240,11 @@ $cakeDescription = 'Career System: Something';
                                         ['escape' => false]
                                         ) ?>
                                 </li>
+                                <?php endif; ?>
                             </ul>
                         </li><!--end /menu-li -->
+                        <?php endif; ?>
+                        <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
                         <li class="gui-folder <?= $this->request->params['controller'] === 'HiringManagers' ? 'active' : '' ?>">
                             <a>
                                 <div class="gui-icon"><i class="fa fa-building-o fa-fw"></i></div>
@@ -259,6 +267,8 @@ $cakeDescription = 'Career System: Something';
                                 </li>
                             </ul>
                         </li><!--end /menu-li -->
+                        <?php endif; ?>
+                        <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
                         <li class="gui-folder <?= $this->request->params['controller'] === 'Applicants' ? 'active' : '' ?>">
                             <a>
                                 <div class="gui-icon"><i class="fa fa-male fa-fw"></i></div>
@@ -281,6 +291,8 @@ $cakeDescription = 'Career System: Something';
                                 </li>
                             </ul>
                         </li><!--end /menu-li -->
+                        <?php endif; ?>
+                        <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
                         <li class="<?= $this->request->params['controller'] === 'Feedbacks' ? 'active' : '' ?>">
                             <?= $this->Html->link(
                                 '<div class="gui-icon"><i class="fa fa-reply-all fa-fw"></i></div>
@@ -289,15 +301,17 @@ $cakeDescription = 'Career System: Something';
                                 ['escape' => false]
                                 ) ?>
                         </li><!--end /menu-li -->
+                        <?php endif; ?>
+                        <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '3')): ?>
                         <li class="gui-folder <?= $this->request->params['controller'] === 'CurriculumVitaes' ? 'active' : '' ?>">
                             <a>
                                 <div class="gui-icon"><i class="fa fa-file fa-fw"></i></div>
-                                <span class="title">My CVs</span>
+                                <span class="title">CV</span>
                             </a>
                             <ul>
                                 <li>
                                     <?= $this->Html->link(
-                                        '<span class="title">All CV</span>',
+                                        '<span class="title">My CV</span>',
                                         ['controller' => 'CurriculumVitaes', 'action' => 'index'],
                                         ['escape' => false]
                                         ) ?>
@@ -311,6 +325,7 @@ $cakeDescription = 'Career System: Something';
                                 </li>
                             </ul>
                         </li><!--end /menu-li -->
+                        <?php endif; ?>
                         <li>
                             <a href="#">
                                 <div class="gui-icon"><i class="fa fa-line-chart fa-fw"></i></div>

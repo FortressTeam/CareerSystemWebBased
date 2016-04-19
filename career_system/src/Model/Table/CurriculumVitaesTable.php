@@ -84,4 +84,15 @@ class CurriculumVitaesTable extends Table
         $rules->add($rules->existsIn(['curriculum_vitae_template_id'], 'CurriculumVitaeTemplates'));
         return $rules;
     }
+
+    /**
+     * Returns a boolean value to check if this post is owned by user.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function isOwnedBy($id, $user)
+    {
+        return $this->exists(['id' => $id, 'applicant_id' => $user]);
+    }
 }

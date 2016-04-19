@@ -39,7 +39,7 @@
                             <tr>
                                 <td><?= 
                                     $this->Html->link(h($applicant->applicant_name),
-                                    ['action' => 'view', 'slug' => $applicant->applicant_name, 'id' => $applicant->id],
+                                    ['action' => 'view', 'slug' => Cake\Utility\Inflector::slug($applicant->applicant_name), 'id' => $applicant->id],
                                     ['escape' => false]) ?></td>
                                 <td><?= $applicant->has('user') ? h($applicant->user->user_email) : '' ?></td>
                                 <td><?= h($applicant->applicant_phone_number) ?></td>
@@ -48,7 +48,7 @@
                                 <td class="actions text-right">
                                 <?= $this->Html->link(
                                     '<button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="View applicant"><i class="fa fa-info"></i></button>',
-                                    ['action' => 'view', $applicant->id],
+                                    ['action' => 'view', 'slug' => Cake\Utility\Inflector::slug($applicant->applicant_name), 'id' => $applicant->id],
                                     ['escape' => false]) ?>
                                 </td>
                             </tr>

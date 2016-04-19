@@ -26,7 +26,7 @@
 $(document).ready(function(){
     $('.cvcs-template').click(function(){
         var data = {
-            "applicant_id": 4,
+            "applicant_id": <?= $loggedUser['id'] ?>,
             "curriculum_vitae_template_id": $(this).attr('template-id')
         };
         var dataJSON = JSON.stringify(data);

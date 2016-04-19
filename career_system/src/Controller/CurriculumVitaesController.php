@@ -30,8 +30,13 @@ class CurriculumVitaesController extends AppController
      */
     public function index()
     {
+        $conditions = [];
+        if(isset($this->request->session()->read('Auth.User')['id'])){
+            $conditions = ['applicant_id =' => $this->request->session()->read('Auth.User')['id']];
+        }
         $this->paginate = [
-            'contain' => ['Applicants', 'CurriculumVitaeTemplates']
+            'contain' => ['Applicants', 'CurriculumVitaeTemplates'],
+            'conditions' => $conditions
         ];
         $curriculumVitaes = $this->paginate($this->CurriculumVitaes);
 
@@ -122,5 +127,30 @@ class CurriculumVitaesController extends AppController
             $this->Flash->error(__('The curriculum vitae could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * is authorized callback.
+     *
+     * @param $user
+     * @return void
+     */
+    public function isAuthorized($user)
+    {
+        if (($this->request->action === 'index') || ($this->request->action === 'add')) {
+            if (isset($user['group_id']) && ($user['group_id'] == '3')) {
+                return true;
+            }
+        }
+        else if ($this->request->action === 'view') {
+            return true;
+        }
+        else if (in_array($this->request->action, ['edit', 'delete'])) {
+            $cvId = (int)$this->request->params['pass'][0];
+            if ($this->CurriculumVitaes->isOwnedBy($cvId, $user['id'])) {
+                return true;
+            }
+        }
+        return false;
     }
 }

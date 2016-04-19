@@ -16,6 +16,8 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Database\Type; 
+Type::build('date')->setLocaleFormat('yyyy-MM-dd');
 
 /**
  * Application Controller

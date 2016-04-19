@@ -59,15 +59,15 @@ class SkillsController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
-        $skill = $this->Skills->get($id, [
-            'contain' => ['ApplicantsHasSkills']
-        ]);
+    // public function view($id = null)
+    // {
+    //     $skill = $this->Skills->get($id, [
+    //         'contain' => ['ApplicantsHasSkills']
+    //     ]);
 
-        $this->set('skill', $skill);
-        $this->set('_serialize', ['skill']);
-    }
+    //     $this->set('skill', $skill);
+    //     $this->set('_serialize', ['skill']);
+    // }
 
     /**
      * Add method
@@ -133,5 +133,18 @@ class SkillsController extends AppController
             $this->Flash->error(__('The skill could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+    
+    /**
+     * is authorized callback.
+     *
+     * @param $user
+     * @return void
+     */
+    public function isAuthorized($user)
+    {
+        if (isset($user['group_id']) && ($user['group_id'] == '1')) {
+            return true;
+        }
     }
 }

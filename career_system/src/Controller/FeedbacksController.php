@@ -95,4 +95,17 @@ class FeedbacksController extends AppController
             return $this->redirect($this->referer());
         }
     }
+
+    /**
+     * is authorized callback.
+     *
+     * @param $user
+     * @return void
+     */
+    public function isAuthorized($user)
+    {
+        if (isset($user['group_id']) && ($user['group_id'] == '1')) {
+            return true;
+        }
+    }
 }

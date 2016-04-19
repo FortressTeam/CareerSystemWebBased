@@ -118,6 +118,9 @@ footer{
 #menubar .menubar-scroll-panel{
     padding-top: 0;
 }
+.header-inverse .website_name{
+    color: #FFFFFF;
+}
 /* --------------------------------- */
 /* 4. Home Section Styles
  ----------------------------------- */
@@ -245,19 +248,10 @@ footer{
  ----------------------------------- */
 
 /* Float Action Button */
-/*.fab_wrapper{
-    z-index: 9999;
-    width: 100%;
-    height: 240px;
-    position: fixed;
-    right: 0px;
-    bottom: 0px;
-    pointer-events: none;
-}*/
 .btn-fix-bottom{
     right: 2ex;
     bottom: 2ex;
-    position: absolute;
+    position: fixed;
     pointer-events: all;
 }
 

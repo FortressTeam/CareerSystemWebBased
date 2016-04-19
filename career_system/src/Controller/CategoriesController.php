@@ -18,18 +18,6 @@ class CategoriesController extends AppController
     ];
 
     /**
-     * Before filter callback.
-     *
-     * @param \Cake\Event\Event $event The beforeRender event.
-     * @return void
-     */
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-        $this->Auth->allow('view');
-    }
-
-    /**
      * Initialize method
      *
      * @return \Cake\Network\Response|null
@@ -54,7 +42,7 @@ class CategoriesController extends AppController
             ->contain(['ParentCategories'])
             ->autoFields(true)
             ->where(['Categories.parent_id IS NOT' => null]);
-            dump($query);
+            
         $categories = $this->paginate($query);
 
         $category = $this->Categories->newEntity();
@@ -99,33 +87,6 @@ class CategoriesController extends AppController
             $this->Flash->error('The category could not be moved down. Please, try again.');
         }
         return $this->redirect($this->referer(['action' => 'index']));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Category id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $childCategories = $this->Categories->find('children', ['for' => $id]);        
-        foreach ($childCategories as $cat)
-        {
-            $conditions[] = $cat->id;
-        }
-        $conditions[] = $id;
-        $posts = $this->Categories->Posts->find('all', [
-            'conditions' => [
-                'Posts.category_id in' => $conditions,
-                'Posts.post_status >' => 0 
-                ],
-            'contain' => ['HiringManagers', 'Categories'],
-            'order' => ['Posts.post_date' => 'DESC']
-        ]);
-        $this->set(compact('posts'));
-        $this->set('_serialize', ['posts']);
     }
 
     /**
@@ -189,5 +150,18 @@ class CategoriesController extends AppController
             $this->Flash->error(__('The category could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * is authorized callback.
+     *
+     * @param $user
+     * @return void
+     */
+    public function isAuthorized($user)
+    {
+        if (isset($user['group_id']) && ($user['group_id'] == '1')) {
+            return true;
+        }
     }
 }

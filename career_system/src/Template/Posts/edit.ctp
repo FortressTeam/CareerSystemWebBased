@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-head style-primary">
+            <div class="card-head">
                 <header>Create a posts</header>
             </div>
             <div class="card-body">
@@ -26,58 +26,6 @@
                 ?>
                 <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary col-xs-12']) ?>
                 <?= $this->Form->end() ?>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-head style-primary">
-                <header>Control</header>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-xs-8">
-                        <h4><b>Active</b></h4>
-                    </div>
-                    <div class="col-xs-4">
-                        <?= $this->Form->button(
-                            $post->post_status ? 'ON' : 'OFF',
-                            [
-                                'type' => 'button',
-                                'class' => ($post->post_status ? 'btn-primary' : 'btn-default') . ' btn ink-reaction btn-block',
-                                'id' => 'buttonChangeStatus',
-                                'data-controller' => 'posts',
-                                'data-id' => $post->id,
-                                'data-field' => 'post_status',
-                                'data-value' => $post->post_status ? '0' : '1',
-                            ]
-                        ) ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-head style-danger">
-                <header>Danger Zone</header>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-xs-8">
-                        <h4><b>Delete this post</b></h4>
-                    </div>
-                    <div class="col-xs-4">
-                        <?= $this->Form->postLink(
-                                'Delete',
-                                ['action' => 'delete', $post->id],
-                                ['class' => 'btn ink-reaction btn-flat btn-danger col-xs-12', 'escape' => false, 'confirm' => __('Once you delete a applicant, there is no going back. Are you sure you want to delete # {0}?', $post->id)]
-                            )
-                        ?>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
