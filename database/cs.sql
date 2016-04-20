@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 20, 2016 at 03:52 PM
+-- Generation Time: Apr 20, 2016 at 05:42 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
 
 INSERT INTO `applicants` (`id`, `applicant_name`, `applicant_phone_number`, `applicant_date_of_birth`, `applicant_sex`, `applicant_address`, `applicant_about`, `applicant_marital_status`, `applicant_objective`, `applicant_website`, `applicant_status`, `major_id`) VALUES
 (4, 'Lê Công Quốc', '0969696969', '1994-06-09', 1, 'Son Tra District, Danang City, Vietnam', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 0, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 'careersystem.vn', 1, 12),
-(5, 'Huỳnh Kim Khoa', '0963935710', '1987-04-15', 1, 'Da Nang, Viet Nam', 'If you want to know more about a company, website, and a person, you’ll certainly go to their About page - which I always do. I love reading people''s about page especially those who are in the same industry as me. It''s always quite interesting to have a quick glimpse of who and what they are.', 1, 'While the About Page can be very informative, some websites go the extra mile and make their About page more than just a testimony of who they are.', 'www.kyler.com', 1, 54);
+(5, 'Huỳnh Kim Khoa', '0963935710', '1987-04-15', 1, 'Da Nang, Viet Nam', '1If you want to know more about a company, website, and a person, you’ll certainly go to their About page - which I always do. I love reading people''s about page especially those who are in the same industry as me. It''s always quite interesting to have a quick glimpse of who and what they are.', 1, 'While the About Page can be very informative, some websites go the extra mile and make their About page more than just a testimony of who they are.', 'www.kyler.com', 1, 54);
 
 -- --------------------------------------------------------
 
@@ -115,8 +115,8 @@ CREATE TABLE IF NOT EXISTS `applicants_has_hobbies` (
 
 INSERT INTO `applicants_has_hobbies` (`applicant_id`, `hobby_id`) VALUES
 (4, 1),
-(5, 1),
 (4, 2),
+(5, 2),
 (5, 3),
 (4, 4),
 (4, 5),
@@ -152,8 +152,7 @@ INSERT INTO `applicants_has_skills` (`applicant_id`, `skill_id`, `skill_level`) 
 (4, 412, 4),
 (5, 1, 4),
 (5, 2, 4),
-(5, 4, 3),
-(5, 633, 5);
+(5, 4, 3);
 
 -- --------------------------------------------------------
 
