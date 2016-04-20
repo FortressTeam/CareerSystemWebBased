@@ -24,10 +24,10 @@
                     echo $this->Form->input('applicant_country', ['class' => 'form-control']);
                     echo $this->Form->input('applicant_about', ['class' => 'form-control']);
                     echo $this->Form->input('applicant_marital_status', ['class' => 'form-control']);
-                    echo $this->Form->input('applicant_future_goals', ['class' => 'form-control']);
+                    echo $this->Form->input('applicant_objective', ['class' => 'form-control']);
                     echo $this->Form->input('applicant_website', ['class' => 'form-control']);
                     echo $this->Form->input('applicant_status', ['class' => 'form-control']);
-                    echo $this->Form->input('career_path_id', ['class' => 'form-control', 'options' => $careerPaths]);
+                    echo $this->Form->input('major_id', ['class' => 'form-control', 'options' => $majors]);
                 ?>
                 <?= $this->Form->button(__('Submit'), ['class' => 'btn ink-reaction btn-raised btn-primary btn-block']) ?>
                 <?= $this->Form->end() ?>

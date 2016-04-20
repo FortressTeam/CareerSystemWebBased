@@ -40,9 +40,9 @@
                     <div class="card-body">
                         <div id="aboutMePanel" class="animated fadeIn">
                             <span class="text-xl">I'm <b id="textName"><?= h($applicant->applicant_name) ?></b></span><br/>
-                            <span class="text-lg" id="textCareerPath"><?= $applicant->career_path->career_path_name ?></span><hr class="hr-mini" />
+                            <span class="text-lg" id="textMajor"><?= $applicant->major->major_name ?></span><hr class="hr-mini" />
                             <p id="textAbout"><?= h($applicant->applicant_about); ?></p>
-                            <p id="textFutureGoals"><?= h($applicant->applicant_future_goals); ?></p>
+                            <p id="textObjective"><?= h($applicant->applicant_objective); ?></p>
                         </div>
                         <div id="aboutMeForm" class="animated fadeIn" style="display: none">
                             <?= $this->Form->create($applicant, [
@@ -58,19 +58,19 @@
                                     'class' => 'form-control',
                                     'id' => 'inputName'
                                 ]);
-                                echo $this->Form->input('career_path_id', [
+                                echo $this->Form->input('major_id', [
                                     'class' => 'form-control',
-                                    'id' => 'inputCareerPath',
-                                    'options' => $careerPaths
+                                    'id' => 'inputMajor',
+                                    'options' => $majors
                                 ]);
                                 echo $this->Form->input('applicant_about', [
                                     'class' => 'form-control',
                                     'id' => 'inputAbout',
                                     'style' => 'height: 90px; overflow: hidden; resize: none'
                                 ]);
-                                echo $this->Form->input('applicant_future_goals', [
+                                echo $this->Form->input('applicant_objective', [
                                     'class' => 'form-control',
-                                    'id' => 'inputFutureGoals',
+                                    'id' => 'inputObjective',
                                     'style' => 'height: 90px; overflow: hidden; resize: none'
                                 ]);
                                 echo $this->Form->button(__('Save'), [

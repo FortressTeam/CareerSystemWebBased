@@ -14,7 +14,7 @@ class ApplicantsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['CareerPaths']
+            'contain' => ['Majors']
         ];
         $applicants = $this->paginate($this->Applicants);
 
@@ -26,7 +26,7 @@ class ApplicantsController extends AppController
     public function view($id = null)
     {
         $applicant = $this->Applicants->get($id, [
-            'contain' => ['CareerPaths', 'ApplicantsFollowPosts', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users', 'Skills', 'Hobbies']
+            'contain' => ['Majors', 'ApplicantsFollowPosts', 'AppointmentsHasApplicants', 'CurriculumVitaes', 'Follow', 'PersonalHistory', 'Users', 'Skills', 'Hobbies']
         ]);
 
         $this->set('applicant', $applicant);
@@ -48,7 +48,7 @@ class ApplicantsController extends AppController
             }
         }
         $applicant = $this->Applicants->get($id, [
-            'contain' => ['CareerPaths']
+            'contain' => ['Majors']
         ]);
         $this->set(compact('message', 'applicant'));
         $this->set('_serialize', ['message', 'applicant']);

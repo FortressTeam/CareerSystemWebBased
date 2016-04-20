@@ -51,7 +51,7 @@ class ApplicantsController extends AppController
     {
         $query = $this->Applicants
             ->find('search', $this->Applicants->filterParams($this->request->query))
-            ->contain(['Users','CareerPaths'])
+            ->contain(['Users','Majors'])
             ->autoFields(true)
             ->where(['applicant_name IS NOT' => null]);
         $applicants = $this->paginate($query);
@@ -70,10 +70,10 @@ class ApplicantsController extends AppController
     public function view($id = null)
     {
         $applicant = $this->Applicants->get($id, [
-            'contain' => ['CareerPaths', 'Users', 'PersonalHistory'],
+            'contain' => ['Majors', 'Users', 'PersonalHistory'],
         ]);
 
-        $careerPaths = $this->Applicants->CareerPaths->find('list');
+        $majors = $this->Applicants->Majors->find('list');
 
         $this->loadModel('Skills');
         $skills = $this->Skills->find('list');
@@ -82,7 +82,7 @@ class ApplicantsController extends AppController
 
         $editable = (int)$id === (int)$this->request->session()->read('Auth.User')['id'];
 
-        $this->set(compact('applicant', 'careerPaths', 'skills', 'hobbies', 'editable'));
+        $this->set(compact('applicant', 'majors', 'skills', 'hobbies', 'editable'));
         $this->set('_serialize', ['applicant']);
     }
 
@@ -103,8 +103,8 @@ class ApplicantsController extends AppController
                 $this->Flash->error(__('The applicant could not be saved. Please, try again.'));
             }
         }
-        $careerPaths = $this->Applicants->CareerPaths->find('list', ['limit' => 200]);
-        $this->set(compact('applicant', 'careerPaths'));
+        $majors = $this->Applicants->Majors->find('list', ['limit' => 200]);
+        $this->set(compact('applicant', 'majors'));
         $this->set('_serialize', ['applicant']);
     }
 
@@ -129,8 +129,8 @@ class ApplicantsController extends AppController
     //             $this->Flash->error(__('The applicant could not be saved. Please, try again.'));
     //         }
     //     }
-    //     $careerPaths = $this->Applicants->CareerPaths->find('list', ['limit' => 200]);
-    //     $this->set(compact('applicant', 'careerPaths'));
+    //     $majors = $this->Applicants->majors->find('list', ['limit' => 200]);
+    //     $this->set(compact('applicant', 'majors'));
     //     $this->set('_serialize', ['applicant']);
     // }
 

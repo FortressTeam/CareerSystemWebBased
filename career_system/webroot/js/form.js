@@ -174,8 +174,8 @@ $('.editable').find('#buttonEditAboutMe').click(function(){
 	var data ={
 	    "applicant_name": $('#inputName').val(),
 	    "applicant_about": $('#inputAbout').val(),
-	    "applicant_future_goals": $('#inputFutureGoals').val(),
-	    "career_path_id": $('#inputCareerPath').val(),
+	    "applicant_objective": $('#inputObjective').val(),
+	    "major_id": $('#inputMajor').val(),
 	};
 	var applicantId = $(this).data('id');
 	var formName = $(this).data('form');
@@ -189,9 +189,9 @@ $('.editable').find('#buttonEditAboutMe').click(function(){
 	    success: function(response){
 	        if(response['message'] == 'Saved'){
 	        	$('#textName').text(response['applicant']['applicant_name']);
-	        	$('#textCareerPath').text(response['applicant']['career_path']['career_path_name']);
+	        	$('#textMajor').text(response['applicant']['major']['major_name']);
 	        	$('#textAbout').text(response['applicant']['applicant_about']);
-	        	$('#textFutureGoals').text(response['applicant']['applicant_future_goals']);
+	        	$('#textObjective').text(response['applicant']['applicant_objective']);
 	        	closeForm(formName);
 	        }
 	    }

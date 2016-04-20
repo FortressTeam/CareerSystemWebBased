@@ -1,18 +1,18 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\CareerPath;
+use App\Model\Entity\Major;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * CareerPaths Model
+ * Majors Model
  *
  * @property \Cake\ORM\Association\HasMany $Applicants
  */
-class CareerPathsTable extends Table
+class MajorsTable extends Table
 {
 
     /**
@@ -25,12 +25,12 @@ class CareerPathsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('career_paths');
-        $this->displayField('career_path_name');
+        $this->table('majors');
+        $this->displayField('major_name');
         $this->primaryKey('id');
 
         $this->hasMany('Applicants', [
-            'foreignKey' => 'career_path_id'
+            'foreignKey' => 'major_id'
         ]);
     }
 
@@ -47,10 +47,10 @@ class CareerPathsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('career_path_name');
+            ->allowEmpty('major_name');
 
         $validator
-            ->allowEmpty('career_path_description');
+            ->allowEmpty('major_description');
 
         return $validator;
     }

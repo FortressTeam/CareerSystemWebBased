@@ -17,11 +17,11 @@ class CurriculumVitaesController extends AppController
 
         $this->loadModel('Applicants');
         $applicant = $this->Applicants->get($this->request->data['applicant_id'], [
-            'contain' => ['CareerPaths', 'PersonalHistory', 'Users', 'Skills', 'Hobbies']
+            'contain' => ['Majors', 'PersonalHistory', 'Users', 'Skills', 'Hobbies']
         ]);
         $data = [
             'cvdata' => [
-                "major" => $applicant->career_path->career_path_name,
+                "major" => $applicant->major->major_name,
                 "objective" => $applicant->applicant_future_goals,
                 "educations" => [],
                 "experiences" => [],

@@ -38,8 +38,8 @@ class ApplicantsTable extends Table
 
         $this->addBehavior('Search.Search');
 
-        $this->belongsTo('CareerPaths', [
-            'foreignKey' => 'career_path_id',
+        $this->belongsTo('Majors', [
+            'foreignKey' => 'major_id',
             'joinType' => 'INNER'
         ]);
         $this->hasMany('ApplicantsFollowPosts', [
@@ -83,7 +83,7 @@ class ApplicantsTable extends Table
                     $this->aliasField('applicant_date_of_birth'),
                     $this->aliasField('applicant_address'),
                     $this->aliasField('applicant_about'),
-                    $this->aliasField('applicant_future_goals'),
+                    $this->aliasField('applicant_objective'),
                     $this->aliasField('applicant_website')
                 ]
             ]);
@@ -133,8 +133,8 @@ class ApplicantsTable extends Table
             ->notEmpty('applicant_marital_status');
 
         $validator
-            ->requirePresence('applicant_future_goals', 'create')
-            ->notEmpty('applicant_future_goals');
+            ->requirePresence('applicant_objective', 'create')
+            ->notEmpty('applicant_objective');
 
         $validator
             ->allowEmpty('applicant_website');
@@ -156,7 +156,7 @@ class ApplicantsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['career_path_id'], 'CareerPaths'));
+        $rules->add($rules->existsIn(['major_id'], 'Majors'));
         return $rules;
     }
 }
