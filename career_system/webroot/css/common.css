@@ -229,16 +229,21 @@ footer{
     }
 }
 
-.title_post{
+.title-post{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.title_post>a{
+.title-post>a{
     white-space: nowrap;
     text-transform: uppercase;
 }
+.item-post{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 
-.post_content{
+.post-content{
     text-align: justify;
 }
 

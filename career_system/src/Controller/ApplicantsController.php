@@ -70,7 +70,16 @@ class ApplicantsController extends AppController
     public function view($id = null)
     {
         $applicant = $this->Applicants->get($id, [
-            'contain' => ['Majors', 'Users', 'PersonalHistory'],
+            'contain' => [
+                'Majors',
+                'Users',
+                'PersonalHistory',
+                'Follow' => function ($q) {
+                    $loggedUser = $this->request->session()->read('Auth.User');
+                    return $q
+                        ->where(['hiring_manager_id' => $loggedUser['id']]);
+                }
+            ],
         ]);
 
         $majors = $this->Applicants->Majors->find('list');

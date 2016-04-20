@@ -70,9 +70,24 @@ class HiringManagersController extends AppController
     public function view($id = null)
     {
         $hiringManager = $this->HiringManagers->get($id, [
-            'contain' => ['Users']
+            'contain' => [
+                'Users',
+                'Follow' => function ($q) {
+                    $loggedUser = $this->request->session()->read('Auth.User');
+                    return $q
+                        ->where(['applicant_id' => $loggedUser['id']]);
+                },
+                'Posts' => function ($q) {
+                    return $q
+                        ->where(['post_status' => 1])
+                        ->orderDesc('post_date')
+                        ->limit(4);
+                }
+            ]
         ]);
+
         $editable = (int)$id === (int)$this->request->session()->read('Auth.User')['id'];
+        
         $this->set(compact('hiringManager', 'editable'));
         $this->set('_serialize', ['hiringManager']);
     }

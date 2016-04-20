@@ -101,7 +101,7 @@
                                         <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle btn-block category-search-button" data-toggle="dropdown" aria-expanded="false">
                                             What <i class="fa fa-caret-down"></i>
                                         </button>
-                                        <ul class="dropdown-menu animation-expand dropdown-choose" role="menu">
+                                        <ul class="dropdown-menu animation-expand dropdown-choose col-xs-12" role="menu">
                                             <?php foreach ($categories as $index => $category): ?>
                                                 <li><a class="category-search-item" data-id=<?= $index ?>><?= $category ?></a></li>
                                             <?php endforeach; ?>
@@ -115,14 +115,73 @@
                                         <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false">
                                             Where <i class="fa fa-caret-down"></i>
                                         </button>
-                                        <ul class="dropdown-menu animation-expand dropdown-choose" role="menu">
-                                            <li><a class="location-search-item">Ha Noi</a></li>
-                                            <li><a class="location-search-item">Da Nang</a></li>
-                                            <li><a class="location-search-item">Ho CHi Minh City</a></li>
-                                            <li><a class="location-search-item">Binh Duong</a></li>
+                                        <ul class="dropdown-menu animation-expand dropdown-choose col-xs-12" role="menu">
+
                                             <li><a class="location-search-item">Can Tho</a></li>
+                                            <li><a class="location-search-item">Da Nang</a></li>
                                             <li><a class="location-search-item">Hai Phong</a></li>
+                                            <li><a class="location-search-item">Ha Noi</a></li>
+                                            <li><a class="location-search-item">TP HCM</a></li>
+                                            <li><a class="location-search-item">An Giang</a></li>
+                                            <li><a class="location-search-item">Ba Ria Vung Tau</a></li>
+                                            <li><a class="location-search-item">Bac Giang</a></li>
+                                            <li><a class="location-search-item">Bac Kan</a></li>
+                                            <li><a class="location-search-item">Bac Lieu</a></li>
+                                            <li><a class="location-search-item">Bac Ninh</a></li>
+                                            <li><a class="location-search-item">Ben Tre</a></li>
+                                            <li><a class="location-search-item">Binh Dinh</a></li>
+                                            <li><a class="location-search-item">Binh Duong</a></li>
+                                            <li><a class="location-search-item">Binh Phuoc</a></li>
+                                            <li><a class="location-search-item">Binh Thuan</a></li>
+                                            <li><a class="location-search-item">Ca Mau</a></li>
+                                            <li><a class="location-search-item">Cao Bang</a></li>
+                                            <li><a class="location-search-item">Dak Lak</a></li>
+                                            <li><a class="location-search-item">Dak Nong</a></li>
+                                            <li><a class="location-search-item">Dien Bien</a></li>
+                                            <li><a class="location-search-item">Dong Nai</a></li>
+                                            <li><a class="location-search-item">Dong Thap</a></li>
+                                            <li><a class="location-search-item">Gia Lai</a></li>
+                                            <li><a class="location-search-item">Ha Giang</a></li>
+                                            <li><a class="location-search-item">Ha Nam</a></li>
+                                            <li><a class="location-search-item">Ha Tinh</a></li>
+                                            <li><a class="location-search-item">Hai Duong</a></li>
+                                            <li><a class="location-search-item">Hau Giang</a></li>
+                                            <li><a class="location-search-item">Hoa Binh</a></li>
+                                            <li><a class="location-search-item">Hung Yen</a></li>
+                                            <li><a class="location-search-item">Khanh Hoa</a></li>
+                                            <li><a class="location-search-item">Kien Giang</a></li>
+                                            <li><a class="location-search-item">Kon Tum</a></li>
+                                            <li><a class="location-search-item">Lai Chau</a></li>
+                                            <li><a class="location-search-item">Lam Dong</a></li>
+                                            <li><a class="location-search-item">Lang Son</a></li>
+                                            <li><a class="location-search-item">Lao Cai</a></li>
+                                            <li><a class="location-search-item">Long An</a></li>
+                                            <li><a class="location-search-item">Nam Dinh</a></li>
+                                            <li><a class="location-search-item">Nghe An</a></li>
+                                            <li><a class="location-search-item">Ninh Binh</a></li>
+                                            <li><a class="location-search-item">Ninh Thuan</a></li>
+                                            <li><a class="location-search-item">Phu Tho</a></li>
+                                            <li><a class="location-search-item">Quang Binh</a></li>
+                                            <li><a class="location-search-item">Quang Nam</a></li>
+                                            <li><a class="location-search-item">Quang Ngai</a></li>
                                             <li><a class="location-search-item">Quang Ninh</a></li>
+                                            <li><a class="location-search-item">Quang Tri</a></li>
+                                            <li><a class="location-search-item">Soc Trang</a></li>
+                                            <li><a class="location-search-item">Son La</a></li>
+                                            <li><a class="location-search-item">Tay Ninh</a></li>
+                                            <li><a class="location-search-item">Thai Binh</a></li>
+                                            <li><a class="location-search-item">Thai Nguyen</a></li>
+                                            <li><a class="location-search-item">Thanh Hoa</a></li>
+                                            <li><a class="location-search-item">Thua Thien Hue</a></li>
+                                            <li><a class="location-search-item">Tien Giang</a></li>
+                                            <li><a class="location-search-item">Tra Vinh</a></li>
+                                            <li><a class="location-search-item">Tuyen Quang</a></li>
+                                            <li><a class="location-search-item">Vinh Long</a></li>
+                                            <li><a class="location-search-item">Vinh Phuc</a></li>
+                                            <li><a class="location-search-item">Yen Bai</a></li>
+                                            <li><a class="location-search-item">Phu Yen</a></li>
+
+
                                         </ul>
                                         <?= $this->Form->input('location_id', ['type' => 'hidden']);?>
                                     </div>

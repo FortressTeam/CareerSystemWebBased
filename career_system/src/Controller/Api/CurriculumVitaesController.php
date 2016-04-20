@@ -22,7 +22,7 @@ class CurriculumVitaesController extends AppController
         $data = [
             'cvdata' => [
                 "major" => $applicant->major->major_name,
-                "objective" => $applicant->applicant_future_goals,
+                "objective" => $applicant->applicant_objective,
                 "educations" => [],
                 "experiences" => [],
                 "activities" => [],

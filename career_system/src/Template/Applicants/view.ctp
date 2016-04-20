@@ -7,14 +7,27 @@
                         'user_img' . DS . $applicant->user->user_avatar,
                         ['class' => 'border-white border-xl img-responsive col-xs-12 no-padding', 'id' => 'companyImage']);
                     ?>
+                    <?php if($editable): ?>
                     <div class="btn btn-icon-toggle" id="buttonCompanyImage"><i class="fa fa-camera"></i></div>
                     <div class="hidden">
                         <?= $this->Form->input('user_img', ['type' => 'file', 'id' => 'imputCompanyImage']) ?>
                     </div>
+                    <?php endif; ?>
                 <?= $this->Form->end() ?>
-                <?= $this->Html->link( 'FOLLOW', [],
-                        ['class' => 'btn ink-reactio btn-block btn-raised btn-primary']
-                );?><br/>
+                <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '2')): ?>
+                <?php $followed = (isset($applicant->follow[0]->follow_applicant) && ($applicant->follow[0]->follow_applicant == '1')); ?>
+                <?= $this->Form->button(
+                    $followed ? 'UNFOLLOW' : 'FOLLOW',
+                    [
+                        'type' => 'button',
+                        'class' => ($followed ? 'btn-primary' : 'btn-default-light') . ' btn btn-raised ink-reaction btn-block',
+                        'id' => 'buttonFollowApplicant',
+                        'data-applicantid' => $applicant->id,
+                        'data-hiringManagerid' => $loggedUser['id'],
+                        'data-value' => $followed ? '0' : '1',
+                    ]
+                ) ?><br/>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -24,6 +37,7 @@
                 <div class="card editable">
                     <div class="card-head">
                         <header>About me</header>
+                        <?php if($editable): ?>
                         <div class="tools">
                             <div class="btn-group">
                                 <?= $this->Form->button('<i class="fa fa-pencil"></i>',
@@ -36,6 +50,7 @@
                                 ) ?>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <div id="aboutMePanel" class="animated fadeIn">
@@ -44,6 +59,7 @@
                             <p id="textAbout"><?= h($applicant->applicant_about); ?></p>
                             <p id="textObjective"><?= h($applicant->applicant_objective); ?></p>
                         </div>
+                        <?php if($editable): ?>
                         <div id="aboutMeForm" class="animated fadeIn" style="display: none">
                             <?= $this->Form->create($applicant, [
                                     'class' => 'form',
@@ -88,6 +104,7 @@
                                 echo $this->Form->end();
                             ?>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -95,6 +112,7 @@
                 <div class="card editable">
                     <div class="card-head">
                         <header>Personal information</header>
+                        <?php if($editable): ?>
                         <div class="tools">
                             <div class="btn-group">
                                 <?= $this->Form->button('<i class="fa fa-pencil"></i>',
@@ -107,6 +125,7 @@
                                 ) ?>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <div id="personalInfoPanel" class="animated fadeIn">
@@ -143,6 +162,7 @@
                                 </div>
                             </div>
                         </div>
+                        <?php if($editable): ?>
                         <div id="personalInfoForm" class="animated fadeIn padd-10" style="display: none">
                             <?= $this->Form->create($applicant, [
                                     'class' => 'form',
@@ -195,6 +215,7 @@
                                 echo $this->Form->end()
                             ?>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -322,6 +343,7 @@
                 <div class="card editable">
                     <div class="card-head">
                         <header>Skills</header>
+                        <?php if($editable): ?>
                         <div class="tools">
                             <div class="btn-group">
                                 <?= $this->Form->button('<i class="fa fa-pencil"></i>',
@@ -333,12 +355,14 @@
                                     [ 'escape' => false ]
                                 ) ?>
                             </div>
-                        </div>
+                        </div> 
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <div class="animated fadeIn">
                             <ul id="skillSlider" class="skill-graph" data-id="<?= $applicant->id ?>"></ul>
                         </div>
+                        <?php if($editable): ?>
                         <div  id="skillsForm" class="animated fadeIn" style="display: none">
                             <?= $this->Form->create($applicant, [
                                     'class' => 'form',
@@ -374,6 +398,7 @@
                                 echo $this->Form->end();
                             ?>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -381,6 +406,7 @@
                 <div class="card editable">
                     <div class="card-head">
                         <header>Hobbies</header>
+                        <?php if($editable): ?>
                         <div class="tools">
                             <div class="btn-group">
                                 <?= $this->Form->button('<i class="fa fa-pencil"></i>',
@@ -393,11 +419,13 @@
                                 ) ?>
                             </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <div class="animated fadeIn">
                             <div id="listHobbies" class="animated fadeIn" data-id="<?= $applicant->id ?>"></div>
                         </div>
+                        <?php if($editable): ?>
                         <div id="hobbiesForm" class="animated fadeIn" style="display: none">
                             <?= $this->Form->create($applicant, [
                                     'class' => 'form',
@@ -428,6 +456,7 @@
                                 echo $this->Form->end();
                             ?>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -435,8 +464,9 @@
     </div>
 </div>        
 
+<?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-md-9 col-md-offset-3">
         <div class="card">
             <div class="card-head style-primary">
                 <header>Control</header>
@@ -464,7 +494,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+<!--     <div class="col-sm-6">
         <div class="card">
             <div class="card-head style-danger">
                 <header>Danger Zone</header>
@@ -485,55 +515,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
+<?php endif; ?>
 <!-- <div class="applicants view large-9 medium-8 columns content">
-    <div class="related">
-        <h4><?= __('Related Applicants Follow Posts') ?></h4>
-        <?php if (!empty($applicant->applicants_follow_posts)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Applicant Id') ?></th>
-                <th><?= __('Post Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($applicant->applicants_follow_posts as $applicantsFollowPosts): ?>
-            <tr>
-                <td><?= h($applicantsFollowPosts->applicant_id) ?></td>
-                <td><?= h($applicantsFollowPosts->post_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'ApplicantsFollowPosts', 'action' => 'view', $applicantsFollowPosts->applicant_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'ApplicantsFollowPosts', 'action' => 'edit', $applicantsFollowPosts->applicant_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ApplicantsFollowPosts', 'action' => 'delete', $applicantsFollowPosts->applicant_id], ['confirm' => __('Are you sure you want to delete # {0}?', $applicantsFollowPosts->applicant_id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Applicants Has Hobbies') ?></h4>
-        <?php if (!empty($applicant->applicants_has_hobbies)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Applicant Id') ?></th>
-                <th><?= __('Hobby Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($applicant->applicants_has_hobbies as $applicantsHasHobbies): ?>
-            <tr>
-                <td><?= h($applicantsHasHobbies->applicant_id) ?></td>
-                <td><?= h($applicantsHasHobbies->hobby_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'ApplicantsHasHobbies', 'action' => 'view', $applicantsHasHobbies->applicant_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'ApplicantsHasHobbies', 'action' => 'edit', $applicantsHasHobbies->applicant_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'ApplicantsHasHobbies', 'action' => 'delete', $applicantsHasHobbies->applicant_id], ['confirm' => __('Are you sure you want to delete # {0}?', $applicantsHasHobbies->applicant_id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
     <div class="related">
         <h4><?= __('Related Appointments Has Applicants') ?></h4>
         <?php if (!empty($applicant->appointments_has_applicants)): ?>
@@ -553,31 +538,6 @@
                     <?= $this->Html->link(__('View'), ['controller' => 'AppointmentsHasApplicants', 'action' => 'view', $appointmentsHasApplicants->appointment_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'AppointmentsHasApplicants', 'action' => 'edit', $appointmentsHasApplicants->appointment_id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'AppointmentsHasApplicants', 'action' => 'delete', $appointmentsHasApplicants->appointment_id], ['confirm' => __('Are you sure you want to delete # {0}?', $appointmentsHasApplicants->appointment_id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Curriculum Vitaes') ?></h4>
-        <?php if (!empty($applicant->curriculum_vitaes)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Applicant Id') ?></th>
-                <th><?= __('Curriculum Vitae Template Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($applicant->curriculum_vitaes as $curriculumVitaes): ?>
-            <tr>
-                <td><?= h($curriculumVitaes->id) ?></td>
-                <td><?= h($curriculumVitaes->applicant_id) ?></td>
-                <td><?= h($curriculumVitaes->curriculum_vitae_template_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'CurriculumVitaes', 'action' => 'view', $curriculumVitaes->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'CurriculumVitaes', 'action' => 'edit', $curriculumVitaes->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'CurriculumVitaes', 'action' => 'delete', $curriculumVitaes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $curriculumVitaes->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -605,39 +565,6 @@
                     <?= $this->Html->link(__('View'), ['controller' => 'Follow', 'action' => 'view', $follow->hiring_manager_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Follow', 'action' => 'edit', $follow->hiring_manager_id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Follow', 'action' => 'delete', $follow->hiring_manager_id], ['confirm' => __('Are you sure you want to delete # {0}?', $follow->hiring_manager_id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
-        <h4><?= __('Related Personal History') ?></h4>
-        <?php if (!empty($applicant->personal_history)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Personal History Title') ?></th>
-                <th><?= __('Personal History Detail') ?></th>
-                <th><?= __('Personal History Start') ?></th>
-                <th><?= __('Personal History End') ?></th>
-                <th><?= __('Personal History Type Id') ?></th>
-                <th><?= __('Applicant Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($applicant->personal_history as $personalHistory): ?>
-            <tr>
-                <td><?= h($personalHistory->id) ?></td>
-                <td><?= h($personalHistory->personal_history_title) ?></td>
-                <td><?= h($personalHistory->personal_history_detail) ?></td>
-                <td><?= h($personalHistory->personal_history_start) ?></td>
-                <td><?= h($personalHistory->personal_history_end) ?></td>
-                <td><?= h($personalHistory->personal_history_type_id) ?></td>
-                <td><?= h($personalHistory->applicant_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'PersonalHistory', 'action' => 'view', $personalHistory->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'PersonalHistory', 'action' => 'edit', $personalHistory->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'PersonalHistory', 'action' => 'delete', $personalHistory->id], ['confirm' => __('Are you sure you want to delete # {0}?', $personalHistory->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

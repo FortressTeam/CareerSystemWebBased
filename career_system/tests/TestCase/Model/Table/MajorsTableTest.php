@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\CareerPathsTable;
+use App\Model\Table\MajorsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\CareerPathsTable Test Case
+ * App\Model\Table\MajorsTable Test Case
  */
-class CareerPathsTableTest extends TestCase
+class MajorsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\CareerPathsTable
+     * @var \App\Model\Table\MajorsTable
      */
-    public $CareerPaths;
+    public $Majors;
 
     /**
      * Fixtures
@@ -24,20 +24,32 @@ class CareerPathsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.career_paths',
+        'app.majors',
         'app.applicants',
         'app.applicants_follow_posts',
         'app.applicants_has_hobbies',
+        'app.hobbies',
         'app.applicants_has_skills',
+        'app.skills',
+        'app.skill_types',
         'app.appointments_has_applicants',
         'app.curriculum_vitaes',
-        'app.follow',
-        'app.personal_history',
         'app.users',
         'app.groups',
         'app.feedbacks',
         'app.feedback_types',
-        'app.notifications'
+        'app.notifications',
+        'app.hiring_managers',
+        'app.appointments',
+        'app.follow',
+        'app.posts',
+        'app.categories',
+        'app.posts_has_curriculum_vitaes',
+        'app.administrators',
+        'app.logs',
+        'app.curriculum_vitae_templates',
+        'app.personal_history',
+        'app.personal_history_types'
     ];
 
     /**
@@ -48,8 +60,8 @@ class CareerPathsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('CareerPaths') ? [] : ['className' => 'App\Model\Table\CareerPathsTable'];
-        $this->CareerPaths = TableRegistry::get('CareerPaths', $config);
+        $config = TableRegistry::exists('Majors') ? [] : ['className' => 'App\Model\Table\MajorsTable'];
+        $this->Majors = TableRegistry::get('Majors', $config);
     }
 
     /**
@@ -59,7 +71,7 @@ class CareerPathsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->CareerPaths);
+        unset($this->Majors);
 
         parent::tearDown();
     }

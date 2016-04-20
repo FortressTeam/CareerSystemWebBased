@@ -22,7 +22,7 @@
 	                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle btn-block category-search-button" data-toggle="dropdown" aria-expanded="false">
 	                                        What <i class="fa fa-caret-down"></i>
 	                                    </button>
-	                                    <ul class="dropdown-menu animation-expand dropdown-choose" role="menu">
+	                                    <ul class="dropdown-menu animation-expand dropdown-choose col-xs-12" role="menu">
 	                                        <?php foreach ($categories as $index => $category): ?>
 	                                            <li><a class="category-search-item" data-id=<?= $index ?>><?= $category ?></a></li>
 	                                        <?php endforeach; ?>
@@ -36,7 +36,7 @@
 	                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false">
 	                                        Where <i class="fa fa-caret-down"></i>
 	                                    </button>
-	                                    <ul class="dropdown-menu animation-expand dropdown-choose" role="menu">
+	                                    <ul class="dropdown-menu animation-expand dropdown-choose col-xs-12" role="menu">
 	                                        <li><a class="location-search-item">Ha Noi</a></li>
 	                                        <li><a class="location-search-item">Da Nang</a></li>
 	                                        <li><a class="location-search-item">Ho CHi Minh City</a></li>
@@ -101,16 +101,16 @@
 	                            </div>
 	                        </div>
 	                        <div class="col-xs-8">
-	                            <h4 class="text-primary title_post">
+	                            <h4 class="text-primary title-post">
 	                                <?= $this->Html->link(
 	                                    $post->post_title,
-	                                    ['controller' => 'posts', 'action' => 'view', $post->id])
+	                                    ['controller' => 'posts', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($post->post_title), 'id' => $post->id])
 	                                ?>
 	                            </h4>
-	                            <h5 class="text-primary title_post">
+	                            <h5 class="text-primary title-post">
 	                                <?= $this->Html->link(
 	                                    $post->hiring_manager->company_name,
-	                                    ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id],
+	                                    ['controller' => 'HiringManagers', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($post->hiring_manager->company_name), 'id' => $post->hiring_manager->id],
 	                                    ['escape' => false, 'class' => 'text-primary']);
 	                                ?>
 	                            </h5>
@@ -119,7 +119,7 @@
 	                                    <?php
 	                                        $start = date_create($post->post_date->format('Y-m-d'));
 	                                        $end = date_create(date("Y-m-d"));
-	                                        $date = date_diff($start, $end)->format('%d');
+	                                        $date = date_diff($start, $end)->format('%a');
 	                                        if($date < 1)
 	                                            echo 'Today';
 	                                        else if($date < 2)
@@ -136,11 +136,11 @@
 	                </div>
 	                <div class="card-body no-padding style-default-light">
 	                    <div class="row no-margin text-default-light">
-	                        <div class="col-xs-6">
+	                        <div class="col-xs-6 item-post">
 	                            <i class="fa fa-archive fa-fw" aria-hidden="true"></i> <?= $post->has('category') ? h($post->category->category_name) : '' ?><br/>
 	                            <i class="fa fa-phone fa-fw" aria-hidden="true"></i> <?= $post->has('hiring_manager') ? h($post->hiring_manager->hiring_manager_phone_number) : '' ?>
 	                        </div>
-	                        <div class="col-xs-6">
+	                        <div class="col-xs-6 item-post">
 	                            <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i> <?= $post->has('post_location') ? h($post->post_location) : '' ?><br/>
 	                            <i class="fa fa-usd fa-fw" aria-hidden="true"></i> <?= $post->has('post_salary') ? $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) : '' ?><br/>
 	                        </div>

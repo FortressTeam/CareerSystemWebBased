@@ -4,14 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * CareerPath Entity.
+ * Follow Entity.
  *
- * @property int $id
- * @property string $career_path_name
- * @property string $career_path_description
- * @property \App\Model\Entity\Applicant[] $applicants
+ * @property int $hiring_manager_id
+ * @property \App\Model\Entity\HiringManager $hiring_manager
+ * @property int $applicant_id
+ * @property \App\Model\Entity\Applicant $applicant
+ * @property bool $follow_hiring_manager
+ * @property bool $follow_applicant
  */
-class CareerPath extends Entity
+class Follow extends Entity
 {
 
     /**
@@ -25,6 +27,7 @@ class CareerPath extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false,
+        'hiring_manager_id' => true,
+        'applicant_id' => true,
     ];
 }

@@ -86,6 +86,123 @@ $('#buttonChangeStatus').click(function(){
 		}
 	});
 });
+$('#buttonFollowApplicant').click(function(){
+	var applicantId = $(this).data('applicantid');
+	var hiringManagerID = $(this).data('hiringmanagerid');
+	var value = $(this).data('value');
+	var data = {
+	    "applicant_id": applicantId,
+	    "hiring_manager_id": hiringManagerID,
+	    "follow_applicant": value
+	};
+	var dataJSON = JSON.stringify(data);
+	$.ajax({
+		type: 'POST',
+		url: $('#webInfo').data('url') + '/api/follow' ,
+		contentType: 'application/json',
+		dataType: 'json',
+		data: dataJSON,
+		success: function(data){
+			if(data['message'] == 'Saved'){
+				if(data['follow']['follow_applicant']){
+					$('#buttonFollowApplicant')
+						.html('UNFOLLOW')
+						.data('value', '0')
+						.removeClass('btn-default-light')
+						.addClass('btn-primary');
+				}
+				else{
+					$('#buttonFollowApplicant')
+						.html('FOLLOW')
+						.data('value', '1')
+						.removeClass('btn-primary')
+						.addClass('btn-default-light');
+				}
+			}
+		},
+		error: function(message){
+			console.log(message);
+		}
+	});
+});
+$('#buttonFollowHiringManager').click(function(){
+	var applicantId = $(this).data('applicantid');
+	var hiringManagerID = $(this).data('hiringmanagerid');
+	var value = $(this).data('value');
+	var data = {
+	    "applicant_id": applicantId,
+	    "hiring_manager_id": hiringManagerID,
+	    "follow_hiring_manager": value
+	};
+	var dataJSON = JSON.stringify(data);
+	$.ajax({
+		type: 'POST',
+		url: $('#webInfo').data('url') + '/api/follow' ,
+		contentType: 'application/json',
+		dataType: 'json',
+		data: dataJSON,
+		success: function(data){
+			if(data['message'] == 'Saved'){
+				if(data['follow']['follow_hiring_manager']){
+					$('#buttonFollowHiringManager')
+						.html('UNFOLLOW')
+						.data('value', '0')
+						.removeClass('btn-default-light')
+						.addClass('btn-primary');
+				}
+				else{
+					$('#buttonFollowHiringManager')
+						.html('FOLLOW')
+						.data('value', '1')
+						.removeClass('btn-primary')
+						.addClass('btn-default-light');
+				}
+			}
+		},
+		error: function(message){
+			console.log(message);
+		}
+	});
+});
+$('#buttonFollowPost').click(function(){
+	var applicantId = $(this).data('applicantid');
+	var postId = $(this).data('postid');
+	var value = $(this).data('value');
+	var data = {
+	    "applicant_id": applicantId,
+	    "post_id": postId,
+	    "follow_status": value
+	};
+	var dataJSON = JSON.stringify(data);
+	$.ajax({
+		type: 'POST',
+		url: $('#webInfo').data('url') + '/api/applicants_follow_posts' ,
+		contentType: 'application/json',
+		dataType: 'json',
+		data: dataJSON,
+		success: function(data){
+			if(data['message'] == 'Saved'){
+				if(data['applicantsFollowPost']['follow_status']){
+					$('#buttonFollowPost')
+						.html('UNFOLLOW')
+						.data('value', '0')
+						.removeClass('btn-default-light')
+						.addClass('btn-primary');
+				}
+				else{
+					$('#buttonFollowPost')
+						.html('FOLLOW')
+						.data('value', '1')
+						.removeClass('btn-primary')
+						.addClass('btn-default-light');
+				}
+			}
+		},
+		error: function(message){
+			console.log(message);
+		}
+	});
+});
 
 /* ------------------------------------------- */
 /* 1. Hiring manager
@@ -94,7 +211,7 @@ $('#buttonChangeStatus').click(function(){
 /* 1.1. Hiring manager: Company Infomation
  --------------------------------------------- */
 $('.editable').find('#buttonEditCompanyInfo').click(function(){
-	var data ={
+	var data = {
 		"hiring_manager_name": $('#inputManagerName').val(),
 		"hiring_manager_phone_number": $('#inputManagerPhone').val(),
 		"company_name": $('#inputName').val(),
@@ -267,6 +384,9 @@ function loadSkills(parent){
                     applicant: parent.data('id')
                 });
             });
+        },
+        error: function(message){
+        	console.log(message);
         }
     });
 }
@@ -319,6 +439,9 @@ function loadHobbies(parent){
                     applicant: parent.data('id')
                 });
             });
+        },
+        error: function(message){
+        	console.log(message);
         }
     });
 };

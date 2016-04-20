@@ -97,7 +97,7 @@
 
             <!-- BEGIN LIST SAMPLES -->
             <section>
-                <div class="section-body contain-lg">
+                <div class="section-body contain-md">
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
                 </div><!--end .section-body -->
@@ -236,6 +236,7 @@
         </div><!-- /.modal-dialog -->
     </div>
 
+    <span id="webInfo" data-url="<?= $this->Url->build(["controller" => "/"]); ?>"></span>
 
     <!-- BEGIN JAVASCRIPT -->
     <?= $this->Html->script('libs/jquery/jquery-migrate-1.2.1.min') ?>
@@ -245,6 +246,7 @@
     
     <!-- Put App.js last in your javascript imports -->
     <?= $this->Html->script('main') ?>
+    <?= $this->Html->script('form') ?>
     <?= $this->Html->script('app.min') ?>
 </body>
 </html>

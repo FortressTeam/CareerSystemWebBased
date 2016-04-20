@@ -54,6 +54,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/search', ['controller' => 'Pages', 'action' => 'search']);
+    $routes->connect('/signin', ['controller' => 'Users', 'action' => 'signin']);
     $routes->connect('/dashboard', ['controller' => 'Pages', 'action' => 'dashboard']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'home']);
 
@@ -103,6 +104,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 
 Router::prefix('api', function ($routes) {
     $routes->extensions(['json', 'xml']);
+    $routes->resources('Users');
     $routes->resources('HiringManagers');
     $routes->resources('Categories');
     $routes->resources('Posts', [
@@ -113,6 +115,8 @@ Router::prefix('api', function ($routes) {
            ]
         ]
     ]);
+    $routes->resources('Follow');
+    $routes->resources('ApplicantsFollowPosts');
     $routes->resources('Applicants');
     $routes->resources('ApplicantsHasSkills', [
         'map' => [
@@ -154,7 +158,6 @@ Router::prefix('api', function ($routes) {
            ]
        ]
     ]);
-    $routes->resources('Users');
     $routes->fallbacks('InflectedRoute');
 });
 

@@ -83,7 +83,16 @@ class PostsController extends AppController
     public function view($id = null)
     {
         $post = $this->Posts->get($id, [
-            'contain' => ['Categories', 'HiringManagers', 'ApplicantsFollowPosts', 'PostsHasCurriculumVitaes'],
+            'contain' => [
+                'Categories',
+                'HiringManagers',
+                'ApplicantsFollowPosts' => function ($q) {
+                    $loggedUser = $this->request->session()->read('Auth.User');
+                    return $q
+                        ->where(['applicant_id' => $loggedUser['id']]);
+                },
+                'PostsHasCurriculumVitaes'
+            ],
         ]);
         $this->set(compact('post'));
         $this->set('_serialize', ['post']);

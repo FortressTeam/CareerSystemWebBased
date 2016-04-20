@@ -7,19 +7,28 @@
                         'company_img' . DS . $hiringManager->company_logo,
                         ['class' => 'img-circle border-white border-xl img-responsive col-xs-12 no-padding', 'id' => 'companyImage']);
                     ?>
+                    <?php if($editable): ?>
                     <div class="btn btn-icon-toggle" id="buttonCompanyImage"><i class="fa fa-camera"></i></div>
                     <div class="hidden">
                         <?= $this->Form->input('company_image', ['type' => 'file', 'id' => 'imputCompanyImage']) ?>
                     </div>
+                    <?php endif; ?>
                 <?= $this->Form->end() ?>
 
-                <?= $this->Html->link(
-                        'FOLLOW',
-                        ['acction' => '#'],
-                        ['class' => 'btn ink-reactio btn-block btn-raised btn-primary']
-                    );
-                ?>
-                <br/>
+                <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '3')): ?>
+                <?php $followed = (isset($hiringManager->follow[0]->follow_hiring_manager) && ($hiringManager->follow[0]->follow_hiring_manager == '1')); ?>
+                <?= $this->Form->button(
+                    $followed ? 'UNFOLLOW' : 'FOLLOW',
+                    [
+                        'type' => 'button',
+                        'class' => ($followed ? 'btn-primary' : 'btn-default-light') . ' btn btn-raised ink-reaction btn-block',
+                        'id' => 'buttonFollowHiringManager',
+                        'data-applicantid' => $loggedUser['id'],
+                        'data-hiringManagerid' => $hiringManager->id,
+                        'data-value' => $followed ? '0' : '1',
+                    ]
+                ) ?><br/>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -27,6 +36,7 @@
         <div class="card editable">
             <div class="card-head">
                 <header>Company infomation</header>
+                <?php if($editable): ?>
                 <div class="tools">
                     <div class="btn-group">
                         <?= $this->Form->button('<i class="fa fa-pencil"></i>',
@@ -39,6 +49,7 @@
                         ) ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
             <div class="card-body">
                 <div id="companyInfoPanel" class="animated fadeIn row">
@@ -53,7 +64,7 @@
                         <br/><b>Email:</b> <i id="textEmail"><?= $hiringManager->company_email; ?></i>
                     </div>
                 </div>
-
+                <?php if($editable): ?>
                 <div id="companyInfoForm" class="animated fadeIn" style="display: none">
                     <?= $this->Form->create($hiringManager, [
                             'class' => 'form',
@@ -85,11 +96,13 @@
                     ]) ?>
                     <?= $this->Form->end() ?>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
         <div class="card editable">
             <div class="card-head">
                 <header>About company</header>
+                <?php if($editable): ?>
                 <div class="tools">
                     <div class="btn-group">
                         <?= $this->Form->button('<i class="fa fa-pencil"></i>',
@@ -102,12 +115,13 @@
                         ) ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
             <div class="card-body">
                 <div id="companyAboutPanel" class="animated fadeIn">
                     <i id="textAbout"><?= $hiringManager->company_about; ?></i>
                 </div>
-
+                <?php if($editable): ?>
                 <div id="companyAboutForm" class="animated fadeIn" style="display: none">
                     <?= $this->Form->create($hiringManager, [
                             'class' => 'form',
@@ -134,51 +148,84 @@
                     ]) ?>
                     <?= $this->Form->end() ?>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <h2 class="text-primary">Posts</h2>
-        <hr/>
-        <?php foreach ($hiringManager->posts as $post): ?>
-        <div class="col-sm-6 animated fadeInUp">
-            <div class="card card-underline">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xs-5 row-centered">
-                            <div class="col-xs-12">
-                                <?= $this->Html->image(
-                                    'company_img' . DS . $hiringManager->company_logo,
-                                    ['class' => 'img-circle border-gray border-xl img-responsive'])
-                                ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="text-primary">Posts</h2>
+                <div class="row">
+                    <?php foreach ($hiringManager->posts as $post): ?>
+                    <div class="col-lg-6 animated zoomIn">
+                        <div class="card card-underline">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xs-4 row-centered">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <?= $this->Html->image(
+                                                    'company_img' . DS . $hiringManager->company_logo,
+                                                    ['class' => 'img-circle border-gray border-xl img-responsive'])
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <h4 class="text-primary title-post">
+                                            <?= $this->Html->link(
+                                                $post->post_title,
+                                                ['controller' => 'posts', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($post->post_title), 'id' => $post->id])
+                                            ?>
+                                        </h4>
+                                        <h5 class="text-primary title-post">
+                                            <?= $this->Html->link(
+                                                $hiringManager->company_name,
+                                                ['controller' => 'HiringManagers', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($hiringManager->company_name), 'id' => $hiringManager->id],
+                                                ['escape' => false, 'class' => 'text-primary']);
+                                            ?>
+                                        </h5>
+                                        <div class="row no-margin">
+                                            <div class="col-sx-12 text-default-light"> 
+                                                <?php
+                                                    $start = date_create($post->post_date->format('Y-m-d'));
+                                                    $end = date_create(date("Y-m-d"));
+                                                    $date = date_diff($start, $end)->format('%a');
+                                                    if($date < 1)
+                                                        echo 'Today';
+                                                    else if($date < 2)
+                                                        echo 'Yesterday';
+                                                    else if($date < 30)
+                                                        echo $date, ' days ago';
+                                                    else
+                                                        echo $post->post_date->format('d-M-Y');
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-xs-7 ">
-                            <h4 class="text-primary title_post">
-                                <?= $this->Html->link(
-                                    $post->post_title,
-                                    ['controller' => 'posts', 'action' => 'view', $post->id])
-                                ?>
-                            </h4>
-                            <div class="row">
-                                <div class="col-sx-12"> 
-                                    <i class="fa fa-calendar"></i> <?= h($post->post_date->format('d-M-Y')) ?><br/>
-                                    <i class="fa fa-map-marker"></i> <?= $post->has('post_location') ? h($post->post_location) : '' ?><br/>
-                                    <i class="fa fa-usd"></i> <?= $post->has('post_salary') ? $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) : '' ?><br/>
+                            <div class="card-body no-padding style-default-light">
+                                <div class="row no-margin text-default-light">
+                                    <div class="col-xs-6 item-post">
+                                        <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i> <?= $post->has('post_location') ? h($post->post_location) : '' ?><br/>
+                                    </div>
+                                    <div class="col-xs-6 item-post">
+                                        <i class="fa fa-usd fa-fw" aria-hidden="true"></i> <?= $post->has('post_salary') ? $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) : '' ?><br/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
-        <?php endforeach; ?>
     </div>
 </div>
+
+<?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-md-9 col-md-offset-3">
         <div class="card">
             <div class="card-head style-primary">
                 <header>Control</header>
@@ -206,7 +253,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6">
+<!--     <div class="col-lg-6">
         <div class="card">
             <div class="card-head style-danger">
                 <header>Danger Zone</header>
@@ -227,10 +274,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
-<div class="hiringManagers view large-9 medium-8 columns content">
-<!--     <div class="related">
+<?php endif; ?>
+
+
+<!--<div class="hiringManagers view large-9 medium-8 columns content">
+     <div class="related">
         <h4><?= __('Related Appointments') ?></h4>
         <?php if (!empty($hiringManager->appointments)): ?>
         <table cellpadding="0" cellspacing="0">
@@ -265,31 +315,4 @@
         </table>
         <?php endif; ?>
     </div>
-    <div class="related">
-        <h4><?= __('Related Follow') ?></h4>
-        <?php if (!empty($hiringManager->follow)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Hiring Manager Id') ?></th>
-                <th><?= __('Applicant Id') ?></th>
-                <th><?= __('Follow Hiring Manager') ?></th>
-                <th><?= __('Follow Applicant') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($hiringManager->follow as $follow): ?>
-            <tr>
-                <td><?= h($follow->hiring_manager_id) ?></td>
-                <td><?= h($follow->applicant_id) ?></td>
-                <td><?= h($follow->follow_hiring_manager) ?></td>
-                <td><?= h($follow->follow_applicant) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Follow', 'action' => 'view', $follow->hiring_manager_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Follow', 'action' => 'edit', $follow->hiring_manager_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Follow', 'action' => 'delete', $follow->hiring_manager_id], ['confirm' => __('Are you sure you want to delete # {0}?', $follow->hiring_manager_id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div> -->
 </div>

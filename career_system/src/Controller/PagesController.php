@@ -91,7 +91,7 @@ class PagesController extends AppController
             ->find('search', $this->Posts->filterParams($this->request->query))
             ->contain(['HiringManagers', 'Categories'])
             ->autoFields(true)
-            ->where(['post_title IS NOT' => null])
+            ->where(['post_title IS NOT' => null, 'post_status' => '1'])
             ->order(['Posts.post_date' => 'DESC']);
         $posts = $this->paginate($query);
 
