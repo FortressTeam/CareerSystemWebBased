@@ -76,6 +76,16 @@ class PagesController extends AppController
     public function dashboard()
     {
 
+        $this->loadModel('Categories');
+        $categories = $this->Categories->find('list', [
+            'conditions' => ['parent_id IS NOT' => NULL],
+            'order' => ['category_name' => 'ASC']
+        ]);
+
+        $locations = ['Can Tho', 'Da Nang', 'Hai Phong', 'Ha Noi', 'TP HCM', 'An Giang', 'Ba Ria Vung Tau', 'Bac Giang', 'Bac Kan', 'Bac Lieu', 'Bac Ninh', 'Ben Tre', 'Binh Dinh', 'Binh Duong', 'Binh Phuoc', 'Binh Thuan', 'Ca Mau', 'Cao Bang', 'Dak Lak', 'Dak Nong', 'Dien Bien', 'Dong Nai', 'Dong Thap', 'Gia Lai', 'Ha Giang', 'Ha Nam', 'Ha Tinh', 'Hai Duong', 'Hau Giang', 'Hoa Binh', 'Hung Yen', 'Khanh Hoa', 'Kien Giang', 'Kon Tum', 'Lai Chau', 'Lam Dong', 'Lang Son', 'Lao Cai', 'Long An', 'Nam Dinh', 'Nghe An', 'Ninh Binh', 'Ninh Thuan', 'Phu Tho', 'Quang Binh', 'Quang Nam', 'Quang Ngai', 'Quang Ninh', 'Quang Tri', 'Soc Trang', 'Son La', 'Tay Ninh', 'Thai Binh', 'Thai Nguyen', 'Thanh Hoa', 'Thua Thien Hue', 'Tien Giang', 'Tra Vinh', 'Tuyen Quang', 'Vinh Long', 'Vinh Phuc', 'Yen Bai', 'Phu Yen'];
+
+        $this->set(compact('categories', 'locations'));
+        $this->set('_serialize', ['categories', 'locations']);
     }
 
 

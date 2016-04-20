@@ -175,7 +175,7 @@ $cakeDescription = 'Career System: Something';
 
             <!-- BEGIN LIST SAMPLES -->
             <section>
-                <div class="section-body contain-lg">
+                <div class="section-body contain-md">
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
                 </div><!--end .section-body -->

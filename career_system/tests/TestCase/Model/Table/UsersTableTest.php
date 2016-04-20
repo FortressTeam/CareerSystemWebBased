@@ -27,6 +27,7 @@ class UsersTableTest extends TestCase
         'app.users',
         'app.groups',
         'app.feedbacks',
+        'app.feedback_types',
         'app.notifications'
     ];
 

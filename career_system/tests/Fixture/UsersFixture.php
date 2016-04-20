@@ -25,6 +25,7 @@ class UsersFixture extends TestFixture
         'user_status' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'user_activation_key' => ['type' => 'string', 'length' => 10, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'user_avatar' => ['type' => 'string', 'length' => 1024, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'user_android_token' => ['type' => 'string', 'length' => 128, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'group_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'fk_cs_users_cs_groups1_idx' => ['type' => 'index', 'columns' => ['group_id'], 'length' => []],
@@ -53,10 +54,11 @@ class UsersFixture extends TestFixture
             'username' => 'Lorem ipsum dolor sit amet',
             'password' => 'Lorem ipsum dolor sit amet',
             'user_email' => 'Lorem ipsum dolor sit amet',
-            'user_registered' => '2016-03-16',
+            'user_registered' => '2016-04-20',
             'user_status' => 1,
             'user_activation_key' => 'Lorem ip',
             'user_avatar' => 'Lorem ipsum dolor sit amet',
+            'user_android_token' => 'Lorem ipsum dolor sit amet',
             'group_id' => 1
         ],
     ];

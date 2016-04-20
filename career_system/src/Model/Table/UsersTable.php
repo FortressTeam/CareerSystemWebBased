@@ -93,6 +93,9 @@ class UsersTable extends Table
         $validator
             ->allowEmpty('user_avatar');
 
+        $validator
+            ->allowEmpty('user_android_token');
+
         return $validator;
     }
 

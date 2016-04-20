@@ -6,7 +6,7 @@
 	                <div class="card-body">
 	                    <?php 
 	                        echo $this->Form->create('', [
-	                            'url' => ['controller' => 'Pages', 'action' => 'search'],
+	                            'url' => ['controller' => 'Search', 'action' => 'index'],
 	                            'class' => 'form',
 	                            'templates' => [
 	                            'formGroup' => '{{input}}{{label}}',
