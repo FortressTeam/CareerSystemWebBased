@@ -176,7 +176,7 @@ $('#buttonFollowPost').click(function(){
 	var dataJSON = JSON.stringify(data);
 	$.ajax({
 		type: 'POST',
-		url: $('#webInfo').data('url') + '/api/applicants_follow_posts' ,
+		url: $('#webInfo').data('url') + '/api/applicants_follow_posts',
 		contentType: 'application/json',
 		dataType: 'json',
 		data: dataJSON,

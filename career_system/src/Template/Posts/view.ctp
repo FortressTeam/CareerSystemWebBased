@@ -60,7 +60,7 @@
                         ?>
                         <?= $this->Html->link(
                                 '<h3>' . $post->hiring_manager->company_name . '</h3>',
-                                ['controller' => 'HiringManagers', 'action' => 'view', $post->hiring_manager->id],
+                                ['controller' => 'HiringManagers', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($post->hiring_manager->company_name), 'id' => $post->hiring_manager->id],
                                 ['escape' => false, 'class' => 'text-primary']);
                         ?>
                     </div>

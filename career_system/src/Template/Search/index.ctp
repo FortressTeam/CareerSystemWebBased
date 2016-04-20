@@ -6,7 +6,7 @@
 	                <div class="card-body">
 	                    <?php 
 	                        echo $this->Form->create('', [
-	                            'url' => ['controller' => 'Pages', 'action' => 'search'],
+                                'url' => ['controller' => 'Search', 'action' => 'index'],
 	                            'class' => 'form',
 	                            'templates' => [
 	                            'formGroup' => '{{input}}{{label}}',
@@ -14,7 +14,7 @@
 	                        ]
 	                        ]); ?>
 	                    <?= $this->Form->input('q', ['label' => '', 'class' => 'form-control', 'placeholder' => 'Enter keyword to search']); ?>
-	                    <?= $this->Form->input('limit', ['type' => 'hidden', 'value' => 15]); ?>
+	                    <?= $this->Form->input('limit', ['type' => 'hidden', 'value' => 9]); ?>
 	                    <div class="form-group public-search">
 	                        <div class="row">
 	                            <div class="col-md-6 col-lg-5">
@@ -23,6 +23,7 @@
 	                                        What <i class="fa fa-caret-down"></i>
 	                                    </button>
 	                                    <ul class="dropdown-menu animation-expand dropdown-choose col-xs-12" role="menu">
+                                        	<li><a class="category-search-item" data-id="">All</a></li>
 	                                        <?php foreach ($categories as $index => $category): ?>
 	                                            <li><a class="category-search-item" data-id=<?= $index ?>><?= $category ?></a></li>
 	                                        <?php endforeach; ?>
@@ -36,16 +37,13 @@
 	                                    <button type="button" class="btn ink-reaction btn-raised btn-primary dropdown-toggle btn-block" data-toggle="dropdown" aria-expanded="false">
 	                                        Where <i class="fa fa-caret-down"></i>
 	                                    </button>
-	                                    <ul class="dropdown-menu animation-expand dropdown-choose col-xs-12" role="menu">
-	                                        <li><a class="location-search-item">Ha Noi</a></li>
-	                                        <li><a class="location-search-item">Da Nang</a></li>
-	                                        <li><a class="location-search-item">Ho CHi Minh City</a></li>
-	                                        <li><a class="location-search-item">Binh Duong</a></li>
-	                                        <li><a class="location-search-item">Can Tho</a></li>
-	                                        <li><a class="location-search-item">Hai Phong</a></li>
-	                                        <li><a class="location-search-item">Quang Ninh</a></li>
-	                                    </ul>
-	                                    <?= $this->Form->input('location_id', ['type' => 'hidden']);?>
+                                        <ul class="dropdown-menu animation-expand dropdown-choose col-xs-12" role="menu">
+                                        	<li><a class="location-search-item" data-id="">All</a></li>
+                                            <?php foreach ($locations as $location): ?>
+                                                <li><a class="location-search-item" data-id="<?= $location ?>"><?= $location ?></a></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+	                                    <?= $this->Form->input('location', ['type' => 'hidden']);?>
 	                                </div>
 	                            </div> 
 	                            <!-- Location Button -->

@@ -61,6 +61,13 @@ class PostsTable extends Table
                     $this->aliasField('post_title'),
                     $this->aliasField('post_content')
                 ]
+            ])
+            ->add('location', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'field' => [
+                    $this->aliasField('post_location')
+                ]
             ]);
     }
 
