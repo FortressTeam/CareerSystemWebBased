@@ -13,7 +13,7 @@ class AdministratorsController extends AppController
 {
 
     public $paginate = [
-        'order' => ['Applicants.id' => 'DESC'],
+        'order' => ['Administrators.id' => 'DESC'],
         'limit' => 10
     ];
 

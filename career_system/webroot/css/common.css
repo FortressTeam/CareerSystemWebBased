@@ -259,7 +259,11 @@ footer{
     position: fixed;
     pointer-events: all;
 }
-
+.company-about{
+    line-height: 3.5ex;
+    height: 28ex;
+    overflow: hidden;
+}
 /* --------------------------------- */
 /* 6. Editable Panel
  ----------------------------------- */

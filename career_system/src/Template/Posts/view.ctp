@@ -92,7 +92,7 @@
                         <br/><b>Address:</b> <i><?= $post->has('hiring_manager') ? $post->hiring_manager->company_address : ''; ?></i>
                         <br/><b>Contact:</b> <i><?= $post->has('hiring_manager') ? $post->hiring_manager->hiring_manager_name : ''; ?></i>
                         <br/><b>Phone number:</b> <i><?= $post->has('hiring_manager') ? $post->hiring_manager->hiring_manager_phone_number : ''; ?></i>
-                        <br/><b>About: </b><i><?= $post->has('hiring_manager') ? $post->hiring_manager->company_about : ''; ?></i>
+                        <br/><div class="company-about"><b>About: </b><?= $post->has('hiring_manager') ? $post->hiring_manager->company_about : ''; ?></div>
                     </div>
                 </div>
             </div>
