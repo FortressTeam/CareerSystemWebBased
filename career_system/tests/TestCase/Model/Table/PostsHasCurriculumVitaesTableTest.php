@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\NotificationsTable;
+use App\Model\Table\PostsHasCurriculumVitaesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\NotificationsTable Test Case
+ * App\Model\Table\PostsHasCurriculumVitaesTable Test Case
  */
-class NotificationsTableTest extends TestCase
+class PostsHasCurriculumVitaesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\NotificationsTable
+     * @var \App\Model\Table\PostsHasCurriculumVitaesTable
      */
-    public $Notifications;
+    public $PostsHasCurriculumVitaes;
 
     /**
      * Fixtures
@@ -24,33 +24,32 @@ class NotificationsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.notifications',
-        'app.notification_objects',
-        'app.users',
-        'app.groups',
-        'app.feedbacks',
-        'app.feedback_types',
-        'app.applicants',
-        'app.majors',
-        'app.applicants_follow_posts',
+        'app.posts_has_curriculum_vitaes',
         'app.posts',
         'app.categories',
         'app.hiring_managers',
         'app.appointments',
         'app.follow',
-        'app.posts_has_curriculum_vitaes',
-        'app.curriculum_vitaes',
-        'app.curriculum_vitae_templates',
+        'app.applicants',
+        'app.majors',
+        'app.applicants_follow_posts',
         'app.applicants_has_hobbies',
         'app.hobbies',
         'app.applicants_has_skills',
         'app.skills',
         'app.skill_types',
         'app.appointments_has_applicants',
-        'app.personal_history',
-        'app.personal_history_types',
+        'app.curriculum_vitaes',
+        'app.users',
+        'app.groups',
+        'app.feedbacks',
+        'app.feedback_types',
+        'app.notifications',
         'app.administrators',
-        'app.logs'
+        'app.logs',
+        'app.curriculum_vitae_templates',
+        'app.personal_history',
+        'app.personal_history_types'
     ];
 
     /**
@@ -61,8 +60,8 @@ class NotificationsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Notifications') ? [] : ['className' => 'App\Model\Table\NotificationsTable'];
-        $this->Notifications = TableRegistry::get('Notifications', $config);
+        $config = TableRegistry::exists('PostsHasCurriculumVitaes') ? [] : ['className' => 'App\Model\Table\PostsHasCurriculumVitaesTable'];
+        $this->PostsHasCurriculumVitaes = TableRegistry::get('PostsHasCurriculumVitaes', $config);
     }
 
     /**
@@ -72,7 +71,7 @@ class NotificationsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Notifications);
+        unset($this->PostsHasCurriculumVitaes);
 
         parent::tearDown();
     }

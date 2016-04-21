@@ -82,6 +82,18 @@ class PostsController extends AppController
      */
     public function view($id = null)
     {
+        $loggedUser = $this->request->session()->read('Auth.User');
+        
+        $applicantCVConditions = [];
+        if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '3')){
+            $applicantCVConditions = function ($q) {
+                $loggedUser = $this->request->session()->read('Auth.User');
+                return $q
+                    ->contain(['CurriculumVitaes'])
+                    ->where(['CurriculumVitaes.applicant_id' => $loggedUser['id']]);
+            };
+        }
+        
         $post = $this->Posts->get($id, [
             'contain' => [
                 'Categories',
@@ -91,11 +103,25 @@ class PostsController extends AppController
                     return $q
                         ->where(['applicant_id' => $loggedUser['id']]);
                 },
-                'PostsHasCurriculumVitaes'
+                'CurriculumVitaes' => function($q){
+                    return $q
+                        ->select(['id', 'curriculum_vitae_name']);
+                },
+                'PostsHasCurriculumVitaes' => $applicantCVConditions
             ],
         ]);
-        $this->set(compact('post'));
-        $this->set('_serialize', ['post']);
+
+        $loggedUser = $this->request->session()->read('Auth.User');
+        $curriculumVitaes = $this->Posts->CurriculumVitaes->find('all', [
+            'fields' => ['id', 'applicant_id', 'curriculum_vitae_name', 'CurriculumVitaeTemplates.curriculum_vitae_template_image'],
+            'contain' => ['CurriculumVitaeTemplates'],
+            'conditions' => ['applicant_id' => $loggedUser['id']]
+        ]);
+
+        $editable = $this->Posts->isOwnedBy($id, $loggedUser['id']);
+
+        $this->set(compact('post', 'curriculumVitaes', 'editable'));
+        $this->set('_serialize', ['post', 'curriculumVitaes', 'editable']);
     }
 
     /**

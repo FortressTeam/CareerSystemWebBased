@@ -48,7 +48,8 @@
                                 __('template_img/' . $curriculumVitaeTemplate->curriculum_vitae_template_image),
                                 [
                                     'class' => 'border-gray img-responsive cvcs-template',
-                                    'template-id' => $curriculumVitaeTemplate->id
+                                    'template-id' => $curriculumVitaeTemplate->id,
+                                    'cv-id' => $curriculumVitae->id
                                 ]
                             ); ?>
                         </div>
@@ -96,31 +97,6 @@ $(document).ready(function(){
                 setTimeout(function(){
                     $('#cvcsSave').find('.fab-image').css({'display': 'none'});
                     $('#cvcsSave').find('i.fa').removeClass('fa-save').addClass('fa-check');
-                }, 500);
-            },
-            error: CVError
-        });
-    });
-
-    $('.cvcs-template').click(function(){
-        var data = {
-            "curriculum_vitae_template_id": $(this).attr('template-id')
-        };
-        var dataJSON = JSON.stringify(data);
-        $.ajax({
-            type: 'PUT',
-            url: "<?= $this->Url->build('/api/curriculum_vitaes/' . $curriculumVitae->id); ?>",
-            contentType: 'application/json',
-            dataType: 'json',
-            data: dataJSON,
-            beforeSend: function( xhr ) {
-                $('#cvcsTemplate').find('.fab-image').css({'display': 'inherit'});
-            },
-            success: function(responce){
-                setTimeout(function(){
-                    $('#cvcsTemplate').find('.fab-image').css({'display': 'none'});
-                    $('#cvcsTemplate').find('i.fa').removeClass('fa-save').addClass('fa-check');
-                    location.reload();
                 }, 500);
             },
             error: CVError

@@ -49,6 +49,9 @@ class PostsTable extends Table
         $this->hasMany('PostsHasCurriculumVitaes', [
             'foreignKey' => 'post_id'
         ]);
+        $this->belongsToMany('CurriculumVitaes', [
+            'joinTable' => 'posts_has_curriculum_vitaes'
+        ]);
 
         $this->searchManager()
             ->add('category_id', 'Search.Value')
@@ -103,7 +106,7 @@ class PostsTable extends Table
             ->allowEmpty('post_date');
 
         $validator
-            ->boolean('post_status')
+            ->integer('post_status')
             ->allowEmpty('post_status');
 
         return $validator;

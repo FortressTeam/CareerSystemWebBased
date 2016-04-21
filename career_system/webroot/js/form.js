@@ -477,3 +477,85 @@ $('.editable').find('#buttonAddHobbies').click(function(){
         }
     });
 });
+
+
+/* ------------------------------------------- */
+/* 3. CV
+ --------------------------------------------- */
+/* ------------------------------------------- */
+/* 3.1. CV: Change template
+ --------------------------------------------- */
+$('.cvcs-template').click(function(){
+    var data = {
+        "curriculum_vitae_template_id": $(this).attr('template-id')
+    };
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'PUT',
+        url: $('#webInfo').data('url')
+        		+ '/api' 
+        		+ '/curriculum_vitaes/'
+        		+ $(this).attr('cv-id'),
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        beforeSend: function( xhr ) {
+            $('#cvcsTemplate').find('.fab-image').css({'display': 'inherit'});
+        },
+        success: function(responce){
+            setTimeout(function(){
+                $('#cvcsTemplate').find('.fab-image').css({'display': 'none'});
+                $('#cvcsTemplate').find('i.fa').removeClass('fa-save').addClass('fa-check');
+                location.reload();
+            }, 500);
+        }
+    });
+});
+/* ------------------------------------------- */
+/* 3.2. CV: Apply post
+ --------------------------------------------- */
+$('.apply-cv').click(function(){
+    var data = {
+		"post_id": $(this).attr('post-id'),
+		"curriculum_vitae_id": $(this).attr('cv-id'),
+		"applied_cv_status": 0
+	}
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'POST',
+        url: $('#webInfo').data('url')
+        		+ '/api' 
+        		+ '/posts_has_curriculum_vitaes',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        beforeSend: function( xhr ) {
+            $('#apply-cv').text('loading...');
+        },
+        success: function(responce){
+            setTimeout(function(){
+                location.reload();
+            }, 500);
+        }
+    });
+});
+$('.responseAppliedCV').click(function(){
+    var data = {
+		"post_id": $(this).attr('post-id'),
+		"curriculum_vitae_id": $(this).attr('cv-id'),
+		"applied_cv_status": $(this).data('status')
+	}
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'POST',
+        url: $('#webInfo').data('url')
+        		+ '/api' 
+        		+ '/posts_has_curriculum_vitaes',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        success: function(responce){
+            location.reload();
+        }
+    });
+});

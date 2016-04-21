@@ -41,13 +41,12 @@ class UsersController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function updateToken()
+    public function updateToken($id = null)
     {
-        $user = $this->Auth->identify();
+        $user = $this->Users->get($id);
         if (!$user){
             throw new UnauthorizedException('Error');
         }
-        $user = $this->Users->get($user['id']);
         $data['user_android_token'] = $this->request->data['user_android_token'];
         if ($this->request->is(['patch', 'post', 'put'])){
             $user = $this->Users->patchEntity($user, $data);

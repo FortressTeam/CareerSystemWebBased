@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
 /**
  * Notifications Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $NotificationObjects
  * @property \Cake\ORM\Association\BelongsTo $Users
  */
 class NotificationsTable extends Table
@@ -48,17 +49,23 @@ class NotificationsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('notification_title');
+            ->requirePresence('notification_title', 'create')
+            ->notEmpty('notification_title');
 
         $validator
-            ->allowEmpty('notification_detail');
+            ->requirePresence('notification_message', 'create')
+            ->notEmpty('notification_message');
 
         $validator
-            ->dateTime('notification_time')
-            ->allowEmpty('notification_time');
+            ->integer('notification_type')
+            ->allowEmpty('notification_type');
 
         $validator
-            ->integer('is_seen')
+            ->integer('notification_object_id')
+            ->allowEmpty('notification_object_id');
+
+        $validator
+            ->boolean('is_seen')
             ->allowEmpty('is_seen');
 
         return $validator;

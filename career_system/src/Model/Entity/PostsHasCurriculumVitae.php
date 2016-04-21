@@ -4,20 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Notification Entity.
+ * PostsHasCurriculumVitae Entity.
  *
- * @property int $id
- * @property string $notification_title
- * @property string $notification_message
- * @property int $notification_type
- * @property int $notification_object_id
- * @property \App\Model\Entity\NotificationObject $notification_object
- * @property \Cake\I18n\Time $notification_time
- * @property bool $is_seen
- * @property int $user_id
- * @property \App\Model\Entity\User $user
+ * @property int $post_id
+ * @property \App\Model\Entity\Post $post
+ * @property int $curriculum_vitae_id
+ * @property \App\Model\Entity\CurriculumVitae $curriculum_vitae
+ * @property int $applied_cv_status
  */
-class Notification extends Entity
+class PostsHasCurriculumVitae extends Entity
 {
 
     /**
@@ -31,6 +26,7 @@ class Notification extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false,
+        'post_id' => true,
+        'curriculum_vitae_id' => true,
     ];
 }

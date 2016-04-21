@@ -114,6 +114,8 @@ Router::prefix('api', function ($routes) {
            ]
         ]
     ]);
+    $routes->resources('CurriculumVitaes');
+    $routes->resources('PostsHasCurriculumVitaes');
     $routes->resources('Follow');
     $routes->resources('ApplicantsFollowPosts');
     $routes->resources('Applicants');
@@ -144,7 +146,6 @@ Router::prefix('api', function ($routes) {
     ]);
     $routes->resources('Hobbies');
     $routes->resources('PersonalHistory');
-    $routes->resources('CurriculumVitaes');
     $routes->resources('Feedbacks', [
        'map' => [
            'month' => [
