@@ -51,18 +51,13 @@ class PostsHasCurriculumVitaesController extends AppController
         return $userID;
     }
 
-    public function _createNotificationToHiringManager($post_id = null)
+    private function _sendNotification($message = null, $objectID = null, $userID = null, $type = null)
     {
-        $userID = $this->_getUserIDviaPost($post_id);
         if($userID){
-            $user = $this->_getUser($userID['hiring_manager_id']);
+            $user = $this->_getUser($userID);
             if($user){
                 $userToken = [
                     $user['user_android_token']
-                ];
-                $message = [
-                    'title' => 'New CV apply',
-                    'message' => 'An user was apply to your post.'
                 ];
                 $this->Pna->send($userToken, $message);
             }
@@ -70,10 +65,10 @@ class PostsHasCurriculumVitaesController extends AppController
         $data = [
             'notification_title' => $message['title'],
             'notification_message' => $message['message'],
-            'notification_type' => '1',
-            'notification_object_id' => $post_id,
+            'notification_type' => $type,
+            'notification_object_id' => $objectID,
             'is_seen' => 0,
-            'user_id' => $userID['hiring_manager_id']
+            'user_id' => $userID
         ];
         $this->loadModel('Notifications');
         $notification = $this->Notifications->newEntity();
@@ -81,42 +76,32 @@ class PostsHasCurriculumVitaesController extends AppController
         $this->Notifications->save($notification);
     }
 
-    public function _createNotificationToApplicant($curriculum_vitae_id = null, $status = null)
+    private function _createNotificationToHiringManager($post_id = null)
+    {
+        $userID = $this->_getUserIDviaPost($post_id);
+        $message = [
+            'title' => 'New CV apply',
+            'message' => 'An user was apply to your post.'
+        ];
+        $this->_sendNotification($message, $post_id, $userID['hiring_manager_id'], '1');
+    }
+
+    private function _createNotificationToApplicant($curriculum_vitae_id = null, $status = null)
     {
         $userID = $this->_getUserIDviaCV($curriculum_vitae_id);
-        if($userID){
-            $user = $this->_getUser($userID['applicant_id']);
-            if($user){
-                $userToken = [
-                    $user['user_android_token']
-                ];
-                if($status == '1'){
-                    $message = [
-                        'title' => 'Accept CV',
-                        'message' => 'Your CV was accepted'
-                    ];
-                }
-                elseif($status == '2'){
-                    $message = [
-                        'title' => 'Reject CV',
-                        'message' => 'Your CV was rejected by ' . $user['username']
-                    ];
-                }
-                $this->Pna->send($userToken, $message);
-            }
+        if($status == '1'){
+            $message = [
+                'title' => 'Accept CV',
+                'message' => 'Your CV was accepted'
+            ];
         }
-        $data = [
-            'notification_title' => $message['title'],
-            'notification_message' => $message['message'],
-            'notification_type' => '2',
-            'notification_object_id' => $curriculum_vitae_id,
-            'is_seen' => 0,
-            'user_id' => $userID['applicant_id']
-        ];
-        $this->loadModel('Notifications');
-        $notification = $this->Notifications->newEntity();
-        $notification = $this->Notifications->patchEntity($notification, $data);
-        $this->Notifications->save($notification);
+        else{
+            $message = [
+                'title' => 'Reject CV',
+                'message' => 'Your CV was rejected'
+            ];
+        }
+        $this->_sendNotification($message, $curriculum_vitae_id, $userID['applicant_id'], '2');
     }
 
     /**

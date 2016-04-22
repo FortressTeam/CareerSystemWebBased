@@ -50,6 +50,8 @@ class EmailsController extends AppController
     {
         $emails = $this->paginate($this->Emails);
 
+        
+
         $this->set(compact('emails'));
         $this->set('_serialize', ['emails']);
     }

@@ -13,8 +13,6 @@ class CurriculumVitaesController extends AppController
 
     public function add()
     {
-
-
         $this->loadModel('Applicants');
         $applicant = $this->Applicants->get($this->request->data['applicant_id'], [
             'contain' => ['Majors', 'PersonalHistory', 'Users', 'Skills', 'Hobbies']

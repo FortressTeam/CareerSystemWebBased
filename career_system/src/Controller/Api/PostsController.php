@@ -144,7 +144,17 @@ class PostsController extends AppController
     public function view($id = null)
     {
         $post = $this->Posts->get($id, [
-            'contain' => ['Categories', 'HiringManagers', 'ApplicantsFollowPosts', 'PostsHasCurriculumVitaes']
+            'contain' => [
+                'Categories',
+                'HiringManagers',
+                'ApplicantsFollowPosts',
+                'CurriculumVitaes' => function($q){
+                    return $q
+                        ->contain(['Applicants'])
+                        ->select(['Applicants.id', 'Applicants.applicant_name'])
+                        ->select(['id', 'curriculum_vitae_name']);
+                },
+            ]
         ]);
 
         $this->set(compact('post'));

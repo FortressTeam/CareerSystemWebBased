@@ -102,19 +102,27 @@
 
 <?php if($editable): ?>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-xs-12">
         <div class="card">
             <div class="card-head">
                 <header>Curriculum Vitae</header>
             </div>
             <div class="card-body">
+            <?php if(count($post->curriculum_vitaes) <= 0): ?>
+                <span class="text-lg text-default-light"> This post have no CV applied </span>
+            <?php endif; ?> 
             <ul class="list divider-full-bleed">
                 <?php foreach($post->curriculum_vitaes as $curriculum_vitae): ?>
                 <li class="tile">
                     <?= $this->Html->link(
-                        $curriculum_vitae->curriculum_vitae_name,
+                        __('<b>Applicant: </b>' . $curriculum_vitae->applicant->applicant_name),
+                        ['controller' => 'Applicants', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($curriculum_vitae->applicant->applicant_name), 'id' => $curriculum_vitae->applicant->id],
+                        ['class' => 'tile-content ink-reaction', 'target' => '_blank', 'escape' => false]
+                    ); ?>
+                    <?= $this->Html->link(
+                        __('<b>CV: </b>' . $curriculum_vitae->curriculum_vitae_name),
                         ['controller' => 'CurriculumVitaes', 'action' => 'view', $curriculum_vitae->id],
-                        ['class' => 'tile-content ink-reaction', 'target' => '_blank']
+                        ['class' => 'tile-content ink-reaction', 'target' => '_blank', 'escape' => false]
                     ); ?>
                     <?php if($curriculum_vitae->_joinData->applied_cv_status == '0'): ?>
                         <a class="btn btn-flat ink-reaction btn-xs responseAppliedCV" cv-id=<?= $curriculum_vitae->id ?> post-id=<?= $post->id ?> data-status="1">
