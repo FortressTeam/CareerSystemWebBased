@@ -27,6 +27,12 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-12 visible-lg visible-md row-centered">
+        <div class="row">
+            <div class="col-xs-12 text-lg" contenteditable="true" id="cv-name"><?= $curriculumVitae->curriculum_vitae_name ?></div>
+        </div>
+        <hr/>
+    </div>
     <div class="col-lg-12 visible-lg visible-md" id="cvcs-container"></div>
     <div class="col-xs-12 hidden-lg hidden-md">
         <div class="alert alert-callout alert-danger">View CV is not support your screen size.</div>
@@ -81,6 +87,7 @@ $(document).ready(function(){
     $('#cvcsSave').click(function(){
         var cv_data = CVGet();
         var data = {
+            "curriculum_vitae_name": $('#cv-name').text(),
             "curriculum_vitae_data": cv_data
         };
         var dataJSON = JSON.stringify(data);

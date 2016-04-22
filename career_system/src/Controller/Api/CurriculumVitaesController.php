@@ -70,7 +70,7 @@ class CurriculumVitaesController extends AppController
                 "hobby_name" => $hobby->hobby_name
             ];
         endforeach;
-        $this->request->data['curriculum_vitae_name'] = 'Undefine';
+        $this->request->data['curriculum_vitae_name'] = 'Undefined';
         $this->request->data['curriculum_vitae_data'] = json_encode($data);
 
 
