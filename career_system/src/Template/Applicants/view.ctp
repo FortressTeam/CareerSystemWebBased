@@ -290,7 +290,7 @@
                     <div class="col-md-6">
                         <div class="card no-margin">
                             <div class="card-head">
-                                <header>Activities, Certifications and Awards</header>
+                                <header>Activities</header>
                             </div>
                         </div>
                         <div class="tab-pane" id="activity">

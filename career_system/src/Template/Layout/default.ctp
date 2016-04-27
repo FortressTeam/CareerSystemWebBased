@@ -146,9 +146,11 @@ $cakeDescription = 'Career System: Something';
                                     }
                                 ?>
                             </li>
+                            <?php if(!empty($loggedUser['applicant']) || !empty($loggedUser['hiring_manager'])): ?>
                             <li>
                                 <a href="#">My appointments</a>
                             </li>
+                            <?php endif; ?>
                             <li class="divider"></li>
                             <li>
                                 <?= $this->Html->link(
@@ -209,6 +211,35 @@ $cakeDescription = 'Career System: Something';
                                 ['controller' => 'dashboard'],
                                 ['escape' => false]
                                 ) ?>
+                        </li>
+                        <li>
+                            <?php
+                                if(!empty($loggedUser['applicant'])){
+                                    echo $this->Html->link(
+                                        '<div class="gui-icon"><i class="fa fa-user fa-fw"></i></div>
+                                        <span class="title">My profile</span>',
+                                        ['controller' => 'applicants', 'action' => 'view', $loggedUser['id']],
+                                          ['escape' => false]
+                                    );
+                                }
+                                else if(!empty($loggedUser['hiring_manager'])){
+                                    echo $this->Html->link(
+                                        '<div class="gui-icon"><i class="fa fa-user fa-fw"></i></div>
+                                        <span class="title">My company</span>',
+                                        ['controller' => 'hiring_managers', 'action' => 'view', $loggedUser['id']],
+                                        ['escape' => false]
+                                    );
+                                }
+                                else if(!empty($loggedUser['administrator'])){
+                                    echo $this->Html->link(
+                                        '<div class="gui-icon"><i class="fa fa-user fa-fw"></i></div>
+                                        <span class="title">My account</span>',
+                                        ['controller' => 'administrators', 'action' => 'view', $loggedUser['id']],
+                                        ['escape' => false]
+                                    );
+
+                                }
+                            ?>
                         </li>
                         <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1' || $loggedUser['group_id'] == '2')): ?>
                         <li class="gui-folder <?= $this->request->params['controller'] === 'Posts' || $this->request->params['controller'] === 'Categories' ? 'active' : '' ?>">
@@ -326,12 +357,6 @@ $cakeDescription = 'Career System: Something';
                             </ul>
                         </li><!--end /menu-li -->
                         <?php endif; ?>
-                        <li>
-                            <a href="#">
-                                <div class="gui-icon"><i class="fa fa-line-chart fa-fw"></i></div>
-                                <span class="title">Activity</span>
-                            </a>
-                        </li><!--end /menu-li -->
                         <li>
                             <a href="#">
                                 <div class="gui-icon"><i class="fa fa-rss fa-fw"></i></div>
