@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 22, 2016 at 05:51 PM
+-- Generation Time: Apr 27, 2016 at 10:18 AM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -127,7 +127,12 @@ INSERT INTO `applicants_has_hobbies` (`applicant_id`, `hobby_id`) VALUES
 (5, 5),
 (5, 7),
 (4, 8),
-(4, 9);
+(4, 9),
+(4, 19),
+(4, 22),
+(4, 23),
+(4, 24),
+(4, 25);
 
 -- --------------------------------------------------------
 
@@ -149,11 +154,10 @@ CREATE TABLE IF NOT EXISTS `applicants_has_skills` (
 --
 
 INSERT INTO `applicants_has_skills` (`applicant_id`, `skill_id`, `skill_level`) VALUES
-(4, 1, 5),
-(4, 6, 2),
-(4, 8, 5),
-(4, 11, 1),
-(4, 412, 4),
+(4, 1, 2),
+(4, 2, 1),
+(4, 6, 3),
+(4, 8, 1),
 (5, 1, 4),
 (5, 2, 4),
 (5, 4, 3);
