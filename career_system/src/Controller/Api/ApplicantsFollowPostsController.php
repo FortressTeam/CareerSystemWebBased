@@ -11,6 +11,28 @@ use App\Controller\Api\AppController;
 class ApplicantsFollowPostsController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 1000,
+        'maxLimit' => 1000
+    ];
+
+    public function index()
+    {
+        $conditions = [];
+        if(isset($this->request->query['applicant_id'])) {
+            $conditions['applicant_id'] = $this->request->query['applicant_id'];
+        }
+        $this->paginate = [
+            'limit' => 1000,
+            'conditions' => $conditions,
+            'contain' => 'Posts'
+        ];
+        $applicantsFollowPost = $this->paginate($this->ApplicantsFollowPosts);
+
+        $this->set(compact('applicantsFollowPost'));
+        $this->set('_serialize', ['applicantsFollowPost']);
+    }
+
     /**
      * Add method
      *

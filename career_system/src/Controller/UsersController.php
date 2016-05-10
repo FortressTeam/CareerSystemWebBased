@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Users Controller
@@ -10,6 +11,18 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+
+    /**
+     * Before filter callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['signup', 'hiringManagers']);
+    }
 
     /**
      * Index method
@@ -118,6 +131,31 @@ class UsersController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function signup()
+    {
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')){
+            $this->request->data['user_registered'] = date("Y-m-d");
+            $this->request->data['user_status'] = '1';
+            $this->request->data['user_activation_key'] = 'asdavfw323rfwefwef';
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            if ($this->Users->save($user)){
+                $this->Flash->success(__('Sign up successful!'));
+                return $this->redirect(['action' => 'signin']);
+            } else {
+                $this->Flash->error(__('Sign up error. Please, try again.'));
+            }
+        }
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+    }
+
+    /**
+     * Sign up method
+     *
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function hiringManagers()
     {
 
     }

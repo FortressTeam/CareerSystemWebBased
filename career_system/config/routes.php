@@ -54,30 +54,32 @@ Router::scope('/', function (RouteBuilder $routes) {
      * ...and connect the rest of 'Pages' controller's URLs.
      */
     $routes->connect('/signin', ['controller' => 'Users', 'action' => 'signin']);
+    $routes->connect('/signup', ['controller' => 'Users', 'action' => 'signup']);
+    $routes->connect('/hiring-managers', ['controller' => 'Users', 'action' => 'hiringManagers']);
     $routes->connect('/dashboard', ['controller' => 'Pages', 'action' => 'dashboard']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'home']);
 
-    Router::connect(
+    $routes->connect(
         '/post/:slug-:id',
         ['controller' => 'Posts', 'action' => 'view'],
         ['id' => '\d+', 'pass' => ['id', 'slug']]
     );
-    Router::connect(
+    $routes->connect(
         '/category/:slug-:id',
         ['controller' => 'Categories', 'action' => 'view'],
         ['id' => '\d+', 'pass' => ['id', 'slug']]
     );
-    Router::connect(
+    $routes->connect(
         '/applicant/:slug-:id',
         ['controller' => 'Applicants', 'action' => 'view'],
         ['id' => '\d+', 'pass' => ['id', 'slug']]
     );
-    Router::connect(
+    $routes->connect(
         '/hiring-manager/:slug-:id',
         ['controller' => 'HiringManagers', 'action' => 'view'],
         ['id' => '\d+', 'pass' => ['id', 'slug']]
     );
-    Router::connect(
+    $routes->connect(
         '/administrator/:slug-:id',
         ['controller' => 'Administrators', 'action' => 'view'],
         ['id' => '\d+', 'pass' => ['id', 'slug']]
@@ -118,7 +120,9 @@ Router::prefix('api', function ($routes) {
     $routes->resources('PostsHasCurriculumVitaes');
     $routes->resources('Follow');
     $routes->resources('ApplicantsFollowPosts');
-    $routes->resources('Applicants');
+    $routes->resources('Applicants', function ($routes) {
+        $routes->resources('CurriculumVitaes');
+    });
     $routes->resources('ApplicantsHasSkills', [
         'map' => [
             'update' => [
@@ -161,6 +165,13 @@ Router::prefix('api', function ($routes) {
     $routes->fallbacks('InflectedRoute');
 });
 
+
+
+Router::prefix('api/v1', function ($routes) {
+    $routes->extensions(['json', 'xml']);
+    $routes->resources('Posts');
+    $routes->fallbacks('InflectedRoute');
+});
 /**
  * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.

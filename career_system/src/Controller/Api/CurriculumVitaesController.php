@@ -11,6 +11,29 @@ use App\Controller\Api\AppController;
 class CurriculumVitaesController extends AppController
 {
 
+    /**
+     * Index method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function index()
+    {
+        $conditions = [];
+        if(isset($this->request->query['applicant_id'])){
+            $conditions = ['applicant_id =' => $this->request->query['applicant_id']];
+        }
+        else if(isset($this->request->params['applicant_id'])){
+            $conditions = ['applicant_id =' => $this->request->params['applicant_id']];
+        }
+        $this->paginate = [
+            'conditions' => $conditions
+        ];
+        $curriculumVitaes = $this->paginate($this->CurriculumVitaes);
+
+        $this->set(compact('curriculumVitaes'));
+        $this->set('_serialize', ['curriculumVitaes']);
+    }
+
     public function add()
     {
         $this->loadModel('Applicants');

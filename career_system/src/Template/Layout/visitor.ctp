@@ -68,7 +68,11 @@
 
                 <ul class="header-nav header-nav-profile" id="headerProfile">
                     <li id="signupButton">
-                        <button type="button" class="btn ink-reaction btn-raised btn-sm btn-default">SIGN UP</button>
+                        <?= $this->Html->link(
+                            __('SIGN UP'),
+                            ['controller' => 'Users', 'action' => 'signup'],
+                            ['class' => 'btn ink-reaction btn-raised btn-sm btn-default']
+                        ) ?>
                     </li>
                     <li id="hiringmanagerButton">
                         <button type="button" class="btn ink-reaction btn-raised btn-sm btn-primary">FOR HIRING MANAGERS</button>
@@ -90,7 +94,7 @@
     <!-- END HEADER-->
 
     <!-- BEGIN BASE-->
-    <div id="base" class="no-padding">
+    <div id="base" class="no-padding" style="min-height: 50%">
 
         <!-- BEGIN CONTENT-->
         <div id="content">

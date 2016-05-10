@@ -23,6 +23,24 @@ class PostsHasCurriculumVitaesController extends AppController
         $this->loadComponent('Pna');
     }
 
+    public function index()
+    {
+        $conditions = [];
+        if(isset($this->request->query['post_id'])) {
+            $conditions['post_id'] = $this->request->query['post_id'];
+        }
+        if(isset($this->request->query['curriculum_vitae_id'])) {
+            $conditions['curriculum_vitae_id'] = $this->request->query['curriculum_vitae_id'];
+        }
+        $this->paginate = [
+            'conditions' => $conditions
+        ];
+        $postsHasCurriculumVitaes = $this->paginate($this->PostsHasCurriculumVitaes);
+
+        $this->set(compact('postsHasCurriculumVitaes'));
+        $this->set('_serialize', ['postsHasCurriculumVitaes']);
+    }
+
     private function _getUser($id = null)
     {
         $this->loadModel('Users');
