@@ -57,9 +57,9 @@
                 <ul class="header-nav header-nav-options">
                     <li>
                         <!-- Search form -->
-                        <form class="navbar-search" role="search">
+                        <form class="navbar-search" action="<?= $this->Url->build(['controller' => 'Search', 'action' => 'index']); ?>">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="headerSearch" placeholder="Enter your keyword">
+                                <input type="text" class="form-control" name="q" placeholder="Enter your keyword">
                             </div>
                             <button type="submit" class="btn btn-icon-toggle ink-reaction btn-sm"><i class="fa fa-search"></i></button>
                         </form>

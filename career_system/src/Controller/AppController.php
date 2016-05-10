@@ -78,6 +78,12 @@ class AppController extends Controller
 
         $loggedUser = $this->request->session()->read('Auth.User');
         if($loggedUser){
+            if(($loggedUser['group_id'] == '3') 
+                && (empty($loggedUser['applicant']))
+                && ($this->request->params['controller'] != 'Applicants')
+                && ($this->request->params['action'] != 'update')){
+                    $this->redirect(['controller' => 'Applicants', 'action' => 'update']);
+                }
             $this->viewBuilder()->layout('default');
         }
         else{

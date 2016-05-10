@@ -116,8 +116,7 @@ class ApplicantsTable extends Table
 
         $validator
             ->boolean('applicant_sex')
-            ->requirePresence('applicant_sex', 'create')
-            ->notEmpty('applicant_sex');
+            ->allowEmpty('applicant_sex');
 
         $validator
             ->requirePresence('applicant_address', 'create')
@@ -129,8 +128,7 @@ class ApplicantsTable extends Table
 
         $validator
             ->boolean('applicant_marital_status')
-            ->requirePresence('applicant_marital_status', 'create')
-            ->notEmpty('applicant_marital_status');
+            ->allowEmpty('applicant_marital_status');
 
         $validator
             ->requirePresence('applicant_objective', 'create')

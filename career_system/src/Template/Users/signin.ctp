@@ -1,6 +1,5 @@
 <div class="row">
 	<div class="col-sm-4">
-		<?= $this->Flash->render('Auth') ?>
 		<?= $this->Form->create('', [
 			'id' => 'form-signin',
 			'class' => 'form',

@@ -137,7 +137,6 @@ class UsersController extends AppController
             $this->request->data['user_registered'] = date("Y-m-d");
             $this->request->data['user_status'] = '1';
             $this->request->data['user_activation_key'] = 'asdavfw323rfwefwef';
-            $this->request->data['Applicants']['applicant_name'] = 'asdavfw323rfwefwef';
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)){
                 $this->Flash->success(__('Sign up successful!'));
@@ -176,18 +175,15 @@ class UsersController extends AppController
                 $user = $this->Users->get($user['id'], [
                     'contain' => ['Groups', 'Applicants', 'HiringManagers', 'Administrators']
                 ]);
-                dump($user->toArray()); die;
                 $this->Auth->setUser($user->toArray());
                 return $this->redirect($this->Auth->redirectUrl());
             }
             else {
-                $this->Flash->error(__('Username or password is incorrect'), [
-                    'key' => 'Auth'
-                ]);
+                $this->Flash->error(__('Username or password is incorrect'));
             }
         }
         if($this->request->session()->read('Auth.User'))
-            $this->redirect($this->Auth->redirectUrl());
+            $this->redirect($this->referer());
     }
 
     /**

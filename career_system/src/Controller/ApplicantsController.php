@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Applicants Controller
@@ -100,14 +101,22 @@ class ApplicantsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function update()
     {
         $applicant = $this->Applicants->newEntity();
+        $loggedUser = $this->request->session()->read('Auth.User');
+        
         if ($this->request->is('post')) {
+            $applicant->id = $loggedUser['id'];
+            $this->request->data['applicant_status'] = '1';
             $applicant = $this->Applicants->patchEntity($applicant, $this->request->data);
             if ($this->Applicants->save($applicant)) {
                 $this->Flash->success(__('The applicant has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                $user = $this->Applicants->Users->get($applicant->id, [
+                    'contain' => ['Groups', 'Applicants', 'HiringManagers', 'Administrators']
+                ]);
+                $this->Auth->setUser($user->toArray());
+                return $this->redirect('/dashboard');
             } else {
                 $this->Flash->error(__('The applicant could not be saved. Please, try again.'));
             }
@@ -170,10 +179,16 @@ class ApplicantsController extends AppController
      */
     public function isAuthorized($user)
     {
-        if (($this->request->action === 'index') || ($this->request->action === 'add')) {
-            if (isset($user['group_id']) && ($user['group_id'] == '1')) {
+        if (($this->request->action === 'index')
+            && isset($user['group_id'])
+            && ($user['group_id'] == '1')) {
                 return true;
-            }
+        }
+        else if (($this->request->action === 'update')
+            && isset($user['group_id'])
+            && ($user['group_id'] == '3')
+            && (empty($user['applicant']))) {
+            return true;
         }
         else if ($this->request->action === 'view') {
             return true;

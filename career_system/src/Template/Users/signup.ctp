@@ -11,7 +11,7 @@
                         'templates' => [
                             'formGroup' => '{{input}}{{label}}',
                             'nestingLabel' => '<div class="checkbox checkbox-styled"><label{{attrs}}>{{input}}<span>{{text}}</span></label></div>',
-                            'inputContainer' => '<div class="form-group">{{content}}</div>'
+                            'inputContainer' => '<div class="form-group floating-label">{{content}}</div>'
                         ]
                     ])
                 ?>
@@ -62,7 +62,7 @@ $(document).ready(function(){
 		},
 		submitHandler: function(form) {
 			if(this.valid()) {
-				console.log('Run Ajax');
+				this.submit();
 			}
 		},
 		rules: {
