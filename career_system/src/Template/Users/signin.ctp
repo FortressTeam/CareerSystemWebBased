@@ -2,6 +2,7 @@
 	<div class="col-sm-4">
 		<?= $this->Flash->render('Auth') ?>
 		<?= $this->Form->create('', [
+			'id' => 'form-signin',
 			'class' => 'form',
 			'templates' => [
 				'formGroup' => '{{input}}{{label}}',
@@ -51,3 +52,42 @@
 		</div>
 	</div>
 </div>
+<?= $this->Html->script('jquery.validate.min') ?>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#form-signin').validate({
+		errorElement: "span",
+		errorLabelContainer: "form-group",
+		success: function(label) {
+			$('#' + label.attr('id')).parent().removeClass('has-error');
+			$('#' + label.attr('id')).remove();
+		},
+		errorPlacement: function(error, element) {
+			error.addClass('help-block');
+			error.insertAfter(element);
+			element.parent().addClass('has-error');
+		},
+		submitHandler: function(form) {
+			if(this.valid()) {
+				this.submit();
+			}
+		},
+		rules: {
+			username: {
+				required: true
+			},
+			password: {
+				required: true
+			}
+		},
+		messages: {
+			username: {
+				required: 'Please enter your username!'
+			},
+			password: {
+				required: 'Please enter your password!',
+			}
+		}
+	});
+});
+</script>

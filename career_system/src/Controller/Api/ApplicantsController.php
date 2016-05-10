@@ -11,12 +11,36 @@ use App\Controller\Api\AppController;
 class ApplicantsController extends AppController
 {
 
+    public $paginate = [
+        'order' => ['Applicants.id' => 'DESC'],
+        'limit' => 10
+    ];
+    
+    /**
+     * Initialize method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['index'],
+        ]);
+    }
+
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Majors']
-        ];
-        $applicants = $this->paginate($this->Applicants);
+//         $this->paginate = [
+//             'contain' => ['Majors']
+//         ];
+//         $applicants = $this->paginate($this->Applicants);
+        $query = $this->Applicants
+            ->find('search', $this->Applicants->filterParams($this->request->query))
+            ->contain(['Users','Majors'])
+            ->autoFields(true)
+            ->where(['applicant_name IS NOT' => null]);
+        $applicants = $this->paginate($query);
 
         $this->set(compact('applicants'));
         $this->set('_serialize', ['applicants']);

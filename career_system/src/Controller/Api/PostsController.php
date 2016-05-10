@@ -6,6 +6,24 @@ use App\Controller\Api\AppController;
 class PostsController extends AppController
 {
 
+	public $paginate = [
+			'order' => ['Posts.post_date' => 'DESC'],
+			'limit' => 10
+	];
+	
+	/**
+	 * Initialize method
+	 *
+	 * @return \Cake\Network\Response|null
+	 */
+	public function initialize()
+	{
+		parent::initialize();
+		$this->loadComponent('Search.Prg', [
+				'actions' => ['index'],
+		]);
+	}
+	
     /**
      * @apiDefine DefaultGetParameter
      *
@@ -91,11 +109,17 @@ class PostsController extends AppController
         if(isset($this->request->query['post_status'])) {
             $conditions['post_status'] = $this->request->query['post_status'];
         }
-        $this->paginate = [
-            'conditions' => $conditions,
-            'contain' => ['Categories', 'HiringManagers']
-        ];
-        $posts = $this->paginate($this->Posts);
+//         $this->paginate = [
+//             'conditions' => $conditions,
+//             'contain' => ['Categories', 'HiringManagers']
+//         ];
+//         $posts = $this->paginate($this->Posts);
+        $query = $this->Posts
+	        ->find('search', $this->Posts->filterParams($this->request->query))
+	        ->contain(['Categories', 'HiringManagers'])
+	        ->autoFields(true)
+	        ->where(['post_title IS NOT' => null, $conditions]);
+        $posts = $this->paginate($query);
 
         $this->set(compact('posts'));
         $this->set('_serialize', ['posts']);

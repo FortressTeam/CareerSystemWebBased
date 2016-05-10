@@ -11,10 +11,33 @@ use App\Controller\Api\AppController;
 class HiringManagersController extends AppController
 {
 
+    public $paginate = [
+        'order' => ['HiringManagers.id' => 'DESC'],
+        'limit' => 10
+    ];
+    
+    /**
+     * Initialize method
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['index'],
+        ]);
+    }
 
     public function index()
     {
-        $hiringManagers = $this->paginate($this->HiringManagers);
+//         $hiringManagers = $this->paginate($this->HiringManagers);
+        $query = $this->HiringManagers
+            ->find('search', $this->HiringManagers->filterParams($this->request->query))
+            ->contain(['Users'])
+            ->autoFields(true)
+            ->where(['hiring_manager_name IS NOT' => null]);
+        $hiringManagers = $this->paginate($query);
 
         $this->set(compact('hiringManagers'));
         $this->set('_serialize', ['hiringManagers']);

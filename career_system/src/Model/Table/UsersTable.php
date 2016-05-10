@@ -83,7 +83,7 @@ class UsersTable extends Table
 
         $validator
             ->boolean('user_status')
-            ->allowEmpty('user_status');
+            ->notEmpty('user_status');
 
         $validator
             ->requirePresence('user_activation_key', 'create')

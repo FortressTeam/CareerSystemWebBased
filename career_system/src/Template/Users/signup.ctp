@@ -18,8 +18,8 @@
                 <?php
                     echo $this->Form->input('username', ['class' => 'form-control', 'type' => 'text']);
                     echo $this->Form->input('password', ['class' => 'form-control']);
-                    echo $this->Form->input('reenter_password', ['class' => 'form-control', 'type' => 'password']);
-                    echo $this->Form->input('user_email', ['class' => 'form-control', 'type' => 'email']);
+                    echo $this->Form->input('retype_password', ['class' => 'form-control', 'type' => 'password']);
+                    echo $this->Form->input('user_email', ['class' => 'form-control', 'type' => 'email', 'label' => 'Email']);
                     echo $this->Form->input('user_avatar', ['type' => 'hidden', 'value' => 'default.png']);
                     echo $this->Form->input('group_id', ['type' => 'hidden', 'value' => '3']);
                 ?>
@@ -47,6 +47,7 @@
 </div>
 <?= $this->Html->script('jquery.validate.min') ?>
 <script type="text/javascript">
+$(document).ready(function(){
 	$('#form-signup').validate({
 		errorElement: "span",
 		errorLabelContainer: "form-group",
@@ -59,15 +60,21 @@
 			error.insertAfter(element);
 			element.parent().addClass('has-error');
 		},
+		submitHandler: function(form) {
+			if(this.valid()) {
+				console.log('Run Ajax');
+			}
+		},
 		rules: {
 			username: {
-				required: true
+				required: true,
+				minlength: 3
 			},
 			password: {
 				required: true,
 				rangelength: [6, 16]
 			},
-			reenter_password: {
+			retype_password: {
 				required: true,
 				equalTo: "#password"
 			},
@@ -78,14 +85,15 @@
 		},
 		messages: {
 			username: {
-				required: 'Please enter your username! '
+				required: 'Please enter your username!',
+				minlength: 'Your username must be  equal or more than {0} characters!'
 			},
 			password: {
 				required: 'Please enter your password!',
 				rangelength: 'Your password must be between {0} and {1} characters!'
 			},
-			reenter_password: {
-				required: 'Please re-enter your password!',
+			retype_password: {
+				required: 'Please re-type your password!',
 				equalTo: 'Your new password and password confirmation must match!'
 			},
 			user_email: {
@@ -94,4 +102,5 @@
 			}
 		}
 	});
+});
 </script>
