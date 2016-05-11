@@ -228,6 +228,9 @@ footer{
         display: block;
     }
 }
+.card-signup{
+    height: 375px;
+}
 
 .title-post{
     overflow: hidden;

@@ -67,6 +67,7 @@
                 <?php if($editable): ?>
                 <div id="companyInfoForm" class="animated fadeIn" style="display: none">
                     <?= $this->Form->create($hiringManager, [
+                            'id' => 'form-companyInfo',
                             'class' => 'form',
                             'templates' => [
                                 'formGroup' => '{{label}}{{input}}',
@@ -83,16 +84,15 @@
                         echo $this->Form->input('company_email', ['type' => 'email', 'class' => 'form-control', 'id' => 'inputEmail']);
                     ?>
                     <?= $this->Form->button(__('Save'), [
-                        'type' => 'button',
                         'class' => 'btn ink-reaction btn-raised btn-primary',
                         'id' => 'buttonEditCompanyInfo',
                         'data-form' => 'companyInfo',
                         'data-id' => $hiringManager->id,
                     ]) ?>
                     <?= $this->Form->button(__('Cancel'), [
-                        'type' => 'button',
                         'class' => 'btn ink-reaction btn-flat btn-primary btn-CloseForm',
                         'data-form' => 'companyInfo',
+                        'formnovalidate'
                     ]) ?>
                     <?= $this->Form->end() ?>
                 </div>
@@ -276,43 +276,7 @@
         </div>
     </div> -->
 </div>
-<?php endif; ?>
+<?php endif; ?><?= $this->Html->script('jquery.validate.min') ?>
+<script type="text/javascript">
 
-
-<!--<div class="hiringManagers view large-9 medium-8 columns content">
-     <div class="related">
-        <h4><?= __('Related Appointments') ?></h4>
-        <?php if (!empty($hiringManager->appointments)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Appointment Name') ?></th>
-                <th><?= __('Appointment Description') ?></th>
-                <th><?= __('Appointment Start') ?></th>
-                <th><?= __('Appointment End') ?></th>
-                <th><?= __('Appointment Address') ?></th>
-                <th><?= __('Appointment SMS Alert') ?></th>
-                <th><?= __('Hiring Manager Id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($hiringManager->appointments as $appointments): ?>
-            <tr>
-                <td><?= h($appointments->id) ?></td>
-                <td><?= h($appointments->appointment_name) ?></td>
-                <td><?= h($appointments->appointment_description) ?></td>
-                <td><?= h($appointments->appointment_start) ?></td>
-                <td><?= h($appointments->appointment_end) ?></td>
-                <td><?= h($appointments->appointment_address) ?></td>
-                <td><?= h($appointments->appointment_SMS_alert) ?></td>
-                <td><?= h($appointments->hiring_manager_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Appointments', 'action' => 'view', $appointments->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Appointments', 'action' => 'edit', $appointments->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Appointments', 'action' => 'delete', $appointments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $appointments->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-</div>
+</script>

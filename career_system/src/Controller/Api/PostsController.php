@@ -99,6 +99,33 @@ class PostsController extends AppController
      */
     public function index()
     {
+        if(isset($this->request->query['applicant_id'])) {
+            $query = $this->Posts->find('all')
+                ->contain(['Categories', 'HiringManagers'])
+                ->join([
+                    'table' => 'posts_has_curriculum_vitaes',
+                    'alias' => 'jSubmit',
+                    'type' => 'LEFT',
+                    'conditions' => 'jSubmit.post_id = Posts.id',
+                ])
+                ->join([
+                    'table' => 'curriculum_vitaes',
+                    'alias' => 'jCV',
+                    'type' => 'LEFT',
+                    'conditions' => 'jSubmit.curriculum_vitae_id = jCV.id',
+                ])
+                ->where([
+                    'post_status' => '1',
+                    'jCV.applicant_id' => $this->request->query['applicant_id']
+                ]);
+
+            $posts = $this->paginate($query);
+
+            $this->set(compact('posts'));
+            $this->set('_serialize', ['posts']);
+            return;
+        }
+
         $conditions = [];
         if(isset($this->request->query['category_id'])) {
             $conditions['category_id'] = $this->request->query['category_id'];
@@ -109,11 +136,6 @@ class PostsController extends AppController
         if(isset($this->request->query['post_status'])) {
             $conditions['post_status'] = $this->request->query['post_status'];
         }
-//         $this->paginate = [
-//             'conditions' => $conditions,
-//             'contain' => ['Categories', 'HiringManagers']
-//         ];
-//         $posts = $this->paginate($this->Posts);
         $query = $this->Posts
 	        ->find('search', $this->Posts->filterParams($this->request->query))
 	        ->contain(['Categories', 'HiringManagers'])

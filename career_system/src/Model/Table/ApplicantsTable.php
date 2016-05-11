@@ -72,6 +72,9 @@ class ApplicantsTable extends Table
         $this->belongsToMany('Hobbies', [
             'joinTable' => 'applicants_has_hobbies'
         ]);
+        $this->belongsToMany('Posts', [
+            'joinTable' => 'applicants_follow_posts'
+        ]);
 
         $this->searchManager()
             ->add('q', 'Search.Like', [

@@ -39,17 +39,17 @@
 					<div class="col-xs-7">
 						<div class="row">
 							<div class="col-xs-12">
-								<h2><b>Education</b></h2><hr/>
+								<h2><b>Work Experience</b></h2><hr/>
 								<div class="row">
-									<div class="col-xs-12" id="applicantEducations"></div>
+									<div class="col-xs-12" id="applicantExperiences"></div>
 								</div>
 							</div>	
 						</div>
 						<div class="row">
 							<div class="col-xs-12">
-								<h2><b>Work Experience</b></h2><hr/>
+								<h2><b>Education</b></h2><hr/>
 								<div class="row">
-									<div class="col-xs-12" id="applicantExperiences"></div>
+									<div class="col-xs-12" id="applicantEducations"></div>
 								</div>
 							</div>	
 						</div>

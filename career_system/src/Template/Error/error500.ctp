@@ -36,8 +36,27 @@ if (Configure::read('debug')):
     $this->end();
 endif;
 ?>
-<h2><?= __d('cake', 'An Internal Error Has Occurred') ?></h2>
-<p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= h($message) ?>
-</p>
+<div class="row">
+    <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        <h1 class="text-xxxxl text-primary"><b>Uh... Error 500!</b> </h1>
+        <p class="error text-xl text-primary">
+            <strong><?= __d('cake', 'Sorry') ?>! </strong>
+            <?= __('We\'re having technical difficulties.') ?>
+        </p>
+        <p class="text-xl text-primary">Visit 
+            <b><u><?= $this->Html->link(
+                    __('Homepage'),
+                    ['controller' => 'Pages', 'action' => 'home']
+                ); ?></u></b>
+             or go
+             <b><u><?= $this->Html->link(
+                    __('back'),
+                    $this->request->referer()
+                ); ?></u></b></u></b>.
+        </p>
+        <span class="text-default-light text-xs"><?= sprintf(
+            __d('cake', 'Address: %s'),
+            "<strong>'{$url}'</strong>"
+        ) ?></span>
+    </div>
+</div>

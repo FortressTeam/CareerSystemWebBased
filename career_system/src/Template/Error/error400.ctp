@@ -31,11 +31,27 @@ if (Configure::read('debug')):
     $this->end();
 endif;
 ?>
-<h2><?= h($message) ?></h2>
-<p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= sprintf(
-        __d('cake', 'The requested address %s was not found on this server.'),
-        "<strong>'{$url}'</strong>"
-    ) ?>
-</p>
+<div class="row">
+    <div class="col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        <h1 class="text-xxxxl text-primary"><b>404!</b> <?= h($message) ?></h1>
+        <p class="error text-xl text-primary">
+            <strong><?= __d('cake', 'Opps') ?>, </strong>
+            <?= __('The page you was looking doesn\'t exist!') ?>
+        </p>
+        <p class="text-xl text-primary">Visit 
+            <b><u><?= $this->Html->link(
+                    __('Homepage'),
+                    ['controller' => 'Pages', 'action' => 'home']
+                ); ?></u></b>
+             or go
+             <b><u><?= $this->Html->link(
+                    __('back'),
+                    $this->request->referer()
+                ); ?></u></b></u></b>.
+        </p>
+        <span class="text-default-light text-xs"><?= sprintf(
+            __d('cake', 'Address: %s'),
+            "<strong>'{$url}'</strong>"
+        ) ?></span>
+    </div>
+</div>

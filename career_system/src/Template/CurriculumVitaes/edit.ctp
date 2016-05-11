@@ -14,7 +14,7 @@
                 <?= $this->Html->link(
                     __('<i class="fa fa-eye"></i>'),
                     ['action' => 'view', $curriculumVitae->id],
-                    ['class' => 'btn ink-reaction btn-floating-action btn-lg btn-warning', 'target' => '_blank', 'escape' => false]
+                    ['class' => 'btn ink-reaction btn-floating-action btn-lg btn-warning', 'target' => 'framename', 'escape' => false]
                 ) ?>
                 <button id="cvcsTemplate" type="button" class="btn ink-reaction btn-floating-action btn-lg btn-accent" data-toggle="modal" data-target="#templateModal">
                     <i class="fa fa-file-o"></i>

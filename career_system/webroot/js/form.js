@@ -210,7 +210,75 @@ $('#buttonFollowPost').click(function(){
 /* ------------------------------------------- */
 /* 1.1. Hiring manager: Company Infomation
  --------------------------------------------- */
-$('.editable').find('#buttonEditCompanyInfo').click(function(){
+
+$('.editable').find('#form-companyInfo').validate({
+    errorElement: "span",
+    errorLabelContainer: "form-group",
+    success: function(label) {
+        $('#' + label.attr('id')).parent().removeClass('has-error');
+        $('#' + label.attr('id')).remove();
+    },
+    errorPlacement: function(error, element) {
+        error.addClass('help-block');
+        error.insertAfter(element);
+        element.parent().addClass('has-error');
+    },
+    submitHandler: function(form) {
+        if(this.valid()) {
+        	editCompanyInfo($(form).find('#buttonEditCompanyInfo'));
+        }
+    },
+    rules: {
+        company_name: {
+            required: true
+        },
+        hiring_manager_name: {
+            required: true
+        },
+        company_size: {
+            required: true,
+            digits: true
+        },
+        hiring_manager_phone_number: {
+            required: true,
+            rangelength: [9, 12],
+            digits: true
+        },
+        company_address: {
+            required: true
+        },
+        company_email: {
+            required: true,
+            email: true
+        }
+    },
+    messages: {
+        company_name: {
+            required: 'Please enter compant\'s name!'
+        },
+        hiring_manager_name: {
+            required: 'Please enter your name!'
+        },
+        company_size: {
+            required: 'Please enter size of company!',
+            digits: 'Please enter a number!'
+        },
+        hiring_manager_phone_number: {
+            required: 'Please enter your phone number!',
+            rangelength: 'Please enter a valid phone number!',
+            digits: 'Please enter a valid phone number!'
+        },
+        company_address: {
+            required: 'Please enter company\'s address!'
+        },
+        company_email: {
+            required: 'Please enter company\'s email!',
+            email: 'Please enter a valid email'
+        }
+    }
+});
+
+var editCompanyInfo = function(element){
 	var data = {
 		"hiring_manager_name": $('#inputManagerName').val(),
 		"hiring_manager_phone_number": $('#inputManagerPhone').val(),
@@ -219,8 +287,8 @@ $('.editable').find('#buttonEditCompanyInfo').click(function(){
 		"company_address": $('#inputAddress').val(),
 		"company_email": $('#inputEmail').val()
 	};
-	var hiringManagerId = $(this).data('id');
-	var formName = $(this).data('form');
+	var hiringManagerId = $(element).data('id');
+	var formName = $(element).data('form');
 	var dataJSON = JSON.stringify(data);
 	$.ajax({
 	    type: 'PUT',
@@ -240,7 +308,7 @@ $('.editable').find('#buttonEditCompanyInfo').click(function(){
 	        }
 	    } 
 	});
-});
+};
 /* ------------------------------------------- */
 /* 1.2. Hiring manager: Company About
  --------------------------------------------- */

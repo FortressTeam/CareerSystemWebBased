@@ -52,6 +52,9 @@ class PostsTable extends Table
         $this->belongsToMany('CurriculumVitaes', [
             'joinTable' => 'posts_has_curriculum_vitaes'
         ]);
+        $this->belongsToMany('Applicants', [
+            'joinTable' => 'applicants_follow_posts'
+        ]);
 
         $this->searchManager()
             ->add('category_id', 'Search.Value')

@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Posts Controller
@@ -17,23 +18,23 @@ class PostsController extends AppController
         'limit' => 10
     ];
 
-    /**
-     * Before filter callback.
-     *
-     * @param \Cake\Event\Event $event The beforeRender event.
-     * @return void
-     */
+    private $_fields = [
+        'id', 'post_title', 'post_salary', 'post_date',
+        'category_id', 'hiring_manager_id',
+        'Categories.id', 'Categories.category_name',
+        'HiringManagers.id', 'HiringManagers.company_name',
+        'HiringManagers.hiring_manager_phone_number'
+    ];
+
+    private $_contains = ['Categories', 'HiringManagers'];
+
+
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
         $this->Auth->allow('view');
     }
     
-    /**
-     * Initialize method
-     *
-     * @return \Cake\Network\Response|null
-     */
     public function initialize()
     {
         parent::initialize();
@@ -42,11 +43,6 @@ class PostsController extends AppController
         ]);
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
     public function index()
     {
         $loggedUser = $this->request->session()->read('Auth.User');
@@ -73,13 +69,80 @@ class PostsController extends AppController
         $this->set('_serialize', ['posts', 'countCats', 'countPosts']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Post id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    public function followedPosts(){
+        $loggedUser = $this->request->session()->read('Auth.User');
+        $posts = $this->Posts->find('all')
+            ->select($_fields)
+            ->contain($_contains)
+            ->join([
+                'table' => 'applicants_follow_posts',
+                'alias' => 'jTable',
+                'type' => 'LEFT',
+                'conditions' => 'jTable.post_id = Posts.id',
+            ])
+            ->where([
+                'post_status' => '1',
+                'jTable.applicant_id' => $loggedUser['id'],
+                'jTable.follow_status' => '1'
+            ]);
+
+        $this->set(compact('posts'));
+        $this->set('_serialize', ['posts']);
+    }
+
+    public function followedCompanyPosts(){
+        $loggedUser = $this->request->session()->read('Auth.User');
+        $posts = $this->Posts->find('all')
+            ->select($_fields)
+            ->contain($_contains)
+            ->join([
+                'table' => 'hiring_managers',
+                'alias' => 'jHiring',
+                'type' => 'LEFT',
+                'conditions' => 'jHiring.id = Posts.hiring_manager_id',
+            ])
+            ->join([
+                'table' => 'follow',
+                'alias' => 'jFollow',
+                'type' => 'LEFT',
+                'conditions' => 'jFollow.hiring_manager_id = jHiring.id',
+            ])
+            ->where([
+                'post_status' => '1',
+                'jFollow.applicant_id' => $loggedUser['id'],
+                'jFollow.follow_hiring_manager' => '1'
+            ]);
+
+        $this->set(compact('posts'));
+        $this->set('_serialize', ['posts']);
+    }
+
+    public function submittedPosts(){
+        $loggedUser = $this->request->session()->read('Auth.User');
+        $posts = $this->Posts->find('all')
+            ->select($_fields)
+            ->contain($_contains)
+            ->join([
+                'table' => 'posts_has_curriculum_vitaes',
+                'alias' => 'jSubmit',
+                'type' => 'LEFT',
+                'conditions' => 'jSubmit.post_id = Posts.id',
+            ])
+            ->join([
+                'table' => 'curriculum_vitaes',
+                'alias' => 'jCV',
+                'type' => 'LEFT',
+                'conditions' => 'jSubmit.curriculum_vitae_id = jCV.id',
+            ])
+            ->where([
+                'post_status' => '1',
+                'jCV.applicant_id' => $loggedUser['id']
+            ]);
+
+        $this->set(compact('posts'));
+        $this->set('_serialize', ['posts']);
+    }
+
     public function view($id = null)
     {
         $loggedUser = $this->request->session()->read('Auth.User');
@@ -126,11 +189,6 @@ class PostsController extends AppController
         $this->set('_serialize', ['post', 'curriculumVitaes', 'editable']);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $post = $this->Posts->newEntity();
@@ -148,13 +206,6 @@ class PostsController extends AppController
         $this->set('_serialize', ['post']);
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Post id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
     public function edit($id = null)
     {
         $post = $this->Posts->get($id, [
@@ -175,13 +226,6 @@ class PostsController extends AppController
         $this->set('_serialize', ['post']);
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Post id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -194,14 +238,11 @@ class PostsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    /**
-     * is authorized callback.
-     *
-     * @param $user
-     * @return void
-     */
     public function isAuthorized($user)
     {
+        if ($this->request->action === 'get') {
+            return true;
+        }
         if ($this->request->action === 'index') {
             if (isset($user['group_id']) 
                 && (($user['group_id'] == '2') || ($user['group_id'] == '1'))) {

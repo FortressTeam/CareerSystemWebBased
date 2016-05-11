@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-sm-4">
+	<div class="col-sm-4 col-sm-offset-1">
 		<?= $this->Form->create('', [
 			'id' => 'form-signin',
 			'class' => 'form',
@@ -23,8 +23,8 @@
 								<?= $this->Form->input('password', ['class' => 'form-control']) ?>
 								<div class="form-group floating-label">
 									<div class="checkbox checkbox-styled">
-										<label for="inputMarital">
-											<input type="checkbox" name="applicant_marital_status" value="1" class="form-control static dirty" id="inputMarital">
+										<label for="inputRememberMe">
+											<input type="checkbox" name="remember_me" value="1" class="form-control static dirty" id="inputRememberMe">
 											<span>Remenber me</span>
 										</label>
 									</div>
@@ -45,9 +45,30 @@
 			</div>
 		<?= $this->Form->end() ?>		
 	</div>
-	<div class="col-sm-8">
+	<div class="col-sm-6">
 		<div class="card">
-			<div class="card-body"></div>
+			<div class="card-body card-signup">
+				<p class="text-xxl">New Users: Sign up now</p>
+				<p class="text-xl">I will be using system as:</p>
+				<div class="form-group floating-label">
+					<div class="checkbox checkbox-styled">
+						<?= $this->Html->link(
+							'<input type="checkbox" name="an_applicant" value="1" class="form-control static dirty" id="anApplicant">
+							<span>An applicant</span>',
+							['controller' => 'Users', 'action' => 'signup'],
+							['escape' => false, 'for' => 'anApplicant']
+						); ?>
+					</div>
+				</div>
+				<div class="form-group floating-label">
+					<div class="checkbox checkbox-styled">
+						<a href="#" for="aHiringManager">
+							<input type="checkbox" name="a_hiring_manager" value="1" class="form-control static dirty" id="aHiringManager">
+							<span>A hiring manager</span>
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
