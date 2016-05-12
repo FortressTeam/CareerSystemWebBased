@@ -133,16 +133,15 @@ $cakeDescription = 'Career System: Something';
                                     }
                                     else if(!empty($loggedUser['hiring_manager'])){
                                         echo $this->Html->link(
-                                            __('My profile'),
+                                            __('My company'),
                                             ['controller' => 'hiring_managers', 'action' => 'view', $loggedUser['id']]
                                         );
                                     }
                                     else if(!empty($loggedUser['administrator'])){
                                         echo $this->Html->link(
-                                            __('My profile'),
-                                            ['controller' => 'administrators', 'action' => 'view', $loggedUser['id']]
+                                            __('Setting'),
+                                            ['controller' => '/']
                                         );
-
                                     }
                                 ?>
                             </li>

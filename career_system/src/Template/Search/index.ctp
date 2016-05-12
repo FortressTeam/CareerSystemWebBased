@@ -63,13 +63,40 @@
 	                </div>
 	            </div>
             </div>
-    		<div class="col-md-4">
-    			<div class="card">
-    				<div class="card-body card-search-right">
-
-    				</div>
-    			</div>
-    		</div>
+			<div class="col-md-4">
+				<div class="card">
+					<div class="card-body card-search-right">
+					<span class="text-primary">Sponsored post:</span><br/><br/>
+                    <div class="row">
+                        <div class="col-xs-4 row-centered">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <?= $this->Html->image(
+                                        'company_img' . DS . $sponsoredPost->hiring_manager->company_logo,
+                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-8">
+                            <h4 class="text-primary no-margin">
+                                <?= $this->Html->link(
+                                    $sponsoredPost->post_title,
+                                    ['controller' => 'posts', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($sponsoredPost->post_title), 'id' => $sponsoredPost->id])
+                                ?>
+                            </h4>
+                            <h5 class="text-primary text-sm">
+                                Company: <b><?= $this->Html->link(
+                                    $sponsoredPost->hiring_manager->company_name,
+                                    ['controller' => 'HiringManagers', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($sponsoredPost->hiring_manager->company_name), 'id' => $sponsoredPost->hiring_manager->id],
+                                    ['escape' => false, 'class' => 'text-primary']);
+                                ?></b>
+                            </h5>
+                        </div>
+                    </div>
+					</div>
+				</div>
+			</div>
     	</div>
 	    <div class="row">
 	    	<div class="col-xs-12">
@@ -83,8 +110,9 @@
 					</h4>
 		    	<?php endif; ?>
 		    </div>
+		    <br/>
 	        <?php foreach ($posts as $post): ?>
-	        <div class="col-sm-6 col-lg-4 animated zoomIn">
+	        <div class="col-xs-12 col-sm-6 col-lg-4 animated zoomIn">
 	            <div class="card card-underline">
 	                <div class="card-body">
 	                    <div class="row">
@@ -113,7 +141,7 @@
 	                                ?>
 	                            </h5>
 	                            <div class="row no-margin">
-	                                <div class="col-sx-12 text-default-light"> 
+	                                <div class="text-default-light"> 
 	                                    <?php
 	                                        $start = date_create($post->post_date->format('Y-m-d'));
 	                                        $end = date_create(date("Y-m-d"));
