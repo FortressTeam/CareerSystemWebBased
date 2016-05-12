@@ -231,7 +231,9 @@ footer{
 .card-signup{
     height: 375px;
 }
-
+.card-search-right{
+    height: 192px;
+}
 .title-post{
     overflow: hidden;
     text-overflow: ellipsis;

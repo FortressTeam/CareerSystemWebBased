@@ -101,7 +101,15 @@ class PostsController extends AppController
     {
         if(isset($this->request->query['applicant_id'])) {
             $query = $this->Posts->find('all')
-                ->contain(['Categories', 'HiringManagers'])
+                ->contain([
+                    'Categories',
+                    'HiringManagers',
+                    'PostsHasCurriculumVitaes.CurriculumVitaes' => function ($q) {
+                        return $q
+                            ->select(['curriculum_vitae_name'])
+                            ->where(['CurriculumVitaes.applicant_id' => $this->request->query['applicant_id']]);
+                    }
+                ])
                 ->join([
                     'table' => 'posts_has_curriculum_vitaes',
                     'alias' => 'jSubmit',
@@ -118,7 +126,6 @@ class PostsController extends AppController
                     'post_status' => '1',
                     'jCV.applicant_id' => $this->request->query['applicant_id']
                 ]);
-
             $posts = $this->paginate($query);
 
             $this->set(compact('posts'));

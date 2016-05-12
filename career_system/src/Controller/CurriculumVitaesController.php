@@ -36,7 +36,8 @@ class CurriculumVitaesController extends AppController
         }
         $this->paginate = [
             'contain' => ['Applicants', 'CurriculumVitaeTemplates'],
-            'conditions' => $conditions
+            'conditions' => $conditions,
+            'order' => ['CurriculumVitaes.id' => 'ASC']
         ];
         $curriculumVitaes = $this->paginate($this->CurriculumVitaes);
 

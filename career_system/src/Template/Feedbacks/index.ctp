@@ -30,7 +30,8 @@
                     <table cellpadding="0" cellspacing="0" class="table">
                         <thead>
                             <tr>
-                                <th class="col-xs-6"><?= $this->Paginator->sort('feedback_title', ['label' => 'Title']) ?></th>
+                                <th class="col-xs-2"><?= $this->Paginator->sort('feedback_title', ['label' => 'Title']) ?></th>
+                                <th class="col-xs-4"><?= $this->Paginator->sort('feedback_comment', ['label' => 'Comment']) ?></th>
                                 <th class="col-xs-2"><?= $this->Paginator->sort('feedback_date', ['label' => 'Date']) ?></th>
                                 <th class="col-xs-2"><?= $this->Paginator->sort('user_id') ?></th>
                                 <th class="col-xs-1"><?= $this->Paginator->sort('feedback_type_id', ['label' => 'Type']) ?></th>
@@ -40,9 +41,8 @@
                         <tbody>
                         <?php foreach ($feedbacks as $feedback): ?>
                             <tr>
-                                <td><?= $this->Html->link(h($feedback->feedback_title),
-                                    ['action' => 'view', $feedback->id],
-                                    ['escape' => false]) ?></td>
+                                <td><?= h($feedback->feedback_title) ?></td>
+                                <td><?= h($feedback->feedback_comment) ?></td>
                                 <td><?= h($feedback->feedback_date->format('d-M-y')) ?></td>
                                 <td><?= $feedback->has('user') ? $this->Html->link($feedback->user->username, ['controller' => 'Users', 'action' => 'view', $feedback->user->id]) : '' ?></td>
                                 <td><?php 

@@ -61,23 +61,6 @@ class FeedbacksController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Feedback id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $feedback = $this->Feedbacks->get($id, [
-            'contain' => ['FeedbackTypes', 'Users']
-        ]);
-
-        $this->set('feedback', $feedback);
-        $this->set('_serialize', ['feedback']);
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
@@ -86,6 +69,9 @@ class FeedbacksController extends AppController
     {
         $feedback = $this->Feedbacks->newEntity();
         if ($this->request->is('post')) {
+            $loggedUser = $this->request->session()->read('Auth.User');
+            $this->request->data['user_id'] = $loggedUser ? $loggedUser['id'] : '6';
+            $this->request->data['feedback_date'] = date("Y-m-d");
             $feedback = $this->Feedbacks->patchEntity($feedback, $this->request->data);
             if ($this->Feedbacks->save($feedback)) {
                 $this->Flash->success(__('The feedback has been saved.'));

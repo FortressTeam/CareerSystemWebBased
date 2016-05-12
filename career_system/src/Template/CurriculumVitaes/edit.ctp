@@ -110,4 +110,36 @@ $(document).ready(function(){
         });
     });
 });
+/* ------------------------------------------- */
+/* 3. CV
+ --------------------------------------------- */
+/* ------------------------------------------- */
+/* 3.1. CV: Change template
+ --------------------------------------------- */
+$('.cvcs-template').click(function(){
+    var data = {
+        "curriculum_vitae_template_id": $(this).attr('template-id')
+    };
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'PUT',
+        url: $('#webInfo').data('url')
+                + '/api' 
+                + '/curriculum_vitaes/'
+                + $(this).attr('cv-id'),
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        beforeSend: function( xhr ) {
+            $('#cvcsTemplate').find('.fab-image').css({'display': 'inherit'});
+        },
+        success: function(responce){
+            setTimeout(function(){
+                $('#cvcsTemplate').find('.fab-image').css({'display': 'none'});
+                $('#cvcsTemplate').find('i.fa').removeClass('fa-save').addClass('fa-check');
+                location.reload();
+            }, 500);
+        }
+    });
+});
 </script>

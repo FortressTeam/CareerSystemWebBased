@@ -34,7 +34,7 @@
                             [
                                 'type' => 'button',
                                 'class' => 'btn btn-primary btn-raised ink-reaction',
-                                'id' => 'buttonFollowPost',
+                                'id' => 'buttonApplyPost',
                                 "data-toggle" => "modal",
                                 "data-target" => "#loadMyCV"
                             ]
@@ -154,7 +154,7 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-head style-primary">
-                <header>Control</header>
+                <header>Change post's status</header>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -236,4 +236,95 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <?php endif; ?>
-
+<script type="text/javascript">
+$('#buttonFollowPost').click(function(){
+    var applicantId = $(this).data('applicantid');
+    var postId = $(this).data('postid');
+    var value = $(this).data('value');
+    var data = {
+        "applicant_id": applicantId,
+        "post_id": postId,
+        "follow_status": value
+    };
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'POST',
+        url: $('#webInfo').data('url') + '/api/applicants_follow_posts',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        success: function(data){
+            if(data['message'] == 'Saved'){
+                if(data['applicantsFollowPost']['follow_status']){
+                    $('#buttonFollowPost')
+                        .html('UNFOLLOW')
+                        .data('value', '0')
+                        .removeClass('btn-default-light')
+                        .addClass('btn-primary');
+                }
+                else{
+                    $('#buttonFollowPost')
+                        .html('FOLLOW')
+                        .data('value', '1')
+                        .removeClass('btn-primary')
+                        .addClass('btn-default-light');
+                }
+            }
+        },
+        error: function(message){
+            console.log(message);
+        }
+    });
+});
+/* ------------------------------------------- */
+/* 3.2. CV: Apply post
+ --------------------------------------------- */
+$('.apply-cv').click(function(){
+    var data = {
+        "post_id": $(this).attr('post-id'),
+        "curriculum_vitae_id": $(this).attr('cv-id'),
+        "applied_cv_status": 0
+    }
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'POST',
+        url: $('#webInfo').data('url')
+                + '/api' 
+                + '/posts_has_curriculum_vitaes',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        beforeSend: function( xhr ) {
+            $('#apply-cv').text('loading...');
+        },
+        success: function(responce){
+            setTimeout(function(){
+                location.reload();
+            }, 500);
+        }
+    });
+});
+/* ------------------------------------------- */
+/* 3.2. CV: Response cv
+ --------------------------------------------- */
+$('.responseAppliedCV').click(function(){
+    var data = {
+        "post_id": $(this).attr('post-id'),
+        "curriculum_vitae_id": $(this).attr('cv-id'),
+        "applied_cv_status": $(this).data('status')
+    }
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'POST',
+        url: $('#webInfo').data('url')
+                + '/api' 
+                + '/posts_has_curriculum_vitaes',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        success: function(responce){
+            location.reload();
+        }
+    });
+});
+</script>

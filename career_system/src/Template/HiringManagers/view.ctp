@@ -276,7 +276,192 @@
         </div>
     </div> -->
 </div>
-<?php endif; ?><?= $this->Html->script('jquery.validate.min') ?>
-<script type="text/javascript">
+<?php endif; ?>
 
+<?= $this->Html->script('jquery.validate.min') ?>
+<script type="text/javascript">
+/* ------------------------------------------- */
+/* 1. Hiring manager
+ --------------------------------------------- */
+$('#buttonFollowHiringManager').click(function(){
+    var applicantId = $(this).data('applicantid');
+    var hiringManagerID = $(this).data('hiringmanagerid');
+    var value = $(this).data('value');
+    var data = {
+        "applicant_id": applicantId,
+        "hiring_manager_id": hiringManagerID,
+        "follow_hiring_manager": value
+    };
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'POST',
+        url: $('#webInfo').data('url') + '/api/follow' ,
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        success: function(data){
+            if(data['message'] == 'Saved'){
+                if(data['follow']['follow_hiring_manager']){
+                    $('#buttonFollowHiringManager')
+                        .html('UNFOLLOW')
+                        .data('value', '0')
+                        .removeClass('btn-default-light')
+                        .addClass('btn-primary');
+                }
+                else{
+                    $('#buttonFollowHiringManager')
+                        .html('FOLLOW')
+                        .data('value', '1')
+                        .removeClass('btn-primary')
+                        .addClass('btn-default-light');
+                }
+            }
+        },
+        error: function(message){
+            console.log(message);
+        }
+    });
+});
+/* ------------------------------------------- */
+/* 1.1. Hiring manager: Company Infomation
+ --------------------------------------------- */
+
+$('.editable').find('#form-companyInfo').validate({
+    errorElement: "span",
+    errorLabelContainer: "form-group",
+    success: function(label) {
+        $('#' + label.attr('id')).parent().removeClass('has-error');
+        $('#' + label.attr('id')).remove();
+    },
+    errorPlacement: function(error, element) {
+        error.addClass('help-block');
+        error.insertAfter(element);
+        element.parent().addClass('has-error');
+    },
+    submitHandler: function(form) {
+        if(this.valid()) {
+            editCompanyInfo($(form).find('#buttonEditCompanyInfo'));
+        }
+    },
+    rules: {
+        company_name: {
+            required: true
+        },
+        hiring_manager_name: {
+            required: true
+        },
+        company_size: {
+            required: true,
+            digits: true
+        },
+        hiring_manager_phone_number: {
+            required: true,
+            rangelength: [9, 12],
+            digits: true
+        },
+        company_address: {
+            required: true
+        },
+        company_email: {
+            required: true,
+            email: true
+        }
+    },
+    messages: {
+        company_name: {
+            required: 'Please enter compant\'s name!'
+        },
+        hiring_manager_name: {
+            required: 'Please enter your name!'
+        },
+        company_size: {
+            required: 'Please enter size of company!',
+            digits: 'Please enter a number!'
+        },
+        hiring_manager_phone_number: {
+            required: 'Please enter your phone number!',
+            rangelength: 'Please enter a valid phone number!',
+            digits: 'Please enter a valid phone number!'
+        },
+        company_address: {
+            required: 'Please enter company\'s address!'
+        },
+        company_email: {
+            required: 'Please enter company\'s email!',
+            email: 'Please enter a valid email'
+        }
+    }
+});
+
+var editCompanyInfo = function(element){
+    var data = {
+        "hiring_manager_name": $('#inputManagerName').val(),
+        "hiring_manager_phone_number": $('#inputManagerPhone').val(),
+        "company_name": $('#inputName').val(),
+        "company_size": $('#inputSize').val(),
+        "company_address": $('#inputAddress').val(),
+        "company_email": $('#inputEmail').val()
+    };
+    var hiringManagerId = $(element).data('id');
+    var formName = $(element).data('form');
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'PUT',
+        url: $('#webInfo').data('url') + '/api' + '/hiring_managers' + '/' + hiringManagerId,
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        success: function(response){
+            if(response['message'] == 'Saved'){
+                $('#textManagerName').text(response['hiringManager']['hiring_manager_name']);
+                $('#textManagerPhone').text(response['hiringManager']['hiring_manager_phone_number']);
+                $('#textName').text(response['hiringManager']['company_name']);
+                $('#textSize').text(response['hiringManager']['company_size'] + ' people');
+                $('#textAddress').text(response['hiringManager']['company_address']);
+                $('#textEmail').text(response['hiringManager']['company_email']);
+                closeForm(formName);
+            }
+        } 
+    });
+};
+
+/* ------------------------------------------- */
+/* 1.2. Hiring manager: Company About
+ --------------------------------------------- */
+$('.editable').find('#buttonEditCompanyAbout').click(function(){
+    var data ={
+        "company_about": $('#inputAbout').val()
+    };
+    var hiringManagerId = $(this).data('id');
+    var formName = $(this).data('form');
+    var dataJSON = JSON.stringify(data);
+    $.ajax({
+        type: 'PUT',
+        url: $('#webInfo').data('url') + '/api' + '/hiring_managers' + '/' + hiringManagerId,
+        contentType: 'application/json',
+        dataType: 'json',
+        data: dataJSON,
+        success: function(response){
+            if(response['message'] == 'Saved'){
+                $('#textAbout').text(response['hiringManager']['company_about']);
+                closeForm(formName);
+            }
+        }
+    });
+});
+/* ------------------------------------------- */
+/* 1.3. Hiring manager: Company Image
+ --------------------------------------------- */
+$('#buttonCompanyImage').click(function(){
+    $('#imputCompanyImage').click();
+});
+$('#imputCompanyImage').change(function(){
+    if (this.files && this.files[0]){
+        var reader = new FileReader();
+        reader.onload = function (e){
+            $('#companyImage').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+})
 </script>

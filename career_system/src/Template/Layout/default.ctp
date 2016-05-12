@@ -230,15 +230,6 @@ $cakeDescription = 'Career System: Something';
                                         ['escape' => false]
                                     );
                                 }
-                                else if(!empty($loggedUser['administrator'])){
-                                    echo $this->Html->link(
-                                        '<div class="gui-icon"><i class="fa fa-user fa-fw"></i></div>
-                                        <span class="title">My account</span>',
-                                        ['controller' => 'administrators', 'action' => 'view', $loggedUser['id']],
-                                        ['escape' => false]
-                                    );
-
-                                }
                             ?>
                         </li>
                         <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1' || $loggedUser['group_id'] == '2')): ?>
@@ -323,16 +314,6 @@ $cakeDescription = 'Career System: Something';
                             </ul>
                         </li><!--end /menu-li -->
                         <?php endif; ?>
-                        <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
-                        <li class="<?= $this->request->params['controller'] === 'Feedbacks' ? 'active' : '' ?>">
-                            <?= $this->Html->link(
-                                '<div class="gui-icon"><i class="fa fa-reply-all fa-fw"></i></div>
-                                <span class="title">Feedbacks</span>',
-                                ['controller' => 'Feedbacks', 'action' => 'index'],
-                                ['escape' => false]
-                                ) ?>
-                        </li><!--end /menu-li -->
-                        <?php endif; ?>
                         <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '3')): ?>
                         <li class="gui-folder <?= $this->request->params['controller'] === 'CurriculumVitaes' ? 'active' : '' ?>">
                             <a>
@@ -357,12 +338,26 @@ $cakeDescription = 'Career System: Something';
                             </ul>
                         </li><!--end /menu-li -->
                         <?php endif; ?>
-                        <li>
-                            <a href="#">
-                                <div class="gui-icon"><i class="fa fa-rss fa-fw"></i></div>
-                                <span class="title">News feed</span>
-                            </a>
+                        <?php if(isset($loggedUser['group_id']) && ($loggedUser['group_id'] == '1')): ?>
+                        <li class="<?= $this->request->params['controller'] === 'Skills' ? 'active' : '' ?>">
+                            <?= $this->Html->link(
+                                '<div class="gui-icon"><i class="fa fa-star fa-fw"></i></div>
+                                <span class="title">Skills</span>',
+                                ['controller' => 'Skills', 'action' => 'index'],
+                                ['escape' => false]
+                                ) ?>
                         </li><!--end /menu-li -->
+                        <?php endif; ?>
+                        <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
+                        <li class="<?= $this->request->params['controller'] === 'Feedbacks' ? 'active' : '' ?>">
+                            <?= $this->Html->link(
+                                '<div class="gui-icon"><i class="fa fa-reply-all fa-fw"></i></div>
+                                <span class="title">Feedbacks</span>',
+                                ['controller' => 'Feedbacks', 'action' => 'index'],
+                                ['escape' => false]
+                                ) ?>
+                        </li><!--end /menu-li -->
+                        <?php endif; ?>
                     </ul><!--end .main-menu -->
                 </div>
         </div><!-- end #menubar -->
