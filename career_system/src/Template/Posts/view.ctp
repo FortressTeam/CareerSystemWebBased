@@ -298,9 +298,10 @@ $('.apply-cv').click(function(){
             $('#apply-cv').text('loading...');
         },
         success: function(responce){
-            setTimeout(function(){
-                location.reload();
-            }, 500);
+            location.reload();
+        },
+        error: function(message){
+            location.reload();
         }
     });
 });
@@ -323,6 +324,9 @@ $('.responseAppliedCV').click(function(){
         dataType: 'json',
         data: dataJSON,
         success: function(responce){
+            location.reload();
+        },
+        error: function(message){
             location.reload();
         }
     });

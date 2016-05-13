@@ -4,6 +4,7 @@ namespace App\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Network\Http\Client;
+use Cake\ORM\TableRegistry;
 
 /**
  * Push Notification for Android Component
@@ -26,7 +27,7 @@ class PnaComponent extends Component
         return json_encode($package);
 	}
 
-    public function send($objects, $data)
+    private function _sendToAndroid($objectToken, $data)
     {
     	///////////////////////////////////////////////
         // $objects = [
@@ -39,6 +40,9 @@ class PnaComponent extends Component
     	///////////////////////////////////////////////
 
         $http = new Client();
+        $objects = [
+            $objectToken
+        ];        
         $jsonPackage = $this->_parseData($objects, $data);
         $response = $http->post(
             $this->_serverAddress,
@@ -49,5 +53,27 @@ class PnaComponent extends Component
             ]]
         );
         return $response;
+    }
+
+    private function _sendToWebBased($user = nul, $message = nulll)
+    {
+        $data = [
+            'notification_title' => $message['title'],
+            'notification_message' => $message['message'],
+            'notification_type' => $message['type'],
+            'notification_object_id' => $message['object_id'],
+            'user_id' => $user['id'],
+            'is_seen' => 0
+        ];
+        $notiTable = TableRegistry::get('Notifications');
+        $notification = $notiTable->newEntity();
+        $notification = $notiTable->patchEntity($notification, $data);
+        $notiTable->save($notification);
+    }
+
+    public function sendNotification($message = null, $user = null)
+    {
+        $this->_sendToAndroid($user['user_android_token'], $message);
+        $this->_sendToWebBased($user, $message);
     }
 }

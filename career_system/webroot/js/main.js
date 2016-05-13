@@ -172,53 +172,86 @@ $(document).ready(function(){
             return this.html() === "";
         };
 
-        /* Create Profile Panel elements */
-        $.fn.addProfilePanel = function(data){
+        $.fn.addNotificationItem = function(data){
 
             var infomation = $.extend({
-                    id: "1",
-                    name: "Vic",
-                    major: "Developer",
-                    image: "img/avatar.jpg"
+                    id: 0,
+                    is_seen: false,
+                    notification_title: "Notification's title",
+                    notification_message: "Notification's message",
                 }, data);
 
-            var titleProfilePanel = $("<a/>",{
-                    "href": "javascript:void(0);",
-                    "class": "dropdown-toggle ink-reaction",
-                    "data-toggle": "dropdown"
-                }).append($("<img></img>",{
-                    "src": infomation.image,
-                    "alt": infomation.name
-                })).append($("<span></span>",{
-                    "class": "profile-info",
-                    "text": infomation.name
-                }).append("<small>" + infomation.major + "</small>"));
-
-            var bodyProfilePanel = $("<ul/>",{
-                    "class": "dropdown-menu animation-dock"
-                }).append($("<li/>").html($("<a/>",{
-                    "href": "#", "text":
-                    "My profile"
-                }))).append($("<li/>").html($("<a/>",{
-                    "href": "#",
-                    "text": "My appointments"
-                }))).append($("<li/>",{
-                    "class": "divider"
-                })).append($("<li/>").html($("<a/>",{
-                    "href": "#",
-                    "text": "Logout"
-                }).prepend($("<i></i>",{
-                    "class": "fa fa-fw fa-power-off text-danger"
-                }))));
+            var color = '';
+            if(!infomation.is_seen) {
+                color = 'background: #EFEFEF;'
+            }
             
+            var item = $('<a/>',{
+                    'class': 'alert alert-callout alert-info',
+                    'style': color,
+                    'href': $('#webInfo').data('url') + '/notifications/view/' + infomation.id
+                })
+                .append($('<stronng/>',{
+                    'text': infomation.notification_title
+                }))
+                .append('<br/>')
+                .append($('<small/>',{
+                    'text': infomation.notification_message
+                }));
             $("<li/>")
-                .addClass("dropdown animated fadeInRight")
-                .append(titleProfilePanel)
-                .append(bodyProfilePanel)
-                .appendTo(this);
+                .append(item)
+                .insertBefore(this);
 
             return this;
         };
+
+        /* Create Profile Panel elements */
+        // $.fn.addProfilePanel = function(data){
+
+        //     var infomation = $.extend({
+        //             id: "1",
+        //             name: "Vic",
+        //             major: "Developer",
+        //             image: "img/avatar.jpg"
+        //         }, data);
+
+        //     var titleProfilePanel = $("<a/>",{
+        //             "href": "javascript:void(0);",
+        //             "class": "dropdown-toggle ink-reaction",
+        //             "data-toggle": "dropdown"
+        //         }).append($("<img></img>",{
+        //             "src": infomation.image,
+        //             "alt": infomation.name
+        //         })).append($("<span></span>",{
+        //             "class": "profile-info",
+        //             "text": infomation.name
+        //         }).append("<small>" + infomation.major + "</small>"));
+
+        //     var bodyProfilePanel = $("<ul/>",{
+        //             "class": "dropdown-menu animation-dock"
+        //         }).append($("<li/>").html($("<a/>",{
+        //             "href": "#", "text":
+        //             "My profile"
+        //         }))).append($("<li/>").html($("<a/>",{
+        //             "href": "#",
+        //             "text": "My appointments"
+        //         }))).append($("<li/>",{
+        //             "class": "divider"
+        //         })).append($("<li/>").html($("<a/>",{
+        //             "href": "#",
+        //             "text": "Logout"
+        //         }).prepend($("<i></i>",{
+        //             "class": "fa fa-fw fa-power-off text-danger"
+        //         }))));
+            
+        //     $("<li/>")
+        //         .addClass("dropdown animated fadeInRight")
+        //         .append(titleProfilePanel)
+        //         .append(bodyProfilePanel)
+        //         .appendTo(this);
+
+        //     return this;
+        // };
 
         /* Create Skill Column elements */
         $.fn.addSkillColumn = function(data){

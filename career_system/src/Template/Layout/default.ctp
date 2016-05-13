@@ -83,19 +83,12 @@ $cakeDescription = 'Career System: Something';
             <div class="headerbar-right">
                 <ul class="header-nav header-nav-toggle" id="headerToggle">
                     <li class="dropdown">
-                        <a href="javascript:void(0);" class="btn btn-icon-toggle btn-default" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-bell"></i><sup class="badge style-danger">4</sup>
+                        <a href="javascript:void(0);" class="btn btn-icon-toggle btn-default" data-toggle="dropdown" aria-expanded="false" id="openNotificationButton">
+                            <i class="fa fa-bell"></i><sup class="badge style-danger" id="notSeenNotifications">0</sup>
                         </a>
                         <ul class="dropdown-menu animation-expand">
-                            <li class="dropdown-header">Today's messages</li>
-                            <li>
-                                <a class="alert alert-callout alert-info" href="javascript:void(0);">
-                                    <?= $this->Html->image('company_img/1.jpg', ['alt' => 'Vic', 'class' => 'pull-right img-circle dropdown-avatar']) ?>
-                                    <strong>Alicia Adell</strong><br>
-                                    <small>Reviewing last changes...</small>
-                                </a>
-                            </li>
-                            <li><a href="#">Mark as read <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
+                            <li class="dropdown-header">Your notifications</li>
+                            <li id="notificationButton"><a href="#">View all notifications <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
                         </ul><!--end .dropdown-menu -->
                     </li><!--end .dropdown -->
                 </ul><!--end .header-nav-toggle -->
@@ -395,5 +388,50 @@ $cakeDescription = 'Career System: Something';
     <?= $this->Html->script('main') ?>
     <?= $this->Html->script('form') ?>
     <?= $this->Html->script('app.min') ?>
+
+    <script type="text/javascript">
+        <?php if(isset($loggedUser['id'])): ?>
+        $(document).ready(function(){
+            $.ajax({
+                type: 'GET',
+                url: $('#webInfo').data('url')
+                        + '/api' 
+                        + '/notifications'
+                        + '/notSeen'
+                        + '?user_id=' + <?= $loggedUser['id'] ?>,
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function(responce){
+                    $('#notSeenNotifications').text(responce['count']);
+                },
+                error: function(message){
+                    console.log(message);
+                }
+            });
+        });
+        $('#openNotificationButton').click(function(){
+            $.ajax({
+                type: 'GET',
+                url: $('#webInfo').data('url')
+                        + '/api' 
+                        + '/notifications'
+                        + '?user_id=' + <?= $loggedUser['id'] ?>
+                        + '&limit=3',
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function(responce){
+                    if($('#notificationButton').parent().children().length <= 2) {
+                        $.each(responce['notifications'], function(index, value) {
+                                $('#notificationButton').addNotificationItem(value);
+                        });
+                    }
+                },
+                error: function(message){
+                    console.log(message);
+                }
+            });
+        });
+        <?php endif; ?>
+    </script>
 </body>
 </html>

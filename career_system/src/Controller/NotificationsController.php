@@ -11,25 +11,8 @@ use App\Controller\AppController;
 class NotificationsController extends AppController
 {
 
-
-    /**
-     * Initialize method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function initialize()
-    {
-        parent::initialize();
-        $this->loadComponent('Pna');
-    }
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
     public function index()
     {
-        dump($this->Pna->send('', '')); die;
         $this->paginate = [
             'contain' => ['Users']
         ];
@@ -39,96 +22,24 @@ class NotificationsController extends AppController
         $this->set('_serialize', ['notifications']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Notification id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
-        $notification = $this->Notifications->get($id, [
-            'contain' => ['Users']
-        ]);
+        $notification = $this->Notifications->get($id);
+
+        if($notification['notification_type'] == '1') {
+            $this->redirect(['controller' => 'Posts', 'action' => 'view', 'slug' => 'from-notifications', 'id' => $notification['notification_object_id']]);
+        }
+        else if($notification['notification_type'] == '2') {
+            $this->redirect(['controller' => 'Applicants', 'action' => 'view', 'slug' => 'from-notifications', 'id' => $notification['notification_object_id']]);
+        }
+        else if($notification['notification_type'] == '3') {
+            $this->redirect(['controller' => 'HiringManagers', 'action' => 'view', 'slug' => 'from-notifications', 'id' => $notification['notification_object_id']]);
+        }
 
         $this->set('notification', $notification);
         $this->set('_serialize', ['notification']);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
-    // public function add()
-    // {
-    //     $notification = $this->Notifications->newEntity();
-    //     if ($this->request->is('post')) {
-    //         $notification = $this->Notifications->patchEntity($notification, $this->request->data);
-    //         if ($this->Notifications->save($notification)) {
-    //             $this->Flash->success(__('The notification has been saved.'));
-    //             return $this->redirect(['action' => 'index']);
-    //         } else {
-    //             $this->Flash->error(__('The notification could not be saved. Please, try again.'));
-    //         }
-    //     }
-    //     $users = $this->Notifications->Users->find('list', ['limit' => 200]);
-    //     $this->set(compact('notification', 'users'));
-    //     $this->set('_serialize', ['notification']);
-    // }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Notification id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    // public function edit($id = null)
-    // {
-    //     $notification = $this->Notifications->get($id, [
-    //         'contain' => []
-    //     ]);
-    //     if ($this->request->is(['patch', 'post', 'put'])) {
-    //         $notification = $this->Notifications->patchEntity($notification, $this->request->data);
-    //         if ($this->Notifications->save($notification)) {
-    //             $this->Flash->success(__('The notification has been saved.'));
-    //             return $this->redirect(['action' => 'index']);
-    //         } else {
-    //             $this->Flash->error(__('The notification could not be saved. Please, try again.'));
-    //         }
-    //     }
-    //     $users = $this->Notifications->Users->find('list', ['limit' => 200]);
-    //     $this->set(compact('notification', 'users'));
-    //     $this->set('_serialize', ['notification']);
-    // }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Notification id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $notification = $this->Notifications->get($id);
-        if ($this->Notifications->delete($notification)) {
-            $this->Flash->success(__('The notification has been deleted.'));
-        } else {
-            $this->Flash->error(__('The notification could not be deleted. Please, try again.'));
-        }
-        return $this->redirect(['action' => 'index']);
-    }
-
-    /**
-     * is authorized callback.
-     *
-     * @param $user
-     * @return void
-     */
     public function isAuthorized(){
         return true;
     }

@@ -12,11 +12,6 @@ use Cake\Network\Exception\UnauthorizedException;
 class PostsHasCurriculumVitaesController extends AppController
 {
 
-    /**
-     * Initialize method
-     *
-     * @return \Cake\Network\Response|null
-     */
     public function initialize()
     {
         parent::initialize();
@@ -45,7 +40,7 @@ class PostsHasCurriculumVitaesController extends AppController
     {
         $this->loadModel('Users');
         $user = $this->Users->find('all', [
-            'fields' => ['username', 'user_android_token'],
+            'fields' => ['id', 'user_android_token'],
             'conditions' => ['id' => $id]
         ])->first();
         return $user;
@@ -53,73 +48,48 @@ class PostsHasCurriculumVitaesController extends AppController
 
     private function _getUserIDviaPost($id = null)
     {
-        $userID = $this->PostsHasCurriculumVitaes->Posts->find('all', [
-            'fields' => ['hiring_manager_id'],
+        return $this->PostsHasCurriculumVitaes->Posts->find('all', [
+            'fields' => ['id' => 'hiring_manager_id'],
             'conditions' => ['id' => $id]
-        ])->first();
-        return $userID;
+        ])->first()['id'];
     }
 
     private function _getUserIDviaCV($id = null)
     {
-        $userID = $this->PostsHasCurriculumVitaes->CurriculumVitaes->find('all', [
-            'fields' => ['applicant_id'],
+        return $this->PostsHasCurriculumVitaes->CurriculumVitaes->find('all', [
+            'fields' => ['id' => 'applicant_id'],
             'conditions' => ['id' => $id]
-        ])->first();
-        return $userID;
+        ])->first()['id'];
     }
 
-    private function _sendNotification($message = null, $objectID = null, $userID = null, $type = null)
+    private function _createCVApplyMessage($post_id = null)
     {
-        if($userID){
-            $user = $this->_getUser($userID);
-            if($user){
-                $userToken = [
-                    $user['user_android_token']
-                ];
-                $this->Pna->send($userToken, $message);
-            }
-        }
-        $data = [
-            'notification_title' => $message['title'],
-            'notification_message' => $message['message'],
-            'notification_type' => $type,
-            'notification_object_id' => $objectID,
-            'is_seen' => 0,
-            'user_id' => $userID
-        ];
-        $this->loadModel('Notifications');
-        $notification = $this->Notifications->newEntity();
-        $notification = $this->Notifications->patchEntity($notification, $data);
-        $this->Notifications->save($notification);
-    }
-
-    private function _createNotificationToHiringManager($post_id = null)
-    {
-        $userID = $this->_getUserIDviaPost($post_id);
-        $message = [
+        return [
             'title' => 'New CV apply',
-            'message' => 'An user was apply to your post.'
+            'message' => 'An user was apply to your post.',
+            'object_id' => $post_id,
+            'type' => '1'
         ];
-        $this->_sendNotification($message, $post_id, $userID['hiring_manager_id'], '1');
     }
 
-    private function _createNotificationToApplicant($curriculum_vitae_id = null, $status = null)
+    private function _createAcceptCVMessage($post_id = null)
     {
-        $userID = $this->_getUserIDviaCV($curriculum_vitae_id);
-        if($status == '1'){
-            $message = [
-                'title' => 'Accept CV',
-                'message' => 'Your CV was accepted'
-            ];
-        }
-        else{
-            $message = [
-                'title' => 'Reject CV',
-                'message' => 'Your CV was rejected'
-            ];
-        }
-        $this->_sendNotification($message, $curriculum_vitae_id, $userID['applicant_id'], '2');
+        return [
+            'title' => 'Accept CV',
+            'message' => 'Your CV was accepted',
+            'object_id' => $post_id,
+            'type' => '1'
+        ];
+    }
+
+    private function _createRejectCVMessage($post_id = null)
+    {
+        return [
+            'title' => 'Reject CV',
+            'message' => 'Your CV was rejected',
+            'object_id' => $post_id,
+            'type' => '1'
+        ];
     }
 
     /**
@@ -133,13 +103,29 @@ class PostsHasCurriculumVitaesController extends AppController
         if ($this->request->is('post')) {
             $postsHasCurriculumVitae = $this->PostsHasCurriculumVitaes->patchEntity($postsHasCurriculumVitae, $this->request->data);
             if ($this->PostsHasCurriculumVitaes->save($postsHasCurriculumVitae)) {
+                $post_id = $this->request->data['post_id'];
+                $curriculum_vitae_id = $this->request->data['curriculum_vitae_id'];
+
                 if($this->request->data['applied_cv_status'] == '0'){
-                    $this->_createNotificationToHiringManager($this->request->data['post_id']);
+                    $userID = $this->_getUserIDviaPost($post_id);
+                    $message = $this->_createCVApplyMessage($post_id);
                 }
-                else{
-                    $this->_createNotificationToApplicant($this->request->data['curriculum_vitae_id'], $this->request->data['applied_cv_status']);
+                else if($this->request->data['applied_cv_status'] == '1'){
+                    $userID = $this->_getUserIDviaCV($curriculum_vitae_id);
+                    $message = $this->_createAcceptCVMessage($post_id);
                 }
-                $message = 'Saved';
+                else if($this->request->data['applied_cv_status'] == '2'){
+                    $userID = $this->_getUserIDviaCV($curriculum_vitae_id);
+                    $message = $this->_createRejectCVMessage($post_id);
+                }
+                $user = $this->_getUser($userID);
+                if($user && $message) {
+                    $this->Pna->sendNotification($message, $user);
+                    $message = 'Saved';
+                }
+                else {
+                    $message = 'Error';
+                }
             } else {
                 $message = 'Error';
             }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 12, 2016 at 05:24 PM
+-- Generation Time: May 13, 2016 at 01:15 PM
 -- Server version: 5.5.49-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.16
 
@@ -95,18 +95,19 @@ CREATE TABLE IF NOT EXISTS `applicants_follow_posts` (
 --
 
 INSERT INTO `applicants_follow_posts` (`applicant_id`, `post_id`, `follow_status`) VALUES
-(4, 14, 1),
+(4, 14, 0),
 (4, 96, 0),
 (4, 98, 0),
 (4, 100, 1),
 (4, 120, 1),
 (4, 135, 0),
-(5, 97, 1),
+(5, 97, 0),
 (5, 98, 0),
 (5, 101, 1),
-(5, 114, 1),
+(5, 114, 0),
 (5, 120, 0),
 (5, 135, 1),
+(5, 140, 1),
 (5, 155, 0);
 
 -- --------------------------------------------------------
@@ -1025,66 +1026,21 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_cs_notifications_cs_users1_idx` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=80 ;
 
 --
 -- Dumping data for table `notifications`
 --
 
 INSERT INTO `notifications` (`id`, `notification_title`, `notification_message`, `notification_type`, `notification_object_id`, `is_seen`, `user_id`) VALUES
-(2, 'New CV apply', 'User test was apply to your post.', 1, 101, 0, 2),
-(3, 'New CV apply', 'User test was apply to your post.', 1, 101, 0, 2),
-(4, 'New CV apply', 'User test was apply to your post.', 1, 101, 0, 2),
-(5, 'New CV apply', 'User test was apply to your post.', 1, 101, 0, 2),
-(6, 'New CV apply', 'User test was apply to your post.', 1, 101, 0, 2),
-(7, 'Accept CV', 'Your CV was accepted by kyler', 2, 1, 0, 5),
-(8, 'Reject CV', 'Your CV was rejected by mark', 2, 11, 0, 4),
-(9, 'Accept CV', 'Your CV was accepted by kyler', 2, 1, 0, 5),
-(10, 'Reject CV', 'Your CV was rejected by kyler', 2, 1, 0, 5),
-(11, 'New CV apply', 'User test was apply to your post.', 1, 97, 0, 2),
-(12, 'Accept CV', 'Your CV was accepted by kyler', 2, 1, 0, 5),
-(13, 'Accept CV', 'Your CV was accepted', 2, 1, 0, 5),
-(14, 'Reject CV', 'Your CV was rejected by kyler', 2, 1, 0, 5),
-(15, 'New CV apply', 'An user was apply to your post.', 1, 97, 0, 2),
-(16, 'New CV apply', 'An user was apply to your post.', 1, 98, 0, 2),
-(17, 'Accept CV', 'Your CV was accepted', 2, 12, 0, 4),
-(18, 'New CV apply', 'An user was apply to your post.', 1, 99, 0, 2),
-(19, 'New CV apply', 'An user was apply to your post.', 1, 97, 0, 2),
-(20, 'Accept CV', 'Your CV was accepted', 2, 1, 0, 5),
-(21, 'Reject CV', 'Your CV was rejected by ', 2, 1, 0, 5),
-(22, 'Accept CV', 'Your CV was accepted', 2, 12, 0, 4),
-(23, 'Accept CV', 'Your CV was accepted', 2, 15, 0, 5),
-(24, 'Reject CV', 'Your CV was rejected by ', 2, 11, 0, 4),
-(25, 'Accept CV', 'Your CV was accepted', 2, 11, 0, 4),
-(26, 'Accept CV', 'Your CV was accepted', 2, 11, 0, 4),
-(27, 'Reject CV', 'Your CV was rejected by ', 2, 11, 0, 4),
-(28, 'Accept CV', 'Your CV was accepted', 2, 11, 0, 4),
-(29, 'Accept CV', 'Your CV was accepted', 2, 11, 0, 4),
-(30, 'Reject CV', 'Your CV was rejected by ', 2, 11, 0, 4),
-(31, 'New CV apply', 'An user was apply to your post.', 1, 101, 0, 2),
-(32, 'Reject CV', 'Your CV was rejected by ', 2, 11, 0, 4),
-(33, 'Reject CV', 'Your CV was rejected by ', 2, 11, 0, 4),
-(34, 'Reject CV', 'Your CV was rejected by ', 2, 11, 0, 4),
-(35, 'Reject CV', 'Your CV was rejected by ', 2, 11, 0, 4),
-(36, 'Reject CV', 'Your CV was rejected by ', 2, 11, 0, 4),
-(37, 'Accept CV', 'Your CV was accepted', 2, 11, 0, 4),
-(38, 'Reject CV', 'Your CV was rejected by ', 2, 11, 0, 4),
-(39, 'Reject CV', 'Your CV was rejected', 2, 11, 0, 4),
-(40, 'New CV apply', 'An user was apply to your post.', 1, 101, 0, 2),
-(41, 'Reject CV', 'Your CV was rejected', 2, 11, 0, 4),
-(42, 'New CV apply', 'An user was apply to your post.', 1, 14, 0, 1),
-(43, 'Accept CV', 'Your CV was accepted', 2, 12, 0, 4),
-(44, 'New CV apply', 'An user was apply to your post.', 1, 120, 0, 11),
-(45, 'New CV apply', 'An user was apply to your post.', 1, 155, 0, 12),
-(46, 'New CV apply', 'An user was apply to your post.', 1, 155, 0, 12),
-(47, 'New CV apply', 'An user was apply to your post.', 1, 95, 0, 2),
-(48, 'New CV apply', 'An user was apply to your post.', 1, 100, 0, 2),
-(49, 'New CV apply', 'An user was apply to your post.', 1, 120, 0, 11),
-(50, 'New CV apply', 'An user was apply to your post.', 1, 100, 0, 2),
-(51, 'Accept CV', 'Your CV was accepted', 2, 12, 0, 4),
-(52, 'Reject CV', 'Your CV was rejected', 2, 15, 0, 5),
-(53, 'New CV apply', 'An user was apply to your post.', 1, 12, 0, 1),
-(54, 'New CV apply', 'An user was apply to your post.', 1, 13, 0, 1);
+(72, 'New CV apply', 'An user was apply to your post.', 1, 120, 0, 11),
+(73, 'New CV apply', 'An user was apply to your post.', 1, 100, 1, 2),
+(74, 'New CV apply', 'An user was apply to your post.', 1, 140, 0, 12),
+(75, 'New CV apply', 'An user was apply to your post.', 1, 95, 0, 2),
+(76, 'New CV apply', 'An user was apply to your post.', 1, 94, 0, 2),
+(77, 'Accept CV', 'Your CV was accepted', 1, 100, 0, 5),
+(78, 'New CV apply', 'An user was apply to your post.', 1, 93, 0, 2),
+(79, 'New CV apply', 'An user was apply to your post.', 1, 35, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1306,19 +1262,13 @@ CREATE TABLE IF NOT EXISTS `posts_has_curriculum_vitaes` (
 --
 
 INSERT INTO `posts_has_curriculum_vitaes` (`post_id`, `curriculum_vitae_id`, `applied_cv_status`) VALUES
-(12, 12, 0),
-(13, 11, 0),
-(14, 12, 1),
-(95, 1, 0),
-(97, 1, 2),
-(98, 12, 1),
-(99, 15, 1),
-(100, 12, 1),
-(100, 15, 2),
-(101, 1, 2),
-(101, 11, 2),
-(120, 13, 2),
-(155, 14, 0);
+(35, 1, 0),
+(93, 14, 0),
+(94, 15, 0),
+(95, 14, 0),
+(100, 20, 1),
+(120, 14, 0),
+(140, 14, 0);
 
 -- --------------------------------------------------------
 
@@ -2295,16 +2245,16 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_email`, `user_registered`, `user_status`, `user_activation_key`, `user_avatar`, `user_android_token`, `group_id`) VALUES
-(1, 'vic', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'vic@enclave.vn', '2016-03-16', 1, NULL, 'user1-128x128.jpg', 'fPW96qYHMd4:APA91bG-gfVe0nsIr9drbhGWVYR-UgsHCx2ClsO9z82QkpFds28GIyStYANAa1nqtcX70vg16eqtLFs7USTIfE-7d8q8cskT4jHMaw1_eDXtsPTQ2_Yc-grwEAPkCFfnff8xSSrpB5qP', 2),
+(1, 'vic', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'vic@enclave.vn', '2016-03-16', 1, NULL, 'user1-128x128.jpg', 'dLJ8M55agpE:APA91bGV17SQfj7Yuy9UAVPOFZeRFSwFQNrhdQbkGVC73S0i91KJJoJSnKnFNKV6x9_nliJ208uZkgwFL9hgpogXjer39xcxakKeporlTfHDrbwCcRx3M8sm6vr-yJwT9q5JyPKPHcYz', 2),
 (2, 'travis', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'travis@enclave.vn', '2016-03-22', 1, NULL, 'user2-128x128.jpg', '', 2),
-(4, 'mark', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'mark@enclave.vn', '2016-03-28', 1, NULL, 'user6-128x128.jpg', '', 3),
-(5, 'kyler', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'kyler@enclave.vn', '2016-03-29', 1, NULL, 'user8-128x128.jpg', 'eYYkK04mIp8:APA91bFQcuSK8bh73gPUM97BgFOGTEvrncmUuirDwfLXejd3scmG_0AI6BxWRUzmyIhM0GlonQQTYyVFPhxqSGwO-ESkb5yO85pwKLCKQ1kTxg6NXLS9Mp1wXuB96z1GqzxqXNiFKRRo', 3),
-(6, 'admin', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'admin@careersystem.vn', '2016-04-19', 1, NULL, 'user4-128x128.jpg', 'fPW96qYHMd4:APA91bG-gfVe0nsIr9drbhGWVYR-UgsHCx2ClsO9z82QkpFds28GIyStYANAa1nqtcX70vg16eqtLFs7USTIfE-7d8q8cskT4jHMaw1_eDXtsPTQ2_Yc-grwEAPkCFfnff8xSSrpB5qP', 1),
-(8, 'json', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'json@enclave.vn', '2016-04-22', 1, NULL, 'user7-128x128.jpg', 'fPW96qYHMd4:APA91bG-gfVe0nsIr9drbhGWVYR-UgsHCx2ClsO9z82QkpFds28GIyStYANAa1nqtcX70vg16eqtLFs7USTIfE-7d8q8cskT4jHMaw1_eDXtsPTQ2_Yc-grwEAPkCFfnff8xSSrpB5qP', 2),
-(11, 'quant', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'quant@enclave.vn', '2016-03-16', 1, NULL, 'user9-128x128.jpg', NULL, 2),
-(12, 'sion', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'sion@enclave.vn', '2016-04-21', 1, NULL, 'user10-128x128.jpg', NULL, 2),
-(13, 'test', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', '123123123', '2016-05-06', 1, NULL, 'user6-128x128.jpg', '', 3),
-(16, 'acton', '$2y$10$tzsHciXW7SSP8w1woG.HWOjAPak..cEA116/yaVzDHZUogeIFQZba', 'acton@enclave.com', '2016-05-10', 1, 'asdavfw323', 'default.png', NULL, 3);
+(4, 'mark', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'mark@enclave.vn', '2016-03-28', 1, NULL, 'user6-128x128.jpg', 'dLJ8M55agpE:APA91bGV17SQfj7Yuy9UAVPOFZeRFSwFQNrhdQbkGVC73S0i91KJJoJSnKnFNKV6x9_nliJ208uZkgwFL9hgpogXjer39xcxakKeporlTfHDrbwCcRx3M8sm6vr-yJwT9q5JyPKPHcYz', 3),
+(5, 'kyler', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'kyler@enclave.vn', '2016-03-29', 1, NULL, 'user8-128x128.jpg', '', 3),
+(6, 'admin', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'admin@careersystem.vn', '2016-04-19', 1, NULL, 'user4-128x128.jpg', 'dLJ8M55agpE:APA91bGV17SQfj7Yuy9UAVPOFZeRFSwFQNrhdQbkGVC73S0i91KJJoJSnKnFNKV6x9_nliJ208uZkgwFL9hgpogXjer39xcxakKeporlTfHDrbwCcRx3M8sm6vr-yJwT9q5JyPKPHcYz', 1),
+(8, 'json', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'json@enclave.vn', '2016-04-22', 1, NULL, 'user7-128x128.jpg', 'dLJ8M55agpE:APA91bGV17SQfj7Yuy9UAVPOFZeRFSwFQNrhdQbkGVC73S0i91KJJoJSnKnFNKV6x9_nliJ208uZkgwFL9hgpogXjer39xcxakKeporlTfHDrbwCcRx3M8sm6vr-yJwT9q5JyPKPHcYz', 2),
+(11, 'quant', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'quant@enclave.vn', '2016-03-16', 1, NULL, 'user9-128x128.jpg', 'dLJ8M55agpE:APA91bGV17SQfj7Yuy9UAVPOFZeRFSwFQNrhdQbkGVC73S0i91KJJoJSnKnFNKV6x9_nliJ208uZkgwFL9hgpogXjer39xcxakKeporlTfHDrbwCcRx3M8sm6vr-yJwT9q5JyPKPHcYz', 2),
+(12, 'sion', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', 'sion@enclave.vn', '2016-04-21', 1, NULL, 'user10-128x128.jpg', 'dLJ8M55agpE:APA91bGV17SQfj7Yuy9UAVPOFZeRFSwFQNrhdQbkGVC73S0i91KJJoJSnKnFNKV6x9_nliJ208uZkgwFL9hgpogXjer39xcxakKeporlTfHDrbwCcRx3M8sm6vr-yJwT9q5JyPKPHcYz', 2),
+(13, 'test', '$2y$10$0CVCuU6tytIlw7va6qujm.a27X3VlmINAacazE/ymNlWaxpwkKK.O', '123123123', '2016-05-06', 1, NULL, 'user6-128x128.jpg', 'dLJ8M55agpE:APA91bGV17SQfj7Yuy9UAVPOFZeRFSwFQNrhdQbkGVC73S0i91KJJoJSnKnFNKV6x9_nliJ208uZkgwFL9hgpogXjer39xcxakKeporlTfHDrbwCcRx3M8sm6vr-yJwT9q5JyPKPHcYz', 3),
+(16, 'acton', '$2y$10$tzsHciXW7SSP8w1woG.HWOjAPak..cEA116/yaVzDHZUogeIFQZba', 'acton@enclave.com', '2016-05-10', 1, 'asdavfw323', 'default.png', 'dLJ8M55agpE:APA91bGV17SQfj7Yuy9UAVPOFZeRFSwFQNrhdQbkGVC73S0i91KJJoJSnKnFNKV6x9_nliJ208uZkgwFL9hgpogXjer39xcxakKeporlTfHDrbwCcRx3M8sm6vr-yJwT9q5JyPKPHcYz', 3);
 
 --
 -- Constraints for dumped tables

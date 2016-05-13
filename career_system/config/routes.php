@@ -162,6 +162,7 @@ Router::prefix('api', function ($routes) {
            ]
        ]
     ]);
+    $routes->resources('Notifications');
     $routes->fallbacks('InflectedRoute');
 });
 
