@@ -51,15 +51,18 @@ class NotificationsController extends AppController
     public function hasSeen($id = null)
     {
         $notification = $this->Notifications->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $notification = $this->Notifications->patchEntity($notification, $this->request->data);
+        if ($this->request->is(['put'])) {
+            $data = [
+                'is_seen' => true
+            ];
+            $notification = $this->Notifications->patchEntity($notification, $data);
             if ($this->Notifications->save($notification)) {
                 $message = 'Saved';
             } else {
                 $message = 'Error';
             }
         }
-        $this->set(compact('notification'));
-        $this->set('_serialize', ['notification']);
+        $this->set(compact('message', 'notification'));
+        $this->set('_serialize', ['message', 'notification']);
     }
 }

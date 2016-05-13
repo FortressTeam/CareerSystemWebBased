@@ -36,57 +36,73 @@ class PostsHasCurriculumVitaesController extends AppController
         $this->set('_serialize', ['postsHasCurriculumVitaes']);
     }
 
-    private function _getUser($id = null)
+    private function _getUserViaPost($id = null)
     {
-        $this->loadModel('Users');
-        $user = $this->Users->find('all', [
-            'fields' => ['id', 'user_android_token'],
-            'conditions' => ['id' => $id]
-        ])->first();
-        return $user;
+        $postInfo = $this->PostsHasCurriculumVitaes->Posts->find()
+            ->select([
+                'id' => 'hiring_manager_id', 'username' => 'jUsers.username',
+                'user_android_token' => 'jUsers.user_android_token'
+            ])
+            ->join([
+                'table' => 'users', 'alias' => 'jUsers', 'type' => 'INNER',
+                'conditions' => 'jUsers.id = Posts.hiring_manager_id',
+            ])
+            ->where(['Posts.id' => $id])
+            ->first();
+
+        return [
+            'id' => $postInfo['id'],
+            'username' => $postInfo['username'],
+            'user_android_token' => $postInfo['user_android_token']
+        ];
     }
 
-    private function _getUserIDviaPost($id = null)
+    public function _getUserViaCV($id = null)
     {
-        return $this->PostsHasCurriculumVitaes->Posts->find('all', [
-            'fields' => ['id' => 'hiring_manager_id'],
-            'conditions' => ['id' => $id]
-        ])->first()['id'];
+        $postInfo = $this->PostsHasCurriculumVitaes->CurriculumVitaes->find()
+            ->select([
+                'id' => 'applicant_id', 'username' => 'jUsers.username',
+                'user_android_token' => 'jUsers.user_android_token'
+            ])
+            ->join([
+                'table' => 'users', 'alias' => 'jUsers', 'type' => 'INNER',
+                'conditions' => 'jUsers.id = CurriculumVitaes.applicant_id',
+            ])
+            ->where(['CurriculumVitaes.id' => $id])
+            ->first();
+
+        return [
+            'id' => $postInfo['id'],
+            'username' => $postInfo['username'],
+            'user_android_token' => $postInfo['user_android_token']
+        ];
     }
 
-    private function _getUserIDviaCV($id = null)
-    {
-        return $this->PostsHasCurriculumVitaes->CurriculumVitaes->find('all', [
-            'fields' => ['id' => 'applicant_id'],
-            'conditions' => ['id' => $id]
-        ])->first()['id'];
-    }
-
-    private function _createCVApplyMessage($post_id = null)
+    private function _createCVApplyMessage($post_id = null, $user = null)
     {
         return [
             'title' => 'New CV apply',
-            'message' => 'An user was apply to your post.',
+            'message' => '[' . $user['username'] . '] was apply to your post.',
             'object_id' => $post_id,
             'type' => '1'
         ];
     }
 
-    private function _createAcceptCVMessage($post_id = null)
+    private function _createAcceptCVMessage($post_id = null, $user = null)
     {
         return [
             'title' => 'Accept CV',
-            'message' => 'Your CV was accepted',
+            'message' => 'Your CV was accepted by [' . $user['username'] . ']',
             'object_id' => $post_id,
             'type' => '1'
         ];
     }
 
-    private function _createRejectCVMessage($post_id = null)
+    private function _createRejectCVMessage($post_id = null, $user = null)
     {
         return [
             'title' => 'Reject CV',
-            'message' => 'Your CV was rejected',
+            'message' => 'Your CV was rejected by [' . $user['username'] . ']',
             'object_id' => $post_id,
             'type' => '1'
         ];
@@ -107,18 +123,17 @@ class PostsHasCurriculumVitaesController extends AppController
                 $curriculum_vitae_id = $this->request->data['curriculum_vitae_id'];
 
                 if($this->request->data['applied_cv_status'] == '0'){
-                    $userID = $this->_getUserIDviaPost($post_id);
-                    $message = $this->_createCVApplyMessage($post_id);
+                    $user = $this->_getUserViaPost($post_id);
+                    $message = $this->_createCVApplyMessage($post_id, $user);
                 }
                 else if($this->request->data['applied_cv_status'] == '1'){
-                    $userID = $this->_getUserIDviaCV($curriculum_vitae_id);
-                    $message = $this->_createAcceptCVMessage($post_id);
+                    $user = $this->_getUserViaCV($curriculum_vitae_id);
+                    $message = $this->_createAcceptCVMessage($post_id, $user);
                 }
                 else if($this->request->data['applied_cv_status'] == '2'){
-                    $userID = $this->_getUserIDviaCV($curriculum_vitae_id);
-                    $message = $this->_createRejectCVMessage($post_id);
+                    $user = $this->_getUserViaCV($curriculum_vitae_id);
+                    $message = $this->_createRejectCVMessage($post_id, $user);
                 }
-                $user = $this->_getUser($userID);
                 if($user && $message) {
                     $this->Pna->sendNotification($message, $user);
                     $message = 'Saved';

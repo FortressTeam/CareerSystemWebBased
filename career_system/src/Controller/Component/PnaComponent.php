@@ -73,7 +73,7 @@ class PnaComponent extends Component
 
     public function sendNotification($message = null, $user = null)
     {
-        $this->_sendToAndroid($user['user_android_token'], $message);
         $this->_sendToWebBased($user, $message);
+        $this->_sendToAndroid($user['user_android_token'], $message);
     }
 }
