@@ -35,6 +35,9 @@ class NotificationsController extends AppController
                 'is_seen' => false
             ])
             ->count();
+        $count = [
+            'notifications' => $count
+        ];
 
         $this->set(compact('count'));
         $this->set('_serialize', ['count']);

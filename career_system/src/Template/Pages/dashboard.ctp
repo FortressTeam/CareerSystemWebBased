@@ -100,12 +100,22 @@
 				</div>
 			</div>
     	</div>
+		<!--/////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        //
+        // APPLICANT VIEW - AFTER SIGN IN
+        //
+        //////////////////////////////////////////////////////////////////////////////////-->
     	<?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '3')): ?>
 		    <div class="row">
 		    	<div class="col-xs-12">
 					<p class="text-default-light text-xl">Applied Posts</p>
+					<?php if(!$submittedPosts->count()): ?>
+						<p class="text-default-light">You have not applied any posts yet.</p>
+						<hr class="text-default-light"/>
+					<?php endif; ?>
 			    </div>
-		        <?php foreach ($submittedPosts as $post): ?>
+ 		        <?php foreach ($submittedPosts as $post): ?>
 		        <div class="col-xs-12 col-sm-6 col-lg-4 animated zoomIn">
 		            <div class="card card-underline">
 		                <div class="card-body">
@@ -185,6 +195,10 @@
 		    <div class="row">
 		    	<div class="col-xs-12">
 					<p class="text-default-light text-xl">Followed Posts</p>
+					<?php if(!$followedPosts->count()): ?>
+						<p class="text-default-light">You have not followed any posts yet.</p>
+						<hr class="text-default-light"/>
+					<?php endif; ?>
 			    </div>
 		        <?php foreach ($followedPosts as $post): ?>
 		        <div class="col-xs-12 col-sm-6 col-lg-4 animated zoomIn">
@@ -254,6 +268,10 @@
 		    <div class="row">
 		    	<div class="col-xs-12">
 					<p class="text-default-light text-xl">Followed Company's Posts</p>
+					<?php if(!$followedCompanyPosts->count()): ?>
+						<p class="text-default-light">You have not followed any company yet.</p>
+						<hr class="text-default-light"/>
+					<?php endif; ?>
 			    </div>
 		        <?php foreach ($followedCompanyPosts as $post): ?>
 		        <div class="col-xs-12 col-sm-6 col-lg-4 animated zoomIn">
@@ -320,6 +338,50 @@
 		        </div>
 		        <?php endforeach; ?>
 		    </div>
-		<?php endif; ?>
+		<!--/////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        //
+        // HIRING MANAGER VIEW - AFTER SIGN IN
+        //
+        //////////////////////////////////////////////////////////////////////////////////-->
+		<?php elseif((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '2')): ?>
+		    <div class="row">
+		    	<div class="col-xs-12">
+					<p class="text-default-light text-xl">Followed Applicant</p>
+					<?php //if(!$followedApplicant->count()): ?>
+						<p class="text-default-light">You have not followed any applicant yet.</p>
+						<hr class="text-default-light"/>
+					<?php //endif; ?>
+			    </div>
+ 		        <?php //foreach ($followedApplicant as $applicant): ?>
+		        <div class="col-xs-12 col-sm-6 col-lg-4 animated zoomIn">
+		            <div class="card card-underline">
+		                <div class="card-body">
+		                    <div class="row">
+		                        <div class="col-xs-4 row-centered">
+		                            <div class="row">
+		                                <div class="col-xs-12">
+		                                    <?= $this->Html->image(
+		                                        'user_img' . DS . 'user7-128x128.jpg',
+		                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
+		                                    ?>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+			    <?php //endforeach; ?>
+		    </div>
+		<!--/////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        //
+        // ADMINISTRATOR VIEW - AFTER SIGN IN
+        //
+        //////////////////////////////////////////////////////////////////////////////////-->
+    	<?php elseif((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
+
+        <?php endif; ?>
     </div>
 </section>

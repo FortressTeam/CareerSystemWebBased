@@ -402,7 +402,7 @@ $cakeDescription = 'Career System: Something';
                 contentType: 'application/json',
                 dataType: 'json',
                 success: function(responce){
-                    $('#notSeenNotifications').text(responce['count']);
+                    $('#notSeenNotifications').text(responce['count']['notifications']);
                 },
                 error: function(message){
                     console.log(message);

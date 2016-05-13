@@ -76,6 +76,11 @@ class PagesController extends AppController
     public function dashboard()
     {
 
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        //
+        // SEARCH BOX ---
+        /////////////////////////////////////////////////////////////////////////////////////
         $this->loadModel('Categories');
         $categories = $this->Categories->find('list', [
             'conditions' => ['parent_id IS NOT' => NULL],
@@ -83,16 +88,34 @@ class PagesController extends AppController
         ]);
 
         $locations = ['Can Tho', 'Da Nang', 'Hai Phong', 'Ha Noi', 'TP HCM', 'An Giang', 'Ba Ria Vung Tau', 'Bac Giang', 'Bac Kan', 'Bac Lieu', 'Bac Ninh', 'Ben Tre', 'Binh Dinh', 'Binh Duong', 'Binh Phuoc', 'Binh Thuan', 'Ca Mau', 'Cao Bang', 'Dak Lak', 'Dak Nong', 'Dien Bien', 'Dong Nai', 'Dong Thap', 'Gia Lai', 'Ha Giang', 'Ha Nam', 'Ha Tinh', 'Hai Duong', 'Hau Giang', 'Hoa Binh', 'Hung Yen', 'Khanh Hoa', 'Kien Giang', 'Kon Tum', 'Lai Chau', 'Lam Dong', 'Lang Son', 'Lao Cai', 'Long An', 'Nam Dinh', 'Nghe An', 'Ninh Binh', 'Ninh Thuan', 'Phu Tho', 'Quang Binh', 'Quang Nam', 'Quang Ngai', 'Quang Ninh', 'Quang Tri', 'Soc Trang', 'Son La', 'Tay Ninh', 'Thai Binh', 'Thai Nguyen', 'Thanh Hoa', 'Thua Thien Hue', 'Tien Giang', 'Tra Vinh', 'Tuyen Quang', 'Vinh Long', 'Vinh Phuc', 'Yen Bai', 'Phu Yen'];
+        /////////////////////////////////////////////////////////////////////////////////////
+        // --- END SEARCH BOX
+        /////////////////////////////////////////////////////////////////////////////////////
 
         $this->loadModel('Posts');
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        //
+        // SPONSORED POST BOX
+        //
+        /////////////////////////////////////////////////////////////////////////////////////
         $sponsoredPost = $this->Posts->find('all')
             ->select(['id', 'post_title','HiringManagers.id', 'HiringManagers.company_name', 'HiringManagers.company_logo'])
             ->contain(['HiringManagers'])
             ->order('rand()')
             ->where(['post_status' => '1'])
             ->first();
+        /////////////////////////////////////////////////////////////////////////////////////
+        // --- SPONSORED POST BOX
+        /////////////////////////////////////////////////////////////////////////////////////
 
         $loggedUser = $this->request->session()->read('Auth.User');
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        //
+        // APPLICANT VIEW - AFTER SIGN IN
+        //
+        /////////////////////////////////////////////////////////////////////////////////////
         if($loggedUser['group_id'] == '3') {
             $fields = [
                 'id', 'post_title', 'post_salary', 'post_date', 'post_location',
@@ -168,6 +191,26 @@ class PagesController extends AppController
                 ->order(['Posts.post_date' => 'DESC'])
                 ->limit(6);
             $this->set(compact('submittedPosts', 'followedPosts', 'followedCompanyPosts'));
+        }
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        //
+        // HIRING MANAGER VIEW - AFTER SIGN IN
+        //
+        /////////////////////////////////////////////////////////////////////////////////////
+        else if($loggedUser['group_id'] == '2') {
+            $fields = [];
+            $contains = [];
+
+        }
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        //
+        // ADMINISTRATOR VIEW - AFTER SIGN IN
+        //
+        /////////////////////////////////////////////////////////////////////////////////////
+        else if($loggedUser['group_id'] == '1') {
+
         }
 
         $this->set(compact('categories', 'locations', 'sponsoredPost'));
