@@ -30,14 +30,17 @@
                                 <th class="col-xs-2"><?= $this->Paginator->sort('user.user_email', ['label' => 'Email']) ?></th>
                                 <th class="col-xs-3"><?= $this->Paginator->sort('company_name') ?></th>
                                 <th class="col-xs-2"><?= $this->Paginator->sort('company_email') ?></th>
-                                <th class="col-xs-1"><?= $this->Paginator->sort('applicant_status', ['label' => 'Status']) ?></th>
+                                <th class="col-xs-1"><?= $this->Paginator->sort('hiring_manager_status', ['label' => 'Status']) ?></th>
                                 <th class="actions text-right col-xs-1"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php foreach ($hiringManagers as $hiringManager): ?>
                             <tr>
-                                <td><?= h($hiringManager->hiring_manager_name) ?></td>
+                                <td><?= 
+                                    $this->Html->link(h($hiringManager->hiring_manager_name),
+                                    ['action' => 'view', 'slug' => Cake\Utility\Inflector::slug($hiringManager->hiring_manager_name), 'id' => $hiringManager->id],
+                                    ['escape' => false]) ?></td>
                                 <td><?= $hiringManager->has('user') ? h($hiringManager->user->user_email) : '' ?></td>
                                 <td><?= h($hiringManager->company_name) ?></td>
                                 <td><?= h($hiringManager->company_email) ?></td>

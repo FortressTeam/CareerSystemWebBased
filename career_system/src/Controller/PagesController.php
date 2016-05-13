@@ -199,8 +199,31 @@ class PagesController extends AppController
         //
         /////////////////////////////////////////////////////////////////////////////////////
         else if($loggedUser['group_id'] == '2') {
-            $fields = [];
-            $contains = [];
+            $fields = [
+                'id', 'applicant_name', 'applicant_phone_number',
+                'applicant_website', 'applicant_address',
+                'Users.user_email', 'Users.user_avatar', 'Majors.major_name'
+            ];
+            $contains = ['Users', 'Majors'];
+            $this->loadModel('Applicants');
+            $followedApplicant = $this->Applicants->find()
+                ->select($fields)
+                ->contain($contains)
+                ->join([
+                    'table' => 'follow',
+                    'alias' => 'jTable',
+                    'type' => 'LEFT',
+                    'conditions' => 'jTable.applicant_id = Applicants.id',
+                ])
+                ->where([
+                    'applicant_status' => '1',
+                    'jTable.hiring_manager_id' => $loggedUser['id'],
+                    'jTable.follow_applicant' => '1'
+                ])
+                ->order('rand()')
+                ->limit(6);
+
+            $this->set(compact('followedApplicant'));
 
         }
         /////////////////////////////////////////////////////////////////////////////////////
@@ -210,7 +233,25 @@ class PagesController extends AppController
         //
         /////////////////////////////////////////////////////////////////////////////////////
         else if($loggedUser['group_id'] == '1') {
+            $fields = [
+                'id', 'post_title', 'post_salary', 'post_date', 'post_location',
+                'category_id', 'hiring_manager_id',
+                'Categories.id', 'Categories.category_name',
+                'HiringManagers.id', 'HiringManagers.company_name',
+                'HiringManagers.company_logo',
+                'HiringManagers.hiring_manager_phone_number'
+            ];
+            $contains = ['Categories', 'HiringManagers'];
+            $newestPosts = $this->Posts->find()
+                ->select($fields)
+                ->contain($contains)
+                ->where([
+                    'post_status' => '1',
+                ])
+                ->order(['post_date' => 'DESC'])
+                ->limit(3);
 
+            $this->set(compact('newestPosts'));
         }
 
         $this->set(compact('categories', 'locations', 'sponsoredPost'));

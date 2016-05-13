@@ -348,12 +348,12 @@
 		    <div class="row">
 		    	<div class="col-xs-12">
 					<p class="text-default-light text-xl">Followed Applicant</p>
-					<?php //if(!$followedApplicant->count()): ?>
+					<?php if(!$followedApplicant->count()): ?>
 						<p class="text-default-light">You have not followed any applicant yet.</p>
 						<hr class="text-default-light"/>
-					<?php //endif; ?>
+					<?php endif; ?>
 			    </div>
- 		        <?php //foreach ($followedApplicant as $applicant): ?>
+ 		        <?php foreach ($followedApplicant as $applicant): ?>
 		        <div class="col-xs-12 col-sm-6 col-lg-4 animated zoomIn">
 		            <div class="card card-underline">
 		                <div class="card-body">
@@ -362,17 +362,41 @@
 		                            <div class="row">
 		                                <div class="col-xs-12">
 		                                    <?= $this->Html->image(
-		                                        'user_img' . DS . 'user7-128x128.jpg',
+		                                        $applicant->user->has('user_avatar') ? 'user_img' . DS . $applicant->user->user_avatar : 'user_img' . DS . 'default.png',
 		                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
 		                                    ?>
 		                                </div>
 		                            </div>
 		                        </div>
+		                        <div class="col-xs-8">
+		                            <h4 class="text-primary title-post">
+		                                <?= $this->Html->link(
+		                                    $applicant->applicant_name,
+		                                    ['controller' => 'applicants', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($applicant->applicant_name), 'id' => $applicant->id])
+		                                ?>
+		                            </h4>
+		                            <h5 class="text-primary title-post">
+		                                <?= $applicant->major->major_name
+		                                ?>
+		                            </h5>
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="card-body no-padding style-default-light">
+		                    <div class="row no-margin text-default-light">
+		                        <div class="col-xs-6 item-post">
+		                            <i class="fa fa-envelope fa-fw" aria-hidden="true"></i> <?= $applicant->user->has('user_email') ? h($applicant->user->user_email) : '' ?><br/>
+		                           <i class="fa fa-phone fa-fw" aria-hidden="true"></i> <?= $applicant->has('applicant_phone_number') ? h($applicant->applicant_phone_number) : '' ?>
+		                        </div>
+		                        <div class="col-xs-6 item-post">
+		                            <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i> <?= $applicant->has('applicant_address') ? h($applicant->applicant_address) : '' ?><br/>
+		                            <i class="fa fa-mouse-pointer fa-fw" aria-hidden="true"></i> <?= $applicant->has('applicant_website') ? h($applicant->applicant_website) : '' ?><br/>
+		                        </div>
 		                    </div>
 		                </div>
 		            </div>
 		        </div>
-			    <?php //endforeach; ?>
+			    <?php endforeach; ?>
 		    </div>
 		<!--/////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////
@@ -381,7 +405,106 @@
         //
         //////////////////////////////////////////////////////////////////////////////////-->
     	<?php elseif((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
-
+		    <div class="row">
+		    	<div class="col-xs-12">
+					<p class="text-default-light text-xl">Newest Posts</p>
+					<?php if(!$newestPosts->count()): ?>
+						<p class="text-default-light">The system do not have any posts.</p>
+						<hr class="text-default-light"/>
+					<?php endif; ?>
+			    </div>
+ 		        <?php foreach ($newestPosts as $post): ?>
+		        <div class="col-xs-12 col-sm-6 col-lg-4 animated zoomIn">
+		            <div class="card card-underline">
+		                <div class="card-body">
+		                    <div class="row">
+		                        <div class="col-xs-4 row-centered">
+		                            <div class="row">
+		                                <div class="col-xs-12">
+		                                    <?= $this->Html->image(
+		                                        'company_img' . DS . $post->hiring_manager->company_logo,
+		                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
+		                                    ?>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <div class="col-xs-8">
+		                            <h4 class="text-primary title-post">
+		                                <?= $this->Html->link(
+		                                    $post->post_title,
+		                                    ['controller' => 'posts', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($post->post_title), 'id' => $post->id])
+		                                ?>
+		                            </h4>
+		                            <h5 class="text-primary title-post">
+		                                <?= $this->Html->link(
+		                                    $post->hiring_manager->company_name,
+		                                    ['controller' => 'HiringManagers', 'action' => 'view', 'slug' => Cake\Utility\Inflector::slug($post->hiring_manager->company_name), 'id' => $post->hiring_manager->id],
+		                                    ['escape' => false, 'class' => 'text-primary']);
+		                                ?>
+		                            </h5>
+		                            <div class="row no-margin">
+		                                <div class="text-default-light"> 
+		                                    <?php
+		                                        $start = date_create($post->post_date->format('Y-m-d'));
+		                                        $end = date_create(date("Y-m-d"));
+		                                        $date = date_diff($start, $end)->format('%a');
+		                                        if($date < 1)
+		                                            echo 'Today';
+		                                        else if($date < 2)
+		                                            echo 'Yesterday';
+		                                        else if($date < 30)
+		                                            echo $date, ' days ago';
+		                                        else
+		                                            echo $post->post_date->format('d-M-Y');
+		                                    ?>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="card-body no-padding style-default-light">
+		                    <div class="row no-margin text-default-light">
+		                        <div class="col-xs-6 item-post">
+		                            <i class="fa fa-archive fa-fw" aria-hidden="true"></i> <?= $post->has('category') ? h($post->category->category_name) : '' ?><br/>
+		                            <i class="fa fa-phone fa-fw" aria-hidden="true"></i> <?= $post->has('hiring_manager') ? h($post->hiring_manager->hiring_manager_phone_number) : '' ?>
+		                        </div>
+		                        <div class="col-xs-6 item-post">
+		                            <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i> <?= $post->has('post_location') ? h($post->post_location) : '' ?><br/>
+		                            <i class="fa fa-usd fa-fw" aria-hidden="true"></i> <?= $post->has('post_salary') ? $this->Number->currency($post->post_salary, 'VND', ['pattern' => 'VND #,###.00']) : '' ?><br/>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		        <?php endforeach; ?>
+		    </div>
+	        <div class="row">
+		    	<div class="col-xs-12">
+					<hr class="text-default-light text-xl"/>
+			    </div>
+	            <div class="col-md-8 col-sm-12">
+	                <div class="card">
+	                    <div class="card-head">
+	                        <header>Post history</header>
+	                    </div>
+	                    <div class="card-body">
+	                        <div id="lineChart" data-url="<?= $this->Url->build('/api/posts/this_year'); ?>"></div>
+	                    </div>
+	                </div>
+	            </div>
+			    <div class="col-md-4 col-sm-12">
+	                <div class="card">
+	                    <div class="card-head">
+	                        <header>Feedback statistic</header>
+	                    </div>
+	                    <div class="card-body">
+	                        <div id="donutChart" data-url="<?= $this->Url->build('/api/feedbacks/type'); ?>"></div>
+	                    </div>
+	                </div>
+			    </div>
+	        </div>
         <?php endif; ?>
     </div>
 </section>
+<?= $this->Html->script('libs/morissjs/morris.min') ?>
+<?= $this->Html->script('libs/morissjs/raphael.min.js') ?>

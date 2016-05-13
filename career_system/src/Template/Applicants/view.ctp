@@ -469,12 +469,12 @@
     <div class="col-md-9 col-md-offset-3">
         <div class="card">
             <div class="card-head style-primary">
-                <header>Control</header>
+                <header>Change applicant's status</header>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-xs-8">
-                        <h4><b>Active</b></h4>
+                        <h4><b>Active/Inactive</b></h4>
                     </div>
                     <div class="col-xs-4">
                         <?= $this->Form->button(

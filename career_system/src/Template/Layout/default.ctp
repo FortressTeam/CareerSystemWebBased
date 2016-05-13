@@ -282,28 +282,14 @@ $cakeDescription = 'Career System: Something';
                             </ul>
                         </li><!--end /menu-li -->
                         <?php endif; ?>
-                        <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '1')): ?>
-                        <li class="gui-folder <?= $this->request->params['controller'] === 'Applicants' ? 'active' : '' ?>">
-                            <a>
-                                <div class="gui-icon"><i class="fa fa-male fa-fw"></i></div>
-                                <span class="title">Applicants</span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <?= $this->Html->link(
-                                        '<span class="title">All applicants   </span>',
-                                        ['controller' => 'Applicants', 'action' => 'index'],
-                                        ['escape' => false]
-                                        ) ?>
-                                </li>
-                                <li>
-                                    <?= $this->Html->link(
-                                        '<span class="title">Add new</span>',
-                                        ['controller' => 'Applicants', 'action' => 'add'],
-                                        ['escape' => false]
-                                        ) ?>
-                                </li>
-                            </ul>
+                        <?php if(isset($loggedUser['group_id']) && ($loggedUser['group_id'] == '1')): ?>
+                        <li class="<?= $this->request->params['controller'] === 'Applicants' ? 'active' : '' ?>">
+                            <?= $this->Html->link(
+                                '<div class="gui-icon"><i class="fa fa-male fa-fw"></i></div>
+                                <span class="title">Applicants</span>',
+                                ['controller' => 'Applicants', 'action' => 'index'],
+                                ['escape' => false]
+                                ) ?>
                         </li><!--end /menu-li -->
                         <?php endif; ?>
                         <?php if((isset($loggedUser['group_id'])) && ($loggedUser['group_id'] == '3')): ?>

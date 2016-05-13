@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Utility\Inflector;
 
 /**
  * Users Controller
@@ -50,8 +51,25 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Groups', 'Feedbacks', 'Notifications']
+            'fields' => [
+                'Applicants.id', 'Applicants.applicant_name',
+                'HiringManagers.id', 'HiringManagers.hiring_manager_name',
+                'Administrators.id'
+            ],
+            'contain' => ['Applicants', 'HiringManagers', 'Administrators']
         ]);
+
+        if($user->has('Applicants')) {
+            $user = $user->toArray();
+            $this->redirect(['controller' => 'Applicants', 'action' => 'view', 'slug' => Inflector::slug($user['Applicants']['applicant_name']), 'id' => $user['Applicants']['id']]);
+        }
+        else if($user->has('HiringManagers')) {
+            $user = $user->toArray();
+            $this->redirect(['controller' => 'HiringManagers', 'action' => 'view', 'slug' => Inflector::slug($user['HiringManagers']['hiring_manager_name']), 'id' => $user['HiringManagers']['id']]);
+        }
+        else {
+            $this->redirect($this->referer());
+        }
 
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
