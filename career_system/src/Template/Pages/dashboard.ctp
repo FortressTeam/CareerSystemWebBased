@@ -74,7 +74,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <?= $this->Html->image(
-                                        'company_img' . DS . $sponsoredPost->hiring_manager->company_logo,
+                                        __('company_img/' . $sponsoredPost->hiring_manager->company_logo),
                                         ['class' => 'img-circle border-gray border-xl img-responsive'])
                                     ?>
                                 </div>
@@ -124,7 +124,7 @@
 		                            <div class="row">
 		                                <div class="col-xs-12">
 		                                    <?= $this->Html->image(
-		                                        'company_img' . DS . $post->hiring_manager->company_logo,
+		                                        _('company_img/' . $post->hiring_manager->company_logo),
 		                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
 		                                    ?>
 		                                </div>
@@ -209,7 +209,7 @@
 		                            <div class="row">
 		                                <div class="col-xs-12">
 		                                    <?= $this->Html->image(
-		                                        'company_img' . DS . $post->hiring_manager->company_logo,
+		                                        __('company_img/' . $post->hiring_manager->company_logo),
 		                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
 		                                    ?>
 		                                </div>
@@ -282,7 +282,7 @@
 		                            <div class="row">
 		                                <div class="col-xs-12">
 		                                    <?= $this->Html->image(
-		                                        'company_img' . DS . $post->hiring_manager->company_logo,
+		                                        __('company_img/' . $post->hiring_manager->company_logo),
 		                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
 		                                    ?>
 		                                </div>
@@ -362,7 +362,7 @@
 		                            <div class="row">
 		                                <div class="col-xs-12">
 		                                    <?= $this->Html->image(
-		                                        $applicant->user->has('user_avatar') ? 'user_img' . DS . $applicant->user->user_avatar : 'user_img' . DS . 'default.png',
+		                                        $applicant->user->has('user_avatar') ? __('user_img/' . $applicant->user->user_avatar) : __('user_img/' . 'default.png'),
 		                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
 		                                    ?>
 		                                </div>
@@ -422,7 +422,7 @@
 		                            <div class="row">
 		                                <div class="col-xs-12">
 		                                    <?= $this->Html->image(
-		                                        'company_img' . DS . $post->hiring_manager->company_logo,
+		                                        __('company_img/' . $post->hiring_manager->company_logo),
 		                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
 		                                    ?>
 		                                </div>

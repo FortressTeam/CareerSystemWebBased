@@ -21,6 +21,7 @@ class ApplicantsFollowPostsController extends AppController
         $conditions = [];
         if(isset($this->request->query['applicant_id'])) {
             $conditions['applicant_id'] = $this->request->query['applicant_id'];
+            $conditions['follow_status'] = $this->request->query['follow_status'];
         }
         $this->paginate = [
             'limit' => 1000,

@@ -4,7 +4,7 @@
             <div class="col-xs-6 col-xs-offset-3 col-sm-offset-0 col-sm-12">
                 <?= $this->Form->create($hiringManager, ['type' => 'file', 'class' => 'card']); ?>
                     <?= $this->Html->image(
-                        'company_img' . DS . $hiringManager->company_logo,
+                        'company_img/' . $hiringManager->company_logo,
                         ['class' => 'img-circle border-white border-xl img-responsive col-xs-12 no-padding', 'id' => 'companyImage']);
                     ?>
                     <?php if($editable): ?>
@@ -164,7 +164,7 @@
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <?= $this->Html->image(
-                                                    'company_img' . DS . $hiringManager->company_logo,
+                                                    'company_img/' . $hiringManager->company_logo,
                                                     ['class' => 'img-circle border-gray border-xl img-responsive'])
                                                 ?>
                                             </div>

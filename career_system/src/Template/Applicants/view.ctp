@@ -4,7 +4,7 @@
             <div class="col-xs-6 col-xs-offset-3 col-md-offset-0 col-md-12">
                 <?= $this->Form->create($applicant, ['type' => 'file', 'class' => 'card']); ?>
                     <?= $this->Html->image(
-                        'user_img' . DS . $applicant->user->user_avatar,
+                        'user_img/' . $applicant->user->user_avatar,
                         ['class' => 'border-white border-xl img-responsive col-xs-12 no-padding', 'id' => 'companyImage']);
                     ?>
                     <?php if($editable): ?>

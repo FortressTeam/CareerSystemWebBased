@@ -72,7 +72,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <?= $this->Html->image(
-                                        'company_img' . DS . $sponsoredPost->hiring_manager->company_logo,
+                                        'company_img/' . $sponsoredPost->hiring_manager->company_logo,
                                         ['class' => 'img-circle border-gray border-xl img-responsive'])
                                     ?>
                                 </div>
@@ -120,7 +120,7 @@
 	                            <div class="row">
 	                                <div class="col-xs-12">
 	                                    <?= $this->Html->image(
-	                                        'company_img' . DS . $post->hiring_manager->company_logo,
+	                                        'company_img/' . $post->hiring_manager->company_logo,
 	                                        ['class' => 'img-circle border-gray border-xl img-responsive'])
 	                                    ?>
 	                                </div>

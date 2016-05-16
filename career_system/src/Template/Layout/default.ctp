@@ -81,6 +81,18 @@ $cakeDescription = 'Career System: Something';
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="headerbar-right">
+                <ul class="header-nav header-nav-options">
+                    <li>
+                        <!-- Search form -->
+                        <form class="navbar-search" action="<?= $this->Url->build(['controller' => 'Search', 'action' => 'index']); ?>">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="q" placeholder="Enter your keyword">
+                            </div>
+                            <button type="submit" class="btn btn-icon-toggle ink-reaction btn-sm"><i class="fa fa-search"></i></button>
+                        </form>
+                    </li>
+                </ul><!--end .header-nav-options -->
+
                 <ul class="header-nav header-nav-toggle" id="headerToggle">
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="btn btn-icon-toggle btn-default" data-toggle="dropdown" aria-expanded="false" id="openNotificationButton">

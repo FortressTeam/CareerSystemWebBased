@@ -76,7 +76,7 @@
                 <div class="row">
                     <div class="col-xs-12 row-centered">
                         <?= $this->Html->image(
-                            'company_img' . DS . $post->hiring_manager->company_logo,
+                            __('company_img/' . $post->hiring_manager->company_logo),
                             ['class' => 'img-circle border-gray border-xl img-responsive']);
                         ?>
                         <?= $this->Html->link(

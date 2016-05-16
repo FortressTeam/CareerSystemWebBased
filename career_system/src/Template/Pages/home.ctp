@@ -94,8 +94,8 @@
                                 'inputContainer' => '<div class="form-group has-primary">{{content}}</div>'
                             ]
                             ]); ?>
-                        <h1>Something here</h1>
-                        <h4>Something here</h4>
+                        <h1 class="text-primary">CAREER SYSTEM</h1>
+                        <h4 class="text-lg text-default-light">Help you find your dream job</h4>
                         <?= $this->Form->input('q', ['label' => '', 'class' => 'form-control', 'placeholder' => 'Enter keyword to search']); ?>
                         <?= $this->Form->input('limit', ['type' => 'hidden', 'value' => 9]); ?>
                         <div class="form-group public-search">
@@ -158,7 +158,7 @@
                 <div class="col-md-3 col-centered animated zoomInLeft">
                     <div class="card">
                         <div class="card-head">
-                            <header>CV Maker Online</header>
+                            <header>Online CV Maker</header>
                         </div>
                         <div class="card-body no-padding feature-image">
                             <?= $this->Html->image(
@@ -174,7 +174,7 @@
                 <div class="col-md-3 col-centered animated zoomInUp">
                     <div class="card">
                         <div class="card-head">
-                            <header>Interview Online</header>
+                            <header>Online Interview</header>
                         </div>
                         <div class="card-body no-padding feature-image">
                             <?= $this->Html->image(
@@ -190,7 +190,7 @@
                 <div class="col-md-3 col-centered animated zoomInRight">
                     <div class="card">
                         <div class="card-head">
-                            <header>SMS Reminder</header>
+                            <header>Reminder Notification</header>
                         </div>
                         <div class="card-body no-padding feature-image">
                             <?= $this->Html->image(
