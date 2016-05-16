@@ -154,8 +154,7 @@ class UsersController extends AppController
         if ($this->request->is('post')){
             $this->request->data['user_registered'] = date("Y-m-d");
             $this->request->data['user_status'] = '1';
-            $int= rand(1262055681,1262055681);
-            $this->request->data['user_activation_key'] = date("Y-m-d H:i:s",$int);
+            $this->request->data['user_activation_key'] = rand(0, 1262055681);
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)){
                 $this->Flash->success(__('Sign up successful!'));
